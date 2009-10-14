@@ -48,44 +48,26 @@ if nargin~=3
   error('I think you''ve forgotten to feed in all your arguments');
 end
 
+disp( sprintf('Removing entire %s %s object',objname,objtype) );
+
 objcell = get_type(subj,objtype);
 
+objno = get_number(subj,objtype,objname);
 
-if ~isstr(objname) & ~iscell(objname)
-  error('Object must be a string or cell array of strings.');
-end
-
-if isstr(objname)
-  objname = {objname};
-end
-
-objnames = objname;
-for n = 1:numel(objnames)
-  objname = objnames{n};
-  if ~isstr(objnames{n})
-    error('Object must be a string or cell array of strings.');
+% If the object resides on the hard disk and REMOVE_HD_TOO, delete
+% the file too
+if isfield(objcell{objno},'movehd') && args.remove_hd_too
+  movehd = objcell{objno}.movehd;
+  disp( sprintf('Erasing %s',movehd.pathfilename) );
+  fn = sprintf('%s.mat',movehd.pathfilename);
+  delete(fn);
+  if exist(fn,'file')
+    warning( sprintf('Unable to delete %s',fn) );
   end
-       
-  disp( sprintf('Removing entire %s %s object',objname,objtype) );
-
-  objno = get_number(subj,objtype,objname);
-
-  % If the object resides on the hard disk and REMOVE_HD_TOO, delete
-  % the file too
-  if isfield(objcell{objno},'movehd') && args.remove_hd_too
-    movehd = objcell{objno}.movehd;
-    disp( sprintf('Erasing %s',movehd.pathfilename) );
-    fn = sprintf('%s.mat',movehd.pathfilename);
-    delete(fn);
-    if exist(fn,'file')
-      warning( sprintf('Unable to delete %s',fn) );
-    end
-  end
-
-  % This is special matlab syntax for completely removing a cell from
-  % a cell array and shunting all the ones above it along
-  objcell(objno) = [];
-  subj = set_type(subj,objtype,objcell);  
 end
 
+% This is special matlab syntax for completely removing a cell from
+% a cell array and shunting all the ones above it along
+objcell(objno) = [];
 
+subj = set_type(subj,objtype,objcell);

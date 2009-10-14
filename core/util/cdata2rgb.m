@@ -59,7 +59,7 @@ try
 
   h = axes();
   
-  % Automatically set clim if not specified 
+  % Automatically set clim if not specified
   if nargin==2
     clim = [min(data(:)) max(data(:))];
   end

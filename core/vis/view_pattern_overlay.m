@@ -187,10 +187,6 @@ defaults.over_samples = 1;
 defaults.over_mask = [];
 defaults.over_cmap = 'jet';
 defaults.over_clim = [];
-defaults.over_alpha = [];
-
-defaults.srows = [];
-defaults.make_colorbar = true;
 
 defaults.under_clim = [];
 defaults.under_cmap = 'darkgray';
@@ -272,8 +268,9 @@ over_data = double(over_data(:, args.over_samples));
 if ~isempty(args.filter)
 
   if isstr(args.filtermap)
-    fmap_data = get_mat(subj,'pattern',args.filtermap);
+    fmap_data = get_mat(subj,'pattern',args.filtermap);    
     fmap_data = fmap_data(:,args.over_samples(1));
+    
     fmap_vol = get_ref_vol(subj,args.filtermap);
   else
     fmap_data = args.filtermap;
@@ -372,19 +369,13 @@ info = bundle(args, over_cmap, over_clim);
 if cols(over_data) > 1
    
   % Generate a reasonable grid to display slices over
-  if isempty(args.srows)
-    args.srows = ceil(sqrt(cols(over_data)));
-  end
-  
-  m = args.srows;
+  m = ceil(sqrt(cols(over_data)));
   n = ceil(cols(over_data)/m);
 
   if ~isempty(args.saveto)
     f = figure('Visible', 'off');
   end
 
-  info_orig = info; clear info;
-  
   % Grab the overlays for each
   for i = 1:numel(args.over_samples)
     
@@ -392,8 +383,8 @@ if cols(over_data) > 1
     
     % Get the image
     [imrgb im3d buildargs] = build_sample(anat_vol, anat_rgb, over_vol, over_rgb(:,i,:), over_data(:,i,:), args, unused);
-        
-    info(i) = mergestructs(info_orig, bundle(imrgb, im3d, buildargs));
+    
+    info(i) = mergestructs(info, bundle(imrgb, im3d, buildargs));
 
     image(imrgb);
     axis image;
@@ -407,18 +398,15 @@ if cols(over_data) > 1
   end
 
   if ~isempty(args.saveto)
-    saveas(f, [args.saveto '.' args.savefmt], args.savefmt);
+    saveas(f, args.saveto, args.savefmt);
     close(f);
   end
 
-  if args.make_colorbar
-    f = figure('Name', 'Colormap');
-    make_colorbar(over_cmap, over_clim); axis off;
-  end
-  
-    
+  f = figure('Name', 'Colormap');
+  make_colorbar(over_cmap, over_clim); axis off;
+
   if ~isempty(args.saveto)
-    saveas(f, [args.saveto '_cmap.' args.savefmt], args.savefmt);
+    saveas(f, [args.saveto '_cmap'], args.savefmt);
     close(f);
   end
 
@@ -476,9 +464,6 @@ end
 % Set the default map to use for the filter as the overlay itself
 if isempty(args.filtermap)
   args.filtermap = overlay;
-  if ~ischar(args.filtermap) & cols(args.filtermap) > 1
-    args.filtermap = args.filtermap(:,args.over_samples);
-  end
 end
 
 % If filter is empty, check for default filters

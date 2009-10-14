@@ -12,9 +12,6 @@ function [confmat guesses desireds] = multiple_iterations_confusion(results,vara
 % (called SAVE_FILE). If you don't want it to save, then
 % just set this to ''.
 %
-% SCALE_AXIS_ONE (optional, default = false). If true, sets the
-% colorbar axis to 1, so that the colors are fixed across subjects.
-%
 % PERFMET_NAME (optional, default = ''). If you only have
 % one performance metric, then you don't have to worry
 % about this at all, since it will just use whichever one
@@ -24,8 +21,6 @@ function [confmat guesses desireds] = multiple_iterations_confusion(results,vara
 % use, e.g. 'perfmet_xcorr'. If you have multiple
 % performance metrics, you must specify which one to use,
 % or the function will fail fatally.
-%
-% DO_PLOT (optional, default = false).
 
 % License:
 %=====================================================================
@@ -42,9 +37,7 @@ function [confmat guesses desireds] = multiple_iterations_confusion(results,vara
 % ======================================================================
 
 defaults.save_file = 'confmat.txt';
-defaults.scale_axis_one = false;
 defaults.perfmet_name = '';
-defaults.do_plot = false;
 args = propval(varargin,defaults);
 
 nPerfmets = length(results.iterations(1).perfmet);
@@ -65,9 +58,7 @@ for i=1:length(results.iterations)
    end % dealing with 1 vs many perfmets 
 end % r
 
-confmat = confusion(guesses,desireds, ...
-                    'scale_axis_one',args.scale_axis_one, ...
-                    'do_plot',args.do_plot);
+confmat = confusion(guesses,desireds);
 
 if ~isempty(args.save_file)
   save(args.save_file,'confmat','-ascii')

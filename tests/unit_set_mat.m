@@ -1,4 +1,4 @@
-function [errmsgs warnmsgs] = unit_set_mat()
+function [errmsgs warnmsgs] = test_set_mat()
 
 % USAGE :[ERRMSGS WARNMSGS] = TEST_SET_MAT()
 % 
@@ -314,5 +314,5 @@ else
 end
 
 subj = init_subj('test_zscore_runs','testsubj');  
-subj = init_object(subj,'mask','mask');
-subj = set_mat(subj,'mask','mask' ,mask);  
+[subj] = init_object(subj,'mask','mask');
+[subj] = set_mat(subj,'mask','mask' ,mask);  

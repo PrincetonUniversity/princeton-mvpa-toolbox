@@ -1,7 +1,5 @@
 function [im im3d args] = build_overlay_rgb(anat_vol, anat_rgb, over_vol, over_rgb, varargin)
-
-% BUILD_OVERLAY_RGB - Assembles the overlay RGB image from
-% anatomical and overlay data.
+% BUILD_OVERLAY_RGB - Assembles the overlay RGB image from anatomical and overlay data.
 %
 % Usage:
 %
@@ -82,7 +80,7 @@ defaults.ncols = [];
 
 defaults.bgcolor = [0 0 0];
 
-defaults.maxslices = 81;
+defaults.maxslices = 64;
 
 defaults.autoslice = false;
 defaults.autoslice_thresh = 1;
@@ -113,7 +111,7 @@ end
 % Choose only slices with voxels included
 if args.autoslice
   inc = sum(sum(over_vol)); % Sum over dimensions 1 and 2
-  idx = find(inc>=args.autoslice_thresh); % Find those slices in dim 3 that have voxels
+  idx = find(inc>args.autoslice_thresh); % Find those slices in dim 3 that have voxels
   anat_idx = anat_idx(:,:,idx);
   over_idx = over_idx(:,:,idx);
   
@@ -184,7 +182,7 @@ for r = 0:(args.nrows-1)
         % Get color data from RGB stuff
         slice(find(a)) = anat_rgb(a(find(a)), 1, i);
         slice(find(o)) = over_rgb(o(find(o)), 1, i);
-          
+      
         % Get 3d coord information
         slice3d(find(a)) = anat_3d(a(find(a)), 1, i);
       end

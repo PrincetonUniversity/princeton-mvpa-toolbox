@@ -68,7 +68,7 @@ scratch.outidx = [1:scratch.nOut];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % *** TRAINING THE CLASSIFIER... ***
 
-[scratch.model] = svmtrain(trainpats',train_max_idx',args.kernelstring);
+[scratch.model] = svmlearn(trainpats',train_max_idx',args.kernelstring);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -59,7 +59,7 @@ function [w, args, log_posterior, wasted, saved] = smlr(X, Y, varargin)
 % Optional Arguments:
 %
 %   'lambda' - The regularization constant indicating the relative
-%     amount of regularization. (Default: .1)
+%     amount of regularization. (Default: 1)
 %
 %   'w_init' - A starting matrix for W. Note that W can be either D x
 %     M or D x M-1 in size; in the latter case, the last column of W is
@@ -122,7 +122,7 @@ function [w, args, log_posterior, wasted, saved] = smlr(X, Y, varargin)
 %
 % ======================================================================
 
-defaults.lambda = .1;
+defaults.lambda = 1;
 defaults.prior = 'l1';
 
 defaults.tol = 1e-3;

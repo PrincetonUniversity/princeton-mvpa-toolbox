@@ -55,7 +55,6 @@ if (nargin == 2),
 	son = 1;
 else
 	son = 0;
-   strg = '';
 end
 
 if (nargin == 0),
@@ -64,7 +63,7 @@ if (nargin == 0),
       if (isempty(strgb)) return; end
       Mrgb = str2num(strgb);
       ShowRGBcol(Mrgb);
-      fprintf(1,'        Color: %s\n', RGBtoXhex(Mrgb, 0, ''));
+      fprintf(1,'        Color: %s\n', RGBtoXhex(Mrgb, 0));
    end
 end
 
@@ -93,7 +92,7 @@ end
 ShowRGBcol(Mrgb);
 
 for (i=1:1:size(Mrgb,1)),
-		fprintf(1,'%s\n',RGBtoXhex(Mrgb(i,:), son, strg));
+		fprintf(1,'%s\n',RGBtoXhex(Mrgb(i,:), son));
 end %i
 
 chc = input ('Wanna write this to disk ? (y/n)','s');
@@ -179,14 +178,14 @@ figure (1);
 colormap (Mrgb./255);
 subplot 211;
 image ([1:1:length(Mrgb(:,1))]);
-title(sprintf('X11 Color in Hex: %s', RGBtoXhex(Mrgb, 0, '')));
+title(sprintf('X11 Color in Hex: %s', RGBtoXhex(Mrgb, 0)));
 
 %subplot 212;
 %pie (ones(1,length(Mrgb(:,1))));
 
 return;
 
-function sret = RGBtoXhex(rgb, son, strg),
+function sret = RGBtoXhex(rgb, son),
       s1 = pad_strn (lower(dec2hex(rgb(1))),'0',2,1);
 		s2 = pad_strn (lower(dec2hex(rgb(2))),'0',2,1);
 		s3 = pad_strn (lower(dec2hex(rgb(3))),'0',2,1);

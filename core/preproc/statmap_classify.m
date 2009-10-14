@@ -49,9 +49,6 @@ function [val scratch] = statmap_classify(pat,regs,scratch)
 pat3 = scratch.pat3;
 regs3 = scratch.regs3;
 
-[nConds nTimepoints] = size(regs3);
-nVox = scratch.nVox;
-
 class_args = scratch.class_args;
 perfmet_funct= scratch.perfmet_funct;
 perfmet_args = scratch.perfmet_args;
@@ -63,34 +60,11 @@ class_scratch = train_funct_hand(pat,regs,class_args,[]);
 test_funct_hand = str2func(class_args.test_funct_name);
 [acts class_scratch] = test_funct_hand(pat3,regs3,class_scratch);
 
-% check whether we have already created a 3D MULTI_ACTS field to
-% store the activations from each sphere's classifier. if we have,
-% place our ACTS for the latest sphere in the right place in
-% MULTI_ACTS. if we haven't, then create a MULTI_ACTS matrix of the
-% right size.
-%
-% this complicated procedure is required because STATMAP_SEARCHLIGHT
-% (our caller function) doesn't know that we need an ACTS matrix
-if ~isfield(scratch,'multi_acts')
-  % MULTI_ACTS field doesn't exist, so create it
-  scratch.multi_acts = NaN(nVox,nConds,nTimepoints);  
-end % created ACTS field
-scratch.multi_acts(scratch.v_counter,:,:) = acts;
-
-% place our latest nConds x nTimepoints ACTS in the right part of the
-% MULTI_ACTS 3D nVox x nConds x nTimepoints matrix
-
 perfmet_funct_hand = str2func(perfmet_funct);
 perfmet = perfmet_funct_hand(acts,regs3,class_scratch, ...
                              perfmet_args);
 
-% keep appending the the latest classifier scratch information from
-% the most recent time STATMAP_CLASSIFY was run
-if ~isfield(scratch,'class_scratch')
-  scratch.class_scratch = class_scratch;
-else
-  scratch.class_scratch(end+1) = class_scratch;
-end
+scratch.class_scratch = class_scratch;
 
 val = perfmet.perf;
 

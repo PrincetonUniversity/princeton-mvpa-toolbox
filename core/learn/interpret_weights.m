@@ -28,7 +28,7 @@ function [subj] = interpret_weights(subj,results,varargin)
 % unit up or down. If both wij and aij are positive (or both
 % are negative), signal in the input unit causes the output
 % unit to turn on; it has a positive importance. If the two
-% have opposite sign, then the input unit's signal acts to
+% have opposite sign, then the input unit¡Çs signal acts to
 % turn off this output unit, and it has a negative
 % importance value. Network classifiers use both positive
 % and negative evidence to reduce error on the training set
@@ -68,7 +68,7 @@ function [subj] = interpret_weights(subj,results,varargin)
 % importance maps (all and positives) or only positives.This
 % cell array will be added to the subj structure, as new
 % patterns using the default group name : IMPMAP_NAME. So by
-% default these names are going to be IMPMAP_ALL_1,
+% default this names are going to be IMPMAP_ALL_1,
 % IMPMAP_ALL_2.,etc.. based on the no. of iterations of N-1
 % you have in your subj structure. But you can your use own
 % name by using varargin 'impmap_name'.
@@ -96,7 +96,6 @@ if ~iscell(results)
   temp = results;
   results=[];
   results{1} = temp;
-  clear temp
 end
 
 % number of times the cross_validation function has been run
@@ -136,9 +135,9 @@ for i=1:nRuns
       nVox_mean(find(nVox_mean < 0)) = 0;      
     end          
     iteration{i}.canonical(:,j) = nVox_mean;    
-  end % for j
+  end   
   importance{i}.map= zeros(size(iteration{i}.canonical));
-end % for i
+end    
 
 % this step collapses across every condition per iteration
 % per nTimes
@@ -152,7 +151,7 @@ for i=1:nTimes
      
       if strcmp(args.type_canon,'pos')  
 	curWts(find(curWts<0))=0;
-      end
+      end      
       curCanonical = iteration{j}.canonical(:,k); 
  
       % getting the importance map
@@ -171,13 +170,13 @@ end
 for i=1:nRuns
   importance{i}.map= importance{i}.map/(nTimes);  
   patname = strcat(args.impmap_name,'_',num2str(i));  
-  subj = initset_object(subj,'pattern',patname,importance{i}.map, ...
-                        'masked_by', mask_name{i}, ...
-                        'group_name',args.impmap_name); 
+  subj = init_object(subj,'pattern',patname);    
+  subj = set_mat(subj,'pattern',patname,importance{i}.map);  
+  subj = set_objfield(subj,'pattern', patname ,'masked_by', mask_name{i});    
+  subj = set_objfield(subj,'pattern', patname ,'group_name',args.impmap_name); 
   created.type_canonicals = args.type_canon;
   subj = add_created(subj,'pattern',patname,created); 
 end
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [] = sanity_check(results,nTimes,nRuns,args);

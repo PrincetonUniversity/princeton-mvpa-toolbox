@@ -1,8 +1,8 @@
-function [errs warns] = generic_unit_classifier(class_args)
+function [errmsgs warnmsgs] = generic_unit_classifier(class_args)
 
 % Generic classification train/test unit test
 %
-% [ERRS WARNS] = GENERIC_TEST_CLASSIFIER(type)
+% [ERRMSGS WARNMSGS] = GENERIC_TEST_CLASSIFIER(type)
 %
 % Calls the classification train/test functions specified
 % in CLASS_ARGS on a variety of synthetic and real
@@ -19,11 +19,11 @@ function [errs warns] = generic_unit_classifier(class_args)
 %
 % CLASS_ARGS - just as for CROSS_VALIDATION 
 %
-% ERRS = cell array holding the error strings
+% ERRMSGS = cell array holding the error strings
 % describing any tests that failed. If this is empty,
 % that's a good thing
 %
-% WARNS = cell array, like ERRS, of tests that didn't pass
+% WARNMSGS = cell array, like ERRMSGS, of tests that didn't pass
 % and didn't fail (e.g. because they weren't run)
 %
 % N.B. the classification process is divided into three
@@ -33,8 +33,8 @@ function [errs warns] = generic_unit_classifier(class_args)
 
 
 %initialising the *msgs cell arrays
-errs = {}; 
-warns = {};
+errmsgs = {}; 
+warnmsgs = {};
 
 % first create the training and testing function handlers
 % based on the type of classifier we can to run
@@ -62,17 +62,17 @@ end
 
 try   
   scratchpad = train_funct();
-  errs{end+1} = 'No arguments test:failed -1' 
+  errmsgs{end+1} = 'No arguments test:failed -1' 
 end
 
 try 
   acts scratchpad = test_funct();
-  errs{end+1} = 'No arguments test:failed -2' 
+  errmsgs{end+1} = 'No arguments test:failed -2' 
 end
 
 try  
   perfmet = perfmet_funct();     
-  errs{end+1} = 'No arguments test:failed -3'
+  errmsgs{end+1} = 'No arguments test:failed -3'
 end
 
 
@@ -89,7 +89,7 @@ pats = create_pats(100,1,regs,0);
 calc_perf = do_classification(train_funct,test_funct,perfmet_funct,regs,pats,class_args,10);
 
 if ~isequal(calc_perf,desired)
-  errs{end+1} = 'Perfect data test : failed';
+  errmsgs{end+1} = 'Perfect data test : failed';
 end
 
 clear calc_perf pats regs
@@ -110,10 +110,10 @@ calc_perf = do_classification(train_funct,test_funct,perfmet_funct, regs, pats,c
 
 % check if test works
 if ~(calc_perf > 0.4)
-  errs{end+1} = 'Regular Regressors Test: Failed';
+  errmsgs{end+1} = 'Regular Regressors Test: Failed';
 end
 
-warns{end+1} = lastwarn;
+warnmsgs{end+1} = lastwarn;
 clear calc_perf pats regs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,10 +133,10 @@ calc_perf = do_classification(train_funct,test_funct,perfmet_funct, regs, pats,c
 
 % check if test works
 if (calc_perf > 0.4 )
-  errs{end+1} = 'Shuffled Regressors Test: Failed';
+  errmsgs{end+1} = 'Shuffled Regressors Test: Failed';
 end
 
-warns{end+1} = lastwarn;
+warnmsgs{end+1} = lastwarn;
 clear calc_perf pats regs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,10 +152,10 @@ calc_perf = do_classification(train_funct,test_funct,perfmet_funct ,regs, pats,c
 
 % check if test works
 if ~(calc_perf > 0.4)
-  errs{end+1} = 'Regular regressors using Noisify Test  : Failed';
+  errmsgs{end+1} = 'Regular regressors using Noisify Test  : Failed';
 end
 
-warns{end+1} = lastwarn;
+warnmsgs{end+1} = lastwarn;
 clear calc_perf;clear calc_perf;clear pats
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,51 +180,38 @@ calc_perf = do_classification(train_funct,test_funct,perfmet_funct, regs, pats,c
 % chance, rather than just choosing a value arbitrarily. this used
 % to be set to 0.4, but it just failed, and so i set it higher...
 if ( calc_perf > 0.45)
-  errs{end+1} = 'Shuffled test regressors using Noisify Test : Failed';
+  errmsgs{end+1} = 'Shuffled test regressors using Noisify Test : Failed';
 end
 
-warns{end+1} = lastwarn;
+warnmsgs{end+1} = lastwarn;
 clear calc_perf;clear pats; clear regs;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % testing free rec without shuffled test regressors
 
-try
-  calc_perf = do_freerec(train_funct,test_funct,perfmet_funct,class_args,0);
+calc_perf = do_freerec(train_funct,test_funct,perfmet_funct,class_args,0);
 
-  try
-    if ~( calc_perf > 0.4)
-      errs{end+1} = 'Regular test regressors using FREE REC DATA Test : Failed';
-    end
-    
-    warns{end+1} = lastwarn;
-    clear calc_perf;
-  catch
-    warns{end+1} = 'No freerec dataset';
-  end
-  
-catch % do_freerec
-  warns{end+1} = 'No freerec dataset';
+
+if ~( calc_perf > 0.4)
+  errmsgs{end+1} = 'Regular test regressors using FREE REC DATA Test : Failed';
 end
+
+warnmsgs{end+1} = lastwarn;
+clear calc_perf;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % testing free rec with shuffled test regressors
 
-try
-  [calc_perf] = do_freerec(train_funct,test_funct,perfmet_funct,class_args ,1);
+[calc_perf] = do_freerec(train_funct,test_funct,perfmet_funct,class_args ,1);
 
-  if ( calc_perf > 0.4)
-    errs{end+1} = 'Shuffled test regressors using FREE REC DATA Test : Failed';
-  end
-  
-  warns{end+1} = lastwarn;
-  clear calc_perf;
-  
-catch % do_freerec
-  warns{end+1} = 'No freerec dataset';
+if ( calc_perf > 0.4)
+  errmsgs{end+1} = 'Shuffled test regressors using FREE REC DATA Test : Failed';
 end
+
+warnmsgs{end+1} = lastwarn;
+clear calc_perf;
 
 
 %*******************************

@@ -1,10 +1,7 @@
-function [err, v, Info, Com] = Read_1D (fname, p1)
+function [err, v, Info] = Read_1D (fname, p1)
 %
-%   [err,M, Info, Com] = Read_1D (fname, [opt])
-% or 
-%   [err,M] = Read_1D (fname,[opt])
-% or
-%   M = Read_1D (fname, [opt])
+%   [err,M, Info] = Read_1D (fname, [opt])
+%
 %Purpose:
 %   Reads an AFNI 1D file into M
 %   
@@ -65,7 +62,6 @@ FuncName = 'Read_1D';
 
 %Debug Flag
 DBG = 1;
-Com = '';
 
 if (nargin == 1),
    verb = 1; Opt = [];
@@ -96,7 +92,7 @@ if (Opt.method < 0 | Opt.method > 2),
    fprintf(2,'Opt.method must be an integer between 0 and 2\n');
    return;
 end
-
+fname
 if (~filexist(fname)), % try with extension
 	fname2 = sprintf('%s.1D', fname);
    fname3 = sprintf('%s.1D.dset', fname);
@@ -127,7 +123,7 @@ if (Opt.method == 0),
 
    %purge comments
    if (verb > 1), fprintf(1,'Purging comments\n'); end
-   [c, Com] = PurgeComments(c, '#');
+   c = PurgeComments(c, '#');
    nc = length(c);
    %remove line breaks and the following new line
    if (verb > 1), fprintf(1,'Removing line breaks\n'); end
@@ -208,9 +204,9 @@ if (Opt.method == 0),
          c = strtrim(c);
          %count number of lines
          eofline1 = find(c == 10,1);
-         lv = sscanf(c(1:eofline1),'%f'); nlines = max(length(lv),1); 
-         v = sscanf(c,'%f'); nr = length(v)/nlines;
-         if (nr ~= 1), v = reshape(v,nlines, nr)'; end
+         lv = sscanf(c(1:eofline1),'%f'); 
+         v = sscanf(c,'%f'); nr = length(v)/length(lv);
+         if (nr ~= 1), v = reshape(v,length(lv), nr)'; end
    end
 
    % sub-bricks?
@@ -290,11 +286,8 @@ end
 %some fake Info stuff
 if (nargout == 3),
    [err, Info] = Info_1D(v, fname);
-elseif (nargout == 1),
-   err = v;
-else 
-   err = 0;
 end
 
+err = 0;
 return;
 

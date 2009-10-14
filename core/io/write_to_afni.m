@@ -55,17 +55,16 @@ function [] = write_to_afni(subj,objtype,objin,sample_filename,varargin)
 %
 % CHECKBRIKHEAD (optional, default = true).
 %
-% ONLY_DO_ZEROIFY (optional, default = true). If true, skip
+% ONLY_DO_ZEROIFY (optional; default = true). If true, skip
 % spoofing and try the zeroifying method directly. The
 % default should be fine. N.B. This used to be called
 % just 'DO_ZEROIFY', but was renamed for clarity.
 %
 % DO_ZEROIFY (deprecated - see ONLY_DO_ZEROIFY).
 %
-% VIEW (optional, default = '+orig') you can change this if
-% you want to write to +tlrc.
-%
-% TR_DUR (optional, default = 2). The length of the TR in seconds.
+% VIEW optional default is +orig
+% you can change this if you want to write to +tlrc  
+% TODO
 %
 % - add option to create a singles 4D matrix
 
@@ -99,7 +98,6 @@ defaults.only_do_zeroify = true;
 defaults.do_zeroify = [];
 defaults.afni_location = '';
 defaults.view = '+orig';
-defaults.tr_dur = 2;
 args = propval(varargin,defaults);
 
 if ~strcmp(class(objin),'char') | ~strcmp(class(args.output_filename),'char')
@@ -109,8 +107,6 @@ end
 if ~isempty(args.do_zeroify)
   error('DO_ZEROIFY argument has been renamed ONLY_DO_ZEROIFY.')
 end
-
-args.tr_dur = double(args.tr_dur);
 
 spoof_failed = false;
 
@@ -198,11 +194,6 @@ if err
 end
 OrigInfo = Info;
 
-% now we need to figure out how many timepoints there are,
-% so we can write it into the BRIK metadata
-matsize = get_objfield(subj,objtype,cur_objname,'matsize');
-nTimepoints = matsize(2)
-
 % Set the output format
 switch objtype
 case 'pattern'
@@ -211,9 +202,6 @@ case 'pattern'
     Info.BRICK_TYPES = 3;
     ispattern = 1;
     Info.TYPESTRING = '3DIM_HEAD_ANAT';
-    % see ZEROIFY_WRITE_AFNI for more info on these arguments
-    Info.TAXIS_NUMS = [nTimepoints 0 77002];
-    Info.TAXIS_FLOATS = [0 args.tr_dur 0 0 0];
 case 'mask'
     Info.TypeName      = 'short';
     Info.TypeBytes     = 1;
@@ -337,7 +325,7 @@ function [] = try_zeroify(subj,objtype,objname,sample_filename,args,runTRs,varar
 
 % Alternative to TRY_SPOOF.M
 %
-% [] = TRY_ZEROIFY(SUBJ,OBJTYPE,OBJNAME,SAMPLE_FILENAME,ARGS,RUNTRS, ...)
+% [] = TRY_SPOOF(SUBJ,OBJTYPE,OBJNAME,SAMPLE_FILENAME,RUNTRS)
 %
 % Currently, this doesn't take in all of the same optional
 % arguments as WRITE_TO_AFNI, and it can't deal with groups either
@@ -350,13 +338,12 @@ function [] = try_zeroify(subj,objtype,objname,sample_filename,args,runTRs,varar
 %defaults.output_filename = objname;
 %args = propval(varargin,defaults,'ignore_missing_default',true);
 
-if ~exist( sprintf('%s.BRIK',sample_filename),'file' ) & ~exist( sprintf('%s.BRIK.gz',sample_filename),'file' )
+if ~exist( sprintf('%s.BRIK',sample_filename),'file' )
   error('Your sample BRIK %s doesn''t exist',sample_filename);
 end
 
 zeroify_args.view = args.view;
 zeroify_args.afni_location = args.afni_location;
-zeroify_args.tr_dur = args.tr_dur;
 
 switch objtype
   
@@ -408,7 +395,6 @@ switch objtype
         cur_filename = [args.output_filename '_run' num2str(r)];
         kill{length(kill)+1} = cur_filename;
       end
-      cur_filename = fullfile(args.pathname,cur_filename);
       zeroify_write_afni(allvols,sample_filename,cur_filename,zeroify_args);
 %      end  
 
@@ -446,10 +432,6 @@ switch objtype
   error('Can only deal with patterns and masks');
 end
 
-if args.display_afni
-  unix( sprintf('%s %s &',fullfile(args.afni_location,'afni'), ...
-                args.pathname) );
-end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

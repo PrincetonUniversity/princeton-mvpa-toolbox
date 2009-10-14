@@ -42,10 +42,10 @@ function [subj results] = cross_validation(subj,patin,regsname,selgroup,maskgrou
 % used to decide which features are fed to the classifier. For
 % instance, NOPEEKING_MULTI_ANOVA generates such a set of masks.
 %
-% Note: if you ran a peeking feature selection, you'll only have one
-% mask, rather than a group. If this can't find any members of a group
-% called MASKGROUP, it will treat MASKGROUP as the name of an object,
-% and look instead for a single mask called MASKGROUP.
+% Note: if you ran a peeking anova, you'll only have one mask, rather
+% than a group. If this can't find any members of a group called
+% MASKGROUP, it will treat MASKGROUP as the name of an object, and
+% look instead for a single mask called MASKGROUP.
 %
 % PERFMET_FUNCTS(optional,default = {'perfmet_maxclass'}). The names of the
 % performance metric(s) you want to use to decide how well your
@@ -70,13 +70,6 @@ function [subj results] = cross_validation(subj,patin,regsname,selgroup,maskgrou
 % and SCRATCHPAD after testing but before measuring
 % performance. For instance, you might call a smoothing
 % function on the ACTS here.
-%
-% IGNORE_UNKNOWNS (optional, default = false). By default,
-% CROSS_VALIDATION.M will warn you if your selectors contain
-% anything other than 0s, 1s and 2s. However, if you're
-% using the spherical spotlight code, you may have some
-% 3s. To avoid being spuriously warned, set this to true,
-% and it will ignore these.
 
 % See the manual for more documentation about the results
 % structure.
@@ -102,7 +95,6 @@ defaults.rand_state_int = sum(100*results.header.clock);
 defaults.perfmet_functs = {'perfmet_maxclass'};
 defaults.perfmet_args = struct([]);
 defaults.postproc_funct = '';
-defaults.ignore_unknowns = false;
 args = propval(varargin,defaults);
 
 % User-specified perfmet_args must be a cell array with a struct in
@@ -130,7 +122,7 @@ regressors = get_mat(subj,'regressors',regsname);
 selnames = find_group(subj,'selector',selgroup);
 nIterations = length(selnames);
 if ~nIterations
-  error('No selector group to run cross-validation over - if you want to run cross_validation.m with just a single selector that you''ve created, then you need to turn it into a group first - see http://groups.google.com/group/mvpa-toolbox/browse_thread/thread/9c7dae2757205644');
+  error('No selector iterations to run cross-validation over');
 end
 
 % Parse patin to use either a single pattern or a group of
@@ -181,7 +173,6 @@ for n=1:nIterations
   cur_iteration = [];
 
   cv_args.cur_iteration = n;
-  cv_args.n_iterations = nIterations;
   
   % Set the current selector up
   cur_selsname = selnames{n};
@@ -196,13 +187,8 @@ for n=1:nIterations
   unused_idx  = find(selectors==0);
   unknown_idx = selectors;
   unknown_idx([train_idx test_idx unused_idx]) = [];
-  if length(unknown_idx) & ~args.ignore_unknowns
+  if length(unknown_idx)
     warning( sprintf('There are unknown selector labels in %s',cur_selsname) );
-  end
-
-  if isempty(train_idx) && isempty(test_idx)
-    disp('No pats and targs timepoints for this iteration - skipping');
-    continue
   end
 
   % Set the current mask up
@@ -214,6 +200,11 @@ for n=1:nIterations
   traintargs = regressors( :,train_idx);
   testpats   = masked_pats(:,test_idx);
   testtargs  = regressors( :,test_idx);
+
+  if isempty(trainpats) && isempty(traintargs)
+    disp('No pats and targs for this iteration - skipping');
+    continue
+  end
   
   % Create a function handle for the classifier training function
   train_funct_hand = str2func(class_args.train_funct_name);
@@ -262,12 +253,14 @@ for n=1:nIterations
       cur_iteration.perfmet{p} = cur_pm;
     end
 
-    % Store this iteration's performance. If it's a NaN, the NANMEAN
-    % call below will ignore it. Updated on 080910 to store NaNs.
+    % Store this iteration's performance, as long it's not
+    % NaN (which can happen if there were no timepoints
+    % included in the xval selector for that run
     cur_iteration.perf(p) = cur_pm.perf;
-    % nPerfs x nIterations
-    store_perfs(p,n) = cur_iteration.perf(p);
-
+    if ~isnan(cur_iteration.perf(p))
+      % nPerfs x nIterations
+      store_perfs(p,n) = cur_iteration.perf(p);
+    end
   end
   
   % Display the performance for this iteration
@@ -297,7 +290,7 @@ end % for n nIterations
 disp(' ');
 
 % Show me the money
-results.total_perf = nanmean(store_perfs,2);
+results.total_perf = mean(store_perfs,2);
 
 mainhist = sprintf( ...
     'Cross-validation using %s and %s - got total_perfs - %s', ...

@@ -3,10 +3,6 @@ function [scratch] = train_svm(trainpats,traintargs,in_args,cv_args)
 % USAGE :
 % [SCRATCH] = TRAIN_SVM(TRAINPATS,TRAINTARGS,IN_ARGS,CV_ARGS)
 %
-% N.B. Please read Ryan Moore's instructions in
-% mvpa/core/learn/MVPA_SVM_setup.rtf for info on setting up
-% SVMs in the toolbox.
-%
 % This is a support vector machine training function. It train the
 % classifier and makes is ready for testing. 
 % NOTE : This classfier currently does only two category classification
@@ -64,7 +60,7 @@ function [scratch] = train_svm(trainpats,traintargs,in_args,cv_args)
 defaults.temp='';
 
 % Args contains the default args, unless the user has over-ridden them
-args = mergestructs(in_args,defaults);
+args = propval(in_args,defaults);
 scratch.class_args = args;
 [args.kernelstring] = make_kernel(in_args);
 args = sanity_check(trainpats,traintargs,args);

@@ -17,10 +17,8 @@ function [subj] = initset_object(subj,objtype,objname,newmat,varargin)
 % Note: you won't get a warning if adding a field that doesn't
 % already exist, so be careful to type your fieldnames
 % correctly
-%
-% See also: createorupdate_object.m
 
-% license:
+% License:
 %=====================================================================
 %
 % This is part of the Princeton MVPA toolbox, released under
@@ -50,10 +48,6 @@ subj = init_object(subj,objtype,objname);
 
 subj = set_mat(subj,objtype,objname,newmat);
 
-% ADD MULTIPLE FIELDS
-%
-% xxx - this should really be its own function, so that
-% CREATEORUPDATE_OBJECT can use it too
 fields = fieldnames(args);
 
 for f=1:length(fields)

@@ -102,7 +102,6 @@ end
 %first check on Prefix
 if (isfield(Opt,'prefix')), Opt.Prefix = Opt.prefix; end %comes from New_HEAD
 if (isfield(Opt,'scale')), Opt.Scale =  Opt.scale; end %comes from New_HEAD
-if (isfield(Opt,'overwrite')), Opt.OverWrite =  Opt.overwrite; end 
 if (~isfield(Opt, 'Prefix') | isempty (Opt.Prefix)), 
    err = 1; 
    ErrMessage = sprintf('Error %s: You must specify Opt.Prefix.', FuncName);  

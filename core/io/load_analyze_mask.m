@@ -1,11 +1,19 @@
-function [subj] = load_spm_mask(subj,new_maskname,filename,varargin)
+function [subj] = load_analyze_mask(subj,new_maskname,filename,varargin)
 
-% Loads an NIFTI dataset into the subj structure as a mask
+% Loads an ANALYZE dataset into the subj structure as a mask
 %
 % [SUBJ] = LOAD_ANALYZE_MASK(SUBJ,NEW_MASKNAME,FILENAME,...)
 %
 % Adds the following objects:
 % - mask object called NEW_MASKNAME
+%
+
+%
+% BETA_DEFAULTS (optional, default = false).  This function will not
+% access the spm_defaults without this set.  It assumes you've called
+% spm_defaults on your own set to your specifications.
+%
+%
 %
 % License:
 %=====================================================================
@@ -21,9 +29,17 @@ function [subj] = load_spm_mask(subj,new_maskname,filename,varargin)
 %
 % ======================================================================
 
-defaults.binary_strict = 1;
+
+
+
+defaults.voxelnazi = 1;
+% defaults.beta_defaults = false;
 
 args = propval(varargin,defaults);
+% if args.beta_defaults
+%     global defaults;
+% end
+% 
 
 % Initialize the new mask
 subj = init_object(subj,'mask',new_maskname);
@@ -34,16 +50,16 @@ vol = spm_vol(filename);
 V = spm_read_vols(vol);
 
 % Check for active voxels
-if ~~isempty(find(V))
-  error( sprintf('There were no voxels active in the mask') );
+if ~length(find(V))
+  error( sprintf('There were no voxels active in the %s.img mask',filename) );
 end
 
 V(find(isnan(V))) = 0;
 
 % Does this consist of solely ones and zeros?
 if length(find(V)) ~= (length(find(V==0))+length(find(V==1)))
-  if args.binary_strict
-    disp( sprintf('Setting all non-zero values in the mask to one') );
+  if args.voxelnazi
+    disp( sprintf('Setting all non-zero values in the %s.img mask to one',filename) );
     V(find(V)) = 1;
   else
     disp(sprintf(['Allowing non-zero mask values. Could create' ...
@@ -75,3 +91,4 @@ subj = set_objsubfield(subj,'mask',new_maskname,'header', ...
 % Record how this mask was created
 created.function = 'load_analyze_mask';
 subj = add_created(subj,'mask',new_maskname,created);
+

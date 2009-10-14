@@ -77,7 +77,7 @@ function [subj] = feature_select(subj,data_patin,regsname,selsgroup,varargin)
 % ======================================================================
 
 
-defaults.new_map_patname = '';
+defaults.new_map_patname = sprintf('');
 defaults.new_maskstem = sprintf('%s_thresh',data_patin);
 defaults.thresh = 0.05;
 defaults.statmap_funct = 'statmap_anova';

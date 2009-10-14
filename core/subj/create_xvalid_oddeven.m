@@ -95,17 +95,17 @@ subj = set_objfield( ...
     'group_name',args.new_selstem,'ignore_absence',true);
 
 % Tell it the story of how it came to be
-created.function = mfilename;
+created.function = 'create_xvalid_indices';
 created.runs_selname = runs_selname;
 created.actives_selname = args.actives_selname;
 subj = add_created(subj,'selector',sel1_name,created);
 subj = add_created(subj,'selector',sel2_name,created);
 
-it_hist = sprintf('Created by %s - iteration #%i',created.function,r);
+it_hist = sprintf('Created by create_xvalid_indices - iteration #%i',r);
 subj = add_history(subj,'selector',sel1_name,it_hist);
 subj = add_history(subj,'selector',sel2_name,it_hist);
   
-main_hist = sprintf('Selector group ''%s'' created by %s',created.function,args.new_selstem);
+main_hist = sprintf('Selector group ''%s'' created by create_xvalid_indices',args.new_selstem);
 disp( main_hist );
 
 

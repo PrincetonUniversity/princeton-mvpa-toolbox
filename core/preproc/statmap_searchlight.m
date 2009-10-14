@@ -4,7 +4,7 @@ function [subj] = statmap_searchlight(subj,data_patname,regsname,selname,new_map
 %   DATA_PATNAME,REGSNAME,SELNAME,NEW_MAP_PATNAME,EXTRA_ARG)
 %
 % OBJ_FUNCT (required, default = ''),
-% e.g. 'statmap_classify'
+% e.g. 'statmap_simst_logic'
 %
 % ADJ_LIST (required) - as produced by CREATE_ADJ_LIST.M. If
 % you want to run this univariately, feed in an ADJ_LIST
@@ -92,9 +92,6 @@ if length(xval3_idx)
 end
 
 [nVox nTRs] = size(pat1);
-% this is useful for the objective function to know, in case it wants
-% to preallocate a matrix for storing things for all spheres
-scratch.nVox = nVox;
 
 map = nan(nVox,1);
 
@@ -121,8 +118,6 @@ for v = 1:nVox
   sphere = pat1(vox_idx,:);
   
   scratch.pat3 = pat3(vox_idx,:);
-  % store the current voxel # being operated on
-  scratch.v_counter = v;
  
   % calculate value of this sphere, using the objective
   % function, e.g. STATMAP_SIMST_LOGIC.M or

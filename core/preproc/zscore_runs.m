@@ -42,10 +42,6 @@ function [subj] = zscore_runs(subj,patname,selname,varargin)
 % toolbox ZSCORE.M
 %
 % NEW_PATNAME (optional, default = sprintf(%s_z',patname))
-%
-% IGNORE_JUMBLED_RUNS (optional, default = false). As per
-% CREATE_XVALID_INDICES.
-
 
 % License:
 %=====================================================================
@@ -69,7 +65,6 @@ end
 defaults.use_mvpa_ver = false;
 defaults.actives_selname = '';
 defaults.new_patname = sprintf('%s_z',patname);
-defaults.ignore_jumbled_runs = false;
 args = propval(varargin,defaults);
 
 pat = get_mat(subj,'pattern',patname);
@@ -96,7 +91,7 @@ else
   actives = get_mat(subj,'selector',args.actives_selname);
 end
 
-sanity_check(pat,sel,actives,args);
+sanity_check(pat,sel,actives);
 
 if ~compare_size(actives,sel)
   error('Your actives and runs are different sizes');
@@ -110,7 +105,7 @@ subj = set_mat(subj,'pattern',args.new_patname,pat);
 zhist = sprintf('Pattern ''%s'' created by zscore_runs',args.new_patname);
 subj = add_history(subj,'pattern',args.new_patname,zhist,true);
 
-created.function = mfilename;
+created.function = 'zscore_runs';
 created.use_mvpa_ver = args.use_mvpa_ver;
 created.patname = patname;
 created.selname = selname;
@@ -176,7 +171,7 @@ disp(' ')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [] = sanity_check(pat,sel,actives,args)
+function [] = sanity_check(pat,sel,actives)
 
 if ~isint(actives)
   error('Use only integers for the active_selector');
@@ -198,7 +193,7 @@ if size(pat,2) ~= length(sel)
   error('You have different numbers of timepoints in your patterns and runs');
 end
 
-if length(find(diff(sel)<0)) & ~args.ignore_jumbled_runs
+if length(find(diff(sel)<0))
   error('Your runs seem to be jumbled');
 end
 

@@ -29,7 +29,7 @@ myaddpath('core/template');
 myaddpath('core/deprecated');
 
 % Add paths for packages bundled with the toolbox.
-% myaddpath('adaboost_mkc');
+myaddpath('adaboost_mkc');
 myaddpath('afni_matlab');
 myaddpath('boosting');
 myaddpath('bv2mat');

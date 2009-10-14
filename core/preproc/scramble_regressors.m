@@ -14,9 +14,7 @@ function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargi
 % reference your 'runs' variable for the selname
 %
 % NEW_REGSNAME = the name you want to give your new scrambled
-% regressors matrix
-%
-%   xxx - shouldn't this be optional???
+% regressors matrix 
 %
 % IGNORE_1OFN (optional, default = false). If your regressors
 % are continuous-valued, contain rest or contain multiple active
@@ -57,9 +55,11 @@ if ~isbool || isrest || isoveractive
   end
 end
 
+nruns = max(runs);
+
 % These next lines will shuffle your regressors within each run
 
-for i = unique(runs)
+for i = 1:nruns
   thisrun = find(runs == i);
   regs(:,thisrun) = shuffle(regs(:,thisrun),2);
 end

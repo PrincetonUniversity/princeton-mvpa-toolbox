@@ -17,15 +17,6 @@ function [noisypat noisyinfo] = noisify_regressors(regs,nTiles,noisiness,noise_t
 % generator function. You could even create multiple
 % synthetic data sets from different kinds of regressors
 %
-% e.g. [noisypat noisyinfo] = noisify_regressors(regs,5,0.3,'uniform','ascending',true);
-%
-% N.B. you will want to transpose this before inserting as a pattern, e.g.
-%
-% subj = initset_object(subj,'pattern','noisypat',noisypat','masked_by','my_mask');
-%
-%   Note the transpose apostrophe after the second NOISYPAT in the
-%   line above.
-%
 % NTILES - You can't specify an arbitrary number of voxels,
 % cos that was a pain to code for the slidies wraparound
 % script, so instead, this repmats the REGS NTILES times, so
@@ -66,6 +57,9 @@ function [noisypat noisyinfo] = noisify_regressors(regs,nTiles,noisiness,noise_t
 %
 % - ATTENUATEDPAT - CLEANPAT with each feature scaled by its
 %   SIGNAL_COEFFS
+%
+% e.g. [noisypat noisyinfo] =
+%        noisify_regressors(regs,5,0.3,'uniform','ascending',true);
 
 
 % disp('Noisifying regressors');

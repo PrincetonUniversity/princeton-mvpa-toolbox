@@ -24,8 +24,6 @@ function [] = zeroify_write_afni(allvols,sample_brik_name,new_brik_name,varargin
 %
 %   zeroify_write_afni(zeros([64 64 32]),'experim+orig','experim')
 %   zeroify_write_afni(zeros([64 64 32]),'experim+tlrc','experim','view','+tlrc')
-%
-% TR_DUR (optional, default = 2). The length of the TR in seconds.
 
 % License:
 %=====================================================================
@@ -51,7 +49,6 @@ function [] = zeroify_write_afni(allvols,sample_brik_name,new_brik_name,varargin
 
 defaults.view = '+orig';
 defaults.afni_location = '';
-defaults.tr_dur = 2;
 args = propval(varargin,defaults);
 
 disp('Beginning the export to afni');
@@ -80,13 +77,9 @@ BRICK_FLOAT_FACS = zeros(1,nTimepoints);
 
 % assign new values to header file struct
 if nTimepoints > 1
-  % i think the 3rd value in TAXIS_NUMS should be set to 77002 for
-  % 'seconds'. see:
-  % 
-  %   http://afni.nimh.nih.gov/pub/dist/src/README.attributes
-  %   http://grommit.lrdc.pitt.edu/fiswidgets/fisdocs/docs/Afni3dAttribute.html
-  head.TAXIS_NUMS = [nTimepoints 0 77002];
-  head.TAXIS_FLOATS = [0 args.tr_dur 0 0 0];
+    warning('zeroify_write_afni assumes a TR of 2 when writing 3d+time datasets!');
+    head.TAXIS_NUMS = [nTimepoints 0 77002];
+    head.TAXIS_FLOATS = [0 2 0 0 0];
 end
 head.DATASET_RANK(2) = nTimepoints;
 head.BRICK_STATS = BRICK_STATS;

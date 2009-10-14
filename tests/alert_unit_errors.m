@@ -1,8 +1,8 @@
-function [errs warns] = alert_unit_errors(errs,warns)
+function [errmsgs warnmsgs] = alert_unit_errors(errmsgs,warnmsgs)
 
 % Alerts if there are errors in a unit test
 %
-% [ERRS WARNS] = ALERT_UNIT_ERRORS(ERRS,WARNS)
+% [ERRMSGS WARNMSGS] = ALERT_UNIT_ERRORS(ERRMSGS,WARNMSGS)
 %
 % Ideally, you'd run all your unit tests en masse as part of
 % a suite, but if you have an individual unit test function
@@ -10,14 +10,14 @@ function [errs warns] = alert_unit_errors(errs,warns)
 % will briefly summarize any errors.
 
 
-% alert the user if there are any error messages
-if length(errs)
-  dispf('Ohoh. %i errs\n----',length(errs));
+% alert the user if there are any erro rmessages
+if length(errmsgs)
+  dispf('Ohoh. %i errmsgs\n----',length(errmsgs));
   
-  for e=1:length(errs)
-    disp(errs{e})
+  for e=1:length(errmsgs)
+    disp(errmsgs{e})
   end % e
 
 else
-  disp('Woohoo. No errs')
+  disp('Woohoo. No errmsgs')
 end

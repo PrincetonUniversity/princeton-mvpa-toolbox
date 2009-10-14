@@ -1929,8 +1929,7 @@ for (sn = 1:1:slices),
 			   switch Contr.ord3.cnt(i).idx2
 				   case 2, 
 					   switch Contr.ord3.cnt(i).idx3
-						   %case 3, Contr.ord3.df(i) = dfdenom(11)*(dsgn == 1 | dsgn == 2) + dfdenom(10)* (dsgn == 3 | dsgn == 4 | dsgn == 5);  % MSABC
-							case 3, Contr.ord3.df(i) = dfdenom(11)*(dsgn == 1 | dsgn == 2) + dfdenom(10)* (dsgn == 3 | dsgn == 4) + dfdenom(9)* (dsgn == 5);  % MSABC
+						   case 3, Contr.ord3.df(i) = dfdenom(11)*(dsgn == 1 | dsgn == 2) + dfdenom(10)* (dsgn == 3 | dsgn == 4 | dsgn == 5);  % MSABC
 							case 4, Contr.ord3.df(i) = dfdenom(12)*(dsgn == 1 | dsgn == 2);  % MSABD not exist for (dsgn == 3 | dsgn == 4 | dsgn == 5)			
 						end	
 					case 3, 
@@ -2195,7 +2194,6 @@ for (sn = 1:1:slices),
 
    Info.SCENE_DATA(2) = 11;   % 11 means Bucket Func type, defined in AFNI doc README.attributes  
    Info.SCENE_DATA(3) = 1;    % 1 means 3DIM_HEAD_FUNC, defined in AFNI doc README.attributes
-	Info=rmfield(Info, {'TAXIS_NUMS', 'TAXIS_FLOATS', 'TAXIS_OFFSETS'});  % addeed May 8, 2008
 
    Opt.Frames = [];  %Because it might have been set as the frame list in the case of input files with multiple subbriks during loading
 

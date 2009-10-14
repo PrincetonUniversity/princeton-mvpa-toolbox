@@ -1,8 +1,8 @@
-function [subj new_regsname] = convolve_regressors_afni(subj,old_regsname,runsname,varargin)
+function [subj] = convolve_regressors_afni(subj,old_regsname,runsname,varargin)
 
 % Convolves regressors with HRF
 %
-% [SUBJ NEW_REGSNAME] = CONVOLVE_REGRESSORS_AFNI(SUBJ,REGSNAME,RUNSNAME,...)
+% [SUBJ] = CONVOLVE_REGRESSORS_AFNI(SUBJ,REGSNAME,RUNSNAME,...)
 %
 % Takes a set of regressors and convolves each condition
 % with a gamma haemodynamic response function using AFNI's
@@ -104,7 +104,6 @@ defaults.afni_location = '';
 defaults.do_plot = false;
 defaults.display_shell_script = false;
 args = propval(varargin,defaults);
-args_into_workspace
 
 [subj regs] = duplicate_object(subj,'regressors',old_regsname,args.new_regsname, ...
 			       'include_unknown_fields',true);
@@ -160,34 +159,25 @@ subj = set_mat(subj,'regressors',args.new_regsname,allregs_conv);
 subj = add_history(subj,'regressors',args.new_regsname,hist);
 
 if ~isnan(args.binarize_thresh)
-  % binarize the regressors, so 'blah_conv' -> 'blah_convt'
+  % create a zeros matrix, then put 1s in wherever the
+  % convolve regressor values are above the BINARIZE_THRESH
+  allregs_convt = zeros(size(allregs_conv));
+  set_to_one_idx = find(allregs_conv > args.binarize_thresh);
+  allregs_convt(set_to_one_idx) = 1;
+  % now, add the thresholded version as well
   new_regsname_thr = sprintf('%st',args.new_regsname);
-  subj = binarize_regressors(subj, args.new_regsname, args.binarize_thresh, ...
-                             'new_regsname', new_regsname_thr);
-  allregs_convt = get_mat(subj,'regressors',new_regsname_thr);
-else
-  allregs_convt = NaN(size(allregs_conv));
+  subj = duplicate_object(subj,'regressors',args.new_regsname,new_regsname_thr);
+  subj = set_mat(subj,'regressors',new_regsname_thr,allregs_convt);
 end
 
 
 if args.do_plot
   old_regs = get_mat(subj,'regressors',old_regsname);
   figure
-  
-  subplot(3,1,1)
-  plot(old_regs');
-    ax = axis; ax(4) = ax(4) * 1.1; axis(ax) % give y axis room
-  titlef('%s - %s - raw',subj.header.id,old_regsname)
-
-  subplot(3,1,2)
-  plot(allregs_conv');
-  ax = axis; ax(4) = ax(4) * 1.1; axis(ax) % give y axis room
-  titlef('%s - %s - after convolution',subj.header.id,old_regsname)
-
-  subplot(3,1,3)
-  plot(allregs_convt');
-  ax = axis; ax(4) = ax(4) * 1.1; axis(ax) % give y axis room
-  titlef('%s - %s - after thresholding %.1f',subj.header.id,old_regsname,binarize_thresh)
+  subplot(2,1,1)
+  imagesc(old_regs);
+  subplot(2,1,2)
+  imagesc(allregs_conv);
 end
 
 
@@ -225,7 +215,7 @@ function [wavexec input1d output1d execout] = call_waver(currun,curcond,condvec,
 % -GAM = gamma function
 % -dt = TR size in seconds
 % -numout = truncate the extra timepoints at the end created by convolution
-% -input = name of regressors 1d file
+% -intput = name of regressors 1d file
 % > = output to this file
 %
 % e.g.
@@ -263,7 +253,7 @@ end
 
 save(input1d,'-ascii','condvec');
 
-wavexec = sprintf('%s -GAM -dt %f -numout %i -input %s > %s', ...
+wavexec = sprintf('%s -GAM -dt %i -numout %i -input %s > %s', ...
 		  fullfile(args.afni_location,'waver'), ...
 		  args.tr_size_in_seconds, ...
 		  numout, ...

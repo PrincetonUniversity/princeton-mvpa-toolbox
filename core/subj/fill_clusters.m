@@ -1,4 +1,4 @@
-function [A sizes] = fill_clusters(vol, adj_list)
+function [A] = fill_clusters(vol, adj_list)
 % Fills in all non-zero clusters with unique sequential integers.
 %
 % Usage:
@@ -41,9 +41,8 @@ function [A sizes] = fill_clusters(vol, adj_list)
 % ======================================================================
 
 % Start with voxel assignments for each dude.
-A = 1:count(vol(:));
+A = 1:sum(vol(:));
 if isempty(A)
-  sizes = [];
   return;
 end
 
@@ -100,6 +99,5 @@ end
 crange = unique(A);
 for n = 1:numel(crange)
   A(A==crange(n)) = n;
-  sizes(n) = count(A==n);  
 end
 

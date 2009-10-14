@@ -32,8 +32,7 @@ function [err,Info, opt] = New_HEAD (opt)
 %             defaults to 1. It defaults to 0 for other types. It is
 %             used when storing float data as shorts to minimize disk
 %             use while preserving numeric percision.      
-%     .Overwrite: y/[n] allow header to be created even if one with
-%                 similar name is found on disk
+%   
 %Output Parameters:
 %   err : 0 No Problem
 %       : 1  Problems
@@ -129,11 +128,8 @@ if (~isfield(opt,'view') | ~strcmp(opt.view,'+tlrc') | isfield(opt,'master')),
    if (isfield(opt,'prefix')),
       [Status, Prefix, View] = PrefixStatus (opt.prefix);
       if (Status < 1 & strcmp(View,opt.view)),
-         if (isfield(opt,'overwrite') & ~strcmp(opt.overwrite,'y')),
-            fprintf(1,'Error %s:\nLooks like %s exists already.\n',...
-                     FuncName, opt.prefix);
-            return;
-         end
+         fprintf(1,'Error %s:\nLooks like %s exists already.\n', FuncName, opt.prefix);
+         return;
       end
       opt.prefix = Prefix;
       ohead = sprintf('%s%s', tmp_suf, opt.prefix);
@@ -227,12 +223,10 @@ if (strcmp(mView, opt.view) == 0), %different
 end
 
 %take care of 4th dimen
-if (isfield(opt,'dimen')),
-   if (length(opt.dimen) > 3),
-      Info.DATASET_RANK(2) = opt.dimen(4);
-      Info.BRICK_TYPES = Info.BRICK_TYPES(1).*ones(1,opt.dimen(4));
-      Info.BRICK_FLOAT_FACS  = Info.BRICK_FLOAT_FACS(1) .*ones(1, opt.dimen(4));
-   end
+if (length(opt.dimen) > 3),
+   Info.DATASET_RANK(2) = opt.dimen(4);
+   Info.BRICK_TYPES = Info.BRICK_TYPES(1).*ones(1,opt.dimen(4));
+   Info.BRICK_FLOAT_FACS  = Info.BRICK_FLOAT_FACS(1) .*ones(1, opt.dimen(4));
 end
 
 %take care of TR

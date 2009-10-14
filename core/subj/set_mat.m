@@ -213,11 +213,6 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [] = check_dims(newmat,nd)
 
-% can't check the dimensionality of a singleton
-if numel(newmat)==1
-  return
-end
-
 if ndims(newmat) ~= nd
   error( sprintf('Your mat should have %i dims - this will probably break soon',nd) );
 end

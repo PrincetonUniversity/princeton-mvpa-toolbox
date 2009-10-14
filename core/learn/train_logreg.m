@@ -13,17 +13,8 @@ function [scratchpad] = train_logreg(trainpats,traintargs,in_args,cv_args)
 % features you have, so it could easily get high (e.g. 10^4
 % for lots of features) - see PENALTY
 %
-% PENALTY (required, default = NaN). You have to specify a PENALTY, or
-% this function will fail fatally. I usually set this to around 50 for
-% 1000 voxels. The more voxels you have, the higher the penalty.
-%
-% MAXROUNDS (optional, default = 5000) The maximum number of
-% iterations used by the iteratively-reweighted least squares
-% (IRLS) algorithm. Typically no more than 8 are required.
-%
-% TOL (optional, default = 1e-4) The stopping criterion of the IRLS
-% algorithm: when the decrease in loglikelihood is below this
-% proportion, the algorithm returns.
+% PENALTY (optional, default = NaN). You have to specify
+% a PENALTY, or this function will fail fatally.
 %
 % License:
 %=====================================================================
@@ -39,21 +30,14 @@ function [scratchpad] = train_logreg(trainpats,traintargs,in_args,cv_args)
 %
 % ======================================================================
 
-
 defaults.tol = 1e-4;
-defaults.maxrounds = 5000;
 defaults.penalty = NaN;
 defaults.use_matlab = false;
 defaults.constant = false;
-defaults.scale_penalty = false;
 
 args = mergestructs(in_args,defaults);
 
 sanity_check(trainpats,traintargs,args);
-
-if args.scale_penalty
-  args.penalty = rows(trainpats) * args.penalty;
-end
 
 [nVox nTimepoints] = size(trainpats);
 
@@ -82,11 +66,9 @@ lambda = args.penalty;
 % afterwards
 for c=1:nConds
   curtraintargs = traintargs(c,:);
-  out = logRegFun(curtraintargs, trainpats, lambda, args.tol, args.maxrounds);
+  out = logRegFun(curtraintargs, trainpats, lambda, args.tol);
   scratchpad.logreg.betas(:,c) = out.weights';
   scratchpad.logreg.trainError(c,:) = out.classError;
-  scratchpad.logreg.rounds(c) = out.rounds;
-  scratchpad.logreg.ll{c} = out.ll;  
 end
 
 
@@ -94,7 +76,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [] = sanity_check(trainpats,traintargs,args)
 
-if any(isnan(args.penalty))
+if isnan(args.penalty)
   error('You have to specify a ridge penalty');
 end
 
@@ -103,10 +85,9 @@ end
 %   error('Targets must be a row vector, not %s', mat2str(size(traintargs))); 
 % end
 
-if any(isnan(trainpats))
+if isnan(trainpats)
   error('trainpats cannot be NaN');
 end
-if any(isnan(traintargs))
+if isnan(traintargs)
   error('traintargs cannot be NaN');
 end
-

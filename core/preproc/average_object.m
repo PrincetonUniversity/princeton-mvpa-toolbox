@@ -4,8 +4,6 @@ function [subj] = average_object(subj,objtype,objname,labels_name,varargin)
 %
 % [SUBJ] = AVERAGE_OBJECT(SUBJ,OBJTYPE,OBJNAME,LABELS_NAME,...)
 % 
-% See https://compmem.princeton.edu/mvpa_docs/TutorialAvg
-%
 % Adds the following objects:
 % - pattern object PATNAME_avg
 %
@@ -17,11 +15,10 @@ function [subj] = average_object(subj,objtype,objname,labels_name,varargin)
 %
 % NEW_OBJNAME (optional, default = OBJNAME_avg)
 %
-% WARN_INT_CORRUPTED (optional, default = true). By default, will warn
-% you if your data consisted of integers, but the newly-averaged data
-% does not. Set this to false if you don't care when that
-% happens. N.B. This is actually quite memory-intensive, and so this
-% check may be skipped if it causes an out-of-memory error.
+% WARN_INT_CORRUPTED (optional, default = true). By default,
+% will warn you if your data consisted of integers, but the
+% newly-averaged data does not. Set this to false if you
+% don't care when that happens.
 %
 % This should check to make sure that the averaging
 % doesn't span runs
@@ -59,7 +56,6 @@ for m=1:length(objnames)
   mat = get_mat(subj,objtype,cur_objname);
   
   matavg = do_avg(mat,labels,args);
-  clear mat
 
   % Book-keeping
   subj = duplicate_object(subj,objtype,cur_objname,args.new_objname,'transfer_group_name',true);
@@ -93,23 +89,14 @@ for b=unique_labels
   meanmat = mean(curmat,2);
   matavg = [matavg meanmat];
 end % b nLabels
-% let's clear up, to save memory
-clear curmat meanmat
 
-% it looks like ISINT is actually pretty memory-intensive, so be
-% prepared to run out of memory and fail here
-try
-  % give the user a warning if the previous data consisted
-  % of integers, but the averaged data does not (since this
-  % is often an error)
-  if args.warn_int_corrupted
-    if isint(mat) & ~isint(matavg)
-      warning('Previously integer data may have been corrupted')
-    end % look for corruption
-  end % does the user want us to warn them of corruption?
-catch
-  warning('Unable to run WARN_INT_CORRUPTED because we ran out of memory - does not necessarily indicate a problem with the data')
-end
-
+% give the user a warning if the previous data consisted
+% of integers, but the averaged data does not (since this
+% is often an error)
+if args.warn_int_corrupted
+  if isint(mat) & ~isint(matavg)
+    warning('Previously integer data may have been corrupted')
+  end % look for corruption
+end % does the user want us to warn them of corruption?
   
 

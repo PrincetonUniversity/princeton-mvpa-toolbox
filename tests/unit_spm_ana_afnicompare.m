@@ -1,14 +1,9 @@
-function [errs warns] = unit_spm_ana_afnicompare(varargin)
+function [errs warns] = unit_spm_ana_afnicompare()
 
-% [ERRS WARNS] = UNIT_SPM_ANA_AFNICOMPARE(varargin)
+% [ERRS WARNS] = UNIT_SPM_ANA_AFNICOMPARE()
 %
 % Unit test of the spm ana files in comparison to the afni brik version of
 % those same files.
-%
-%
-% FEXTENSION(*.nii/.img)
-% If unset, this will assume you wish to run the tutorial against nifti
-% data.  If set to .img it will change to using the analyze data set.
 %
 % The only files that are necessary for this test are the afni matlab
 % libraries, the spm5 library and the unit test data files.  Specifically
@@ -26,7 +21,7 @@ function [errs warns] = unit_spm_ana_afnicompare(varargin)
 
 % Requirements to run:
 % - SPM5
-% - mvpa and all other associated dependencies (this includes the afni
+% - mvpa and all other associated dependancies (this includes the afni
 % libraries as they are used extensively throughout the code).
 % - unit_set data folder.
 %
@@ -34,31 +29,8 @@ function [errs warns] = unit_spm_ana_afnicompare(varargin)
 % test data using the afni 3dcopy command with no flags or special
 % commands.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DEFAULTS
-% Before we get started we need to setup a single default.
-defaults.fextension = '';
-
-args = propval(varargin,defaults);
-
-if (isfield(args,'fextension'))
-    fextension=args.fextension;
-else
-    fextension=defaults.fextension;
-end
-
 errs = {};
 warns = {};
-
-if strcmp(fextension,'')
-
-        [errs{end+1} warns{end+1}] = unit_spm_ana_afnicompare('fextension','.nii');
-        [errs{end+1} warns{end+1}] = unit_spm_ana_afnicompare('fextension','.img');
-    return;
-    
-end
-
-
 
 %start up the spm system with default settings.
 %spm_defaults;
@@ -70,17 +42,17 @@ verbose = true;
 %it.  MVPA should be in your systems default path.
 
 if verbose
-    disp('Dependency tests.')
+  disp('Dependancy tests.')
 end
 
 if ~exist('tutorial_easy')
-    warns{end+1} = 'MVPA toolbox is not in the path - won''t be able to run remaining tests';
-    return
+  warns{end+1} = 'MVPA toolbox is not in the path - won''t be able to run remaining tests';
+  return
 end
 %check for the exsistence of SPM5 in your default path.
 if ~exist('spm5')
-    warns{end+1} = 'spm5 toolbox is not in the path - this package will not work without this toolbox';
-    return
+  warns{end+1} = 'spm5 toolbox is not in the path - this package will not work without this toolbox';
+  return
 end
 %and finally the star of this little show, afni.
 if ~exist('BrikLoad')
@@ -104,20 +76,20 @@ end
 %few files with no mentioned plans to expand those file sets.
 
 if verbose
-    disp('Loading file names into spm_file_names and afni_file_names.')
+  disp('Loading file names into spm_file_names and afni_file_names.')
 end
 
 for i=1:12
     index=num2str(i);
     tmp(1:3)='0';
-    %keyboard;
+        %keyboard;
     tmp(end-length(index)+1:end)=index;
-    spm_file_names{i} = ['unit_' tmp fextension];
-    afni_file_names{i} = ['unit_' tmp '+orig'];
+  spm_file_names{i} = ['unit_' tmp '.img'];
+  afni_file_names{i} = ['unit_' tmp '+orig'];
 end
 
 for n=1:12
-
+    
     % List of variables that must be cleared before the loop runs again:
     % - nifti_dat
     % - mask_dims
@@ -126,58 +98,72 @@ for n=1:12
     % - temp_subj_002
     % - data1
     % - data2
-    % -
-
-
+    % - 
+    
+    
     if verbose
-        dispf('Index: %d',n);
+      dispf('Index: %d',n);
     end
 
-    % figure out the dimensions of the mask we're about to
-    % load in, so we can preinitialize the matrix. this reads
-    % in the header information
-    nifti_dat=nifti(spm_file_names{n});
-    % this is the size of the temporary mask we're going to
-    % have to create in order to load in the pattern
-    mask_dims=size(nifti_dat.dat);
-    % clear the nifti data reference so it's not occupying
-    % memory
-    clear nifti_dat;
+      % figure out the dimensions of the mask we're about to
+      % load in, so we can preinitialize the matrix. this reads
+      % in the header information
+      nifti_dat=nifti(spm_file_names{n});
+      % this is the size of the temporary mask we're going to
+      % have to create in order to load in the pattern
+      mask_dims=size(nifti_dat.dat);
+      % clear the nifti data reference so it's not occupying
+      % memory
+      clear nifti_dat; 
 
-    % generate the mask. this will allow all the voxels in the
-    % pattern through
-    temp_mask=ones(mask_dims);
+      % generate the mask. this will allow all the voxels in the
+      % pattern through
+      temp_mask=ones(mask_dims);
 
-    %create temporary SUBJ structures and load in the mask
-    temp_subj_001=init_subj('unit_test', 'spm_ana');
-    temp_subj_001=initset_object(temp_subj_001,'mask','spm_ana_mask',temp_mask);
+      %create temporary SUBJ structures and load in the mask
+      temp_subj_001=init_subj('unit_test', 'spm_ana');
+      temp_subj_001=initset_object(temp_subj_001,'mask','spm_ana_mask',temp_mask);
 
+     % temp_subj_002=init_subj('unit_test', 'afni_ana');
+     % temp_subj_002=initset_object(temp_subj_002,'mask','spm_ana_mask',temp_mask);
+      
+      % load the pattern the first time
+      temp_subj_001=load_analyze_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',spm_file_names{n});
+      
+      temp_subj_001=load_afni_pattern(temp_subj_001, 'afni_brain','spm_ana_mask',afni_file_names{n});
+      
+      data1 = get_mat(temp_subj_001,'pattern','ana_brain');
+  
+      data2 = get_mat(temp_subj_001,'pattern','afni_brain');
+      
+      ignored_nans = isnan(data1) | isnan(data2);
 
-
-    % load the pattern the first time
-    temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',spm_file_names{n});
-
-    temp_subj_001=load_afni_pattern(temp_subj_001, 'afni_brain','spm_ana_mask',afni_file_names{n});
-
-    data1 = get_mat(temp_subj_001,'pattern','ana_brain');
-
-    data2 = get_mat(temp_subj_001,'pattern','afni_brain');
-
-    ignored_nans = isnan(data1) | isnan(data2); %#ok<NASGU>
-
-
-
-    if (abs(data1 - data2) > 1e-5)
-        diffcd = data1 - data2;
-        errs{end+1} = ['SPM_ANA_LOAD/WRITE: Data Comparison from spm to afni not equal. Index:' num2str(n) ...
-            ', standard deviation from 0: ' num2str(std(diffcd)) ', mean: ' num2str(mean(diffcd))];
-
-
-        if verbose
-            dispf('Index: %d %s failed.',n,spm_file_names{n});
-        end
-    end
-
+      
+%      if (not(isequal(round(data1),round(data2))))
+        if ((data1 - data2 > 1e-5) |(data1 - data2 < -1e-5)) 
+          diffcd = data1 - data2;
+          errs{end+1} = ['SPM_ANA_LOAD/WRITE: Data Comparison from spm to afni not equal. Index:' num2str(n) ...
+              ', standard deviation from 0: ' num2str(std(diffcd)) ', mean: ' num2str(mean(diffcd))];
+        
+        
+            if verbose
+              dispf('Index: %d %s failed.',n,spm_file_names{n});
+            end
+        %keyboard %debug code
+            %view_montage(temp_subj_001,'pattern','ana_brain','pattern','ana_brain');
+            %view_montage(temp_subj_001,'pattern','afni_brain','pattern','afni_brain');
+      end
+  
+      
+      
+      
+        clear data1;
+        clear data2;
+        clear temp_subj_001;
+        %clear temp_subj_002;
+        clear temp_mask;
+        clear mask_dims;
+        clear diffcd;
 end
 
 %      keyboard; %/debug code.

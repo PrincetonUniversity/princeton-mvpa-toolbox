@@ -49,7 +49,3 @@ for i = 1:numObjects
   end
   
 end
-
-if numel(matches) == 1
-  matches = matches{1};
-end

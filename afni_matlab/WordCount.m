@@ -45,7 +45,7 @@ N=0;
 
 while (~isempty(Sdiff))
 	[Word,Sdiff] = strtok(Sdiff,D);
-   if (~isempty(Word)), N=N+1; end
+N=N+1;
 end
 
 

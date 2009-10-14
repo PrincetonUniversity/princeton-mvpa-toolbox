@@ -84,8 +84,6 @@ function [adj_list_pat_idx scratch adj_list_mask_idx adj_neighb_counts] = adj_sp
 
 defaults.verbose = true;
 defaults.radius = 2;
-defaults.include = 1:count(mask);
-
 args = propval(varargin,defaults);
 %%% this piece of code turns the args fields into normal variables.
 afields = fields(args);
@@ -197,7 +195,7 @@ if args.verbose
   disp('Passing the sphere over each voxel...');
 end
 
-for v = args.include %1:nvox_active_in_mask
+for v = 1:nvox_active_in_mask
   
   % VOX_COORDS_TILED = (nvox_in_full_sphere x 3).
   % Get the x,y,z coordinates for this voxel, and then tile

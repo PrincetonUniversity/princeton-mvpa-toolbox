@@ -81,28 +81,11 @@ function [subj] = statmap_3dDeconvolve(subj,data_patname,regsname,selname,new_ma
 % exist (see WRITE_REGS_1D.M).
 %
 % BUCKET_NAME (optional, default =
-% sprintf('%s_it%i_bucket',data_patname,cur_iteration). The name of
-% the bucket that will be created, and then read in to create a new
-% statmap pattern object. If you override the default, it will append
-% '_%i_bucket+orig' to your BUCKET_NAME. You can prepend a path to
-% this, e.g. 'afni/my_new', since the AUX_PATH_NAME won't affect your
-% bucket BRIK/HEAD files' location.
-%
-% AUX_PATH_NAME (optional, default = ''). This can be a relative or
-% absolute path that determines where STATMAP_3DDECONVOLVE will place
-% all of your auxiliary files (.1d, .txt, .err, .jpg etc.) as they get
-% created. N.B. This *doesn't* affect the BUCKET_NAME, since you
-% probably want to store all your AFNI BRIK/HEAD file pairs in a
-% single directory.  If the AUX_PATH_NAME directory doesn't exist, it will
-% be created. [This replaces the PATH_NAME optional argument].
-%
-%   xxx - currently, if you feed in both an AUX_PATH_NAME *and*
-%   override the default for one of the auxiliary files,
-%   e.g. STARTPOINTS_NAME, then you'll end up with something like
-%   fullfile(aux_pathname, startpoints_name). This isn't ideal -
-%   really, it shouldn't prepend AUX_PATH_NAME when you override the
-%   default auxiliary filenames - and so this behavior may change in
-%   the future.
+% sprintf('%s_it%i_bucket',data_patname,cur_iteration). The
+% name of the bucket that will be created, and then read in
+% to create a new statmap pattern object. If you override
+% the default, it will append '_%i_bucket+orig' to your
+% BUCKET_NAME.
 %
 % OVERWRITE_BUCKETS (optional, default = false). If true, this
 % will overwrite existing bucket files of the same name,
@@ -166,40 +149,7 @@ function [subj] = statmap_3dDeconvolve(subj,data_patname,regsname,selname,new_ma
 %
 % GOFORIT (optional, default = 0). If non-zero, will add the
 % '-goforit' flag to the shell script that causes
-% 3dDeconvolve to ignore its matrix inversion warnings. See
-% http://afni.nimh.nih.gov/afni/community/board/read.php?f=1&i=21628&t=21628&v=f
-% for info on why using statmap_3dDeconvolve with with-held
-% runs sparks so many (relatively innocuous) collinearity
-% warnings.
-
-% follow up re collinearity warnings for censored runs
-%
-% I (Greg) asked Ziad Saad about the issue where we're
-% censoring out an entire 3dDeconvolve run, and it's giving
-% us a GOFORIT warning
-% 
-%   because "3dDeconvolve still creates regressors for the
-%   excluded run (baselines, trends etc.), but because that
-%   entire run has been censored out, those regressors in the
-%   design matrix are all zeros."
-% 
-%   see
-%   http://afni.nimh.nih.gov/afni/community/board/read.php?f=1&i=21628&t=21628&v=f
-%   
-% Ziad Saad suggested that instead of using censor files, we
-% use the square brackets to scope to the timepoints we want
-% 
-%   he said that there's a square bracket syntax that allows
-%   you to specify non-contiguous sets of timepoints,
-%   e.g. perhaps [0..99,200..299]
-%   
-%   this would also require you to feed in different subsets
-%   of your regressor files each time
-%   
-%   the most problematic part of this is that it would result
-%   in different orderings for the bucket regressor labels,
-%   which is almost certainly asking for trouble
-
+% 3dDeconvolve to ignore its matrix inversion warnings.
 
 % License:
 %=====================================================================
@@ -230,7 +180,6 @@ defaults.deconv_args = [];
 defaults.regs_1d_name = '';
 defaults.contrast_mat = [];
 defaults.bucket_name = '';
-defaults.aux_path_name = '';
 defaults.overwrite_buckets = false;
 defaults.mask_filename = '';
 defaults.exec_filename = '';
@@ -372,25 +321,6 @@ if ~isint(args.goforit)
   error('GOFORIT must be set to 0 or the number of warnings to ignore');
 end
 
-% if a AUX_PATH_NAME has been specified, and it doesn't exist, create it
-if ~isempty(args.aux_path_name) & ~exist(args.aux_path_name,'dir')
-  dispf('Attempting to create %s',args.aux_path_name);
-  [status msg] = mkdir(args.aux_path_name);
-  if ~status, error(msg), end
-end % checking for existence of AUX_PATH_NAME
-  
-% prepend AUX_PATH_NAME to all the filenames. if AUX_PATH_NAME is
-% empty (the default), this will have no effect, placing everything in
-% the current directory. doesn't affect the BUCKET_NAME
-fnames = {'startpoints_name', ...
-          'censor_1d_name', ...
-          'regs_1d_name', ...
-          'exec_filename'};
-for f=1:length(fnames)
-  fname = fnames{f};
-  args.(fname) = fullfile(args.aux_path_name, args.(fname));
-end % f fnames
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [] = sanity_check(regs,sel,args)
@@ -435,17 +365,13 @@ deconv_args = check_deconv_args(args.deconv_args);
 num_stimts = 0;
 
 % Create the condition lines
-%
-% xxx - the regs 1D filenames should be an optional argument, so that
-% we can deal with them in PROCESS_ARGS, rather than inline here
 conds_cell = {};
 for c=1:nConds
   num_stimts = num_stimts + 1;
   condlabels{c} = sprintf('%s_c%i',regsname,c);
   conds_cell{end+1} = sprintf('-stim_file %i %s -stim_label %i %s \\', ...
 			      num_stimts, ...
-			      fullfile(args.aux_path_name, ...
-                                       sprintf('%s_it%i_c%i.1d',regsname,args.cur_iteration,c)), ...
+			      sprintf('%s_it%i_c%i.1d',regsname,args.cur_iteration,c), ...
 			      num_stimts, ...
 			      condlabels{c} ...
 			      );
@@ -484,11 +410,9 @@ cl_cell{1} = sprintf( ...
 cl_cell{end+1} = sprintf('-input %s \\',args.whole_func_name);
 cl_cell{end+1} = sprintf('-concat %s \\',args.startpoints_name);
 cl_cell{end+1} = sprintf('-num_stimts %i \\',num_stimts);
-% use DECONV_ARGS instead, e.g. statmap_3d_arg.deconv_args.xjpeg = 'desMtx.jpg';
-%
-% xxx - better still, there should be an XJPEG argument...
-%
-% cl_cell{end+1} = sprintf('-xjpeg %s.jpg \\', args.exec_filename);
+% will produce a JPG of the design matrix called
+% e.g. mvpa_3dDeconvolve_1.sh.jpg
+cl_cell{end+1} = sprintf('-xjpeg %s.jpg \\', args.exec_filename);
 cl_cell = [cl_cell conds_cell motion_cell];
 cl_cell{end+1} = sprintf('-censor %s \\',args.censor_1d_name);
 cl_cell{end+1} = sprintf('-bucket %s \\',args.bucket_name);
@@ -497,11 +421,7 @@ if args.mask_filename
   cl_cell{end+1} = sprintf('-mask %s \\',args.mask_filename);
 end % mask
 
-% it turns out that this should use '1' instead of nConds, since we're
-% actually only running a single GLT. but then it turns out that we
-% don't actually need this argument at all. see
-% http://afni.nimh.nih.gov/afni/community/board/read.php?f=1&i=28157&t=28157#reply_28157
-% cl_cell{end+1} = sprintf('-num_glt %d \\',nConds);
+cl_cell{end+1} = sprintf('-num_glt %d \\',nConds);
 
 % create a GLT line that looks something like:
 %   -glt 'SYM: +Reg1 \ +Reg2 \ +Reg3'
@@ -535,12 +455,13 @@ end
 fclose(fid);
 
 
-exec = sprintf('source %s',args.exec_filename);
+exec = sprintf('source ./%s',args.exec_filename);
 if args.run_script
   
   [status output] = unix(exec,'-echo');
+  disp(output)
   if status
-    error(output);
+    error('Some problem with exec');
   end
 
   [err info] = BrikInfo(args.bucket_name);

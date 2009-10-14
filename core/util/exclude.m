@@ -1,5 +1,4 @@
 function [new_idx] = exclude(idx, N)
-% function [new_idx] = exclude(idx, N)
 
 % License:
 %=====================================================================

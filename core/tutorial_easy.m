@@ -22,13 +22,6 @@ function [subj results] = tutorial_easy()
 %
 % ======================================================================
 
-% Check to make sure the Neuralnetwork toolbox is in the path or this
-% won't work.
-if ~exist('newff') %#ok<EXIST>
-    error('This tutorial requires the neural networking toolbox, if it is unavailable this will not execute');
-end
-    
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INITIALIZING THE SUBJ STRUCTURE
 

@@ -30,8 +30,6 @@ function [isbool isrest isoveractive] = check_1ofn_regressors(regressors)
 % ======================================================================
 
 
-%%%%%%%%%%%%%
-%Original Code.
 ones_zeros = length(find(regressors==1)) + length(find(regressors==0));
 if ones_zeros ~= numel(regressors)
   % Some of your regressors aren''t one or zero');
@@ -42,8 +40,7 @@ end
   
 % Now check each column (timepoint) to see how many active
 % conditions there are
-
-sum_regressors = sum(regressors~=0,1);
+sum_regressors = sum(regressors,1);
 
 rests = find(sum_regressors==0);
 overactives = find(sum_regressors>1);
@@ -60,36 +57,6 @@ else
   isoveractive = false;
 end
 
-%{
-%% Perform the default setup
 
-isbool = true;
-isrest = false;
-isoveractive = false;
 
-%% Detect Whether Regressors are Binary.
-
-ones_zeros = length(find(regressors==1)) + length(find(regressors==0));
-if ones_zeros ~= numel(regressors)
-  % Some of your regressors aren''t one or zero');
-  isbool = false;
-end
-
-%% Detect whether or not there are any empty columns or overfilled ones.
-
-[reg_x, reg_y] = size(regressors);
-
-for y = 1:reg_y
-    
-    temp_count = count(regressors(:,y));
-    if temp_count == 0
-        isrest = true;
-    end
-    
-    if temp_count > 1
-        isoveractive = true;
-    end
-    
-end
-%}
 

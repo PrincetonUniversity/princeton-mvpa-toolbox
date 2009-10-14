@@ -29,16 +29,15 @@ function [subj results] = tutorial_easy()
 subj = init_subj('haxby8','tutorial_subj');
 
 %%% create the mask that will be used when loading in the data
-subj = load_analyze_mask(subj,'VT_category-selective','mask_cat_select_vt.img');
+subj = load_afni_mask(subj,'VT_category-selective','mask_cat_select_vt+orig');
 
 % now, read and set up the actual data. load_AFNI_pattern reads in the
 % EPI data from a BRIK file, keeping only the voxels active in the
 % mask (see above)
 for i=1:10
-    index=num2str(i);
-  raw_filenames{i} = ['haxby8_r' index '_.img'];
+  raw_filenames{i} = sprintf('haxby8_r%i+orig',i);
 end
-subj = load_analyze_pattern(subj,'epi','VT_category-selective',raw_filenames);
+subj = load_afni_pattern(subj,'epi','VT_category-selective',raw_filenames);
 
 % initialize the regressors object in the subj structure, load in the
 % contents from a file, set the contents into the object and add a

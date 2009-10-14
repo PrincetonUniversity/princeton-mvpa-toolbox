@@ -30,15 +30,9 @@ function [scratch] = train_bp(trainpats,traintargs,in_args,cv_args)
 % involved. xxx
 %
 % IN_ARGS required fields:
-%
-% - nHidden - number of hidden units (0 for no hidden
-% layer). N.B. this refers to the number of units in a
-% single hidden layer - we have not provided an interface
-% for creating multiple hidden layers, since there's little
-% benefit to this.
+% - nHidden - number of hidden units (0 for no hidden layer)
 %
 % IN_ARGS optional fields:
-%
 % - alg (default = 'trainscg'). The particular backpropagation
 % algorithm to use
 %
@@ -55,11 +49,6 @@ function [scratch] = train_bp(trainpats,traintargs,in_args,cv_args)
 % - show (default = NaN). Change this to 25, for instance, to make it
 % pop up a graph and text progress report every 25 epochs of training
 % - intrusive
-%
-% - showWindow (default = false). Change this to True to see
-% the fancy new Neural Networks toolbox training GUI
-% window. see
-% http://groups.google.ca/group/comp.soft-sys.matlab/browse_thread/thread/08522b547059ef69
 %
 % - performFcn (default = 'mse'). Change this if you want to use
 % 'cross_entropy' as your performance function, or regularization
@@ -140,7 +129,6 @@ end
 defaults.goal = 0.001;
 defaults.epochs = 200;
 defaults.show = NaN;
-defaults.showWindow = false;
 defaults.performFcn = 'mse';
 defaults.performParam_ratio = 1;
 defaults.valid = false;
@@ -225,7 +213,6 @@ scratch.net.trainFcn = args.alg;
 scratch.net.trainParam.goal = args.goal;
 scratch.net.trainParam.epochs = args.epochs;
 scratch.net.trainParam.show = args.show; 
-scratch.net.trainParam.showWindow = args.showWindow;
 scratch.net.performFcn = args.performFcn;
 
  

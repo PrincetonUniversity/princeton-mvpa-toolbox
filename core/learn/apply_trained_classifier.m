@@ -2,7 +2,7 @@ function [new_results all_acts all_test_idx] = apply_trained_classifier(subj,old
 
 % [NEW_RESULTS ALL_ACTS ALL_TEST_IDX] = APPLY_TRAINED_CLASSIFIER(SUBJ,OLD_RESULTS,REGSNAME,SEL_TEST_NAME, ...)
 %
-% Takes the OLD_RESULTS structure (including its already-trained
+% Takes the RESULTS structure (including its already-trained
 % classifiers), and reapplies them on a different set of
 % timepoints.
 %
@@ -16,15 +16,12 @@ function [new_results all_acts all_test_idx] = apply_trained_classifier(subj,old
 % Does not yet implement all of the optional args that
 % CROSS_VALIDATION.M allows.
 %
-% PERFMET_NAME (optional, default = 'perfmet_maxclass'). Unlike
-% CROSS_VALIDATION.M, this currently only allows you to choose a
+% PM_NAME (optional, default = 'perfmet_maxclass'). Unlike
+% CROSS_VALIDATION.M, this only allows you to choose a
 % single PERFMET. Otherwise, works the same.
 %
-% IGNORE_PEEKING (optional, default = false). By default, will screech
-% if you try and test on any of the timepoints you trained on.
-%
-% PERFMET_ARGS (optional, default = struct([])). Arguments for
-% the PERFMET_NAME, as per CROSS_VALIDATION.M.
+% PM_ARGS (optional, default = struct([])). Arguments for
+% the PM_NAME, as per CROSS_VALIDATION.M.
 
 % License:
 %=====================================================================
@@ -42,17 +39,10 @@ function [new_results all_acts all_test_idx] = apply_trained_classifier(subj,old
 
 
 % PERFMET function name
-defaults.perfmet_name = 'perfmet_maxclass';
-defaults.perfmet_args = struct([]);
-defaults.pm_name = false; % deprecated
-defaults.pm_args = false; % deprecated
-defaults.ignore_peeking = false;
+defaults.pm_name = 'perfmet_maxclass';
+defaults.pm_args = struct([]);
 
 args = propval(varargin,defaults);
-
-if args.pm_name | args.pm_args
-  error('PM_NAME and PM_ARGS have been renamed to PERFMET_NAME and PERFMET_ARGS');
-end
 
 % get the selector group that was used to train the
 % classifiers in OLD_RESULTS from the group name of the
@@ -69,7 +59,7 @@ sel_train_name = get_objfield(subj, ...
 %
 % first, check that we have the right number of iterations
 % and that the second selector group isn't peeking
-nTestTimepoints = sanity_check_sels(subj,sel_train_name, sel_test_name, args);
+nTestTimepoints = sanity_check_sels(subj,sel_train_name, sel_test_name);
 
 
 %%%%%
@@ -118,21 +108,25 @@ for n=1:nIterations
 
   scratchpad.cur_it = n;
   
-  perfmet_fh = str2func(args.perfmet_name);
+  pm_fh = str2func(args.pm_name);
     
   % Run the perfmet function and get an object back
-  pm = perfmet_fh(acts, testtargs, scratchpad, args.perfmet_args);
-  pm.function_name = args.perfmet_name;
+  pm = pm_fh(acts, testtargs, scratchpad, args.pm_args);
+  pm.function_name = args.pm_name;
   cur_it.perfmet = pm;
 
-  % UPDATED to allow storage of NaNs
+  % Store this iteration's performance, as long it's not
+  % NaN (which can happen if there were no timepoints
+  % included in the xval selector for that run
   %
   % Even though we're not not allowing multiple PERFMETs,
   % we're going to store them in the same way as
   % CROSS_VALIDATION.M.
   cur_it.perf(1) = pm.perf;
-  % nPerfs x nIterations
-  store_perfs(1,n) = cur_it.perf(1);
+  if ~isnan(cur_it.perf(1))
+    % nPerfs x nIterations
+    store_perfs(1,n) = cur_it.perf(1);
+  end
   
   % Display the performance for this iteration
   disp( sprintf('\t%.2f',cur_it.perf(1)) );
@@ -159,20 +153,18 @@ end % i nIterations
 disp(' ');
 
 % Show me the money
-new_results.total_perf = nanmean(store_perfs,2);
+results.total_perf = mean(store_perfs,2);
 
 mainhist = sprintf( ...
     'Reapplying trained classifier using %s timepoints instead of %s - got total_perfs - %s', ...
     sel_test_name, sel_train_name, ...
-    num2str(new_results.total_perf'));
+    num2str(results.total_perf'));
 
-new_results = add_results_history(new_results,mainhist,true);
-new_results.header.subj_id = old_results.header.subj_id;
-new_results.header.experiment = old_results.header.experiment;
+results = add_results_history(results,mainhist,true);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [nTestTimepoints] = sanity_check_sels(subj,sel_train_name, sel_test_name, args)
+function [nTestTimepoints] = sanity_check_sels(subj,sel_train_name, sel_test_name)
 
 % it's important that none of the SEL_TRAIN_NAME 1s show up as
 % SEL_TEST_NAME 2s (because that would be peeking), so check this
@@ -189,7 +181,7 @@ if size(all_sel_train,1) ~= size(all_sel_test,1)
   error('Different number of selectors in train and test groups');
 end
 
-if count(all_sel_train==1 & all_sel_test==2 & ~args.ignore_peeking)
+if count(all_sel_train==1 & all_sel_test==2)
   error('Peeking issue');
 end
 

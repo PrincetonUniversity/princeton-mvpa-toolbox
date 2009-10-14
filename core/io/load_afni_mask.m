@@ -65,7 +65,7 @@ switch length(args.filter_by)
  case 0
   % don't filter at all
  case 1
-  V = V == args.filter_by;
+  V = V == filter_by;
  otherwise
   error('Can only filter by a single value')
 end % filter_by

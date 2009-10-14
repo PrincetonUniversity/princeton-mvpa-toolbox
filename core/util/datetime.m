@@ -8,9 +8,6 @@ function [dt] = datetime(seconds)
 % chronological).
 %
 % If SECONDS = true, adds _SS at the end (defaults to false).
-%
-% UPDATE: it looks like there's a bug in DATESTR, so we're making 2 separate calls and concatenating them to work around it (see below).
-
 
 % License:
 %=====================================================================
@@ -31,19 +28,8 @@ if ~exist('seconds','var')
   seconds = false;
 end
 
-% get the current time as an unintelligible integer
-n = now();
-
-% deal with the DATESTR bug by concatenating 2 separate calls,
-% otherwise it gives the wrong output if you feed in 'yymmdd_HHMM' as
-% a format string.
-%
-%   http://www.mathworks.com/matlabcentral/newsreader/view_thread/236006
 if seconds
-  dt = [datestr(n,'yymmdd') '_' datestr(n,'HHMM_SS')];
+  dt = datestr(now,'yymmdd_HHMM_SS');
 else
-  dt = [datestr(n,'yymmdd') '_' datestr(n,'HHMM')];
+  dt = datestr(now,'yymmdd_HHMM');
 end
-
-
-

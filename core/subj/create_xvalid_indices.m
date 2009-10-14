@@ -31,16 +31,17 @@ function [subj] = create_xvalid_indices(subj,runs_selname,varargin)
 % scripts. such as the no-peeking ANOVA or a cross-validation
 % classifier
 %
-%   Occasionally, you may want to use the logical AND of multiple
-%   boolean selectors at once. If so, you can feed in a cell array of
-%   ACTIVES_SELNAME selector object names, and they will be ANDed
-%   together before being used to determine active timepoints.
-%
 % e.g. subj = create_xvalid_indices(subj,'runs');
 %
 %      subj = create_xvalid_indices( ...
 %         subj,'runs','new_selstem','runs_nminusone_xvalid', ...
 %         'actives_selname','actives');
+%
+% Occasionally, you may want to use the logical AND
+% of multiple boolean selectors at once. If so, you can
+% feed in a cell array of ACTIVES_SELNAME selector object
+% names, and they will be ANDed together before being
+% used to determine active timepoints.
 %
 % IGNORE_JUMBLED_RUNS (optional, default = false). By
 % default, you'll get a fatal error if your runs are
@@ -50,9 +51,6 @@ function [subj] = create_xvalid_indices(subj,runs_selname,varargin)
 % non-contiguous timepoints. In that case, set this to true,
 % and it will allow jumbled runs.
 %
-%   xxx - it looks like interspersing zeros (e.g. [0 1 0 2 0 3]) also
-%   trips the jumbled-runs detector, even if the runs are in order.
-%
 % IGNORE_RUNS_ZEROS (optional, default = false). By default,
 % you'll get a fatal error if your runs vector contains
 % zeros. Set this to true if you just want it to ignore
@@ -60,9 +58,6 @@ function [subj] = create_xvalid_indices(subj,runs_selname,varargin)
 %
 %   Currently, if your runs contain zeros, they will also
 %   trigger the 'jumbled runs' warning.
-%
-% IGNORE_NO_TESTING_TIMEPOINTS (optional, default = false). By default,
-% you'll get a warning if there are runs with no testing timepoints.
 %
 % N.B. the number of withheld runs = max(runs). So if
 % there's a run missing, it still gets its own iteration,
@@ -87,7 +82,6 @@ defaults.new_selstem = sprintf('%s_xval',runs_selname);
 defaults.actives_selname = '';
 defaults.ignore_jumbled_runs = false;
 defaults.ignore_runs_zeros = false;
-defaults.ignore_no_testing_timepoints = false;
 args = propval(varargin,defaults);
 
 runs = get_mat(subj,'selector',runs_selname);
@@ -107,7 +101,7 @@ sanity_check_for_runs(runs,actives,args)
 
 % We're going to create one selector for each iteration, each time
 % withholding a different run
-for r=unique(runs)
+for r=1:nRuns
 
   % Set up what will go into the selector object
   cur_selname = sprintf('%s_%i',args.new_selstem,r);
@@ -118,7 +112,7 @@ for r=unique(runs)
   
   % Use the actives selector to see if any TRs should be censored
   cursels(find(~actives)) = 0;  
-  sanity_check_for_cursels(cursels,args);
+  sanity_check_for_cursels(cursels);
   
   % Now create the selector object, and fill it with goodies
   subj = duplicate_object(subj,'selector',runs_selname,cur_selname);
@@ -182,12 +176,13 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [] = sanity_check_for_cursels(cursels,args)
+function [] = sanity_check_for_cursels(cursels)
 
 if ~length(find(cursels==1))
-  warning(['For some reason, you have no training TRs in this iteration. This creates a selector with all twos in it. This will be handled in the cross_validation function'])
+  warning(['For some reason, you have no training TRs in this' ...
+	   ' iteration.This create a selector with all ones in it. This will be handled in the cross_validation function'])
 end
 
-if ~length(find(cursels==2)) & ~args.ignore_no_testing_timepoints
-  warning(['For some reason, you have no testing timepoints in this iteration. This creates a selector with all ones in it. This will be handled in the cross_validation function']);
+if ~length(find(cursels==2))
+  warning(['For some reason, you have no testing TRs in this iteration.This create a selector with all twos in it. This will be handled in the cross_validation function']);
 end

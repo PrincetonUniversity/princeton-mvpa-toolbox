@@ -1,8 +1,8 @@
-function [subj] = load_spm_pattern(subj,new_patname,maskname,filenames,varargin)
+function [subj] = load_analyze_pattern(subj,new_patname,maskname,filenames,varargin)
 
-% Loads an spm dataset into a subject structure
+% Loads an ANALYZE dataset into a subject structure
 %
-% [SUBJ] = LOAD_SPM_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,FILENAMES,...)
+% [SUBJ] = LOAD_ANALYZE_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,FILENAMES,...)
 %
 % Adds the following objects:
 % - pattern object called NEW_PATNAME masked by MASKNAME
@@ -20,14 +20,14 @@ function [subj] = load_spm_pattern(subj,new_patname,maskname,filenames,varargin)
 % See the Howtos (xxx) section for tips on loading data without a
 % mask
 %
-% FILENAMES is a cell array of strings, of .nii filenames to load
+% FILENAMES is a cell array of strings, of .IMG filenames to load
 % in. Just the stem, not the extension. If FILENAMES is a string,
 % it will automatically get turned into a single-cell array for
 % you. If the string contains an asterisk, the string will be
 % converted into a cell array of all matching files.
 %
-% e.g. to load in mydata.nii:
-%   subj = load_spm_pattern(subj,'epi','wholebrain',{'mydata.nii'});
+% e.g. to load in mydata.IMG:
+%   subj = load_analyze_pattern(subj,'epi','wholebrain',{'mydata.img'});
 %
 % SINGLE (optional, default = false). If true, will store the data
 % as singles, rather than doubles, to save memory. Until recently,
@@ -49,11 +49,11 @@ function [subj] = load_spm_pattern(subj,new_patname,maskname,filenames,varargin)
 % take any responsibility whatsoever for any problems that
 % you have related to the use of the MVPA toolbox.
 %
-% =====================================================================
+% ======================================================================
 %
 % NOTE: This function was written to allow for SPM5 compatability,
 % and assumes SPM5 is installed and unmodified.  Specifically, this
-% function makes use of .nii input/output functions in
+% function makes use of .IMG and .HDR input/output functions in
 % spm_dir/@nifti/private, strangely enough...
 
 %% Defaults and setup
@@ -74,13 +74,13 @@ end
 
 %% Mask Setup
 maskvol = get_mat(subj,'mask',maskname);
-mDims   = size(maskvol); %#ok<NASGU> %get the dimensions of the mask
+mDims   = size(maskvol);%#ok<NASGU> %get the dimensions of the mask
 mask    = find(maskvol);%get the relevant indexes of the mask (all non zero's)
 mSize   = length(mask);%get the size of the mask
 
 % check mask isn't empty
 if isempty(mask)
-  error('Empty mask passed to load_spm_pattern()');
+  error('Empty mask passed to load_analyze_pattern()');
 end
 
 
@@ -113,7 +113,7 @@ nFiles = length(filenames);
 %% Initialize the data structure
 tmp_data = zeros(mSize ,nFiles); %#ok<NASGU>
 
-disp(sprintf('Starting to load pattern from %i SPM files',nFiles));
+disp(sprintf('Starting to load pattern from %i .IMG files',nFiles));
 
 %% Create a volume structure
 vol = spm_vol(filenames);
@@ -133,25 +133,27 @@ end;
 
 % allocate all at once to avoid reshaping iteratively
 tmp_data = zeros(mSize, total_m);
-
+  
 total_m = 0;
+
     %% end contribution
-for h = 1:nFiles % start looping thru the files being used.
+
+for h = 1:nFiles
   fprintf('\t%i',h);
   
   [m n] = size(vol{h}); %#ok<NASGU>
   
-  tmp_subvol=zeros(mSize,m);
   for i = 1:m
      curvol = vol{h}(i);
      
      % Enforce mask size
-%     if ~all(curvol.dim == size(maskvol))
-     if ~isequal(curvol.dim,size(maskvol))
-       error(['Supplied mask is not the proper size for this dataset. mask: ' maskname ' filename: ' filenames{h}]);
+     if ~all(curvol.dim == size(maskvol))
+       error('Inapropriate mask for .IMG');
      end
+
      % Load the data from the IMG file
      [Vdata] = spm_read_vols(curvol);
+  
      if args.single
        Vdata = single(Vdata);
      end
@@ -161,14 +163,15 @@ for h = 1:nFiles % start looping thru the files being used.
   end
   
   % Reshape the data to be Voxels X Time
+  %tmp_data(1:mSize,end+1:end+m) = tmp_subvol;
+  
     %%%%%%%%%%%%%%%%%%%%%%
     %sylvains contribution
     %%%%%%%%%%%%%%%%%%%%%%
     tmp_data(1:mSize,total_m+1:total_m+m) = tmp_subvol;
     total_m = total_m + m;
-    clear tmp_subvol;
     %% end contribution
-    
+
 end % for h
 
 disp(' ');
@@ -180,7 +183,7 @@ subj = set_mat(subj,'pattern',new_patname,tmp_data);
 subj = set_objfield(subj,'pattern',new_patname,'masked_by',maskname);
 
 %% Add the history to the pattern
-hist_str = sprintf('Pattern ''%s'' created by load_spm_pattern',new_patname);
+hist_str = sprintf('Pattern ''%s'' created by load_analyze_pattern',new_patname);
 subj = add_history(subj,'pattern',new_patname,hist_str,true);
 
 %% Add information to the new pattern's header, for future reference
@@ -190,7 +193,8 @@ subj = set_objsubfield(subj,'pattern',new_patname,'header', ...
 %% Load the subject         
 % This object was conceived under a tree. Store that information in
 % the SUBJ structure
-created.function = 'load_spm_pattern';
+created.function = 'load_analyze_pattern';
 created.args = args;
 subj = add_created(subj,'pattern',new_patname,created);
-end %main function
+
+

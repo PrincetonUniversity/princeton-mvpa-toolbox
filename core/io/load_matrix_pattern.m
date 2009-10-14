@@ -2,7 +2,7 @@ function [subj] = load_matrix_pattern(subj,new_patname,maskname,mat)
 
 % Loads a 4D matrix into the SUBJ structure as a pattern
 %
-% [SUBJ] = LOAD_MATRIX_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,MAT)
+% [SUBJ] = LOAD_MATRIX_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,FILENAMES)
 %
 % Adds the following objects:
 % - pattern object called NEW_PATNAME masked by MASKNAME
@@ -103,4 +103,6 @@ subj = add_history(subj,'pattern',new_patname,hist_str,true);
 % the SUBJ structure
 created.function = 'load_matrix_pattern';
 subj = add_created(subj,'pattern',new_patname,created);
+
+
 

@@ -24,7 +24,7 @@ warnmsgs = {};
 % this test should fail if the function works with no arguments.
 try
   subj = zscore_runs();
-  errmsgs{end+1} = 'No arguments test:failed';
+  errmsgs{end+1} = 'No arguments test:failed'
 end
 
 
@@ -187,7 +187,7 @@ clear subj;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% this test checks if the function works for missing runs
+% this test checks if the function works missing runs
 
 [subj data] = create_fake_data();
 
@@ -204,43 +204,6 @@ if ~isequal(get_mat(subj,'pattern','fake_data_z'),desired)
 end
 clear desired;
 clear subj;
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% negative test
-% this test should fail if you feed in jumbled runs by default
-
-[subj data] = create_fake_data();
-
-% creating fake selectors
-jumbled_runs = [1 1 2 2 1 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5 6 6 6 6 6];
-subj = initset_object(subj,'selector','jumbled_runs',jumbled_runs);
-
-try
-  [subj]= zscore_runs(subj,'fake_data','jumbled_runs');
-  errmsgs{end+1} = 'Runs with jumbled runs by default';
-end
-clear desired subj
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% this test checks if the function works for jumbled runs if
-% you set it to ignore them
-
-[subj data] = create_fake_data();
-
-% creating fake selectors
-jumbled_runs = [1 1 2 2 1 3 3 3 3 3 4 4 4 4 4 5 5 5 5 5 6 6 6 6 6];
-subj = initset_object(subj,'selector','jumbled_runs',jumbled_runs);
-
-[subj]= zscore_runs(subj,'fake_data','jumbled_runs','ignore_jumbled_runs',true);
-[desired] = my_zscore(get_mat(subj,'selector','jumbled_runs'),data);
-
-%comparing both the outputs.
-if ~isequal(get_mat(subj,'pattern','fake_data_z'),desired) 
-  errmsgs{end+1} = 'Regular data: Not the desired output'; 
-end
-clear desired subj;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -413,7 +376,7 @@ clear actives;
 
 subj = init_subj('UNIT_ZSCORE_RUNS','fake_subj');
 subj = initset_object(subj,'selector','default_runs', ...
-                      ones(1,5));
+                      ones(1,5))
 subj = initset_object(subj,'mask','wholevol',ones(1,1,2));
 
 % we're going to take some simple data where we've

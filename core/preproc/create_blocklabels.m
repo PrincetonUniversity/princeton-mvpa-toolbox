@@ -3,14 +3,12 @@ function [subj] = create_blocklabels(subj,regsname,runsname,varargin)
 % Creates selector labels for each condition in each run
 %
 % [SUBJ] = CREATE_BLOCKLABELS(SUBJ,REGSNAME,RUNSNAME,...)
-% 
-% See https://compmem.princeton.edu/mvpa_docs/TutorialAvg
 %
-% This is usually used a precursor to a function like
-% AVERAGE_OBJECT.M. It creates a BLOCKLABELS selector which
-% assigns a unique number to all the TRs in a given
-% condition in each run, even if the timepoints from a given
-% condition are not contiguous.
+% This is usually used a precursor to AVERAGE_DATA.M. It
+% creates a BLOCKLABELS selector which assigns a unique
+% number to all the TRs in a given condition in each run,
+% even if the timepoints from a given condition are not
+% contiguous.
 %
 % Adds the following objects:
 % - selector object 'blocklabels' (if BLOCKLABELS_NAME isn't specified)
@@ -23,10 +21,7 @@ function [subj] = create_blocklabels(subj,regsname,runsname,varargin)
 % then call AVERAGE_OBJECT. The blocks need not be contiguous.
 %
 % Note: if REGSNAME contains rest, those TRs will be excluded in
-% the averaging.
-%
-% Note: the labels are basically meaningless, and may not
-% increase chronologically.
+% the averaging. Is this a problem for anyone? xxx
 %
 % ACTIVES_SELNAME (optional, default = ''). By default,
 % this will take in all timepoints. Send in a boolean
