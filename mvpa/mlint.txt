@@ -1,0 +1,218 @@
+========== /home/greg/fmri/distpat/trunk/mvpa/add_created.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/add_history.m ==========
+L 17 (C 5-9): EXIST with two input arguments is faster than with one input
+========== /home/greg/fmri/distpat/trunk/mvpa/add_results_history.m ==========
+L 19 (C 5-9): EXIST with two input arguments is faster than with one input
+========== /home/greg/fmri/distpat/trunk/mvpa/add_struct_fields.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/change_groupname.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/check_1ofn_regressors.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/compare_size.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/create_pattern_from_mask.m ==========
+L 34 (C 24): Use && instead of & as the AND operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/create_thresh_mask.m ==========
+L 42 (C 5-13): Array 'masknames' is constructed using subscripting. Consider preallocating for speed
+L 73 (C 13-16): Logical subscripting is faster than FIND
+L 75 (C 13-16): Logical subscripting is faster than FIND
+========== /home/greg/fmri/distpat/trunk/mvpa/create_xvalid_indices.m ==========
+L 66 (C 1-13): The value assigned here to variable 'all_selsnames' is never used
+L 77 (C 11-14): Logical subscripting is faster than FIND
+L 80 (C 11-14): Logical subscripting is faster than FIND
+========== /home/greg/fmri/distpat/trunk/mvpa/cross_entropy.m ==========
+L 1 (C 34): Input variable 'x' is never used
+L 22 (C 4-8): ISSTR is deprecated--use ISCHAR instead
+========== /home/greg/fmri/distpat/trunk/mvpa/cross_entropy_deriv.m ==========
+L 1 (C 48-51): Input variable 'perf' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/cross_validation.m ==========
+L 71 (C 1-8): The value assigned here to variable 'patterns' is never used
+L 99 (C 33): Use && instead of & as the AND operator in conditional statements
+L 132 (C 14-20): WARNING takes SPRINTF-like arguments directly
+L 224 (C 43): Use || instead of | as the OR operator in conditional statements
+L 228 (C 40): Use || instead of | as the OR operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/datetime.m ==========
+L 17 (C 5-9): EXIST with two input arguments is faster than with one input
+========== /home/greg/fmri/distpat/trunk/mvpa/display_history.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/display_results_history.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/duplicate_object.m ==========
+L 30 (C 5-9): EXIST with two input arguments is faster than with one input
+L 36 (C 3-7): ERROR takes SPRINTF-like arguments directly
+L 53 (C 4-11): STRNCMP(str1,str2,length(str1)) is faster than STRMATCH(str1,str2)
+L 81 (C 12-18): WARNING takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/exist_objfield.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/exist_objsubfield.m ==========
+L 17 (C 1-3): The value assigned here to variable 'obj' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/feature_select.m ==========
+L 89 (C 3-6): The value assigned here to variable 'sels' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/find_group.m ==========
+L 31 (C 6-13): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+========== /home/greg/fmri/distpat/trunk/mvpa/find_obj.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/get_masked_pattern.m ==========
+L 45 (C 18-19): The value assigned here to variable 'ib' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/get_mat.m ==========
+L 35 (C 3-7): ERROR takes SPRINTF-like arguments directly
+L 50 (C 12-18): WARNING takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/get_name.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/get_number.m ==========
+L 26 (C 21): Use || instead of | as the OR operator in conditional statements
+L 30 (C 21): Use || instead of | as the OR operator in conditional statements
+L 34 (C 13-20): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 38 (C 1-3): The value assigned here to variable 'obj' is never used
+L 48 (C 5-9): ERROR takes SPRINTF-like arguments directly
+L 48 (C 20-61): Format string does not agree with argument count
+L 57 (C 7-11): ERROR takes SPRINTF-like arguments directly
+L 64 (C 11): Use && instead of & as the AND operator in conditional statements
+L 72 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/get_object.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/get_objfield.m ==========
+L 35 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/get_objsubfield.m ==========
+L 24 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/get_ref_vol.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/get_relative_index.m ==========
+L 32 (C 17): Parse error at ')' appears to be invalid MATLAB syntax
+L 32 (C 19): There may be a parenthesis imbalance around here
+========== /home/greg/fmri/distpat/trunk/mvpa/get_special_fields_list.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/get_type.m ==========
+L 13 (C 12-19): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 34 (C 21): Use && instead of & as the AND operator in conditional statements
+L 35 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/get_typeslist.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/init_object.m ==========
+L 1 (C 56): Extra semicolon is unnecessary
+L 48 (C 13-20): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 93 (C 5-9): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/init_subj.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/load_afni_mask.m ==========
+L 22 (C 3-7): ERROR takes SPRINTF-like arguments directly
+L 30 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/load_afni_pattern.m ==========
+L 49 (C 4-6): The value assigned here to variable 'err' is never used
+L 51 (C 3-6): Array 'bLen' is constructed using subscripting. Consider preallocating for speed
+L 66 (C 14-22): Array 'AFNIheads' is constructed using subscripting. Consider preallocating for speed
+L 70 (C 5-9): ERROR takes SPRINTF-like arguments directly
+L 84 (C 12): Use of brackets [] is unnecessary.  Use parentheses to group, if needed
+========== /home/greg/fmri/distpat/trunk/mvpa/load_pattern_from_hd.m ==========
+L 24 (C 5-9): ERROR takes SPRINTF-like arguments directly
+L 34 (C 5-9): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/move_pattern_to_hd.m ==========
+L 59 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/peek_feature_select.m ==========
+L 46 (C 1-4): The value assigned here to variable 'sels' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/perfmet_maxclass.m ==========
+L 43 (C 24): Use && instead of & as the AND operator in conditional statements
+L 51 (C 2-7): The value assigned here to variable 'nUnits' is never used
+L 53 (C 2): The value assigned here to variable 'y' is never used
+L 55 (C 2): The value assigned here to variable 'y' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/perfmet_template.m ==========
+L 1 (C 50-53): Input variable 'args' is never used
+L 16 (C 2-7): The value assigned here to variable 'nUnits' is never used
+L 16 (C 9-19): The value assigned here to variable 'nTimepoints' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/propval.m ==========
+L 71 (C 1-10): The value assigned here to variable 'n_defaults' is never used
+L 95 (C 32-39): Use dynamic fieldnames with structures instead of GETFIELD. Type 'doc struct' for more information
+L 113 (C 7-12): Use STRCMPI(str1,str2) instead of using LOWER in a call to STRCMP
+========== /home/greg/fmri/distpat/trunk/mvpa/remove_group.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/remove_mat.m ==========
+========== /home/greg/fmri/distpat/trunk/mvpa/remove_object.m ==========
+L 41 (C 10-16): WARNING takes SPRINTF-like arguments directly
+L 49 (C 37): Use && instead of & as the AND operator in conditional statements
+L 55 (C 14-20): WARNING takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/remove_objfield.m ==========
+L 26 (C 15-22): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 36 (C 13-20): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 42 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/remove_objsubfield.m ==========
+L 1 (C 82-87): Input variable 'newval' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/save_subj.m ==========
+L 50 (C 1-2): The value assigned here to variable 'id' is never used
+L 51 (C 1-6): The value assigned here to variable 'subdir' is never used
+L 77 (C 9-13): EXIST with two input arguments is faster than with one input
+L 77 (C 24-31): Format string does not agree with argument count
+========== /home/greg/fmri/distpat/trunk/mvpa/scramble_regressors.m ==========
+L 38 (C 12): Use || instead of | as the OR operator in conditional statements
+L 38 (C 21): Use || instead of | as the OR operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/set_mat.m ==========
+L 114 (C 20): Use && instead of & as the AND operator in conditional statements
+L 115 (C 12-18): WARNING takes SPRINTF-like arguments directly
+L 124 (C 21): Use && instead of & as the AND operator in conditional statements
+L 124 (C 52): Use && instead of & as the AND operator in conditional statements
+L 125 (C 30): Use && instead of & as the AND operator in conditional statements
+L 126 (C 13-19): WARNING takes SPRINTF-like arguments directly
+L 161 (C 38): Use && instead of & as the AND operator in conditional statements
+L 196 (C 12-18): WARNING takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/set_object.m ==========
+L 23 (C 3-7): ERROR takes SPRINTF-like arguments directly
+========== /home/greg/fmri/distpat/trunk/mvpa/set_objfield.m ==========
+L 47 (C 31): Use && instead of & as the AND operator in conditional statements
+L 74 (C 28): Use && instead of & as the AND operator in conditional statements
+L 80 (C 20): Use && instead of & as the AND operator in conditional statements
+L 80 (C 41): Use && instead of & as the AND operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/set_objsubfield.m ==========
+L 40 (C 33): Use && instead of & as the AND operator in conditional statements
+L 46 (C 20): Use && instead of & as the AND operator in conditional statements
+L 46 (C 36): Use && instead of & as the AND operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/set_type.m ==========
+L 22 (C 9-64): Format string does not agree with argument count
+========== /home/greg/fmri/distpat/trunk/mvpa/shift_TRs.m ==========
+L 17 (C 1-5): The value assigned here to variable 'nRuns' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/shuffle.m ==========
+L 17 (C 5-9): EXIST with two input arguments is faster than with one input
+L 42 (C 2-5): The value assigned here to variable 'vals' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/statmap_anova.m ==========
+L 58 (C 16-41): Format string does not agree with argument count
+L 103 (C 9-14): The value assigned here to variable 'isrest' is never used
+L 104 (C 12): Use || instead of | as the OR operator in conditional statements
+L 120 (C 15): Use || instead of | as the OR operator in conditional statements
+L 125 (C 24): Use || instead of | as the OR operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/statmap_template.m ==========
+L 58 (C 16-44): Format string does not agree with argument count
+L 72 (C 11): Function return value 'p' is never set
+L 72 (C 39-41): Input variable 'pat' is never used
+L 72 (C 43-46): Input variable 'regs' is never used
+L 72 (C 48-51): Input variable 'args' is never used
+L 79 (C 28-30): Input variable 'pat' is never used
+L 79 (C 32-35): Input variable 'regs' is never used
+L 79 (C 37-39): Input variable 'sel' is never used
+L 79 (C 41-44): Input variable 'args' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/summarize.m ==========
+L 73 (C 35): Use && instead of & as the AND operator in conditional statements
+L 78 (C 18-25): STRCMP(str1,str2) is faster than STRMATCH(str1,str2,'exact')
+L 138 (C 1-12): The value assigned here to variable 'displ_as_grp' is never used
+L 139 (C 1-10): The value assigned here to variable 'group_size' is never used
+L 151 (C 3-9): The value assigned here to variable 'grpname' is never used
+L 152 (C 3-5): The value assigned here to variable 'mat' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/test_bp.m ==========
+L 18 (C 5-9): EXIST with two input arguments is faster than with one input
+========== /home/greg/fmri/distpat/trunk/mvpa/test_bp_netlab.m ==========
+L 18 (C 5-9): EXIST with two input arguments is faster than with one input
+L 25 (C 1-9): The value assigned here to variable 'testtargs' is never used
+L 35 (C 47-56): Input variable 'scratchpad' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/test_template.m ==========
+L 1 (C 11-14): Function return value 'acts' is never set
+L 32 (C 28-35): Input variable 'testpats' is never used
+L 32 (C 37-45): Input variable 'testtargs' is never used
+L 32 (C 47-56): Input variable 'scratchpad' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/train_bp.m ==========
+L 119 (C 17-19): Use the DIMENSION input argument to min instead of using transpose (')
+L 120 (C 17-19): Use the DIMENSION input argument to max instead of using transpose (')
+L 134 (C 31): Use of brackets [] is unnecessary.  Use parentheses to group, if needed
+L 167 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed
+L 200 (C 30): Use && instead of & as the AND operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/train_bp_netlab.m ==========
+L 94 (C 30): Use && instead of & as the AND operator in conditional statements
+========== /home/greg/fmri/distpat/trunk/mvpa/train_template.m ==========
+L 50 (C 28-36): Input variable 'trainpats' is never used
+L 50 (C 38-47): Input variable 'traintargs' is never used
+L 50 (C 49-58): Input variable 'scratchpad' is never used
+L 50 (C 60-63): Input variable 'args' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/tutorial_easy.m ==========
+L 28 (C 3-15): Array 'raw_filenames' is constructed using subscripting. Consider preallocating for speed
+========== /home/greg/fmri/distpat/trunk/mvpa/write_to_afni.m ==========
+L 56 (C 34): Use && instead of & as the AND operator in conditional statements
+L 64 (C 3-12): The value assigned here to variable 'ErrMessage' is never used
+L 75 (C 5-10): The value assigned here to variable 'ismask' is never used
+L 84 (C 5-10): The value assigned here to variable 'ismask' is never used
+L 160 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed
+L 161 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed
+L 162 (C 11-20): The value assigned here to variable 'ErrMessage' is never used
+========== /home/greg/fmri/distpat/trunk/mvpa/zscore_runs.m ==========
+/n/nhello

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of scramble_regressors</title>
+  <meta name="keywords" content="scramble_regressors">
+  <meta name="description" content="Scrambles your regressors for sanity-checking">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>scramble_regressors
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Scrambles your regressors for sanity-checking</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Scrambles your regressors for sanity-checking
+
+ [SUBJ] = SCRAMBLED_REGRESSORS(SUBJ,REGSNAME,SELNAME,NEW_REGSNAME,...)
+
+ It takes as inputs:
+ SUBJ = the subj structure
+ REGSNAME = the name of the regressors you want to scramble
+ SELNAME = the selector that you want to constrain your scrambling
+ by.  Usually you will want to scramble within runs, so that you
+ have the same number of timepoints in each run. Therefore,
+ reference your 'runs' variable for the selname
+ NEW_REGSNAME = the name you want to give your new scrambled
+ regressors matrix 
+
+ IGNORE_1OFN (optional, default = false). If your regressors
+ are continuous-valued, contain rest or contain multiple active
+ conditions in a timepoint, then you might want to scramble them
+ in a more sophisticated way that ensures that their
+ characteristics are preserved. By default, you'll get warned if
+ your regressors aren't in basic 1-of-n form, unless you set this
+ to true.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="check_1ofn_regressors.html" class="code" title="function [isbool isrest isoveractive] = check_1ofn_regressors(regressors)">check_1ofn_regressors</a>	Tells you about your regressors matrix</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="shuffle.html" class="code" title="function [shuffled idx] = shuffle(mat,dim)">shuffle</a>	Shuffles the order of a vector or 2D matrix</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargin)</a>
+0002 
+0003 <span class="comment">% Scrambles your regressors for sanity-checking</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = SCRAMBLED_REGRESSORS(SUBJ,REGSNAME,SELNAME,NEW_REGSNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% It takes as inputs:</span>
+0008 <span class="comment">% SUBJ = the subj structure</span>
+0009 <span class="comment">% REGSNAME = the name of the regressors you want to scramble</span>
+0010 <span class="comment">% SELNAME = the selector that you want to constrain your scrambling</span>
+0011 <span class="comment">% by.  Usually you will want to scramble within runs, so that you</span>
+0012 <span class="comment">% have the same number of timepoints in each run. Therefore,</span>
+0013 <span class="comment">% reference your 'runs' variable for the selname</span>
+0014 <span class="comment">% NEW_REGSNAME = the name you want to give your new scrambled</span>
+0015 <span class="comment">% regressors matrix</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% IGNORE_1OFN (optional, default = false). If your regressors</span>
+0018 <span class="comment">% are continuous-valued, contain rest or contain multiple active</span>
+0019 <span class="comment">% conditions in a timepoint, then you might want to scramble them</span>
+0020 <span class="comment">% in a more sophisticated way that ensures that their</span>
+0021 <span class="comment">% characteristics are preserved. By default, you'll get warned if</span>
+0022 <span class="comment">% your regressors aren't in basic 1-of-n form, unless you set this</span>
+0023 <span class="comment">% to true.</span>
+0024 
+0025 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0026 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0027 <span class="comment">% information.</span>
+0028 
+0029 
+0030 defaults.ignore_1ofn = false;
+0031 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0032 
+0033 regs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'regressors'</span>,regsname);
+0034 runs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,selname);
+0035 
+0036 <span class="comment">% See comment about IGNORE_1OFN above</span>
+0037 [isbool isrest isoveractive] = <a href="check_1ofn_regressors.html" class="code" title="function [isbool isrest isoveractive] = check_1ofn_regressors(regressors)">check_1ofn_regressors</a>(regs);
+0038 <span class="keyword">if</span> ~isbool || isrest || isoveractive
+0039   <span class="keyword">if</span> ~args.ignore_1ofn
+0040     warn = [<span class="string">'Your regressors aren''t in basic 1-of-n form - '</span> <span class="keyword">...</span>
+0041        <span class="string">'you may want to consider more sophisticated shuffling techniques'</span>];
+0042     warning(warn);
+0043   <span class="keyword">end</span>
+0044 <span class="keyword">end</span>
+0045 
+0046 nruns = max(runs);
+0047 
+0048 <span class="comment">% These next lines will shuffle your regressors within each run</span>
+0049 
+0050 <span class="keyword">for</span> i = 1:nruns
+0051   thisrun = find(runs == i);
+0052   regs(:,thisrun) = <a href="shuffle.html" class="code" title="function [shuffled idx] = shuffle(mat,dim)">shuffle</a>(regs(:,thisrun),2);
+0053 <span class="keyword">end</span>
+0054 
+0055 subj = <a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>(subj,<span class="string">'regressors'</span>,regsname,new_regsname);
+0056 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'regressors'</span>,new_regsname,regs);
+0057 
+0058 hist = sprintf(<span class="string">'Regressors ''%s'' created by scramble_regressors'</span>,new_regsname);
+0059 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'regressors'</span>,new_regsname,hist,true);
+0060 
+0061 created.function = <span class="string">'scramble_regressors'</span>;
+0062 created.regsname = regsname;
+0063 created.selname = selname;
+0064 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'regressors'</span>,new_regsname,created);</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

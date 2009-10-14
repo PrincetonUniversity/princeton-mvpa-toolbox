@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of export_to_afni</title>
+  <meta name="keywords" content="export_to_afni">
+  <meta name="description" content="Write an object out to an AFNI BRIK">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>export_to_afni
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Write an object out to an AFNI BRIK</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [] = export_to_afni(single_vol,sample_brik_name,new_brik_name,opt) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Write an object out to an AFNI BRIK
+
+ [] = EXPORT_TO_AFNI(SINGLE_VOL,SAMPLE_BRIK_NAME,NEW_BRIK_NAME,OPT)
+
+ This takes in a single volume's worth of data (SINGLE_VOL: nVox x
+ nTRs) and the filenames for the BRIK/HEAD pair that you want to
+ use as your template (SAMPLE_BRIK_NAME), and then writes out to
+ NEW_BRIK_NAME .BRIK and .HEAD.
+
+ The hard work is being done by Ziad Saad's WriteBrik
+ function. I'm keen to figure out how to write just single volumes
+ out for the purposes of visualising the ANOVA masks and the
+ unpacking voxelmaps, though writing out whole timecourses
+ shouldn't be much different.
+
+ I've been having trouble with the version of WriteBrik in Ziad Saad's
+ latest afni_matlab scripts. It keeps asking me about slices and
+ frames. If you use the WriteBrik and WriteBrikHEAD from the
+ original cvs'd BRIKLOAD_SCRIPTS directory, it seems to work
+ nicely, which was how it was done originally.
+ ADDENDUM: i've now got the writeopt parameters to work, and i
+ think they're right, but i'm not 100% certain. Have also
+ incorporated Rick Reynolds' advice for creating the allzeros
+ sample brik
+ (http://afni.nimh.nih.gov/afni/community/board/read.php?f=1&amp;i=6385&amp;t=6385)
+
+ You may need to change directory to where your afni files are
+ stored before running this
+
+ % e.g. export_to_afni(zeros([64 64 32]),'sample+orig','anova_statmap',opt)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [single_vol opt] = sanity_check(</a></li><li><a href="#_sub2" class="code">function [svz_sbn] = zeroify_sample_brik(sbn)</a></li><li><a href="#_sub3" class="code">function [V head] = load_sample_brik(sample_brik_name,single_vol)</a></li><li><a href="#_sub4" class="code">function [brikopt] = create_brikopt(opt,new_brik_name,view,V)</a></li><li><a href="#_sub5" class="code">function [info] = write_new_brik(single_vol,head,brikopt)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [] = export_to_afni(single_vol,sample_brik_name,new_brik_name,opt)</a>
+0002 
+0003 <span class="comment">% Write an object out to an AFNI BRIK</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [] = EXPORT_TO_AFNI(SINGLE_VOL,SAMPLE_BRIK_NAME,NEW_BRIK_NAME,OPT)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This takes in a single volume's worth of data (SINGLE_VOL: nVox x</span>
+0008 <span class="comment">% nTRs) and the filenames for the BRIK/HEAD pair that you want to</span>
+0009 <span class="comment">% use as your template (SAMPLE_BRIK_NAME), and then writes out to</span>
+0010 <span class="comment">% NEW_BRIK_NAME .BRIK and .HEAD.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% The hard work is being done by Ziad Saad's WriteBrik</span>
+0013 <span class="comment">% function. I'm keen to figure out how to write just single volumes</span>
+0014 <span class="comment">% out for the purposes of visualising the ANOVA masks and the</span>
+0015 <span class="comment">% unpacking voxelmaps, though writing out whole timecourses</span>
+0016 <span class="comment">% shouldn't be much different.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% I've been having trouble with the version of WriteBrik in Ziad Saad's</span>
+0019 <span class="comment">% latest afni_matlab scripts. It keeps asking me about slices and</span>
+0020 <span class="comment">% frames. If you use the WriteBrik and WriteBrikHEAD from the</span>
+0021 <span class="comment">% original cvs'd BRIKLOAD_SCRIPTS directory, it seems to work</span>
+0022 <span class="comment">% nicely, which was how it was done originally.</span>
+0023 <span class="comment">% ADDENDUM: i've now got the writeopt parameters to work, and i</span>
+0024 <span class="comment">% think they're right, but i'm not 100% certain. Have also</span>
+0025 <span class="comment">% incorporated Rick Reynolds' advice for creating the allzeros</span>
+0026 <span class="comment">% sample brik</span>
+0027 <span class="comment">% (http://afni.nimh.nih.gov/afni/community/board/read.php?f=1&amp;i=6385&amp;t=6385)</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% You may need to change directory to where your afni files are</span>
+0030 <span class="comment">% stored before running this</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% % e.g. export_to_afni(zeros([64 64 32]),'sample+orig','anova_statmap',opt)</span>
+0033 
+0034 <span class="comment">% read in sample brik and save header info</span>
+0035 <span class="comment">% turn sample brik into all zeros, single volume</span>
+0036 <span class="comment">% overwrite with single_vol dat</span>
+0037 <span class="comment">% call WriteBrik</span>
+0038 <span class="comment">% run AFNI to visualise things</span>
+0039 
+0040 <span class="keyword">if</span> ~exist(<span class="string">'opt'</span>)
+0041   opt = [];
+0042 <span class="keyword">end</span>
+0043 
+0044 disp(<span class="string">'Beginning the export to afni'</span>);
+0045 
+0046 [single_vol opt] = <a href="#_sub1" class="code" title="subfunction [single_vol opt] = sanity_check( ">sanity_check</a>(single_vol,sample_brik_name,new_brik_name,opt);
+0047 
+0048 [singlevolzeros_sample_brik_name] = <a href="#_sub2" class="code" title="subfunction [svz_sbn] = zeroify_sample_brik(sbn)">zeroify_sample_brik</a>(sample_brik_name);
+0049 
+0050 [V head] = <a href="#_sub3" class="code" title="subfunction [V head] = load_sample_brik(sample_brik_name,single_vol)">load_sample_brik</a>(singlevolzeros_sample_brik_name,single_vol);
+0051 
+0052 brikopt = <a href="#_sub4" class="code" title="subfunction [brikopt] = create_brikopt(opt,new_brik_name,view,V)">create_brikopt</a>(opt,new_brik_name,opt.view,V);
+0053 
+0054 info = <a href="#_sub5" class="code" title="subfunction [info] = write_new_brik(single_vol,head,brikopt)">write_new_brik</a>(single_vol,head,brikopt);
+0055 
+0056 disp( sprintf(<span class="string">'Now run afni and use %s as your overlay'</span>,new_brik_name) );
+0057 
+0058 
+0059 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0060 <a name="_sub1" href="#_subfunctions" class="code">function [single_vol opt] = sanity_check( </a><span class="keyword">...</span>
+0061     single_vol,sample_brik_name,new_brik_name,opt);
+0062 
+0063 <span class="comment">% does a bunch of simple checks</span>
+0064 
+0065 <span class="keyword">if</span> isempty(single_vol) | ~length(find(single_vol))
+0066   error(<span class="string">'The volume you''ve fed in is empty'</span>);
+0067 <span class="keyword">end</span>
+0068 
+0069 <span class="keyword">if</span> ndims(single_vol)~=3
+0070   error(<span class="string">'You''ve fed in a non-3D volume to write out'</span>);
+0071 <span class="keyword">end</span>
+0072 
+0073 <span class="keyword">if</span> ~isfield(opt,<span class="string">'view'</span>)
+0074   opt.view = <span class="string">'+orig'</span>;
+0075   disp( sprintf(<span class="string">'\tdefaulting to +orig view'</span>) );
+0076 <span class="keyword">end</span>
+0077 
+0078 <span class="comment">% BrikLoad will fail if the sample brik doesn't exist, so i'm not</span>
+0079 <span class="comment">% going to bother checking for it</span>
+0080 
+0081 <span class="keyword">if</span> filexist( sprintf(<span class="string">'%s%s.BRIK'</span>,new_brik_name,opt.view) )
+0082   disp( sprintf(<span class="string">'\t%s exists - deleting in 5 secs unless you press Ctrl-C'</span>,new_brik_name) );
+0083   pause(5)
+0084   delete( sprintf(<span class="string">'%s%s.BRIK'</span>,new_brik_name,opt.view) );
+0085   delete( sprintf(<span class="string">'%s%s.HEAD'</span>,new_brik_name,opt.view) );
+0086   disp( sprintf(<span class="string">'\tdeleted %s .BRIK and .HEAD'</span>,new_brik_name) );
+0087 <span class="keyword">end</span>
+0088 
+0089 
+0090 
+0091 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0092 <a name="_sub2" href="#_subfunctions" class="code">function [svz_sbn] = zeroify_sample_brik(sbn)</a>
+0093 
+0094 <span class="comment">% sbn = sample_brik_name</span>
+0095 <span class="comment">% svz_sbn = singlevolzeros_sample_brik_name</span>
+0096 svz_sbn = sprintf(<span class="string">'singlevolzeros_%s'</span>,sbn);
+0097 
+0098 <span class="keyword">if</span> filexist( sprintf(<span class="string">'%s.BRIK'</span>,svz_sbn) )
+0099   disp( sprintf(<span class="string">'\t%s exists - deleting in 5 secs unless you press Ctrl-C'</span>,svz_sbn) );
+0100   pause(5)
+0101   disp( sprintf(<span class="string">'\tDeleting %s .BRIK and .HEAD'</span>,svz_sbn) );
+0102 
+0103   <span class="comment">% xxx use delete instead</span>
+0104   unix( sprintf(<span class="string">'\trm %s.BRIK'</span>,svz_sbn) );
+0105   unix( sprintf(<span class="string">'\trm %s.HEAD'</span>,svz_sbn) );
+0106 <span class="keyword">end</span>
+0107 
+0108 disp(<span class="string">'Calling 3dcalc to create new single-volume all-zeros sample brik'</span>);
+0109 
+0110 <span class="keyword">if</span> filexist(<span class="string">'/home/afni/3dcalc'</span>)
+0111   command_3dcalc = <span class="string">'/home/afni/3dcalc'</span>;
+0112 <span class="keyword">else</span>
+0113   command_3dcalc = <span class="string">'3dcalc'</span>;
+0114 <span class="keyword">end</span>
+0115 
+0116 exec = sprintf(<span class="string">'%s -a %s''[0]'' -expr 0 -datum float -prefix %s'</span>, <span class="keyword">...</span>
+0117           command_3dcalc,sbn,svz_sbn);
+0118 [status results] = unix(exec);
+0119 
+0120 <span class="keyword">if</span> status
+0121   error(<span class="string">'Problem with the shell command for zeroifying sample brik'</span>);
+0122 <span class="keyword">end</span>
+0123 
+0124 
+0125 
+0126 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0127 <a name="_sub3" href="#_subfunctions" class="code">function [V head] = load_sample_brik(sample_brik_name,single_vol)</a>
+0128 
+0129 [err,V,head,err_message] = BrikLoad(sample_brik_name);
+0130 <span class="keyword">if</span> err
+0131   error(sprintf(<span class="string">'error in BrikLoad -%s'</span>,err_message));
+0132 <span class="keyword">end</span>
+0133 
+0134 <span class="keyword">if</span> ~all(size(single_vol)==size(V))
+0135   error(<span class="string">'Size of single vol is different from size of sample BRIK'</span>);
+0136 <span class="keyword">end</span>
+0137 
+0138 
+0139 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0140 <a name="_sub4" href="#_subfunctions" class="code">function [brikopt] = create_brikopt(opt,new_brik_name,view,V)</a>
+0141 
+0142 <span class="keyword">if</span> isfield(opt,<span class="string">'NoCheck'</span>)
+0143   NoCheck = opt.NoCheck;
+0144 <span class="keyword">else</span>
+0145   NoCheck = 0;
+0146 <span class="keyword">end</span>
+0147 
+0148 brikopt = [];
+0149 brikopt.Prefix = new_brik_name;
+0150 brikopt.Scale = 1; <span class="comment">% from polyn/freerec_scripts/writeColormap</span>
+0151 brikopt.View = opt.view; <span class="comment">% from writeColormap</span>
+0152 brikopt.verbose = 1;
+0153 brikopt.AppendHistory = 1;
+0154 brikopt.NoCheck = NoCheck; <span class="comment">% 0 is full checking</span>
+0155 brikopt.Frames = 1; <span class="comment">% is frames the number of TRs???</span>
+0156 brikopt.Slices = (1:size(V,3)); <span class="comment">% is slices the third dimension???</span>
+0157 disp(<span class="string">'Check that the brikopt frames and especially slices are right'</span>);
+0158 
+0159 
+0160 
+0161 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0162 <a name="_sub5" href="#_subfunctions" class="code">function [info] = write_new_brik(single_vol,head,brikopt)</a>
+0163 
+0164 [err err_message info] = WriteBrik(single_vol,head,brikopt);
+0165 <span class="keyword">if</span> err
+0166     error(sprintf(<span class="string">'error in WriteBrik -%s'</span>,err_message));
+0167 <span class="keyword">end</span>
+0168</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

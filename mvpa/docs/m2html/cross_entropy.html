@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cross_entropy</title>
+  <meta name="keywords" content="cross_entropy">
+  <meta name="description" content="Cross-entropy error measure">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>cross_entropy
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Cross-entropy error measure</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function perf = cross_entropy(e, x, pp) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Cross-entropy error measure
+
+ [D] = CROSS_ENTROPY(CODE, E, X, PERF, PP)
+
+ Feed this in with class_args to train_bp to change from the
+ default mean squared error
+
+ See http://www.cse.unsw.edu.au/~billw/cs9444/crossentropy.html
+ for more information on what it is.
+
+ Requires a derivative function too - see CROSS_ENTROPY_DERIV.M</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function perf = cross_entropy(e, x, pp)</a>
+0002 
+0003 <span class="comment">% Cross-entropy error measure</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [D] = CROSS_ENTROPY(CODE, E, X, PERF, PP)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Feed this in with class_args to train_bp to change from the</span>
+0008 <span class="comment">% default mean squared error</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% See http://www.cse.unsw.edu.au/~billw/cs9444/crossentropy.html</span>
+0011 <span class="comment">% for more information on what it is.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% Requires a derivative function too - see CROSS_ENTROPY_DERIV.M</span>
+0014 
+0015 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0016 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0017 <span class="comment">% information.</span>
+0018 
+0019 
+0020 <span class="keyword">if</span> nargin &lt; 1, error(<span class="string">'missing arguments'</span>), <span class="keyword">end</span>
+0021 
+0022 <span class="keyword">if</span> ischar(e)
+0023   <span class="keyword">switch</span> e
+0024     <span class="keyword">case</span> <span class="string">'version'</span>,   perf = 3.0;
+0025     <span class="keyword">case</span> <span class="string">'deriv'</span>,     perf = <span class="string">'CrossEntropyDeriv'</span>;
+0026     <span class="keyword">case</span> <span class="string">'name'</span>,      perf = <span class="string">'CrossEntropy'</span>;
+0027     <span class="keyword">case</span> <span class="string">'pnames'</span>,    perf = { <span class="string">'targets'</span> };
+0028     <span class="keyword">case</span> <span class="string">'pdefaults'</span>, perf = struct( <span class="string">'targets'</span>, []);
+0029     <span class="keyword">otherwise</span>,        error(<span class="string">'unknown argument'</span>)
+0030   <span class="keyword">end</span>
+0031   <span class="keyword">return</span>
+0032 <span class="keyword">end</span>
+0033 
+0034 <span class="keyword">if</span> isa(e,<span class="string">'cell'</span>), e = cell2mat(e); <span class="keyword">end</span>
+0035 
+0036 <span class="keyword">if</span> isa(e,<span class="string">'double'</span>)
+0037   t = pp.targets; <span class="comment">%targets</span>
+0038   y = t - e;      <span class="comment">%estimations; this depends on the definition of</span>
+0039                   <span class="comment">%'e' from 'calcpref.m'</span>
+0040   y(y==0) = eps;  <span class="comment">%safeguards</span>
+0041   y(y==1) = 1-eps;
+0042   perf = - sum( sum( t .* log(y) + (1 - t) .* log(1 - y) ) ); <span class="comment">%CrossEntropy definition</span>
+0043 <span class="keyword">else</span>
+0044   error(<span class="string">'performance function argument not double'</span>)
+0045 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

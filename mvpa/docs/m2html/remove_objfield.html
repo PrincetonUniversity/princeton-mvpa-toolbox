@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of remove_objfield</title>
+  <meta name="keywords" content="remove_objfield">
+  <meta name="description" content="Removes a field from the object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>remove_objfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Removes a field from the object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = remove_objfield(subj,objtype,objname,fieldname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Removes a field from the object
+
+ [SUBJ] = REMOVE_OBJFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)
+
+ If OBJTYPE == 'subj', removes a field from the SUBJ root. Can't
+ be used to delete any of the main types or any required fields</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li><li><a href="get_special_fields_list.html" class="code" title="function [fields] = get_special_fields_list(objtype)">get_special_fields_list</a>	Internal - gets a list of special fieldnames</li><li><a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>	Auxiliary function</li><li><a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>	Replaces an entire object, i.e. a cell from one of the main 4 cell arrays</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="load_pattern_from_hd.html" class="code" title="function [subj] = load_pattern_from_hd(subj,patname)">load_pattern_from_hd</a>	Reverse of MOVE_PATTERN_TO_HD</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = remove_objfield(subj,objtype,objname,fieldname)</a>
+0002 
+0003 <span class="comment">% Removes a field from the object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = REMOVE_OBJFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% If OBJTYPE == 'subj', removes a field from the SUBJ root. Can't</span>
+0008 <span class="comment">% be used to delete any of the main types or any required fields</span>
+0009 
+0010 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0011 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0012 <span class="comment">% information.</span>
+0013 
+0014 
+0015 <span class="keyword">if</span> ~nargout
+0016   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0017 <span class="keyword">end</span>
+0018 
+0019 <span class="keyword">if</span> nargin~=4
+0020   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0021 <span class="keyword">end</span>
+0022 
+0023 <span class="keyword">if</span> strcmp(objtype,<span class="string">'subj'</span>)
+0024   <span class="comment">% If the user is trying to remove one of the main types,</span>
+0025   <span class="comment">% e.g. OBJTYPE == 'subj' and FIELDNAME == 'pattern'</span>
+0026   <span class="keyword">if</span> ~isempty(strmatch(fieldname,<a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>(<span class="string">'plurals'</span>),<span class="string">'exact'</span>))
+0027     error(<span class="string">'Can''t remove one of the main data types'</span>);
+0028   <span class="keyword">end</span>
+0029   subj = rmfield(subj,fieldname);
+0030   <span class="keyword">return</span>
+0031 <span class="keyword">end</span>
+0032 
+0033 <span class="comment">% Refuse to remove any of the required fields</span>
+0034 <span class="comment">% There should be a get_special_fields function to retrieve these xxx</span>
+0035 barred_fields = <a href="get_special_fields_list.html" class="code" title="function [fields] = get_special_fields_list(objtype)">get_special_fields_list</a>(objtype);
+0036 <span class="keyword">if</span> ~isempty(strmatch(barred_fields,fieldname,<span class="string">'exact'</span>))
+0037   error(<span class="string">'Unable to delete a required field'</span>);
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="comment">% Field doesn't exist</span>
+0041 <span class="keyword">if</span> ~<a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,fieldname)
+0042   error( sprintf(<span class="string">'Unable to remove %s from %s %s because it doesn''t exist'</span>, <span class="keyword">...</span>
+0043        fieldname,objname,objtype) );
+0044 <span class="keyword">end</span>
+0045 
+0046 <span class="comment">% Actually delete the field</span>
+0047 obj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,objname);
+0048 obj = rmfield(obj,fieldname);
+0049 subj = <a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>(subj,objtype,objname,obj);
+0050</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

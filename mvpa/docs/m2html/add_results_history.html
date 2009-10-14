@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of add_results_history</title>
+  <meta name="keywords" content="add_results_history">
+  <meta name="description" content="Adds a line to the results.header.history field">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>add_results_history
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Adds a line to the results.header.history field</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [results] = add_results_history(results,hist_str,displayme) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Adds a line to the results.header.history field
+
+ [RESULTS] = ADD_RESULTS_HISTORY(RESULTS,HIST_STR,[DISPLAYME])
+
+ Also creates the header field if it doesn't exist
+
+ DISPLAYME (optional, default = false). If true, the HIST_STR gets
+ echoed to the screen as well.
+
+ See ADD_HISTORY</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [results] = add_results_history(results,hist_str,displayme)</a>
+0002 
+0003 <span class="comment">% Adds a line to the results.header.history field</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [RESULTS] = ADD_RESULTS_HISTORY(RESULTS,HIST_STR,[DISPLAYME])</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Also creates the header field if it doesn't exist</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% DISPLAYME (optional, default = false). If true, the HIST_STR gets</span>
+0010 <span class="comment">% echoed to the screen as well.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% See ADD_HISTORY</span>
+0013 
+0014 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0015 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0016 <span class="comment">% information.</span>
+0017 
+0018 
+0019 <span class="keyword">if</span> ~exist(<span class="string">'displayme'</span>,<span class="string">'var'</span>)
+0020   displayme = false;
+0021 <span class="keyword">end</span>
+0022   
+0023 <span class="keyword">if</span> ~isfield(results,<span class="string">'header'</span>)
+0024   results.header.history=[];
+0025 <span class="keyword">end</span>
+0026 <span class="keyword">if</span> ~isfield(results.header,<span class="string">'history'</span>)
+0027   results.header.history = [];
+0028 <span class="keyword">end</span>
+0029 
+0030 hist_str = sprintf(<span class="string">'%s: %s'</span>,<a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(),hist_str);
+0031 
+0032 results.header.history{end+1}=hist_str;
+0033 
+0034 <span class="keyword">if</span> displayme
+0035   disp(hist_str);
+0036 <span class="keyword">end</span>
+0037</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of save_subj</title>
+  <meta name="keywords" content="save_subj">
+  <meta name="description" content="This just saves the subj structure to a file.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>save_subj
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This just saves the subj structure to a file.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj fn] = save_subj(subj,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This just saves the subj structure to a file.
+
+ [SUBJ FN] = SAVE_SUBJ(SUBJ,...)
+
+ It's useful because it does lots of book-keeping, and won't
+ overwrite existing files unless you tell it to
+
+ FN = the filename it saved itself under. This is useful in cases
+ where it had to choose a new one because the default/user-provided
+ one was already taken
+
+ CREATE_LOG (optional, default = true) creates a textfile
+ filename_subjID_datetime.log with the current summarize and header
+ info for easy reference without having to load in the mat
+
+ SAVE_INFO (optional, default = []). This is a string that gets
+ displayed and appended to the subj.header.history. Useful if you
+ want to put a comment about why you're saving this subject or what
+ state things are in - this gets displayed in the terminal and
+ appended to the header history. if you don't feed in a save_info, or
+ an empty one, then it will automatically create a simple one
+ containing time and filename
+
+ PATHFILESTEM (optional, default = 'subj')
+
+ APPEND_DATE (optional, default = true) - appends the date to the
+ pathfilestem
+
+ OVERWRITE_IF_EXIST (optional, default = false). If true, will
+ overwrite files with the same name if they exist
+
+ e.g. [subj filename] = save_subj(subj);
+ 
+ e.g. subj = save_subj(subj,'pathfilestem','~/blah/my_subj', ...
+                            'append_date',true, ...
+                            'save_info','Great classification');
+
+ If you want to add something besides the subj to the file as well then
+ append it afterwards, e.g. to append the results structure to the
+ file this function creates, call this next:
+   save(filename,'-append','results');
+
+ xxx ID and SUBDIR functionality not finished yet</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li><li><a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>	Returns the subfield for this object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj fn] = save_subj(subj,varargin)</a>
+0002 
+0003 <span class="comment">% This just saves the subj structure to a file.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ FN] = SAVE_SUBJ(SUBJ,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% It's useful because it does lots of book-keeping, and won't</span>
+0008 <span class="comment">% overwrite existing files unless you tell it to</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% FN = the filename it saved itself under. This is useful in cases</span>
+0011 <span class="comment">% where it had to choose a new one because the default/user-provided</span>
+0012 <span class="comment">% one was already taken</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% CREATE_LOG (optional, default = true) creates a textfile</span>
+0015 <span class="comment">% filename_subjID_datetime.log with the current summarize and header</span>
+0016 <span class="comment">% info for easy reference without having to load in the mat</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% SAVE_INFO (optional, default = []). This is a string that gets</span>
+0019 <span class="comment">% displayed and appended to the subj.header.history. Useful if you</span>
+0020 <span class="comment">% want to put a comment about why you're saving this subject or what</span>
+0021 <span class="comment">% state things are in - this gets displayed in the terminal and</span>
+0022 <span class="comment">% appended to the header history. if you don't feed in a save_info, or</span>
+0023 <span class="comment">% an empty one, then it will automatically create a simple one</span>
+0024 <span class="comment">% containing time and filename</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% PATHFILESTEM (optional, default = 'subj')</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% APPEND_DATE (optional, default = true) - appends the date to the</span>
+0029 <span class="comment">% pathfilestem</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% OVERWRITE_IF_EXIST (optional, default = false). If true, will</span>
+0032 <span class="comment">% overwrite files with the same name if they exist</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% e.g. [subj filename] = save_subj(subj);</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% e.g. subj = save_subj(subj,'pathfilestem','~/blah/my_subj', ...</span>
+0037 <span class="comment">%                            'append_date',true, ...</span>
+0038 <span class="comment">%                            'save_info','Great classification');</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">% If you want to add something besides the subj to the file as well then</span>
+0041 <span class="comment">% append it afterwards, e.g. to append the results structure to the</span>
+0042 <span class="comment">% file this function creates, call this next:</span>
+0043 <span class="comment">%   save(filename,'-append','results');</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% xxx ID and SUBDIR functionality not finished yet</span>
+0046 
+0047 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0048 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0049 <span class="comment">% information.</span>
+0050 
+0051 
+0052 id = <a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'id'</span>);
+0053 subdir = <a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'subdir'</span>);
+0054 
+0055 defaults.create_log = true;
+0056 defaults.save_info = [];
+0057 defaults.pathfilestem = <span class="string">'subj'</span>;
+0058 defaults.append_date = true;
+0059 defaults.overwrite_if_exist = false;
+0060 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0061 
+0062 dt = <a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>();
+0063 
+0064 <span class="comment">% For brevity</span>
+0065 fn = args.pathfilestem;
+0066 
+0067 <span class="comment">% Optionally append the date</span>
+0068 <span class="keyword">if</span> args.append_date
+0069   fn = sprintf(<span class="string">'%s_%s'</span>,fn,dt);
+0070 <span class="keyword">end</span>
+0071 
+0072 <span class="comment">% If we're not prepared to overwrite existing files, then we have</span>
+0073 <span class="comment">% to keep appending a number to the end of the filename until we</span>
+0074 <span class="comment">% find a vacant spot</span>
+0075 <span class="keyword">if</span> ~args.overwrite_if_exist
+0076   try_fn = fn;
+0077   i = 1;
+0078   <span class="comment">% Keep incrementing as long as FN_i exists</span>
+0079   <span class="keyword">while</span> exist( sprintf(<span class="string">'%s.mat'</span>,try_fn),<span class="string">'file'</span> )
+0080     i = i+1;
+0081     try_fn = sprintf(<span class="string">'%s_%i'</span>,fn,i);
+0082     disp( sprintf(<span class="string">'filename %s already exists - trying %s'</span>,fn,try_fn) );
+0083   <span class="keyword">end</span>
+0084   <span class="comment">% If fn already existed, use try_fn instead</span>
+0085   <span class="keyword">if</span> strcmp(fn,try_fn) ~= true
+0086     fn = try_fn;
+0087   <span class="keyword">end</span>
+0088 <span class="keyword">end</span> <span class="comment">% if args.overwrite_if_exist</span>
+0089 
+0090 <span class="comment">% Generate a default save_info, and add it to the subj history</span>
+0091 <span class="keyword">if</span> isempty(args.save_info)
+0092   args.save_info = sprintf(<span class="string">'Saving %s in %s at %s'</span>,fn,pwd,dt);
+0093 <span class="keyword">end</span>
+0094 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,args.save_info,true);
+0095 save(fn,<span class="string">'subj'</span>);
+0096 history = char(<a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'history'</span>));
+0097 
+0098 <span class="comment">% Record in the subj that it's been saved</span>
+0099 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'last_saved'</span>,dt,<span class="string">'ignore_absence'</span>,true);
+0100 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'last_saved_filename'</span>,fn,<span class="string">'ignore_absence'</span>,true);
+0101 
+0102 <span class="comment">% Optionally record the saveinfo to fn.log</span>
+0103 <span class="keyword">if</span> args.create_log
+0104   out = fopen(sprintf(<span class="string">'%s.log'</span>,fn),<span class="string">'w'</span>);
+0105   nHists = size(history,1);
+0106   <span class="keyword">for</span> i=1:nHists
+0107     fprintf(out, sprintf(<span class="string">'%s\n'</span>,history(i,:)) );
+0108   <span class="keyword">end</span> <span class="comment">% nHists</span>
+0109   fclose(out);
+0110 <span class="keyword">end</span>
+0111 
+0112</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

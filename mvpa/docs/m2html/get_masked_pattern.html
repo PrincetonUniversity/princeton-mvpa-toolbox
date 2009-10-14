@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_masked_pattern</title>
+  <meta name="keywords" content="get_masked_pattern">
+  <meta name="description" content="Returns the pattern's voxels allowed by the mask">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_masked_pattern
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns the pattern's voxels allowed by the mask</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [masked_pat ia ib] = get_masked_pattern(subj,patname,maskname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns the pattern's voxels allowed by the mask
+
+ [MASKED_PAT IA IB] = GET_MASKED_PATTERN(SUBJ,PATNAME,MASKNAME)
+
+ Calls get_pattern to retrieve the PATNAME mat, and then applies the
+ boolean MASKNAME volume to whittle down the voxels, and returns this
+ smaller patterns mat. See the section, 'Figuring out which voxel
+ is which, and where' in the manual for more information.
+
+ Note: this returns a pattern matrix (included_voxels x
+ timepoints). It's up to the user to init this as a proper object
+ if so desired
+
+ Will not warn you if no voxels are allowed through. Up to the
+ user to check for this</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>	Returns true if two matrices are the same size</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_ref_vol.html" class="code" title="function [vol] = get_ref_vol(subj,patname)">get_ref_vol</a>	Returns the mat of the pattern's masked_by mask</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_pattern_from_mask.html" class="code" title="function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)">create_pattern_from_mask</a>	Creates a new pattern by masking an old one</li><li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [masked_pat ia ib] = get_masked_pattern(subj,patname,maskname)</a>
+0002 
+0003 <span class="comment">% Returns the pattern's voxels allowed by the mask</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [MASKED_PAT IA IB] = GET_MASKED_PATTERN(SUBJ,PATNAME,MASKNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Calls get_pattern to retrieve the PATNAME mat, and then applies the</span>
+0008 <span class="comment">% boolean MASKNAME volume to whittle down the voxels, and returns this</span>
+0009 <span class="comment">% smaller patterns mat. See the section, 'Figuring out which voxel</span>
+0010 <span class="comment">% is which, and where' in the manual for more information.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Note: this returns a pattern matrix (included_voxels x</span>
+0013 <span class="comment">% timepoints). It's up to the user to init this as a proper object</span>
+0014 <span class="comment">% if so desired</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% Will not warn you if no voxels are allowed through. Up to the</span>
+0017 <span class="comment">% user to check for this</span>
+0018 
+0019 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0020 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0021 <span class="comment">% information.</span>
+0022 
+0023 
+0024 pat = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'pattern'</span>,patname);
+0025 
+0026 <span class="comment">% Get the reference space volumes of the new mask and the pattern's</span>
+0027 <span class="comment">% own mask. They should be the same dimensions</span>
+0028 childvol = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'mask'</span>,maskname);
+0029 parentvol = <a href="get_ref_vol.html" class="code" title="function [vol] = get_ref_vol(subj,patname)">get_ref_vol</a>(subj,patname);
+0030 
+0031 <span class="comment">% xxx Allow for 2D masks???</span>
+0032 <span class="keyword">if</span> ndims(parentvol) ~= 3
+0033   error(<span class="string">'Your parent vol isn''t 3 dimensions'</span>);
+0034 <span class="keyword">end</span>
+0035 
+0036 <span class="keyword">if</span> ~<a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>(childvol,parentvol)
+0037   error(<span class="string">'Your parent and child mask volumes are different sizes'</span>);
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="comment">% both these sets of indices are now relative to the reference volume</span>
+0041 <span class="comment">% space</span>
+0042 childidx = find(childvol);
+0043 parentidx = find(parentvol);
+0044 
+0045 [intersectidx ia ib] = intersect(parentidx,childidx);
+0046 
+0047 idx_of_child_items_contained_in_parent = ia;
+0048 
+0049 <span class="keyword">if</span> length(intersectidx) ~= length(childidx)
+0050   warning(<span class="string">'Some voxels present in the mask were not present in the pattern'</span>);
+0051 <span class="keyword">end</span>
+0052 
+0053 masked_pat = pat(idx_of_child_items_contained_in_parent,:);</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

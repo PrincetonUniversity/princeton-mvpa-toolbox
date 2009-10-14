@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of summarize</title>
+  <meta name="keywords" content="summarize">
+  <meta name="description" content="Prints info about the contents of the subj structure">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>summarize
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Prints info about the contents of the subj structure</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [] = summarize(subj,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Prints info about the contents of the subj structure
+
+ [] = summarize(subj,...)
+ 
+ SUMMARIZE(SUBJ) will give you a high-level summary of all the
+ objects contained, including group members. It's
+ much more informative than just typing 'subj'.
+
+ DISPLAY_GROUPS (optional, default = true) - if set to false, then
+ only the group name is shown
+
+ OBJTYPE (optional, default = 'subj'). If 'subj', this displays all 4
+ main types of objects. If set to one of 'pattern', 'regressors',
+ 'selector' or 'mask', then it will just display that type of object
+
+ e.g. summarize(subj,'display_groups',false,'objtype','mask')
+
+ Appends [HD] to objects stored on the hard disk, and [HD???] if
+ it can't find the file where the object is supposed to be (ohoh)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>	Returns a list of names of objects from this group</li><li><a href="get_name.html" class="code" title="function [name obj] = get_name(subj,objtype,objno)">get_name</a>	Internal function - gets the object's name from its cell index</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>	Returns the subfield for this object</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li><li><a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>	Auxiliary function</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [objnames,group_details,printdims,hds,nvoxs] = summarise_type(subj,objtype)</a></li><li><a href="#_sub2" class="code">function [group_details] = get_group_size(subj,objtype,n)</a></li><li><a href="#_sub3" class="code">function [strsize] = print_matsize(numsize)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [] = summarize(subj,varargin)</a>
+0002 
+0003 <span class="comment">% Prints info about the contents of the subj structure</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [] = summarize(subj,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% SUMMARIZE(SUBJ) will give you a high-level summary of all the</span>
+0008 <span class="comment">% objects contained, including group members. It's</span>
+0009 <span class="comment">% much more informative than just typing 'subj'.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% DISPLAY_GROUPS (optional, default = true) - if set to false, then</span>
+0012 <span class="comment">% only the group name is shown</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% OBJTYPE (optional, default = 'subj'). If 'subj', this displays all 4</span>
+0015 <span class="comment">% main types of objects. If set to one of 'pattern', 'regressors',</span>
+0016 <span class="comment">% 'selector' or 'mask', then it will just display that type of object</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% e.g. summarize(subj,'display_groups',false,'objtype','mask')</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% Appends [HD] to objects stored on the hard disk, and [HD???] if</span>
+0021 <span class="comment">% it can't find the file where the object is supposed to be (ohoh)</span>
+0022 
+0023 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0024 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0025 <span class="comment">% information.</span>
+0026 
+0027 
+0028 defaults.display_groups = true;
+0029 defaults.objtype = <span class="string">'subj'</span>;
+0030 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0031 
+0032 <span class="comment">% Get the ID and experiment name, so we can display them</span>
+0033 id = <a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'id'</span>);
+0034 experiment = <a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,<span class="string">'experiment'</span>);
+0035 disp(<span class="string">' '</span>);
+0036 disp( sprintf(<span class="string">'Subject ''%s'' in ''%s'' experiment'</span>,id,experiment) );
+0037 disp(<span class="string">' '</span>);
+0038 
+0039 <span class="keyword">if</span> ~ischar(args.objtype)
+0040   error(<span class="string">'If you feed in an optional objtype, this has to be a string'</span>);
+0041 <span class="keyword">end</span>
+0042 
+0043 <span class="comment">% If the objtype = 'subj' (default), display all 4 types</span>
+0044 <span class="keyword">if</span> strcmp(args.objtype,<span class="string">'subj'</span>)
+0045   objtypes = <a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>(<span class="string">'single'</span>);
+0046 <span class="keyword">else</span>  
+0047   objtypes{1} = args.objtype;
+0048 <span class="keyword">end</span>
+0049 
+0050 displayed_groups = {};
+0051 
+0052 <span class="comment">% The summary display is more or less the same for all 4 objtypes,</span>
+0053 <span class="comment">% although the type_titles (where it says the name of the type at</span>
+0054 <span class="comment">% the top of the list) need to be specialised, and sometimes</span>
+0055 <span class="comment">% there's a little suffix (e.g. HD for patterns moved to the HD)</span>
+0056 
+0057 <span class="keyword">for</span> t=1:length(objtypes)
+0058   curtype = objtypes{t};
+0059 
+0060   <span class="comment">% SUMMARISE_TYPE does all the hard work, looking inside all the</span>
+0061   <span class="comment">% objects and extracting the summary information</span>
+0062   [objnames,group_details,printdims,hds,nvoxs] = <a href="#_sub1" class="code" title="subfunction [objnames,group_details,printdims,hds,nvoxs] = summarise_type(subj,objtype)">summarise_type</a>(subj,curtype);
+0063 
+0064   <span class="comment">% Loop over all the members of this type</span>
+0065   <span class="keyword">for</span> n=1:length(group_details)
+0066 
+0067     display_this = true;
+0068 
+0069     <span class="comment">% If the current object belongs a group and display groups: then</span>
+0070     <span class="comment">% store which groups have been displayed already in the</span>
+0071     <span class="comment">% displayed_groups cell array. This way, group with members</span>
+0072     <span class="comment">% scattered all over still only get displayed once</span>
+0073     <span class="keyword">if</span> ~isempty(group_details{n}) &amp;&amp; ~args.display_groups
+0074       group_name = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtypes{t},objnames{n},<span class="string">'group_name'</span>);
+0075       display_this = false;
+0076       
+0077       <span class="comment">% if this group hasn't been displayed before</span>
+0078       <span class="keyword">if</span> isempty(strmatch(group_name,displayed_groups,<span class="string">'exact'</span>))
+0079    nMembers = length(<a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,objtypes{t},group_name));
+0080    disp( sprintf(<span class="string">'\t *  %-30s -   [GRP size %2i]'</span>,group_name,nMembers) );
+0081    displayed_groups{end+1} = group_name;
+0082       <span class="keyword">end</span>
+0083     <span class="keyword">end</span>
+0084 
+0085     <span class="comment">% Each objtype has its own type_title, and also displays</span>
+0086     <span class="comment">% slightly different properties about its objects (e.g. masks</span>
+0087     <span class="comment">% tell you about nVox)</span>
+0088     <span class="keyword">switch</span>(curtype)
+0089      <span class="keyword">case</span> <span class="string">'pattern'</span>
+0090       type_title = sprintf(<span class="string">'Patterns - %64s'</span>, <span class="string">'[ nVox x nTRs]'</span>);
+0091       details = sprintf(<span class="string">'\t%2i) %-30s - %15s [%10s] %4s'</span>, <span class="keyword">...</span>
+0092          n,objnames{n},group_details{n},printdims{n},hds{n});
+0093      
+0094      <span class="keyword">case</span> <span class="string">'regressors'</span>
+0095       type_title = sprintf(<span class="string">'\nRegressors -  %61s'</span>, <span class="string">'[nCond x nTRs]'</span>);
+0096       details = sprintf(<span class="string">'\t%2i) %-30s - %15s [%s]'</span>, <span class="keyword">...</span>
+0097          n,objnames{n},group_details{n},printdims{n});
+0098       
+0099      <span class="keyword">case</span> <span class="string">'selector'</span>
+0100       type_title = sprintf(<span class="string">'\nSelectors -  %62s'</span>, <span class="string">'[nCond x nTRs]'</span>);
+0101       details = sprintf(<span class="string">'\t%2i) %-30s - %15s [%s]'</span>, <span class="keyword">...</span>
+0102          n,objnames{n},group_details{n},printdims{n});
+0103       
+0104      <span class="keyword">case</span> <span class="string">'mask'</span>
+0105       type_title = sprintf(<span class="string">'\nMasks -  %77s'</span>, <span class="string">'[ X  x  Y  x  Z ] [ nVox]'</span>);
+0106       details = sprintf(<span class="string">'\t%2i) %-30s - %15s [%s] [%5i]'</span>, <span class="keyword">...</span>
+0107          n,objnames{n},group_details{n},printdims{n},nvoxs{n});
+0108      <span class="keyword">otherwise</span>
+0109       error(<span class="string">'Unknown object type'</span>);
+0110     <span class="keyword">end</span>
+0111 
+0112     <span class="keyword">if</span> n==1
+0113       disp(type_title);
+0114     <span class="keyword">end</span>
+0115 
+0116     <span class="keyword">if</span> display_this
+0117       disp(details);
+0118     <span class="keyword">end</span>
+0119     
+0120   <span class="keyword">end</span> <span class="comment">% for n</span>
+0121 
+0122   <span class="keyword">if</span> ~length(group_details)
+0123     disp( sprintf(<span class="string">'No %s objects'</span>,objtypes{t}) );
+0124   <span class="keyword">end</span>
+0125   
+0126   displayed_groups = {};
+0127 
+0128 <span class="keyword">end</span> <span class="comment">% for t</span>
+0129 
+0130 
+0131 
+0132 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0133 <a name="_sub1" href="#_subfunctions" class="code">function [objnames,group_details,printdims,hds,nvoxs] = summarise_type(subj,objtype)</a>
+0134 
+0135 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0136 nbr_objects = length(objcell);
+0137 
+0138 objnames = {};
+0139 group_details = {};
+0140 printdims = {};
+0141 hds = {};
+0142 nvoxs = {};
+0143 
+0144 <span class="keyword">for</span> n=1:nbr_objects
+0145 
+0146   <span class="comment">% Get the name and group membership for this object</span>
+0147   objnames{n} = <a href="get_name.html" class="code" title="function [name obj] = get_name(subj,objtype,objno)">get_name</a>(subj,objtype,n);
+0148 
+0149   <span class="comment">% Determine the size of the group</span>
+0150   group_details{n} = <a href="#_sub2" class="code" title="subfunction [group_details] = get_group_size(subj,objtype,n)">get_group_size</a>(subj,objtype,n);
+0151   
+0152   <span class="comment">% Determine whether this object has been moved to the hard</span>
+0153   <span class="comment">% disk. At the moment, only patterns can be moved to the HD</span>
+0154   <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objnames{n},<span class="string">'movehd'</span>)
+0155     <span class="comment">% Check that the file exists - if not, flag it with question</span>
+0156     <span class="comment">% marks</span>
+0157     stored_filename = <a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>(subj,objtype,objnames{n},<span class="string">'movehd'</span>,<span class="string">'pathfilename'</span>);
+0158     <span class="keyword">if</span> exist( sprintf(<span class="string">'%s.mat'</span>,stored_filename),<span class="string">'file'</span>)
+0159       hds{n}      = <span class="string">'[HD]'</span>;
+0160     <span class="keyword">else</span>
+0161       hds{n}      = <span class="string">'[HD???]'</span>;
+0162     <span class="keyword">end</span>
+0163   <span class="keyword">else</span>
+0164     hds{n}      = <span class="string">''</span>;
+0165   <span class="keyword">end</span>
+0166 
+0167   <span class="comment">% Determine the matsize</span>
+0168   <span class="comment">% All objects *should* have a matsize, but just in case</span>
+0169   <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objnames{n},<span class="string">'matsize'</span>)
+0170     dims = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objnames{n},<span class="string">'matsize'</span>);
+0171     printdims{n} = <a href="#_sub3" class="code" title="subfunction [strsize] = print_matsize(numsize)">print_matsize</a>(dims);
+0172   <span class="keyword">else</span>
+0173     printdims{n} = <span class="string">'unknown'</span>;
+0174   <span class="keyword">end</span>
+0175   
+0176   <span class="comment">% Determine the nVox for masks</span>
+0177   <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objnames{n},<span class="string">'nvox'</span>)
+0178     nvoxs{n} = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objnames{n},<span class="string">'nvox'</span>);
+0179   <span class="keyword">else</span>
+0180     nvoxs{n} = NaN;
+0181   <span class="keyword">end</span>
+0182     
+0183 <span class="keyword">end</span> <span class="comment">% i nbr_patterns</span>
+0184 
+0185 
+0186 
+0187 
+0188 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0189 <a name="_sub2" href="#_subfunctions" class="code">function [group_details] = get_group_size(subj,objtype,n)</a>
+0190 
+0191 objname = <a href="get_name.html" class="code" title="function [name obj] = get_name(subj,objtype,objno)">get_name</a>(subj,objtype,n);
+0192 group_name = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,<span class="string">'group_name'</span>);
+0193 grpsize = length(<a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,objtype,group_name));
+0194 
+0195 <span class="keyword">if</span> grpsize &gt; 0
+0196   group_details = sprintf(<span class="string">'[GRP size %2d]'</span>, grpsize);
+0197 <span class="keyword">else</span>
+0198   group_details = <span class="string">''</span>;
+0199 <span class="keyword">end</span>
+0200 
+0201 
+0202 
+0203 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0204 <a name="_sub3" href="#_subfunctions" class="code">function [strsize] = print_matsize(numsize)</a>
+0205 
+0206 <span class="comment">% [strsize] = print_matsize(numsize)</span>
+0207 <span class="comment">%</span>
+0208 <span class="comment">% Really dumb utility function that returns the size of a matrix as</span>
+0209 <span class="comment">% a string in a more user-readable fashion than just</span>
+0210 <span class="comment">% num2str(size(mat))</span>
+0211 
+0212 
+0213 strsize = num2str(numsize(1));
+0214 
+0215 <span class="keyword">if</span> length(numsize) == 3
+0216   <span class="keyword">for</span> i=2:length(numsize)
+0217     strsize = sprintf(<span class="string">'%3s x %3i'</span>,strsize,numsize(i));
+0218   <span class="keyword">end</span>
+0219 <span class="keyword">else</span>
+0220   <span class="keyword">for</span> i=2:length(numsize)
+0221     strsize = sprintf(<span class="string">'%5s x %4i'</span>,strsize,numsize(i));
+0222   <span class="keyword">end</span> <span class="comment">% i ndims(mat)</span>
+0223 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
