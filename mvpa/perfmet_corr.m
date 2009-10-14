@@ -1,0 +1,3 @@
+error(['This is a deprecated function.  See perfmet_for_class_corr.m ' ...
+       'for the updated version.']);
+

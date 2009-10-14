@@ -6,6 +6,8 @@ function [out1 out2] = function_name(in1,in2)
 %
 % Documentation goes here
 
+No commas between parameters.
+
 The first line of the help function should be copied and pasted
 exactly from the function declaration in upper-case form (use
 upcase-region in emacs)
