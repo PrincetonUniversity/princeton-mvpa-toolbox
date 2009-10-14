@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of create_xvalid_indices</title>
+  <meta name="keywords" content="create_xvalid_indices">
+  <meta name="description" content="Creates a selector for each iteration for leave-one-out cross-validation.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>create_xvalid_indices
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a selector for each iteration for leave-one-out cross-validation.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = create_xvalid_indices(subj,runs_selname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a selector for each iteration for leave-one-out cross-validation.
+
+ [SUBJ] = CREATE_XVALID_INDICES(SUBJ,RUNS_SELNAME,...)
+
+ Adds the following objects:
+ - selectors group with nRuns objects, called NEW_SELSTEM
+
+ Each iteration has a selector. One run is withheld on each
+ iteration. TRs for that withheld run are set to 2, while the TRs for
+ all the other runs are set to 1. Think of the 1s as training TRs and
+ the 2s as testing TRs. These selectors get used by the nminusone
+ no-peeking anova and for cross-validation classification.
+
+ RUNS_SELNAME should consist of a vector with each TR labelled by
+ its run number. For instance, an extremely brief experiment with
+ 4 runs, with 5 TRs in each run, would look like this:
+    [1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4]
+ This runs vector should not include any zeros. You should use the
+ ACTIVES_SELNAME to censor runs
+
+ NEW_SELSTEM (optional, default = runs_selname + 'xval'). This
+ determines the group_name and stem for the selector group that
+ will be created
+
+ ACTIVES_SELNAME (optional, default = ''). If empty, then this
+ doesn't censor any individual TRs. If, however, you do want to use a
+ temporal mask selector to exclude some TRs, feed in the name of a
+ boolean selector. This will cause those TRs be ignored by later
+ scripts. such as the no-peeking ANOVA or a cross-validation
+ classifier
+
+ e.g. subj = create_xvalid_indices(subj,'runs');
+
+      subj = create_xvalid_indices( ...
+         subj,'runs','new_selstem','runs_nminusone_xvalid', ...
+         'actives_selname','actives');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = create_xvalid_indices(subj,runs_selname,varargin)</a>
+0002 
+0003 <span class="comment">% Creates a selector for each iteration for leave-one-out cross-validation.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = CREATE_XVALID_INDICES(SUBJ,RUNS_SELNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Adds the following objects:</span>
+0008 <span class="comment">% - selectors group with nRuns objects, called NEW_SELSTEM</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Each iteration has a selector. One run is withheld on each</span>
+0011 <span class="comment">% iteration. TRs for that withheld run are set to 2, while the TRs for</span>
+0012 <span class="comment">% all the other runs are set to 1. Think of the 1s as training TRs and</span>
+0013 <span class="comment">% the 2s as testing TRs. These selectors get used by the nminusone</span>
+0014 <span class="comment">% no-peeking anova and for cross-validation classification.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% RUNS_SELNAME should consist of a vector with each TR labelled by</span>
+0017 <span class="comment">% its run number. For instance, an extremely brief experiment with</span>
+0018 <span class="comment">% 4 runs, with 5 TRs in each run, would look like this:</span>
+0019 <span class="comment">%    [1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4]</span>
+0020 <span class="comment">% This runs vector should not include any zeros. You should use the</span>
+0021 <span class="comment">% ACTIVES_SELNAME to censor runs</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% NEW_SELSTEM (optional, default = runs_selname + 'xval'). This</span>
+0024 <span class="comment">% determines the group_name and stem for the selector group that</span>
+0025 <span class="comment">% will be created</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% ACTIVES_SELNAME (optional, default = ''). If empty, then this</span>
+0028 <span class="comment">% doesn't censor any individual TRs. If, however, you do want to use a</span>
+0029 <span class="comment">% temporal mask selector to exclude some TRs, feed in the name of a</span>
+0030 <span class="comment">% boolean selector. This will cause those TRs be ignored by later</span>
+0031 <span class="comment">% scripts. such as the no-peeking ANOVA or a cross-validation</span>
+0032 <span class="comment">% classifier</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% e.g. subj = create_xvalid_indices(subj,'runs');</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%      subj = create_xvalid_indices( ...</span>
+0037 <span class="comment">%         subj,'runs','new_selstem','runs_nminusone_xvalid', ...</span>
+0038 <span class="comment">%         'actives_selname','actives');</span>
+0039 
+0040 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0041 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0042 <span class="comment">% information.</span>
+0043 
+0044 
+0045 defaults.new_selstem = sprintf(<span class="string">'%s_xval'</span>,runs_selname);
+0046 defaults.actives_selname = <span class="string">''</span>;
+0047 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0048 
+0049 runs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,runs_selname);
+0050 nRuns = max(runs);
+0051 
+0052 <span class="keyword">if</span> length(find(runs==0))
+0053   error([<span class="string">'You shouldn''t have any zeros in your runs. Use the'</span> <span class="keyword">...</span>
+0054     <span class="string">' actives_selname to censor TRs'</span>]);
+0055 <span class="keyword">end</span>
+0056 
+0057 <span class="keyword">if</span> isempty(args.actives_selname)
+0058   <span class="comment">% If no actives_selname was fed in, then assume the user wants all</span>
+0059   <span class="comment">% TRs to be included, and create a new all-ones actives selector</span>
+0060   actives = ones(size(runs));
+0061 <span class="keyword">else</span>
+0062   <span class="comment">% Otherwise, use the one they specified</span>
+0063   actives = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,args.actives_selname);
+0064 <span class="keyword">end</span>
+0065 
+0066 all_selsnames = [];
+0067 
+0068 <span class="comment">% We're going to create one selector for each iteration, each time</span>
+0069 <span class="comment">% withholding a different run</span>
+0070 <span class="keyword">for</span> r=1:nRuns
+0071 
+0072   <span class="comment">% Set up what will go into the selector object</span>
+0073   cur_selname = sprintf(<span class="string">'%s_%i'</span>,args.new_selstem,r);
+0074 
+0075   cursels = zeros(size(runs)); <span class="comment">% all but train + testing TRs = 0</span>
+0076   cursels(find(runs)) = 1;     <span class="comment">% training TRs = 1</span>
+0077   cursels(find(runs==r)) = 2;  <span class="comment">% testing TRs = 2</span>
+0078 
+0079   <span class="comment">% Use the actives selector to see if any TRs should be censored</span>
+0080   cursels(find(~actives)) = 0;
+0081 
+0082   <span class="comment">% Now create the selector object, and fill it with goodies</span>
+0083   subj = <a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>(subj,<span class="string">'selector'</span>,runs_selname,cur_selname);
+0084   subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'selector'</span>,cur_selname,cursels);
+0085 
+0086   <span class="keyword">if</span> nRuns&gt;1 
+0087     subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'selector'</span>,cur_selname,<span class="string">'group_name'</span>,args.new_selstem,<span class="string">'ignore_absence'</span>,true);
+0088   <span class="keyword">end</span>
+0089   
+0090   <span class="comment">% Tell it the story of how it came to be</span>
+0091   created.function = <span class="string">'create_xvalid_indices'</span>;
+0092   created.runs_selname = runs_selname;
+0093   created.actives_selname = args.actives_selname;
+0094   subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'selector'</span>,cur_selname,created);
+0095 
+0096   it_hist = sprintf(<span class="string">'Created by create_xvalid_indices - iteration #%i'</span>,r);
+0097   subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'selector'</span>,cur_selname,it_hist);
+0098 <span class="keyword">end</span> <span class="comment">% r nRuns</span>
+0099 
+0100 <span class="keyword">if</span> nRuns&gt;1
+0101   main_hist = sprintf(<span class="string">'Selector group ''%s'' created by create_xvalid_indices'</span>,args.new_selstem);
+0102 <span class="keyword">else</span>
+0103   main_hist = sprintf(<span class="string">'Selector object ''%s'' created by create_xvalid_indices'</span>,args.new_selstem);
+0104 <span class="keyword">end</span>
+0105 disp( main_hist );
+0106 
+0107</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

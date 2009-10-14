@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_name</title>
+  <meta name="keywords" content="get_name">
+  <meta name="description" content="Internal function - gets the object's name from its cell index">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_name
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Internal function - gets the object's name from its cell index</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [name obj] = get_name(subj,objtype,objno) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Internal function - gets the object's name from its cell index
+
+ [NAME OBJ] = GET_NAME(SUBJ,OBJTYPE,OBJNO)
+
+ Returns the name of an object if all you know is its number. Avoids
+ directly accessing the subj structure
+
+ Useful if you're looping over all the members of a group, for
+ instance</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [name obj] = get_name(subj,objtype,objno)</a>
+0002 
+0003 <span class="comment">% Internal function - gets the object's name from its cell index</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [NAME OBJ] = GET_NAME(SUBJ,OBJTYPE,OBJNO)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Returns the name of an object if all you know is its number. Avoids</span>
+0008 <span class="comment">% directly accessing the subj structure</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Useful if you're looping over all the members of a group, for</span>
+0011 <span class="comment">% instance</span>
+0012 
+0013 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0014 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0015 <span class="comment">% information.</span>
+0016 
+0017 
+0018 <span class="keyword">if</span> nargin~=3
+0019   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0020 <span class="keyword">end</span>
+0021 
+0022 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0023 obj = objcell{objno};
+0024 name = obj.name;
+0025</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of set_objsubfield</title>
+  <meta name="keywords" content="set_objsubfield">
+  <meta name="description" content="Sets the subfield of the object to NEWVAL.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>set_objsubfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Sets the subfield of the object to NEWVAL.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Sets the subfield of the object to NEWVAL.
+
+ [SUBJ] = SET_OBJSUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME,NEWVAL,...)
+
+ Works very similarly to SET_OBJFIELD.
+
+ For instance, the DESCRIPTION of an object is stored in its
+ HEADER.DESCRIPTION. To modify it:
+
+    subj = set_objfield(subj,'pattern','raw','header','description', ...
+                          'This contains my raw data');
+
+ Use the optional IGNORE_ABSENCE and IGNORE_EMPTY flags like
+ SET_OBJFIELD to avoid warnings</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="load_afni_mask.html" class="code" title="function [subj] = load_afni_mask(subj,new_maskname,filename)">load_afni_mask</a>	Loads an AFNI dataset into the subj structure as a mask</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="save_subj.html" class="code" title="function [subj fn] = save_subj(subj,varargin)">save_subj</a>	This just saves the subj structure to a file.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)</a>
+0002 
+0003 <span class="comment">% Sets the subfield of the object to NEWVAL.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = SET_OBJSUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME,NEWVAL,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Works very similarly to SET_OBJFIELD.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% For instance, the DESCRIPTION of an object is stored in its</span>
+0010 <span class="comment">% HEADER.DESCRIPTION. To modify it:</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%    subj = set_objfield(subj,'pattern','raw','header','description', ...</span>
+0013 <span class="comment">%                          'This contains my raw data');</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Use the optional IGNORE_ABSENCE and IGNORE_EMPTY flags like</span>
+0016 <span class="comment">% SET_OBJFIELD to avoid warnings</span>
+0017 
+0018 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0019 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0020 <span class="comment">% information.</span>
+0021 
+0022 
+0023 <span class="keyword">if</span> ~nargout
+0024   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0025 <span class="keyword">end</span>
+0026 
+0027 defaults.ignore_absence = false;
+0028 defaults.ignore_empty = false;
+0029 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0030 
+0031 <span class="comment">% Create the main field if it doesn't already exist</span>
+0032 <span class="comment">% This will deservedly trigger a warning in SET_FIELD</span>
+0033 <span class="keyword">if</span> ~<a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,fieldname)
+0034   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,fieldname,[]);
+0035 <span class="keyword">end</span>
+0036 
+0037 field = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,fieldname);
+0038 
+0039 <span class="comment">% Warnings</span>
+0040 <span class="keyword">if</span> ~isfield(field,subfieldname) &amp; ~args.ignore_absence
+0041   warn_str = sprintf(<span class="string">'No subfield %s in %s in %s %s - creating subfield'</span>, <span class="keyword">...</span>
+0042            subfieldname,fieldname,objname,objtype);
+0043   warning(warn_str);
+0044   field.(subfieldname) = [];
+0045 <span class="keyword">end</span>
+0046 <span class="keyword">if</span> isempty(newval) &amp; ~ignore_empty &amp; ~isempty(field.(subfieldname))
+0047   warning(<span class="string">'About to overwrite a subfield with an empty one'</span>);
+0048 <span class="keyword">end</span>
+0049 
+0050 field.(subfieldname) = newval;
+0051 
+0052 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,fieldname,field);
+0053 
+0054</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of init_object</title>
+  <meta name="keywords" content="init_object">
+  <meta name="description" content="Add a new empty object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>init_object
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Add a new empty object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = init_object(subj,objtype,new_objname); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Add a new empty object
+
+ [SUBJ] = INIT_OBJECT(SUBJ,OBJTYPE,NEW_OBJNAME);
+
+ Update the SUBJ structure by creating a new object of type OBJTYPE
+ called NEW_OBJNAME
+
+ Adds the following objects:
+ - object
+
+ This function will initialize everything to empty. If you want to
+ base your new object on an existing one, use duplicate_object
+ instead.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li><li><a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>	Auxiliary function</li><li><a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>	Replace the entire cell array of this objtype with a new one</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="load_afni_mask.html" class="code" title="function [subj] = load_afni_mask(subj,new_maskname,filename)">load_afni_mask</a>	Loads an AFNI dataset into the subj structure as a mask</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = init_object(subj,objtype,new_objname);</a>
+0002 
+0003 <span class="comment">% Add a new empty object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = INIT_OBJECT(SUBJ,OBJTYPE,NEW_OBJNAME);</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Update the SUBJ structure by creating a new object of type OBJTYPE</span>
+0008 <span class="comment">% called NEW_OBJNAME</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Adds the following objects:</span>
+0011 <span class="comment">% - object</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% This function will initialize everything to empty. If you want to</span>
+0014 <span class="comment">% base your new object on an existing one, use duplicate_object</span>
+0015 <span class="comment">% instead.</span>
+0016 
+0017 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0018 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0019 <span class="comment">% information.</span>
+0020 
+0021 
+0022 <span class="comment">% This looks as though it's very memory-inefficient, but it appears</span>
+0023 <span class="comment">% that matlab's pretty smart about the way it copies, modifies and passes</span>
+0024 <span class="comment">% around cell arrays and cells inside them.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% If you append a column to a matrix, we think it literally makes a</span>
+0027 <span class="comment">% copy of the matrix with a larger memory footprint and adds the</span>
+0028 <span class="comment">% column there. On the other hand, a cell array seems to be just a</span>
+0029 <span class="comment">% bunch of pointers, so adding cell just means appending a pointer</span>
+0030 <span class="comment">% without having to make a copy of the contents of the whole cell</span>
+0031 <span class="comment">% array. There's an ugly demonstration of this in test_mem2, which</span>
+0032 <span class="comment">% uses the time taken to manipulate very large variables in memory as</span>
+0033 <span class="comment">% an indication of how much copying is being done.</span>
+0034 
+0035 
+0036 <span class="keyword">if</span> nargin~=3
+0037   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="keyword">if</span> isempty(new_objname)
+0041   error(<span class="string">'Can''t create new patterns with empty name'</span>);
+0042 <span class="keyword">end</span>
+0043 
+0044 <span class="keyword">if</span> strcmp(objtype,<span class="string">'subj'</span>)
+0045   error(<span class="string">'Use init_subj directly. And you can''t store a subj in a subj'</span>);
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="keyword">if</span> ~isempty(strmatch(new_objname,<a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>(<span class="string">'single'</span>),<span class="string">'exact'</span>))
+0049   error(<span class="string">'It''s a bad idea to name any of your objects of the main types'</span>);
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="comment">% Initialize what will become our object</span>
+0053 obj.name = new_objname;
+0054 obj.header.history = [];
+0055 obj.mat = [];
+0056 obj.matsize = size([]);
+0057 obj.group_name = <span class="string">''</span>;
+0058 obj.derived_from = <span class="string">''</span>;
+0059 obj.header.description = <span class="string">''</span>;
+0060 obj.created.datetime = <a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(true);
+0061 
+0062 <span class="comment">% Deal with particular fields that are specific to different types</span>
+0063 <span class="keyword">switch</span>(objtype)
+0064  
+0065  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0066   subj.p = new_objname;
+0067   obj.masked_by = <span class="string">''</span>;
+0068   
+0069  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0070   subj.r = new_objname;
+0071   obj.condnames = [];
+0072   
+0073  <span class="keyword">case</span> <span class="string">'selector'</span>
+0074   subj.s = new_objname;
+0075  
+0076  <span class="keyword">case</span> <span class="string">'mask'</span>
+0077   obj.thresh = NaN;
+0078   obj.nvox = NaN;
+0079   subj.m = new_objname;
+0080   
+0081 <span class="keyword">end</span>
+0082 
+0083 <span class="comment">% In order to work with objects of any type, we're going to get the</span>
+0084 <span class="comment">% entire cell array for the object and work on that. This way, we</span>
+0085 <span class="comment">% don't have to refer to subj.patterns or subj.regressors directly</span>
+0086 <span class="comment">% at all</span>
+0087 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0088 nbr_objs = length(objcell);
+0089 
+0090 <span class="comment">% Check whether any objs already have this name</span>
+0091 <span class="keyword">for</span> p=1:nbr_objs
+0092   <span class="keyword">if</span> strcmp(objcell{p}.name,new_objname)
+0093     error( sprintf(<span class="string">'One of the %s objects already has this name'</span>,objtype) );
+0094   <span class="keyword">end</span>
+0095 <span class="keyword">end</span> <span class="comment">% p nbr_objs</span>
+0096 
+0097 objcell{nbr_objs+1} = obj;
+0098 
+0099 <span class="comment">% Now reattach the object to its cell array by overwriting the old</span>
+0100 <span class="comment">% cell array</span>
+0101 subj = <a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>(subj,objtype,objcell);
+0102 
+0103</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

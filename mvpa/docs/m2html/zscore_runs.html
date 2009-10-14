@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of zscore_runs</title>
+  <meta name="keywords" content="zscore_runs">
+  <meta name="description" content="Zscore each voxel, separately for each run">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>zscore_runs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Zscore each voxel, separately for each run</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj new_patname] = zscore_runs(subj,patname,selname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Zscore each voxel, separately for each run
+
+ [SUBJ NEW_PATNAME] = ZSCORE_RUNS(SUBJ,PATNAME,SELNAME)
+
+ For each voxel in each run, subtract the mean activity and scale
+ so that the variance is 1.
+
+ Adds the following objects:
+ - pattern object
+
+ This function creates a new patterns object (PATNAME + '_z') to store
+ the z_scored timeseries.
+
+ % RUNS_SELNAME should consist of a vector with each TR labelled by
+ its run number. For instance, an extremely brief experiment with
+ 4 runs, with 5 TRs in each run, would look like this:
+    [1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4]
+ This runs vector should not include any zeros.
+
+ There is currently no functionality for ignoring any TRs, even
+ rest. This is deliberate. Some of the functions that get run after
+ this allow you to ignore rest TRs without actually deleting them
+ from your data.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [pat] = zscore_runs_logic(pat,sel)</a></li><li><a href="#_sub2" class="code">function [] = sanity_check(pat,sel)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj new_patname] = zscore_runs(subj,patname,selname)</a>
+0002 
+0003 <span class="comment">% Zscore each voxel, separately for each run</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ NEW_PATNAME] = ZSCORE_RUNS(SUBJ,PATNAME,SELNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% For each voxel in each run, subtract the mean activity and scale</span>
+0008 <span class="comment">% so that the variance is 1.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Adds the following objects:</span>
+0011 <span class="comment">% - pattern object</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% This function creates a new patterns object (PATNAME + '_z') to store</span>
+0014 <span class="comment">% the z_scored timeseries.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% % RUNS_SELNAME should consist of a vector with each TR labelled by</span>
+0017 <span class="comment">% its run number. For instance, an extremely brief experiment with</span>
+0018 <span class="comment">% 4 runs, with 5 TRs in each run, would look like this:</span>
+0019 <span class="comment">%    [1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4]</span>
+0020 <span class="comment">% This runs vector should not include any zeros.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% There is currently no functionality for ignoring any TRs, even</span>
+0023 <span class="comment">% rest. This is deliberate. Some of the functions that get run after</span>
+0024 <span class="comment">% this allow you to ignore rest TRs without actually deleting them</span>
+0025 <span class="comment">% from your data.</span>
+0026 
+0027 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0028 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0029 <span class="comment">% information.</span>
+0030 
+0031 
+0032 new_patname = sprintf(<span class="string">'%s_z'</span>,patname);
+0033 
+0034 pat = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'pattern'</span>,patname);
+0035 sel = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,selname);
+0036 
+0037 <a href="#_sub2" class="code" title="subfunction [] = sanity_check(pat,sel)">sanity_check</a>(pat,sel);
+0038 
+0039 pat = <a href="#_sub1" class="code" title="subfunction [pat] = zscore_runs_logic(pat,sel)">zscore_runs_logic</a>(pat,sel);
+0040 
+0041 subj = <a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>(subj,<span class="string">'pattern'</span>,patname,new_patname);
+0042 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'pattern'</span>,new_patname,pat);
+0043 
+0044 zhist = sprintf(<span class="string">'Pattern ''%s'' created by zscore_runs'</span>,new_patname);
+0045 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'pattern'</span>,new_patname,zhist,true);
+0046 
+0047 created.function = <span class="string">'zscore_runs'</span>;
+0048 created.patname = patname;
+0049 created.selname = selname;
+0050 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'pattern'</span>,new_patname,created);
+0051 
+0052 
+0053 
+0054 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0055 <a name="_sub1" href="#_subfunctions" class="code">function [pat] = zscore_runs_logic(pat,sel)</a>
+0056 
+0057 max_runs = max(sel);
+0058 
+0059 disp( sprintf(<span class="string">'Beginning zscore_runs - max_runs = %i'</span>,max_runs) );
+0060 
+0061 <span class="keyword">for</span> r = 1:max_runs
+0062   fprintf(<span class="string">'\t%i'</span>,r)
+0063 
+0064   <span class="comment">% These are all the timepoints that appear in this run</span>
+0065   foundRuns = find(sel==r);
+0066   
+0067   <span class="comment">% The double-transpose is necessary, because the zscore function</span>
+0068   <span class="comment">% doesn't allow you to specify which dimension to zscore along</span>
+0069   pat(:,foundRuns) = zscore(pat(:,foundRuns)')';
+0070   
+0071 <span class="keyword">end</span> <span class="comment">% for runs</span>
+0072 
+0073 disp(<span class="string">' '</span>);
+0074 
+0075 
+0076 
+0077 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0078 <a name="_sub2" href="#_subfunctions" class="code">function [] = sanity_check(pat,sel)</a>
+0079 
+0080 <span class="keyword">if</span> length(find(sel==0))
+0081   error(<span class="string">'Your runs vector contains zeros'</span>);
+0082 <span class="keyword">end</span>
+0083 
+0084 <span class="keyword">if</span> ~isrow(sel)
+0085   error(<span class="string">'Your runs vector should be a row vector'</span>);
+0086 <span class="keyword">end</span>
+0087 
+0088 <span class="keyword">if</span> size(pat,2) ~= length(sel)
+0089   error(<span class="string">'You have different numbers of timepoints in your patterns and runs'</span>);
+0090 <span class="keyword">end</span>
+0091 
+0092 <span class="keyword">if</span> length(find(diff(sel)&lt;0))
+0093   error(<span class="string">'Your runs seem to be jumbled'</span>);
+0094 <span class="keyword">end</span>
+0095 
+0096 <span class="keyword">if</span> length(find(diff(sel)&gt;1))
+0097   warning(<span class="string">'You seem to be missing a run in the middle'</span>);
+0098 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

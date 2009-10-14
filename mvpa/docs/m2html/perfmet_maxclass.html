@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of perfmet_maxclass</title>
+  <meta name="keywords" content="perfmet_maxclass">
+  <meta name="description" content="This is the most basic performance metric.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>perfmet_maxclass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is the most basic performance metric.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [perfmet] = perfmet_maxclass(acts,targs,args) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This is the most basic performance metric.
+
+ [PERFMET] = PERFMET_MAXCLASS(ACTS,TARGS,ARGS)
+
+ The classifier is considered to guess correctly if its maximally
+ active row (the unit that it guessed) corresponds to the most active
+ row of the targs (the unit that was desired)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>	Returns true if two matrices are the same size</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [perfmet] = perfmet_maxclass(acts,targs,args)</a>
+0002 
+0003 <span class="comment">% This is the most basic performance metric.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [PERFMET] = PERFMET_MAXCLASS(ACTS,TARGS,ARGS)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% The classifier is considered to guess correctly if its maximally</span>
+0008 <span class="comment">% active row (the unit that it guessed) corresponds to the most active</span>
+0009 <span class="comment">% row of the targs (the unit that was desired)</span>
+0010 
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ARGS is required by all perfmets, but this function doesn't need</span>
+0013 <span class="comment">% it, so it should be empty.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% ACTS = nUnits x nTimepoints</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% TARGS = nUnits x nTimepoints</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% Returns a PERFMET struct, which contains the following fields:</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% - GUESSES = vector indicating which unit was maximally active, i.e. which</span>
+0022 <span class="comment">% condition the classifier guessed</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% - DESIREDS = vector indicating unit should have been maximally</span>
+0025 <span class="comment">% active, i.e. the active condition</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% - CORRECTS = vector of whether GUESSES == DESIREDS, i.e. whether the</span>
+0028 <span class="comment">% classifier guessed right</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% - PERF = scalar, proportion of the time that the classifier was</span>
+0031 <span class="comment">% correct, i.e. nCorrects/nTimepoints</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% This perfmet doesn''t deal with ties very well. For that kind of</span>
+0034 <span class="comment">% situation, you'll need something more sophisticated. To create your</span>
+0035 <span class="comment">% own perfmet, just make sure your function definition is structured</span>
+0036 <span class="comment">% the same way as this and that the PERFMET.perf field exists.</span>
+0037 
+0038 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0039 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0040 <span class="comment">% information.</span>
+0041 
+0042 
+0043 <span class="keyword">if</span> exist(<span class="string">'args'</span>,<span class="string">'var'</span>) &amp; ~isempty(args)
+0044   warning(<span class="string">'Perfmet_maxclass doesn''t need any args'</span>);
+0045 <span class="keyword">end</span>
+0046 
+0047 <span class="keyword">if</span> ~<a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>(acts,targs)
+0048   error(<span class="string">'Can''t calculate performance if acts and targs are different sizes'</span>);
+0049 <span class="keyword">end</span>
+0050 
+0051 [nUnits nTimepoints] = size(acts);
+0052 
+0053 [y guesses] = max(acts);
+0054 
+0055 [y desireds] = max(targs);
+0056 
+0057 corrects = guesses == desireds;
+0058 
+0059 perf = length(find(corrects)) / nTimepoints;
+0060 
+0061 perfmet.guesses    = guesses;
+0062 perfmet.desireds   = desireds;
+0063 perfmet.corrects   = corrects;
+0064 perfmet.perf       = perf;
+0065 perfmet.scratchpad = [];</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

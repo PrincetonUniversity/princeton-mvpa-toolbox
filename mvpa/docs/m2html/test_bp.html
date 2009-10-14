@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of test_bp</title>
+  <meta name="keywords" content="test_bp">
+  <meta name="description" content="Testing function for BP">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>test_bp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Testing function for BP</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [acts scratch] = test_bp(testpats,testtargs,scratch) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Testing function for BP
+
+ [ACTS SCRATCH] = TEST_BP(TESTPATS,TESTTARGS,SCRATCH)
+
+ This is the testing function that fits with TRAIN_BP. See that
+ for more info
+
+ ACTS is an nOuts x nTestTimepoints matrix that contains the
+ activations of the output units at test</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [] = sanity_check(testpats,testtargs,scratch)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [acts scratch] = test_bp(testpats,testtargs,scratch)</a>
+0002 
+0003 <span class="comment">% Testing function for BP</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [ACTS SCRATCH] = TEST_BP(TESTPATS,TESTTARGS,SCRATCH)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This is the testing function that fits with TRAIN_BP. See that</span>
+0008 <span class="comment">% for more info</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% ACTS is an nOuts x nTestTimepoints matrix that contains the</span>
+0011 <span class="comment">% activations of the output units at test</span>
+0012 
+0013 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0014 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0015 <span class="comment">% information.</span>
+0016 
+0017 
+0018 <span class="keyword">if</span> ~exist(<span class="string">'scratch'</span>)
+0019   scratch = [];
+0020 <span class="keyword">end</span>
+0021 
+0022 <a href="#_sub1" class="code" title="subfunction [] = sanity_check(testpats,testtargs,scratch)">sanity_check</a>(testpats,testtargs,scratch);
+0023 
+0024 <span class="comment">% Now test generalization performance on the test data</span>
+0025 scratch.testing_acts_posttraining = sim(scratch.net,testpats);
+0026 
+0027 <span class="comment">% Finally, spit out the acts</span>
+0028 acts = scratch.testing_acts_posttraining(scratch.outidx,:);
+0029 
+0030 
+0031 
+0032 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0033 <a name="_sub1" href="#_subfunctions" class="code">function [] = sanity_check(testpats,testtargs,scratch)</a>
+0034 
+0035 nOuts = length(scratch.outidx);
+0036 
+0037 <span class="keyword">if</span> nOuts ~= size(testtargs,1)
+0038   error(<span class="string">'Problem with number of feature units'</span>);
+0039 <span class="keyword">end</span>
+0040 
+0041 <span class="keyword">if</span> size(testpats,2) ~= size(testtargs,2)
+0042   error(<span class="string">'Different number of testing pats and targs timepoints'</span>);
+0043 <span class="keyword">end</span>
+0044 
+0045</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of load_afni_pattern</title>
+  <meta name="keywords" content="load_afni_pattern">
+  <meta name="description" content="Loads an AFNI dataset into a subject structure">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>load_afni_pattern
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Loads an AFNI dataset into a subject structure</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Loads an AFNI dataset into a subject structure
+
+ [SUBJ] = LOAD_AFNI_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,FILENAMES)
+
+ Adds the following objects:
+ - pattern object called NEW_PATNAME masked by MASKNAME
+
+ NEW_PATNAME is the name of the pattern to be created
+ 
+ MASKNAME is an existing boolean mask in the same reference space
+ that filters which voxels get loaded in. It should 
+
+ All patterns need a 'masked_by' mask to be associated with. The mask
+ contains information about where the voxels are in the brain, and
+ allows two patterns with different subsets of voxels from the same
+ reference space to be compared
+
+ See the Howtos (xxx) section for tips on loading data without a
+ mask
+
+ FILENAMES is a cell array of strings, of BRIK filenames to load
+ in. Just the stem, not the extension
+
+ e.g. to load in mydata.BRIK:
+   subj = load_AFNI_pattern(subj,'epi','wholebrain',{'mydata'});</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>	Add a new empty object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames)</a>
+0002 
+0003 <span class="comment">% Loads an AFNI dataset into a subject structure</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = LOAD_AFNI_PATTERN(SUBJ,NEW_PATNAME,MASKNAME,FILENAMES)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Adds the following objects:</span>
+0008 <span class="comment">% - pattern object called NEW_PATNAME masked by MASKNAME</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% NEW_PATNAME is the name of the pattern to be created</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% MASKNAME is an existing boolean mask in the same reference space</span>
+0013 <span class="comment">% that filters which voxels get loaded in. It should</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% All patterns need a 'masked_by' mask to be associated with. The mask</span>
+0016 <span class="comment">% contains information about where the voxels are in the brain, and</span>
+0017 <span class="comment">% allows two patterns with different subsets of voxels from the same</span>
+0018 <span class="comment">% reference space to be compared</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% See the Howtos (xxx) section for tips on loading data without a</span>
+0021 <span class="comment">% mask</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% FILENAMES is a cell array of strings, of BRIK filenames to load</span>
+0024 <span class="comment">% in. Just the stem, not the extension</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% e.g. to load in mydata.BRIK:</span>
+0027 <span class="comment">%   subj = load_AFNI_pattern(subj,'epi','wholebrain',{'mydata'});</span>
+0028 
+0029 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0030 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0031 <span class="comment">% information.</span>
+0032 
+0033 
+0034 <span class="comment">% Load the mask</span>
+0035 maskvol = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'mask'</span>,maskname);
+0036 mDims   = size(maskvol);
+0037 mask    = find(maskvol);
+0038 
+0039 <span class="comment">% check mask isn't empty</span>
+0040 <span class="keyword">if</span> isempty(mask)
+0041   error(<span class="string">'Empty mask passed to load_AFNI_pattern()'</span>);
+0042 <span class="keyword">end</span>
+0043 
+0044 <span class="comment">% Initialize the data structure</span>
+0045 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>(subj,<span class="string">'pattern'</span>,new_patname);
+0046 
+0047 <span class="comment">% Determine the size of the incoming data</span>
+0048 <span class="keyword">for</span> i=1:length(filenames)
+0049   [err,bInfo] = BrikInfo(char(filenames{i}));
+0050   bDims(i,:)= bInfo.DATASET_DIMENSIONS(1:3);
+0051   bLen(i) = bInfo.DATASET_RANK(2);
+0052 <span class="keyword">end</span>
+0053 
+0054 <span class="comment">% Initialize the data structure</span>
+0055 tmp_data = zeros(length(mask),sum(bLen));
+0056 
+0057 nFiles = length(filenames);
+0058 
+0059 disp( sprintf(<span class="string">'Starting to load AFNI pattern from %i BRIK files'</span>,nFiles) );
+0060 
+0061 <span class="keyword">for</span> h = 1:nFiles
+0062   fprintf(<span class="string">'\t%i'</span>,h);
+0063 
+0064   cur_filename = filenames{h};
+0065   <span class="comment">% Load the data from the BRIK file</span>
+0066   [err,Vdata,AFNIheads{h},ErrMessage]= BrikLoad(cur_filename);
+0067 
+0068   <span class="comment">% Check for errors</span>
+0069   <span class="keyword">if</span> err == 1
+0070     error(sprintf(<span class="string">'error in BrikLoad -%s'</span>,ErrMessage));
+0071   <span class="keyword">end</span>
+0072 
+0073   <span class="comment">% Ensure that the mask dimensions match the data</span>
+0074   vDims = size(Vdata);
+0075   <span class="keyword">if</span> any(vDims(1:3) ~= mDims(1:3))
+0076     error(<span class="string">'Mask dimensions do not match data'</span>);
+0077   <span class="keyword">end</span>
+0078           
+0079   <span class="comment">% Reshape the data to be Voxels X Time</span>
+0080   Vdata = reshape(Vdata,prod(vDims(1:3)), vDims(4));
+0081   
+0082   <span class="comment">% Apply the mask, and append to the matrix</span>
+0083   curTRs = sum(bLen(1:h-1))+1;
+0084   curTRs = [curTRs:curTRs+bLen(h)-1];
+0085   tmp_data(:,curTRs) = Vdata(mask,:);
+0086      
+0087 <span class="keyword">end</span> <span class="comment">% for h</span>
+0088   
+0089 disp(<span class="string">' '</span>);
+0090 
+0091 <span class="comment">% Store the data in the pattern structure</span>
+0092 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'pattern'</span>,new_patname,tmp_data);
+0093 
+0094 <span class="comment">% Set the masked_by field in the pattern</span>
+0095 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'pattern'</span>,new_patname,<span class="string">'masked_by'</span>,maskname);
+0096 
+0097 <span class="comment">% Add the history to the pattern</span>
+0098 hist_str = sprintf(<span class="string">'Pattern ''%s'' created by load_AFNI_pattern'</span>,new_patname);
+0099 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'pattern'</span>,new_patname,hist_str,true);
+0100 
+0101 <span class="comment">% Add information to the new pattern's header, for future reference</span>
+0102 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'pattern'</span>,new_patname,<span class="string">'header'</span>, <span class="keyword">...</span>
+0103           <span class="string">'AFNI_heads'</span>,AFNIheads,<span class="string">'ignore_absence'</span>,true);
+0104 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'pattern'</span>,new_patname,<span class="string">'header'</span>, <span class="keyword">...</span>
+0105           <span class="string">'AFNI_filenames'</span>,filenames,<span class="string">'ignore_absence'</span>,true);
+0106 
+0107 <span class="comment">% This object was conceived under a tree. Store that information in</span>
+0108 <span class="comment">% the SUBJ structure</span>
+0109 created.function = <span class="string">'load_AFNI_pattern'</span>;
+0110 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'pattern'</span>,new_patname,created);
+0111 
+0112</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
