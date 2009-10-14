@@ -1,132 +1,5 @@
-*** high-priority
-
-see Ryan Mruczek's SVM suggestions
-
-
-= Version 1.1 To Do =
-
-== Conceptual ==
-
- * Changing the way we talk about "regressors": now they're "labels", and they're "categorical" (1-of-n, classification), or "continuous" (regression).
- * Changing the way we talk about feature selection: now we use {{{feature_calc}}}, and we talk about {{{statmap}}}, {{{dimred}}} or matrix-only {{{calc}}} operations to perform on features.
- * Changing the way we nest functions, now using {{{propval}}} (e.g. statmap_searchlight, cross_validation). Remove all references to add_struct_fields.
- 
-== Documentation ==
-
- * Update the "What's New" documentation page.
- * Update the manual, existing tutorials, .m files and glossary to reflect new terminology and procedures.
-
-== Programming ==
-
- * Change the subj functions to use "labels" in addition to "regressors" to access.
- * Add feature_calc and feature_calc_searchlight.
- * Improvements to cross_validation:
-   * Better handling of arguments.
-   * Training error in addition to test error.
-   * Better handling of patterns with rest/no rest (i.e. checking timepoints after selection.)
- * Add utility function mvpa2mat.
-
-== Functionality == 
-
- * dimensionality reduction
- * BV importing/exporting
- * anatomical masking (put masks for this on web)
- * improved view montage
-
-
-*** high-priority
-
-get rid of mean_ignore_nans etc. just replace with
-nanmean. does nanmean exist in earlier versions of matlab???
-
-tidy up the unit tests
-
-  fix the tests in tests/broken
-
-  stop unit_hd_scripts.m from littering the tests/ directory
-  with temporary directories
-
-  update the oldtest* tests
-
-*** high-priority
-we should use fisher's z-transform to average multiple correlation 
-cross-validation perfmets.
-we should have a non-default option to weight each run according 
-to its nTimepoints
-
 *** low-priority
-find supergraph_significance.m so that unit_wavestrapper_results.m works
-
-*** low-priority
-tutorial on averaging
-
-*** low-priority
-move AMALGAMATE_RESULTS_CONTEXT5.M into mvpa/core/learn or util
-
-*** low-priority
-note that
-
-  shift_regressors.m has changed its default REGSNAME
-
-  convolve_regressors_afni.m has changed its default
-  REGSNAME for thresholded ('%s_convt' instead of
-  '%s_conv_thr')
-
-*** low-priority
-create a mechanism for dummy variables, e.g. the patname in statmap_3dDeconvolve
-
-*** low-priority
-add adaboost_mkc to the distribution.
-move mvpa/boosting into mvpa/contrib/learn/boostexter
-
-*** high-priority
-add Brodmann mask generation stuff to next release
-
-  add mattheww's predefined Brodmann briks as a separate download
-
-*** high-priority
-look into getting the SVM working. see emails from Ryan
-Moore (e.g. 070803)
-
-*** high-priority
-statmap_3dDeconvolve
-
-  check out new afni 3dDeconvolve/3dSynthesize
-  functionality. have they fixed the all-zeros-in-a-run
-  bug??? see email from sara 070625
-
-*** high-priority
-fix create_xvalid_oddeven. doesn't seem to include actives in the second iteration
-
-*** low-priority
-set_objfield should automatically call add_created to add created field, rather than giving the user an admonishment
-
-*** high-priority docs
-check whether jarrod updated the tutorial to reflect that
-fcdf is missing
-
-*** high-priority docs
-fix all the links in wiki
-
-*** high-priority packaging
-include all the pat-to-mask, and mask-to-coords functions in internal
-
-  rename functions mask_from_map etc. to make them more guessable???
-
-  need a way of creating a volume from a pattern
-  (e.g. convert_pat_to_vol.m). we'll need this if we want to
-  write 4D patterns-with-time back to AFNI, for instance
-
-*** high-priority packaging
-tidy up the internal directory
-
-*** high-priority docs
-tutorial reading recommendations
-
-*** low-priority
-borda count performance metric???
-
-  see Mitchell et al (2004) for their ranking metric???
+include tests and synth in release???
 
 *** low-priority
 add a tutorial on finding crappy voxels (all-zeros) in the
@@ -134,121 +7,22 @@ brain and masking them out, to show how to use some of the
 masking and indexing functions
 
 *** low-priority
+create an index of the functions that groups them somehow
+
+*** low-priority
+there should be a version of view_montage that only takes in matrix arguments
+
+*** low-priority
+run_unit_tests should also accept unit_*.m
+
+*** low-priority
 update documentation to deal with when your conditions aren't balanced across runs
 
 *** low-priority
 have write_to_afni count the nargout and return a subj, just to avoid confusion
 
-*** low-priority
-amalgamate michael bannert's scripts. see email 070625
-
-  update the ridge function, using mbannert's
-  train_ridge_denis_optim.m - see conversation - Michael
-  Bannert - 070615
-
-*** low-priority
-getme.m = a function that runs evalin on '%s = get_mat(subj,guess_this,''%s'');'
-
-  asked the matlab newsgroup about adding in tab completion
-
 *** high-priority
-try ziad's new, more efficient, BrikLoad
-
-*** low-priority
-add a 'designing a classifier experiment' section to the manual
-  - every run should contain all conditions
-  - if possible, have an ABBA design to your runs, so there are no obvious trends
-  - avoid fast event-related?
-  - TR-lock your stimuli
-  - have 8s blank at the beginning, and 10s blank at the end
-
-*** low-priority
-get the unit tests working
-
-*** low-priority
-view_montage burps in an inscrutable way if you have multiple sub-briks. it should ask the user which sub-brik to use
-
-*** low-priority
-fix catherine chang view_montage bugs
-
-*** low-priority
-incorporate david weiss' new view_montage code
-
-*** low-priority
-create_pattern_from_mask should fail if the new mask contains voxels outside the original pattern. it should suggest running intersect_pattern_from_mask first
-
-*** low-priority
-store condition breakdown in the results structure (confusion etc.)
-
-*** low-priority
-change_objgroup should check that you don't have an object and a group of the same name
-
-  or maybe set _objfield should do it
-
-  and it shouldn't allow you to put things into groups if they already are a group
-
-*** low-priority
-see whether the F stat has moved in the BRIK
-
-  see http://afni.nimh.nih.gov/pub/dist/doc/misc/Decon/DeconSpring2007.html
-
-  is censortr on top of the censor file argument???
-
-*** low-priority
-if you try and get_mat an object that exists called 'pattern','regressors','selector','mask', it seems to automatically give you an error, regardless of whether there is in fact an object of that name
-
-*** low-priority
-add goforit option to statmap_3dDeconvolve
-
-  see conversation - Chris Moore - Michael Bannert - 070404
-
-*** low-priority
-try francisco's crossval/spheres code
-
-*** low-priority
-make the mvpa_support archives public
-
-*** low-priority
-
-add these to the mvpa documentation
-
-  change write_to_afni so that it checks if the pattern has
-  a masked_by field
-  
-  figure out how to get the 3D pattern repn
-  
-    my_mask = get_mat(subj,'mask','my_mask');
-  
-    idx = find(my_mask);
-  
-    my_pat = get_mat(subj,'pattern','my_pat');
-  
-    pat3d = my_mask;
-    pat3d(idx) = my_pat;
-  
-  figure out how to get the 4D pattern repn
-  
-    pat4d = my_mask;
-    pat4d = repmat(pat4d,[1 1 1 nTimepoints]); % untested
-  
-    % v slow/lame way of doing things
-    % also untested
-    for t=1:nTimepoints
-      pat3d = zeros(size(pat3d));
-      pat3d(idx) = my_pat(:,t);
-      pat4d(:,:,:,t) = pat3d;
-    end
-
-
-*** low-priority
-whittle_pattern should be destructive, but it should back up
-the pattern first. that way, i could run it on any dataset
-and it would allow me to test functions without having them
-take pattern name arguments. it will probably have to mess
-with the mask too
-
-*** low-priority
-add some info about dealing with out of memory errors when loading patterns
+incorporate denis' modified ridge
 
 *** low-priority
 look into klaus nuissl's load_spm and other functions
@@ -262,16 +36,23 @@ make convolve_regressors..., 3dDeconvolve etc. put their
 output scripts into separate directories, rather than littering 
 the home directory
 
-*** low-priority
-deal with writing zipped BRIK files
+*** high-priority
+train/test_ridge should automatically z-score the outputs, 
+and then un-z-score them at the end
+
+*** high-priority
+deal with importing and writing zipped BRIK files
 
 *** low-priority
 would it be easier if feature-select actually created the 
 pat and regs using the selectors, and then the statmaps 
 just took in matrices?
 
-*** low-priority
+*** high-priority
 afni smoothing
+
+*** high-priority
+fix create_xvalid_oddeven. doesn't seem to include actives in the second iteration
 
 *** low-priority
 try Ziad's new_head function
@@ -289,11 +70,15 @@ write import and export scripts for nifti
 stop using fcdf.m as part of anova1_mvpa - see jarrod email
 070131
 
+*** high-priority
+check whether jarrod updated the tutorial to reflect that
+fcdf is missing
+
 *** low-priority
 discuss what preprocessing to do. don't detrend before GLM.
 different kinds of zscoring???
 
-*** low-priority
+*** high-priority
 add nfirst argument to 3dDeconvolve to exclude the first few
 timepoints
 
@@ -303,6 +88,9 @@ ignore a few timepoints from the beginning of each run
 
 *** low-priority
 add baseline visualization scripts
+
+*** high-priority
+add statmap_3dDeconvolve to release
 
 *** low-priority
 look into nested N-1 cross-validation frameworks for setting parameters using the training data
@@ -327,8 +115,20 @@ ridge should take in a penalty-factor argument (can't set at the same time as cu
 *** low-priority
 ridge should automatically do a grid search
 
-*** low-priority
-make anova p vs f value a required argument too
+*** high-priority
+make ascending/descending and greater/less than required arguments in create_thresh/sorted_mask
+
+*** high-priority
+make anova p vs f value a required argument too???
+
+*** high-priority
+compute_xcorr should give an error if there's no variance
+
+*** high-priority
+fix all the links in wiki
+
+*** high-priority
+add mex files to release, e.g. compute_xcorr
 
 *** low-priority
 rewrite 1-of-n regressors so it's more informative
@@ -350,6 +150,9 @@ add good practices to wiki
 *** low-priority
 write a section on 'improving moderate classification performance'
 
+*** high-priority
+create a mask-to-coords function
+  do we have one already???
 
 *** low-priority
 you could create an expand_struct function, that would take
@@ -362,23 +165,33 @@ then, if you ran:
   you'd end up all the args as local first-level variables
   (rather than stuck inside an args struct)
 
-*** low-priority
+*** high-priority
 create a mat-only thresh_mask function for use in
 create_thresh_mask, view_montage, compare_statmaps etc.
 
-*** low-priority
+*** high-priority
+rename functions mask_from_map etc. to make them more guessable
+
+*** high-priority
 if propval returns an empty unused argument, make sure it's
 a cell array
 
-*** low-priority
+*** high-priority
+get SPM5 import/export working
+
+*** high-priority
 create an 'aux' directory for auxiliary non-mvpa scripts,
 like propval, rows, cols etc.
 
 *** low-priority
 talk to michael and ziad about a debian afni package
 
-*** low-priority
+*** high-priority
 rename the trunk/mvpa directory to trunk/core
+
+*** high-priority
+add adaboost_mkc and other extern directories to the main
+release tarball
 
 *** low-priority
 update tutorial to incorporate view_montage, and wholebrain
@@ -401,34 +214,580 @@ link to the django design philosophies
 
   http://www.djangoproject.com/documentation/design_philosophies/
 
-*** low-priority
+*** high-priority
 
-initset_object shouldn't allow creation of a group with same
-name as a pattern
+initset_object allows creation of a group with same name as a pattern
+
+*** high-priority
+
+update this todo file so that dave can look at it
+
+*** high-priority
+
+think about what needs to be done in order for the wiki to
+go live
+
+*** high-priority
+
+move the thresholding logic out of create_thresh_mask so
+that it can be used inside convolve_regressors_afni
 
 *** low-priority
+warn users that if load_afni_... gives them:
+  ??? Error using ==> unknown
+  Maximum variable size allowed by the program is exceeded.
+that it's probably because of user error
+  what are some example causes of this???
+    trying to load in a pattern using a mask in anatomical resolution
+
+*** high-priority
+
 improve all check_1ofn messages
 
-*** low-priority
+*** high-priority
 check for afni matlab library updates
 
-*** low-priority
+*** high-priority
 write_to_afni needs to check for whether a pattern has an
 associated masked_by field
 
+*** high-priority
+in initset_object, check that the masked_by field has been set
+
 *** low-priority
-optimize summarize.m
+improve and add multi cross_validation script
 
-  it should break down the selectors into 0s/1s/2s
+*** high-priority
+backproject script
 
-  summarize should display which optional arguments it
-  doesn't recognise, and advise about optional arguments to
-  get rid of that warning (maybe)
+*** zero-priority
+zscoring should be able to deal with rest using an
+actives_selname
+
+*** low-priority
+deal with the issue of having no training or no testing TRs in an xval
+selector in cross-validation (see ConversationVaidehi060118)
+
+  i think i've fixed this???
+
+*** low-priority
+get the residuals from a 3dDeconvolve with motion regressors
+to get rid of motion
+
+*** low-priority
+add section about optional arguments to the manual
+
+*** high-priority
+have a sort of similarity structure cross validation
+and figure out where search algorithms for voxel weightings should fit in to voxel selection/classification
+
+*** high-priority
+rename shift_TRs to shift_timepoints
+move convolve_regressors to convolve_regressors_afni
+
+*** low-priority
+summarize should display which optional arguments it doesn't
+recognise, and advise about optional arguments to get rid of that
+warning (maybe)
+
+*** low-priority
+ensure that set_mat etc. maintain the single/double type of the
+matrix. add options for set_mat, duplicate, init etc.
+
+*** high-priority
+add changes to default create_thresh_mask naming
+
+*** low-priority
+add optional 'show_test_at_training' argument to cross-validation, and
+modify training functions to deal with it
+
+*** documentation
+make sure that it mentions the warning in the tutorial
+mention that older versions may cause problems
+
+*** low-priority
+update scripts that take a long time so they do all their creation of
+objects at the beginning rather than the end, in case there's a
+problem with the object name
+n
+*** low-priority
+finalize version of anova with runs as a random effect
+
+*** low-priority
+figure out how easy it would be to get the clustering thing working
+
+*** low-priority
+add echo on for statmap submit jobs
+figure out if it's possible to put the parallelisation code at the
+feature_select level
+when there's an error, display the tail of the relevant .o file to the
+screen
+
+*** low-priority
+tidy up the internal directory
 
 *** low-priority
 make the toolbox deal with both singular and plural forms of the
 objtypes
 
 *** low-priority
+add documentation re duplicate vs init
+
+*** low-priority
+change CheckBrikHead to use error instead of errdlg
+
+*** low-priority
+replace all created.function = mfilename with = dbstack
+
+*** low-priority
+parallelize cross-validation
+
+*** low-priority
+add a 'visibility' flag to all objects to stop things showing up in
+the subj structure???
+
+*** low-priority
+add 051024 reply to mkc to faqs
+
+*** low-priority
+add a find_unlicensed_mvpa release script that checks that all scripts
+have the GPL license text included by grepping
+
+*** low-priority
+fix summarize noncontig bug
+
+*** low-priority
+fix summarize so that it runs a few checks on each object
+and also creates a summary struct on a single run through the subj
+structure, and then displays based on that
+
+*** low-priority
+add check to get_type so that it points out if you erroneously used a
+plural
+
+*** low-priority
+add associate_pattern_from_hd.m
+
+*** low-priority
+get mkc's version of vec2ind
+
+*** low-priority
+add cv_args to all train_ functions and documentation
+
+*** low-priority
+get rid of rest from tutorial dataset
+
+*** high-priority
+work on statmap_3dDeconvolve
+add contrasts
+test it
+see if we can make it simpler
+auto-generate its own startpoints
+does it deal with censors right???
+it should write out its own briks, using write_to_afni
+then we need a concatenate briks function to stitch them all together
+
+*** low-priority
+incorporate F value anova stuff from MKC (email 051213)
+
+
+Subj maintenance and accessor scripts
+-
+*** high-priority
+need a way of creating a volume from a pattern. we'll need this if we
+want to write 4D patterns-with-time back to AFNI, for instance
+
+*** high-priority
+better documentation for optional arguments, custom functions etc.
+
+*** low-priority
+propval's a mess. it should take an optional cellORstruct arg, that
+defaults to cell. that way it can do proper error-checking with decent
+expectations
+
+*** low-priority
+add a check so that set_object doesn''t allow you to set the mat
+
+*** low-priority
+add a flag so that load_afni_mask can deal with sub-briks
+
+*** low-priority
+when you remove an object, it should rename it '_removed', which
+get_number will know to check for
+refuse to init an object called '_...'
+
+*** high-priority
+fix duplicate_object (and any calls to it) so that group_name is a
+standard optional parameter
+
+*** low-priority
+add functionality for saving subfields when moving to the hard disk
+allow moving masks etc. to the hard disk too???
+
+*** low-priority
+add to mailing list
+    penn people
+	 geoff aguirre
+	 lyle ungard
+	 kahanoids
+	 others???
+    cmu people
+    other people ken emailed me about
+    rob schapire
+    niam people
+    afni people
+   
+
+*** low-priority
+add new classifiers
+add 2-way anova
+
+
+
+Importing
+-
+
+
+
+
+Preprocessing scripts
+-
+*** low-priority
+is shifting TRs ready to go?
+what about convolved regressors
+
+*** low-priority
 add checks to zscore so that it looks for single-condition runs
 
+*** low-priority
+feature select should be able to take in a cell array of thresholds to
+create multiple mask groups
+
+
+
+Classification etc.
+-
+*** high-priority
+include CrossEntropy??? did sean write this himself???
+fix it
+
+*** high-priority
+change documentation to reflect perfmet having scratchpad
+
+
+
+Exporting
+-
+*** high-priority
+check write_to_afni
+
+
+
+
+Documentation
+-
+*** low-priority
+bulletin board etc. ideas
+	 tortoise svn bug tracking
+		  http://tortoisesvn.berlios.de/issues/index.php?do=details&id=156&PHPSESSID=2f7db06257dc8d39ee544667dbf65d52
+-
+- Our philosophy regarding the removal of TRs, and how it differs
+from the philosophy of removing voxels
+- Accessing subj structure directly
+- classification and results
+- see conversation with ken about other docs stuff
+- FAQ
+- Importing a pattern of arbitrary size without a mask
+- Divide by zero from backprop
+- Mention when you need the stats toolbox
+     mention that prestd might do the same thing as zscore
+- Good practices
+		   save out as many of the patterns to the hd as
+		   possible beforehand
+		   lower case
+		   split up your BRIKs
+- Info about subj.x
+- Definitions
+	e.g. selectors are discrete, probably exclusive and 1xtimepoints
+	stick with the selectors name
+- Censoring TRs and dealing with rest
+- Conventions
+    commenting of m-files
+    book-keeping objects, e.g. creation - checklist for developers
+    propval argumentations
+    incorporate conventions.txt
+- Using scripts without using the whole toolbox infrastructure
+- More on getting started and setting up work environment
+- Running this on your own data
+- Things to avoid when designing an experiment
+    e.g. diff sizes of conditions, diff sized runs, one condition per run
+- How to do event-related
+- Solicit requests for future directions
+- Extract memory documentation from init_object
+
+*** low-priority
+need sample dataset stuff
+
+*** high-priority
+Things to talk to Ben Singer about
+- Setting up a bulletin board (internal and external)
+- Other stuff discussed with CDM and MJB
+- SVN permissions
+- Adding SVN module for papers
+- SVN encrypted passwords
+- Adding SVN users
+- Bugzilla
+- M2HTML
+- Wikipedia
+- Where are things going to get hosted, contact details etc.
+- Quality control
+- Logins for outside users
+
+*** low-priority
+check documentation for removing voxels???
+
+*** low-priority
+add checkout netlab to setup_princeton.htm
+
+*** low-priority
+good practices
+- don't use a groupname and and objname that are the same
+- don't use uppercase
+
+*** low-priority
+update the 'removing conditions' section of the documentation
+
+*** low-priority
+combine conventions, good practices, errors or howtos???
+
+Testing
+-
+*** low-priority
+try creating a pattern, moving it to the hd while empty, and then
+adding to it
+
+
+
+
+
+
+Unsorted
+-
+*** high-priority
+add a high-level mvpa.m function so people can type help mvpa???
+
+*** low-priority
+tutorial reading recomendations:
+Haxby et al.
+Start with theoretical overview
+
+*** low-priority
+take m2html out of the svn
+
+*** high-priority
+add test suite
+
+*** low-priority
+add info about saving to the tutorial
+
+
+
+Unsorted
+-
+*** low-priority
+check with ziad saad that it's ok to bundle his afni_matlab scripts
+
+*** high-priority
+Tests to run
+- Check that the appropriate get/set scripts work with 'subj' as
+objtype
+
+*** high-priority
+look for xxx in the scripts
+rename to yyy if they're not crucial to the first release
+
+*** low-priority
+look into bugzilla
+
+*** low-priority
+add a copyright or website address to all scripts???
+what are the contact details for the toolbox???
+
+*** low-priority
+tidy up the test_mem functions so that we can refer to them in the
+manual in the memory efficiency section
+
+*** high-priority
+questions for ronnie/jim/ida
+	 why sometimes 5 sometimes 6 rest TRs between conditions
+	 which subject???
+	 anatomical-only VT mask???
+	 what performance were they getting with this???
+	 any afni scripts available???
+	 shift TRs???
+	 what pcrit did they use to define their GLM mask??? is it
+	 right that almost all of the voxels pass at 0.05???
+
+*** high-priority
+look over BVtoSubj
+
+*** low-priority
+convert_pattern_to_4d(subj,patname)
+
+*** low-priority
+add functionality to tutorial_haxby for reading in beta weights (that was in AFNItoSubj)
+
+*** low-priority
+summarise individual objects
+
+
+
+
+
+
+Latest assigned
+-
+CDM
+
+
+BDS
+
+
+GJD
+
+
+* 0.8 Master ToDo List 
+
+** Move from internal
+
+X  change_objgroup - Change group name of multiple objects
+X  confusion
+X  multiple_iterations_confusion
+
+X  default_class_args
+X  ind2vec_robust
+X  intersect_masks
+X load_matrix_pattern
+
+  load_bv_pattern (?)
+   - /internal/ebc/obsolette/bv_import
+
+X  plot_mds
+  
+  view_montage (??)
+
+** Keith Schneider for Montage
+
+** Include EBC extension as part of archive
+
+** Run Script
+
+** Update Website
+
+----
+
+* 0.9 release, major overhaul
+
+(ordered by priority)
+
+** Generic Functions
+
+transform_object.m - DONE
+
+xform_mask.m (for creating mask with arbitrary logic) - DONE
+
+xform_selector.m (select runs for testing) - DONE
+
+xform_zscore.m
+xform_detrend.m
+xform_filter.m
+xform_savg.m
+xform_PCA.m*
+xform_dwt_denoise.m*
+
+transform_runs.m (shortcut for runs processing) 
+
+create_statmap.m(create arbitrary statmap) - DONE
+
+statmap_searchlight.m
+searchlight_avgt.m
+searchlight_malanhois.m
+
+statmap_anova.m - DONE
+statmap_xcorr.m
+
+create_mask.m (create arbitrary mask) - DONE
+
+mask_sorted.m (replaces create_sorted_mask) - DONE
+mask_thresh.m (replaces create_thresh_mask) - DONE
+
+create_xvalid_selector.m (creates cross validation selector) - DONE
+
+** Updates to old functions
+
+Update propval.m to follow "unused" specification - DONE
+
+Update feature_select.m
+
+Update cross_validation.m
+
+Update create_xvalid_indices.m - DONE
+
+** Searchlight statmap
+
+Create get_adjancency.m - DONE
+
+Make adjacency lists cached to improve speed
+
+Write the statmap_searchlight.m - DONE
+
+Write searchlight_malahnois.m (whatever)
+
+** Testing suite
+
+Testing of transform_object.m
+
+Test all xform_.m functions
+
+Test feature_select.m
+
+Test cross_validation.m
+
+Test get_adjacency.m - DONE
+
+** Documentation
+
+Add documentation XFORM_HELP.M and STATMAP_HELP.M, MASK_HELP.M, etc.
+
+** Data type tweaks/additions/changes
+
+Change 'regressors' data type to 'label' datatype
+
+Add 'statmap' data type
+
+Add "type" field to selectors to distinguish actives (binary), cross
+validation ([0 1 2]) and runs (positive integers), to help with error
+checking
+
+Consolidate or rename "header" field
+
+Check back-end to see if can be improved
+
+** Utility Functions
+
+bundle.m ("bundles" its arguments into a struct) - DONE
+
+rows.m
+cols.m
+
+** Bug fixes
+
+Makes sure extra mats are selected properlya
+
+propval.m can take a long time: if a nested function is being applied
+      20000 times, this is not good at all.  FIX!
+
+pdist already uses mex files; it's slow purely becuase of the parameter
+    checks at the beginning.
+
+the mask should probably be stored as a bunch of 0's...?
