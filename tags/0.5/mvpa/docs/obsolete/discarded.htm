@@ -1,0 +1,490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./discarded_files/filelist.xml">
+<title>Princeton multi-voxel pattern analysis manual</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:2.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.1pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:4.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:35.7pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:EN-US;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-parent:"Normal \(Web\)";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .25pt;
+	padding:0cm;
+	mso-padding-alt:6.0pt 3.0pt 6.0pt 3.0pt;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:1390616249;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1541351018 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+</head>
+
+<body lang=EN-GB link=blue vlink=blue style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc111992856"></a><a name="_Toc112582956"></a><a
+name="_Princeton_multi-voxel_pattern"></a><span style='mso-bookmark:_Toc111992856'><span
+style='mso-bookmark:_Toc112582956'>Princeton multi-voxel pattern analysis </span></span>&#8211;
+discarded</h1>
+
+<p class=MsoNormal align=right style='margin-top:2.0pt;mso-margin-bottom-alt:
+auto;text-align:right'>16/08/2005</p>
+
+<p class=MsoNormal align=right style='margin-top:2.0pt;mso-margin-bottom-alt:
+auto;text-align:right'>Version 1</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_Toc111992859"></a><a name="_Toc112582921"></a><a
+name="_Toc112582966"><span style='mso-bookmark:_Toc112582921'><span
+style='mso-bookmark:_Toc111992859'><span lang=EN-US style='mso-ansi-language:
+EN-US'>Why do classification at all?<u1:p></u1:p></span></span></span></a><span
+lang=EN-US style='mso-ansi-language:EN-US'><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>In answer,
+we point you towards:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt'><span lang=EN-US style='color:red;
+mso-ansi-language:EN-US'>Haxby et al. (Science, 2001)</span><span lang=EN-US
+style='color:blue;mso-ansi-language:EN-US'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt'><span lang=EN-US style='color:red;
+mso-ansi-language:EN-US'>Mitchell et al.</span><span lang=EN-US
+style='color:blue;mso-ansi-language:EN-US'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt'><span lang=EN-US style='color:red;
+mso-ansi-language:EN-US'>Polyn thesis</span></p>
+
+<h2>Excluding TRs</h2>
+
+<p class=MsoNormal>This is the procedure:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo1;tab-stops:list 36.0pt'>Create
+     a new regressors object by duplicating the current set of regressors. Then
+     remove the appropriate condition-rows from the new regressors. That should
+     leave lots more 'rest timepoints', i.e. timepoints with no active
+     conditions.</li>
+</ul>
+
+<p class=MsoNormal>Don't delete any TRs from your patterns or regressors.</p>
+
+<p class=MsoNormal>Then, create a new selectors object that consists of 1s.
+Label TRs from the conditions that you want to exclude with zeros. Now, when
+you call <i>create_xvalid_indices.m</i>, feed in this extra selectors object as
+the <i>actives_selname</i>, and the analyses from this point onwards that
+depend on the xvalid indices (e.g. the no-peeking statmap creation and
+cross-validation classification) will exclude those zero-TRs.</p>
+
+<p class=MsoNormal>The main advantage of this method is that it doesn't require
+you to actually delete the TRs that you don't want from your patterns, so that
+if you change your mind, you can easily rerun your analysis by feeding in a
+different actives_selname selector to <i>create_xvalid_indices.m</i>.</p>
+
+<p>Here's an example. Imagine we have 3 conditions to begin with, stored in the
+<i>regs_original</i> regressors object. The conditions themselves are called
+'condA', 'condB' and 'condC', and we want to create a new regressors object
+called <i>regs_no_c </i>that excludes 'condC'. We should also make sure to update
+the condnames field, to reflect which conditions are now stored in the <i>regs_no_c</i>
+object.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = duplicate_object(subj,'regressors','regs_original','regs_no_c);</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; regs_nocondc = get_mat(subj,'regressors',regs_no_c');</p>
+
+<p class=Code>&gt;&gt; regs_no_c(3,:) = [];</p>
+
+<p class=Code>&gt;&gt; subj = set_mat(subj,'regressors',regs_no_c);<o:p></o:p></p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; condnames_no_c = get_objfield(subj,'regressors','regs_no_c',condnames);</p>
+
+<p class=Code>&gt;&gt; condnames_no_c(3) = [];</p>
+
+<p class=Code>&gt;&gt; subj = set_objfield(subj,'regressors','regs_no_c','condnames',condnames_no_c);</p>
+
+</div>
+
+<p>Now, create a selector (with the same number of timepoints as the regressors
+matrix), which we'll call <i>sel_no_condc</i>. TRs from conditions we want will
+have a 1 &#8211; all others will be zeros.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; sel_no_c = ones(1,size(conds_no_c,2)); </p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; TRs_to_keep = any(sum(regs_no_c));</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj = init_object(subj,'selector','sel_no_c');<o:p></o:p></p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj = set_mat(subj,'selector','sel_no_c',sel_no_c');</p>
+
+</div>
+
+<p>Finally, call <i>create_xvalid_indices.m</i>, feeding in the <i>sel_nocondc</i>
+as the optional <i>actives_selname</i> selector.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = create_xvalid_indices(subj,'runs', ...</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="mso-spacerun: yes">&nbsp;</span>'actives_selname','sel_no_c');</p>
+
+</div>
+
+<p class=MsoNormal>Note: our current recommendation is to include all the
+timepoints in your data when zscoring, including conditions that you don't want
+and rest data. As a result, there is no functionality included in <i>zscore_runs.m</i>
+for excluding timepoints.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p>Now, create a selector (with the same number of timepoints as the regressors
+matrix), which we'll call <i>sel_no_condc</i>. TRs from conditions we want will
+have a 1 &#8211; all others will be zeros.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; sel_no_c = ones(1,size(conds_no_c,2)); </p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; TRs_to_keep = any(sum(regs_no_c));</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj = init_object(subj,'selector','sel_no_c');<o:p></o:p></p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj = set_mat(subj,'selector','sel_no_c',sel_no_c');</p>
+
+</div>
+
+<p>Finally, call <i>create_xvalid_indices.m</i>, feeding in the <i>sel_nocondc</i>
+as the optional <i>actives_selname</i> selector.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = create_xvalid_indices(subj,'runs', ...</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="mso-spacerun: yes">&nbsp;</span>'actives_selname','sel_no_c');</p>
+
+</div>
+
+<p class=MsoNormal>Note: our current recommendation is to include all the
+timepoints in your data when zscoring, including conditions that you don't want
+and rest data. As a result, there is no functionality included in <i>zscore_runs.m</i>
+for excluding timepoints.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+<u1:p></u1:p><u1:p></u1:p>
+</body>
+
+</html>

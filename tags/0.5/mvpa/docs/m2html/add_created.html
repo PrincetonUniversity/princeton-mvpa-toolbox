@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of add_created</title>
+  <meta name="keywords" content="add_created">
+  <meta name="description" content="Makes it easier to add the object-creation data easier">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>add_created
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Makes it easier to add the object-creation data easier</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = add_created(subj,objtype,objname,new_creat) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Makes it easier to add the object-creation data easier
+
+ [SUBJ] = ADD_CREATED(SUBJ,OBJTYPE,OBJNAME,NEW_CREAT)
+
+ Basically, you can feed it an entire NEW_CREAT structure, and
+ it will add any fields that didn't already exist, overwrite any
+ that did, but leave intact those that were already there.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>	Auxiliary function</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_pattern_from_mask.html" class="code" title="function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)">create_pattern_from_mask</a>	Creates a new pattern by masking an old one</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="load_afni_mask.html" class="code" title="function [subj] = load_AFNI_mask(subj,new_maskname,filename)">load_afni_mask</a>	Loads an AFNI dataset into the subj structure as a mask</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_AFNI_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>	Zscore each voxel, separately for each run</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = add_created(subj,objtype,objname,new_creat)</a>
+0002 
+0003 <span class="comment">% Makes it easier to add the object-creation data easier</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = ADD_CREATED(SUBJ,OBJTYPE,OBJNAME,NEW_CREAT)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Basically, you can feed it an entire NEW_CREAT structure, and</span>
+0008 <span class="comment">% it will add any fields that didn't already exist, overwrite any</span>
+0009 <span class="comment">% that did, but leave intact those that were already there.</span>
+0010 
+0011 
+0012 old_creat = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,<span class="string">'created'</span>);
+0013 both_creat = <a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>(new_creat,old_creat);
+0014 
+0015 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,<span class="string">'created'</span>,new_creat,<span class="string">'ignore_created'</span>,true);</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

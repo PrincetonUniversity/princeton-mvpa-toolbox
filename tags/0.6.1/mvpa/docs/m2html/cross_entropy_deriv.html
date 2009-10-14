@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cross_entropy_deriv</title>
+  <meta name="keywords" content="cross_entropy_deriv">
+  <meta name="description" content="Derivative of cross-entropy">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>cross_entropy_deriv
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Derivative of cross-entropy</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [d] = cross_entropy_deriv(code, e, x, perf, pp) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Derivative of cross-entropy
+
+ [D] = CROSS_ENTROPY_DERIV(CODE, E, X, PERF, PP)
+
+ See CROSS_ENTROPY.M</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [d] = cross_entropy_deriv(code, e, x, perf, pp)</a>
+0002 
+0003 <span class="comment">% Derivative of cross-entropy</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [D] = CROSS_ENTROPY_DERIV(CODE, E, X, PERF, PP)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% See CROSS_ENTROPY.M</span>
+0008 
+0009 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0010 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0011 <span class="comment">% information.</span>
+0012 
+0013 
+0014 e_was_double = isa(e,<span class="string">'double'</span>);
+0015 <span class="keyword">if</span> e_was_double, e = {e}; <span class="keyword">end</span>
+0016 
+0017 <span class="keyword">switch</span> code
+0018   <span class="keyword">case</span> <span class="string">'e'</span>
+0019     [rows,cols] = size(e);
+0020     d = cell(rows,cols);
+0021     <span class="keyword">for</span> i=1:rows
+0022       <span class="keyword">for</span> j=1:cols
+0023         <span class="keyword">if</span> ~isempty( e{i,j} )
+0024           t       = pp.targets; <span class="comment">%pattern targets</span>
+0025           y       = t - e{i,j}; <span class="comment">%estimations</span>
+0026           y(y==0) = eps;        <span class="comment">%safeguards</span>
+0027           y(y==1) = 1-eps;
+0028           d{i,j}  = t ./ y - (1-t) ./ (1-y); <span class="comment">%Gradient dE/dy= -t/y,where E=CrossEntropy</span>
+0029         <span class="keyword">end</span>
+0030       <span class="keyword">end</span>
+0031    <span class="keyword">end</span>
+0032    <span class="keyword">if</span> e_was_double, d = d{1}; <span class="keyword">end</span>
+0033 
+0034   <span class="keyword">case</span> <span class="string">'x'</span>
+0035     d = zeros( size(x) );
+0036 
+0037   <span class="keyword">otherwise</span>
+0038     error(<span class="string">'unknown argument'</span>)
+0039 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

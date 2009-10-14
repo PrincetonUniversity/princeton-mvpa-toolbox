@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_number</title>
+  <meta name="keywords" content="get_number">
+  <meta name="description" content="Internal function - find the cell index of an object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_number
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Internal function - find the cell index of an object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [objno] = get_number(subj,objtype,objname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Internal function - find the cell index of an object
+
+ OBJNO = GET_NUMBER(SUBJ,OBJTYPE,OBJNAME,...)
+
+ % Looks into the subj structure for the object cell called
+ OBJNAME and return its index. Returns an error if no
+ pattern with this name is found (unless IGNORE_ABSENCE is true).
+
+ For internal use only
+
+ IGNORE_ABSENCE (optional argument, default = false). By default,
+ finding no object with this name causes a fatal error. However, if
+ you want to use this to check whether an object of a given name
+ exists, set this to true, and then it'll return 0</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="find_obj.html" class="code" title="function [type_matches_str type_matches_vec] = find_obj(subj,objname)">find_obj</a>	Auxiliary function</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li><li><a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>	Auxiliary function</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li><li><a href="find_obj.html" class="code" title="function [type_matches_str type_matches_vec] = find_obj(subj,objname)">find_obj</a>	Auxiliary function</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li><li><a href="remove_object.html" class="code" title="function [subj] = remove_object(subj,objtype,objname,varargin)">remove_object</a>	This removes an object permanently</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>	Replaces an entire object, i.e. a cell from one of the main 4 cell arrays</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [objno] = get_number(subj,objtype,objname,varargin)</a>
+0002 
+0003 <span class="comment">% Internal function - find the cell index of an object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% OBJNO = GET_NUMBER(SUBJ,OBJTYPE,OBJNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% % Looks into the subj structure for the object cell called</span>
+0008 <span class="comment">% OBJNAME and return its index. Returns an error if no</span>
+0009 <span class="comment">% pattern with this name is found (unless IGNORE_ABSENCE is true).</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% For internal use only</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% IGNORE_ABSENCE (optional argument, default = false). By default,</span>
+0014 <span class="comment">% finding no object with this name causes a fatal error. However, if</span>
+0015 <span class="comment">% you want to use this to check whether an object of a given name</span>
+0016 <span class="comment">% exists, set this to true, and then it'll return 0</span>
+0017 
+0018 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0019 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0020 <span class="comment">% information.</span>
+0021 
+0022 
+0023 defaults.ignore_absence = false;
+0024 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0025 
+0026 <span class="keyword">if</span> ~ischar(objtype) | ~ischar(objname)
+0027   error(<span class="string">'Objtype and objname have to be strings'</span>);
+0028 <span class="keyword">end</span>
+0029 
+0030 <span class="keyword">if</span> isempty(objtype) | isempty(objname)
+0031   error(<span class="string">'Feeding in empty objtype/name'</span>);
+0032 <span class="keyword">end</span>
+0033 
+0034 <span class="keyword">if</span> ~isempty(strmatch(objname,<a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>(<span class="string">'single'</span>),<span class="string">'exact'</span>))
+0035   error(<span class="string">'It looks as though you''ve inputted an objtype as an objname by accident'</span>);
+0036 <span class="keyword">end</span>
+0037 
+0038 obj = [];
+0039 
+0040 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0041 
+0042 objno = 0;
+0043 nbr_objects = length(objcell);
+0044 
+0045 found_already = false;
+0046 <span class="keyword">for</span> p=1:nbr_objects
+0047   <span class="keyword">if</span> ~isfield(objcell{p},<span class="string">'name'</span>)
+0048     error( sprintf(<span class="string">'This %s object (%i) doesn''t have a name'</span>),objtype,p );
+0049   <span class="keyword">end</span>
+0050 
+0051   <span class="comment">% found_already is here so that it can loop through all the cells,</span>
+0052   <span class="comment">% and check that none of them have the same name</span>
+0053   <span class="keyword">if</span> strcmp(objcell{p}.name,objname)
+0054     <span class="keyword">if</span> ~found_already
+0055       objno = p;
+0056     <span class="keyword">else</span>
+0057       error( sprintf(<span class="string">'You have more than one %s object with the same name'</span>,objtype) );
+0058     <span class="keyword">end</span>
+0059   <span class="keyword">end</span>
+0060 <span class="keyword">end</span> <span class="comment">% p nbr_objects</span>
+0061 
+0062 <span class="comment">% Cause an error if we didn''t find the object, unless the user had</span>
+0063 <span class="comment">% set IGNORE_ABSENCE = true</span>
+0064 <span class="keyword">if</span> ~objno &amp; ~args.ignore_absence
+0065   
+0066   <span class="comment">% As a convenience, check to see if there's another object with</span>
+0067   <span class="comment">% the right name of a different type, to help the user fix the problem</span>
+0068   type_matches_str = <a href="find_obj.html" class="code" title="function [type_matches_str type_matches_vec] = find_obj(subj,objname)">find_obj</a>(subj,objname);
+0069   <span class="keyword">if</span> ~isempty(type_matches_str)
+0070     disp( sprintf(<span class="string">'Did you mean one of these objtypes?%s'</span>,type_matches_str) );
+0071   <span class="keyword">end</span>
+0072   error(sprintf(<span class="string">'No %s objects called %s'</span>,objtype,objname));
+0073 <span class="keyword">end</span>
+0074 
+0075 
+0076</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

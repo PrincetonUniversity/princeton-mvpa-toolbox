@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_mat</title>
+  <meta name="keywords" content="get_mat">
+  <meta name="description" content="Returns the MAT field of the object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_mat
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns the MAT field of the object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [mat] = get_mat(subj,objtype,objname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns the MAT field of the object
+
+ [MAT] = GET_MAT(SUBJ,OBJTYPE,OBJNAME)
+
+ The MAT field is where the goodies are stashed. For instance, it
+ stores the data in a pattern, or the volume in a mask.
+
+ If the object is being stored on the hard disk (see the manual
+ section on 'Moving patterns' to the hard disk' for more info),
+ then this will transparently retrieve the mat from there</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>	No-peeking feature selection</li><li><a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>	Returns the pattern's voxels allowed by the mask</li><li><a href="get_ref_vol.html" class="code" title="function [vol] = get_ref_vol(subj,patname)">get_ref_vol</a>	Returns the mat of the pattern's masked_by mask</li><li><a href="get_relative_index.html" class="code" title="function [ia ib vol] = get_relative_index(subj, patname, maskname)">get_relative_index</a>	Returns an index into a mask of the voxels in a pattern xxx</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="load_pattern_from_hd.html" class="code" title="function [subj] = load_pattern_from_hd(subj,patname)">load_pattern_from_hd</a>	Reverse of MOVE_PATTERN_TO_HD</li><li><a href="move_pattern_to_hd.html" class="code" title="function [subj pathfilename] = move_pattern_to_hd(subj,patname,varargin)">move_pattern_to_hd</a>	Moves the pattern MAT to the hard disk</li><li><a href="peek_feature_select.html" class="code" title="function [subj] = peek_feature_select(subj,data_patname,regsname,selname,varargin)">peek_feature_select</a>	Just like PEEK_FEATURE_SELECT, except that it peeks</li><li><a href="scramble_regressors.html" class="code" title="function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargin)">scramble_regressors</a>	Scrambles your regressors for sanity-checking</li><li><a href="shift_TRs.html" class="code" title="function [subj] = shift_TRs(subj,regsname,selname,nTRs)">shift_TRs</a>	</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="write_to_afni.html" class="code" title="function [err] = write_to_afni(subj, objtype, objname, sample_filename, varargin)">write_to_afni</a>	Writes an object to a file, using the header info from a specified file.</li><li><a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>	Zscore each voxel, separately for each run</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [mat] = get_mat(subj,objtype,objname)</a>
+0002 
+0003 <span class="comment">% Returns the MAT field of the object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [MAT] = GET_MAT(SUBJ,OBJTYPE,OBJNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% The MAT field is where the goodies are stashed. For instance, it</span>
+0008 <span class="comment">% stores the data in a pattern, or the volume in a mask.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% If the object is being stored on the hard disk (see the manual</span>
+0011 <span class="comment">% section on 'Moving patterns' to the hard disk' for more info),</span>
+0012 <span class="comment">% then this will transparently retrieve the mat from there</span>
+0013 
+0014 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0015 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0016 <span class="comment">% information.</span>
+0017 
+0018 
+0019 <span class="comment">% Basically, all this does is:</span>
+0020 <span class="comment">%   objcell = get_type</span>
+0021 <span class="comment">%   objno = get_number</span>
+0022 <span class="comment">%   return objcell{objno}</span>
+0023 
+0024 <span class="keyword">if</span> nargin~=3
+0025   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0026 <span class="keyword">end</span>
+0027 
+0028 mat = [];
+0029 
+0030 <span class="comment">% Uses the objno and objcell so that it's independent of object type</span>
+0031 objno = <a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>(subj,objtype,objname);
+0032 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0033 
+0034 <span class="keyword">if</span> ~<a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,<span class="string">'mat'</span>)
+0035   error( sprintf(<span class="string">'The %s %s doesn''t have a .mat field'</span>,objname,objtype) );
+0036 <span class="keyword">end</span>
+0037 
+0038 <span class="comment">% If the mat resides on the HD, load it in from there</span>
+0039 <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,<span class="string">'movehd'</span>)
+0040   movehd = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,<span class="string">'movehd'</span>);
+0041   disp( sprintf(<span class="string">'Retrieving mat from %s'</span>,movehd.pathfilename) );
+0042   load(movehd.pathfilename);
+0043 
+0044 <span class="comment">% Otherwise, just grab it from the objcell</span>
+0045 <span class="keyword">else</span>
+0046   mat = objcell{objno}.mat;
+0047 <span class="keyword">end</span> <span class="comment">% isfield movehd</span>
+0048 
+0049 <span class="keyword">if</span> isempty(mat)
+0050   warning( sprintf(<span class="string">'Retrieving an empty mat from %s'</span>,objname) );
+0051 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

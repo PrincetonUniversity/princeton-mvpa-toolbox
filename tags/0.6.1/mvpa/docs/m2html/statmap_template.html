@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of statmap_template</title>
+  <meta name="keywords" content="statmap_template">
+  <meta name="description" content="This is the sample/template statmap generation function">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>statmap_template
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is the sample/template statmap generation function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This is the sample/template statmap generation function
+
+ [SUBJ] = STATMAP_TEMPLATE(SUBJ,DATA_PATNAME,REGSNAME,SELNAME,NEW_MAP_PATNAME,EXTRA_ARG)
+
+ Adds the following objects:
+ - statmap pattern object
+
+ Updates the subject structure by creating a new pattern,
+ NEW_MAP_PATNAME, that contains a vector of P-values (for example)
+
+ See STATMAP_ANOVA for a real example script
+
+ Uses all the conditions in REGSNAME. If you only want to use a
+ subset of them, create a new regressors object with only those
+ conditions
+
+ Only uses those TRs labelled with a 1 in the SELNAME selector,
+ and where there's an active condition in the REGSNAME regressors matrix
+
+ All statmaps that can be used by FEATURE_SELECT have to take the
+ extra_arg which can store any info your statmap might need
+
+ EXTRA_ARG (optional, default = []). This could do anything, and
+ the default could be anything. STATMAP_ANOVA.M ignores this, but
+ other statmap functions might need it.
+
+ See the section on creating your own statmap in the manual</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>	Add a new empty object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [p] = statmap_template_logic(pat,regs,args)</a></li><li><a href="#_sub2" class="code">function [] = sanity_check(pat,regs,sel,args)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)</a>
+0002 
+0003 <span class="comment">% This is the sample/template statmap generation function</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = STATMAP_TEMPLATE(SUBJ,DATA_PATNAME,REGSNAME,SELNAME,NEW_MAP_PATNAME,EXTRA_ARG)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Adds the following objects:</span>
+0008 <span class="comment">% - statmap pattern object</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Updates the subject structure by creating a new pattern,</span>
+0011 <span class="comment">% NEW_MAP_PATNAME, that contains a vector of P-values (for example)</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% See STATMAP_ANOVA for a real example script</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Uses all the conditions in REGSNAME. If you only want to use a</span>
+0016 <span class="comment">% subset of them, create a new regressors object with only those</span>
+0017 <span class="comment">% conditions</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% Only uses those TRs labelled with a 1 in the SELNAME selector,</span>
+0020 <span class="comment">% and where there's an active condition in the REGSNAME regressors matrix</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% All statmaps that can be used by FEATURE_SELECT have to take the</span>
+0023 <span class="comment">% extra_arg which can store any info your statmap might need</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% EXTRA_ARG (optional, default = []). This could do anything, and</span>
+0026 <span class="comment">% the default could be anything. STATMAP_ANOVA.M ignores this, but</span>
+0027 <span class="comment">% other statmap functions might need it.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% See the section on creating your own statmap in the manual</span>
+0030 
+0031 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0032 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0033 <span class="comment">% information.</span>
+0034 
+0035 
+0036 defaults.extra_arg = [];
+0037 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(defaults,extra_arg);
+0038 
+0039 pat  = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'pattern'</span>,data_patname);
+0040 regs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'regressors'</span>,regsname);
+0041 sel  = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,selname);
+0042 
+0043 <a href="#_sub2" class="code" title="subfunction [] = sanity_check(pat,regs,sel,args)">sanity_check</a>(pat,regs,sel);
+0044 
+0045 TRs_to_use = find(sel==1);
+0046 
+0047 <span class="comment">% Note: don't forget to exclude rest timepoints, unless your</span>
+0048 <span class="comment">% function definitely requires them</span>
+0049 
+0050 pat   = pat(:,TRs_to_use);
+0051 regs = regs(:,TRs_to_use);
+0052 
+0053 <span class="comment">% Do all the hard work inside STATMAP_TEMPLATE_LOGIC</span>
+0054 p = <a href="#_sub1" class="code" title="subfunction [p] = statmap_template_logic(pat,regs,args)">statmap_template_logic</a>(pat,regs,extra_arg);
+0055 
+0056 <span class="comment">% Now create a new pattern object to house the statmap with the p</span>
+0057 <span class="comment">% values in it</span>
+0058 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>(subj,<span class="string">'pattern'</span>,new_map_patname);
+0059 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'pattern'</span>,new_map_patname,p);
+0060 
+0061 <span class="comment">% Every pattern needs to know which mask it is masked by</span>
+0062 masked_by = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,<span class="string">'pattern'</span>,data_patname,<span class="string">'masked_by'</span>);
+0063 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'pattern'</span>,new_map_patname,<span class="string">'masked_by'</span>,masked_by);
+0064 
+0065 hist = sprintf(<span class="string">'Created by statmap_template'</span>,data_patname);
+0066 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'pattern'</span>,new_map_patname,hist);
+0067 
+0068 created.function = <span class="string">'statmap_template'</span>;
+0069 created.data_patname = data_patname;
+0070 created.regsname = regsname;
+0071 created.selname = selname;
+0072 created.new_map_patname = new_map_patname;
+0073 created.extra_arg = extra_arg;
+0074 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'pattern'</span>,new_map_patname,created);
+0075 
+0076 
+0077 
+0078 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0079 <a name="_sub1" href="#_subfunctions" class="code">function [p] = statmap_template_logic(pat,regs,args)</a>
+0080 
+0081 <span class="comment">% This is where the logic for your custom statmap should go</span>
+0082 
+0083 
+0084 
+0085 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0086 <a name="_sub2" href="#_subfunctions" class="code">function [] = sanity_check(pat,regs,sel,args)</a>
+0087 
+0088 <span class="comment">% This is where you should check that your assumptions are met</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

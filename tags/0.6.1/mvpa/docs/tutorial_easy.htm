@@ -1,0 +1,2549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./tutorial_easy_files/filelist.xml">
+<title>Princeton multi-voxel pattern analysis tutorial</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Greg Detre</o:Author>
+  <o:LastAuthor>Greg Detre</o:LastAuthor>
+  <o:Revision>455</o:Revision>
+  <o:TotalTime>1960</o:TotalTime>
+  <o:Created>2005-08-18T08:37:00Z</o:Created>
+  <o:LastSaved>2005-09-07T22:12:00Z</o:LastSaved>
+  <o:Pages>14</o:Pages>
+  <o:Words>5490</o:Words>
+  <o:Characters>28548</o:Characters>
+  <o:Company>-</o:Company>
+  <o:Lines>648</o:Lines>
+  <o:Paragraphs>313</o:Paragraphs>
+  <o:CharactersWithSpaces>38430</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:"Times New Roman";
+	mso-bidi-font-family:Arial;
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoNormalIndent, li.MsoNormalIndent, div.MsoNormalIndent
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+span.MsoFootnoteReference
+	{vertical-align:super;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:4.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBlockText, li.MsoBlockText, div.MsoBlockText
+	{margin-top:0cm;
+	margin-right:72.0pt;
+	margin-bottom:6.0pt;
+	margin-left:72.0pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-parent:"Normal \(Web\)";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .25pt;
+	padding:0cm;
+	mso-padding-alt:6.0pt 3.0pt 6.0pt 3.0pt;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:36.0pt;
+	mso-footer-margin:36.0pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:156265043;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1985832020 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:680856565;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1016831184 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:2145150907;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1747157840 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-GB link=blue vlink=purple style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<h1>Princeton multi-voxel pattern analysis &#8211; tutorial</h1>
+
+<p align=right style='text-align:right'><a
+href="http://www.csbmb.princeton.edu/mvpa">http://www.csbmb.princeton.edu/mvpa</a></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 414.8pt'><!--[if supportFields]><span
+style='mso-element:field-begin'></span><span style="mso-spacerun:
+yes">&nbsp;</span>TOC \h \z \t &quot;Heading 2,1,Heading 3,2&quot; <span
+style='mso-element:field-separator'></span><![endif]--><span
+class=MsoHyperlink><a href="#_Toc113274576">Introduction<span style='color:
+windowtext;display:none;mso-hide:screen;text-decoration:none;text-underline:
+none'><span style='mso-tab-count:1 dotted'>.. </span><span style='mso-field-code:
+"PAGEREF _Toc113274576 \\h"'>1<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500370036000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274577"><span lang=EN-US style='mso-ansi-language:
+EN-US'>What you will need to start with</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>.. </span><span style='mso-field-code:"PAGEREF _Toc113274577 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500370037000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274578"><span lang=EN-US style='mso-ansi-language:
+EN-US'>The Haxby 8 categories experiment</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc113274578 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500370038000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274579"><span lang=EN-US style='mso-ansi-language:
+EN-US'>The easy-like-sunday-morning tutorial</span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc113274579 \\h"'>2<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500370039000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274580">Initialising the subject (<i
+style='mso-bidi-font-style:normal'>subj)</i> structure<span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>.. </span><span style='mso-field-code:"PAGEREF _Toc113274580 \\h"'>3<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380030000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274581">Ventral temporal with GLM mask<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>.. </span><span
+style='mso-field-code:"PAGEREF _Toc113274581 \\h"'>4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380031000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274582">EPI pattern<span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>.. </span><span style='mso-field-code:"PAGEREF _Toc113274582 \\h"'>5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380032000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274583">Condition regressors<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc113274583 \\h"'>7<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380033000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274584">Runs selector<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc113274584 \\h"'>8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380034000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274585">Waypoint before further
+pre-classification steps<span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-tab-count:
+1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc113274585 \\h"'>9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380035000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274586">Zscoring<span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>.. </span><span style='mso-field-code:"PAGEREF _Toc113274586 \\h"'>10<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380036000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274587">Creating the cross-validation
+indices<span style='color:windowtext;display:none;mso-hide:screen;text-decoration:
+none;text-underline:none'><span style='mso-tab-count:1 dotted'>. </span><span
+style='mso-field-code:"PAGEREF _Toc113274587 \\h"'>11<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380037000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274588">ANOVA<span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>... </span><span style='mso-field-code:"PAGEREF _Toc113274588 \\h"'>14<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380038000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274589">Pre-classification summary<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>.. </span><span
+style='mso-field-code:"PAGEREF _Toc113274589 \\h"'>17<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500380039000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274590">Cross-validation classification<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>.. </span><span
+style='mso-field-code:"PAGEREF _Toc113274590 \\h"'>17<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500390030000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc2 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274591">Results<span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'>. </span><span style='mso-field-code:"PAGEREF _Toc113274591 \\h"'>18<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500390031000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 414.8pt'><span
+class=MsoHyperlink><a href="#_Toc113274592">Troubleshooting<span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'>.. </span><span
+style='mso-field-code:"PAGEREF _Toc113274592 \\h"'>19<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003100310033003200370034003500390032000000</w:data>
+</xml><![endif]--></span></span></a></span></p>
+
+<p class=MsoNormal><!--[if supportFields]><span style='mso-element:field-end'></span><![endif]--><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_Toc113274576">Introduction</a></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>This tutorial will run
+through the basics of a single subject analysis, classifying fMRI brain states
+into different conditions using the distributed pattern analysis technique. It
+assumes that you have read and carried out the <a href="setup.htm">installation
+instructions</a>.<o:p></o:p></span></p>
+
+<p>Specifically, this analysis will use an AFNI dataset from Haxby et al (Science,
+2001) that is provided with the toolbox, in which participants viewed different
+classes of visual objects. The goal of the analysis is to classify the
+distributed patterns of neural activity in order to predict psychological
+states (i.e., viewing a face) from the neural state (e.g., BOLD pattern in
+occipitotemporal cortex) .</p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>The Matlab code described
+below is reproduced from <i style='mso-bidi-font-style:normal'><a
+href="m2html/tutorial_easy.html">tutorial_easy.m</a></i>, which contains
+briefer inline comments than this narrative. For further information, see the
+main documentation in <a href="manual.htm">manual.htm</a>, or the <a
+href="glossary.htm">glossary</a> for unfamiliar terms.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>We called this document <i>tutorial_easy.htm</i>.
+Don't let that fool you. We've really done everything we can to trip you up
+with it. Just wait till you try the <i>tutorial_hard.htm</i> which we plan to
+write in the future. It will be so difficult and scary that small children will
+cry around the globe whenever a copy is downloaded. In the meantime, let us
+begin.<o:p></o:p></span></p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_Toc113274577"></a><a name="_What_you_will"></a><span
+style='mso-bookmark:_Toc113274577'><span lang=EN-US style='mso-ansi-language:
+EN-US'>What you will need to start with</span></span><span lang=EN-US
+style='mso-ansi-language:EN-US'><o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Here's what you need to run
+this tutorial (all of which should be included in the scripts and data tarballs
+on the <a href="http://www.csbmb.princeton.edu/mvpa/docs/">website</a>):</span></p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l2 level1 lfo2;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>a working copy of Matlab (ideally R14 &#8211; see
+'Compatibility' section in the manual)</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='mso-list:l2 level1 lfo2;tab-stops:list 36.0pt'>all
+     of the .m files included in the main toolbox download (including <i
+     style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-ansi-language:
+     EN-US'>tutorial_easy.m</span></i><span lang=EN-US style='mso-ansi-language:
+     EN-US'>)</span></li>
+</ul>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l2 level1 lfo2;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>the
+sample dataset in AFNI format &#8211; <i>haxby8_r[1..10]+orig.BRIK</i> and <i>.HEAD</i></span></p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l2 level1 lfo2;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>regressors
+information &#8211; <i>tutorial_regs.mat</i></span></p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l2 level1 lfo2;
+tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-US style='font-family:
+Symbol;mso-ansi-language:EN-US'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>runs information
+&#8211; <i>tutorial_runs.mat</i><o:p></o:p></span></p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l2 level1 lfo2;
+tab-stops:list 36.0pt'><![if !supportLists]><span lang=EN-US style='font-family:
+Symbol;mso-ansi-language:EN-US'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>a mask
+in AFNI format &#8211; <i>mask_cat_select_vt+orig.BRIK</i> and <i>.HEAD</i><o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>The zscore and ANOVA
+functionality depend on having the Matlab Statistics toolbox. If you don't have
+a copy of this, you'll have to skip those steps below and slightly alter the
+code afterwards appropriately.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Apart from that, everything
+else listed above that you need is included in the toolbox.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Finally, you'll need all
+your paths to be set up properly, and to be in the right directory when you
+load up Matlab. See the 'Installation' section in the <a href="manual.htm">manual</a>
+for more information about this.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><a name="_Toc113274578"><span lang=EN-US style='mso-ansi-language:EN-US'>The
+Haxby 8 categories experiment</span></a><span lang=EN-US style='mso-ansi-language:
+EN-US'><o:p></o:p></span></h2>
+
+<p class=MsoBodyText><span lang=EN-US style='mso-ansi-language:EN-US'>The
+subject in this experiment viewed lots of exemplars of 8 different types of
+images.<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-US style='mso-ansi-language:EN-US'>Each run
+contained a 9-TR block for each condition with rest in between and at either
+end. There are 10 runs of a single subject included in the dataset in this
+toolbox.<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-US style='mso-ansi-language:EN-US'>Note that
+the individual stimulus presentations within a given category block might not
+align with the TRs. right???<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-US style='mso-ansi-language:EN-US'>See the
+'Sample data set' section in the manual for more information.<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><a name="_Toc113274579"><span lang=EN-US style='mso-ansi-language:EN-US'>The
+easy-like-sunday-morning tutorial</span></a><span lang=EN-US style='mso-ansi-language:
+EN-US'><o:p></o:p></span></h2>
+
+<p class=MsoNormal>The goal of this analysis is to teach a classifier to
+predict which class of object the subject is viewing on each trial. To do this,
+we need several bits of information:</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>a <i>pattern</i> to classify</p>
+
+<p style='margin-left:36.0pt'>The BOLD data itself, stored in AFNI format</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>a set of <i>regressors</i></p>
+
+<p style='margin-left:36.0pt'>A vector of condition labels that identify each
+volume in the data. This is necessary for training the classifier</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>a <i>selector</i></p>
+
+<p style='margin-left:36.0pt'>When dealing with classifiers, one cannot train
+and test the classifier on the same data. Doing so would lead to artifically
+inflated accuracy. So we will need a set of selectors that indicate which
+volumes should be used for testing and which should be used for training</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>a <i>mask</i></p>
+
+<p style='margin-left:36.0pt'>We don't want to include all the voxels from the
+brain in our analysis. We use boolean 3D spatial masks to label the voxels we
+want to keep and the voxels we want to exclude.</p>
+
+<p style='margin-left:36.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274580">Initialising the subject (<i style='mso-bidi-font-style:
+normal'>subj)</i> structure</a></h3>
+
+<p>This toolbox uses a single structure to house all of these types of
+information for an individual subject. As this is the main structure for each
+subject, we'll call it the <i style='mso-bidi-font-style:normal'>subj</i>
+structure.</p>
+
+<p>Our analysis will begin by creating a subject structure, and loading the
+patterns, selectors, regressors and masks we need. Later, we will run the
+actual analysis by passing the subject structure to the classifier and
+supporting functions.</p>
+
+<p>To initialise it for use with the toolbox, we need to specify what we're
+going to call the experiment ('haxby8') and a unique identifier for the subject
+('tutorial_subject'):</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = init_subj('haxby8','tutorial_subj');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; summarize(subj)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>No pattern objects</p>
+
+<p class=Code>No regressors objects</p>
+
+<p class=Code>No selector objects</p>
+
+<p class=Code>No mask objects</p>
+
+</div>
+
+<p>This displays the contents of our new subject structure.</p>
+
+<p>Eventually, you will have multiple objects in your structure of each type.
+For instance, you load the AFNI dataset, and z-score it. This will leave you
+with two patterns in the subject structure. There is no limit to the number of
+objects of each type that can be contained within the subj structure.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274581">Ventral temporal with GLM mask</a></h3>
+
+<p>Before loading in our data, we first need to create a <i style='mso-bidi-font-style:
+normal'>mask</i> to restrict the voxels we want to allow through: </p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj =
+load_afni_mask(subj,'VT_category-selective','mask_cat_select_vt+orig');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Setting all non-zero values in the mask_cat_select_vt+orig.BRIK
+mask to one</p>
+
+<p class=Code>Mask 'VT_category-selective' created by load_afni_pattern</p>
+
+</div>
+
+<p>This simply initializes a <i style='mso-bidi-font-style:normal'>mask</i> object
+called 'VT_category_selective' by loading in the AFNI files called <i>mask_cat_select_vt+orig.BRIK
+</i>and <i>.HEAD</i>.</p>
+
+<p>This mask happens to be an anatomically-defined ventral temporal mask with a
+GLM used to further restrict the voxels.</p>
+
+<p>To see how the <i style='mso-bidi-font-style:normal'>subj<span
+style='mso-bidi-font-style:italic'> </span></i>structure looks now that the
+mask object has been added:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>No pattern objects</p>
+
+<p class=Code>No regressors objects</p>
+
+<p class=Code>No selector objects</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Masks -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ X<span style="mso-spacerun: yes">&nbsp; </span>x<span
+style="mso-spacerun: yes">&nbsp; </span>Y<span style="mso-spacerun: yes">&nbsp;
+</span>x<span style="mso-spacerun: yes">&nbsp; </span>Z ] [ nVox]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1)
+VT_category-selective<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ 64 x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span
+style="mso-spacerun: yes">&nbsp; </span>40] [<span style="mso-spacerun:
+yes">&nbsp; </span>577]<sup><o:p></o:p></sup></p>
+
+</div>
+
+<p>You may have to widen this window in order to stop the lines from wrapping
+round messily.</p>
+
+<p>If we want to examine our handiwork, we can see how the mask object is
+stored:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; mask = get_object(subj,'mask','VT_category-selective')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>mask =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>name: 'VT_category-selective'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mat: [64x64x40 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>matsize: [64
+64 40]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>group_name: ''</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>derived_from: ''</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created:
+[1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>thresh: NaN</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>nvox: 577</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>last_modified: '050821_1812_11'</p>
+
+</div>
+
+<p>The <i style='mso-bidi-font-style:normal'>mat</i> field is the key to all
+the objects. In the case of a mask, it's a boolean 3D volume. Only voxels with a
+1 in this matrix will be loaded in from the data in the next step. We'll ignore
+all the other fields for now, and come back to them later.</p>
+
+<p>N.B. At various stages, fields like 'last_modified' will contain date and
+time information in YYMMDD_HHMM_SS format. The information on your screen will
+obviously be different from that presented here.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274582">EPI pattern</a></h3>
+
+<p>Loading in the data is almost as simple. We're going to create a <i
+style='mso-bidi-font-style:normal'>pattern</i> object called 'epi' to store our
+raw EPI voxel data. This pattern is only going to include voxels that were
+allowed through by the mask we just created called 'VT_category-selective'.</p>
+
+<p>Because your data may be big and stored in multiple AFNI BRIK/HEAD file
+pairs, <i style='mso-bidi-font-style:normal'>load_afni_pattern.m</i> takes a
+cell array of strings as its <i style='mso-bidi-font-style:normal'>filenames</i>
+argument (ignoring the <i>.BRIK</i> extention). We will create this list first.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; for i=1:10</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>raw_filenames{i} = sprintf('haxby8_r%i+orig',i);</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp; </span>end</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj =
+load_afni_pattern(subj,'epi','VT_category-selective',raw_filenames);</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Starting to load AFNI pattern from 10 BRIK files</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>3<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10</p>
+
+<p class=Code>Pattern 'epi' created by load_afni_pattern</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+<p>Note: this can take a little while for large datasets, even if most of the
+voxels are being masked away. It will also take up lots of RAM while it's
+loading &#8211; as a general rule of thumb, having twice as much RAM as the biggest
+object that you need to manipulate is the bare minimum that is usable. Reading
+it in one run at a time helps greatly, as can masking which voxels are
+included.</p>
+
+<p>Now the <i style='mso-bidi-font-style:normal'>subj</i> structure has now
+been updated with a new <i style='mso-bidi-font-style:normal'>pattern</i>
+object`:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Patterns -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ nVox x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) epi<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]</p>
+
+<p class=Code>No regressors objects</p>
+
+<p class=Code>No selector objects</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Masks -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ X<span style="mso-spacerun: yes">&nbsp; </span>x<span
+style="mso-spacerun: yes">&nbsp; </span>Y<span style="mso-spacerun: yes">&nbsp;
+</span>x<span style="mso-spacerun: yes">&nbsp; </span>Z ] [ nVox]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1)
+VT_category-selective<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ 64 x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span
+style="mso-spacerun: yes">&nbsp; </span>40] [<span style="mso-spacerun:
+yes">&nbsp; </span>577]</p>
+
+</div>
+
+<p>Let's look at the contents of this new pattern object:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; pats = get_object(subj,'pattern','epi')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>pats =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>name: 'epi'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mat: [577x1210 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>matsize:
+[577 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>group_name: ''</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>derived_from: ''</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created:
+[1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>masked_by:
+'VT_category-selective'</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>last_modified: '050821_1815_45'</p>
+
+</div>
+
+<p>This <i style='mso-bidi-font-style:normal'>pattern</i> object is broadly
+similar to the mask object. Only 577 voxels were allowed through the mask
+(which corresponds to the number of non-zero points in the 3D boolean mask),
+and there are 1210 TR timepoints.</p>
+
+<p>One main difference between the mask and pattern is that the values (for the
+raw EPI voxel activities) are stored as a 2D matrix (<i>voxels </i>x <i>timepoints</i>)
+in the <i style='mso-bidi-font-style:normal'>mat</i> field. The 3D information
+about their location has been discarded to make manipulating the data easier
+and more memory-efficient.</p>
+
+<p>However, notice that the name of the mask used to decide which voxels are
+allowed through is stored in the 'masked_by' field. This is essential, because
+when you decide that you do want to know where a voxel sits inside the brain,
+or even identify which voxel is which between differently-masked patterns,
+you'll need to refer to their position in the 3D volume in the mask <i
+style='mso-bidi-font-style:normal'>mat</i> that was used to create them. This
+is discussed in the 'Advanced &#8211; Figuring out which voxel is which, and where'
+section in the manual.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274583">Condition regressors</a></h3>
+
+<p>We're going to start by loading in our regressors matrix from a pre-prepared
+file. The regressors matrix stores information about which conditions each TR
+belongs to. It's just like the regressors matrix that a GLM would use. We will
+give this set of regressors the name 'conds'. We will need the regressors later
+for training our classifier about which TRs are which.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code><i style='mso-bidi-font-style:normal'>&gt;&gt; </i>subj =
+init_object(subj,'regressors','conds');</p>
+
+</div>
+
+<p>The <i style='mso-bidi-font-style:normal'>mat</i> field is empty initially,
+so let's load in the actual regressors matrix we're going to use from the
+pre-prepared <i style='mso-bidi-font-style:normal'>tutorial_regs.mat</i> file.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; load('tutorial_regs');</p>
+
+</div>
+
+<p>This will load in a variable called <i style='mso-bidi-font-style:normal'>regs</i>
+which is just a matrix of conditions x timepoints (8 x 1210).</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; whos regs</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Name<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Size<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Bytes<span style="mso-spacerun: yes">&nbsp; </span>Class</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>regs<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>8x1210<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>77440<span style="mso-spacerun: yes">&nbsp; </span>double array</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Grand total is 9680 elements using 77440 bytes</p>
+
+</div>
+
+<p>Don't worry if the byte sizes of your variables are slightly different.</p>
+
+<p>Now, we're going to store the matrix that we just loaded inside our
+newly-initialized <i style='mso-bidi-font-style:normal'>regressors</i> object.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = set_mat(subj,'regressors','conds',regs);</p>
+
+</div>
+
+<p>Finally, let's just append some information about the 8 conditions in this
+regressors matrix. </p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; condnames =
+{'face','house','cat','bottle','scissors','shoe','chair','scramble'};</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj =
+set_objfield(subj,'regressors','conds','condnames',condnames);</p>
+
+</div>
+
+<p>This latter command just appended the <i style='mso-bidi-font-style:normal'>condnames</i>
+cell array of strings to a field called 'condnames' in the <span
+style='mso-bidi-font-style:italic'>regressors </span>object called 'conds'.</p>
+
+<p>Let's make things a bit more concrete by examining our newly-created <span
+style='mso-bidi-font-style:italic'>regressors</span> object:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; condregs = get_object(subj,'regressors','conds')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>condregs =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>name: 'conds'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mat: [8x1210 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>matsize: [8
+1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>group_name: ''</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>derived_from: ''</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created:
+[1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>condnames: {1x8 cell}</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>last_modified: '050821_1821_09'</p>
+
+</div>
+
+<p>As noted, all objects have a <i style='mso-bidi-font-style:normal'>mat</i>
+field which stores their main data, and suitably, this is where the regressors
+matrix has now been stored. As expected, there are 8 conditions. Note that,
+like the <i>epi </i>pattern, the regressors matrix stores time on the 2nd
+dimension, and that again there are 1210 TRs for this experiment.</p>
+
+<p>Depending on the size of your screen, the <i>cond</i><i style='mso-bidi-font-style:
+normal'>names</i> cell array may show the condition names that have been
+stored, or it might just show that there are 8 string cells.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274584">Runs selector</a></h3>
+
+<p>Now, we're going to repeat the same process to store information about which
+of the 10 runs (i.e. scanning sessions) each TR came from. This is stored
+simply as a row-vector with the same number of timepoints as the regressors,
+containing 1s, 2s, 3s, etc. This goes in a <i style='mso-bidi-font-style:normal'>selector</i>
+object (think of these as a set of 'timelabels'), which we'll call 'runs':</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = init_object(subj,'selector','runs');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; load('tutorial_runs');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; subj = set_mat(subj,'selector','runs',runs);</p>
+
+</div>
+
+<p>The newly-created selectors object looks very similar to the other objects:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; runs = get_object(subj,'selector','runs')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>runs =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>name: 'runs'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mat: [1x1210 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>matsize: [1
+1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>group_name: ''</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp;&nbsp;</span>derived_from: ''</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created:
+[1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>last_modified: '050821_1823_27'</p>
+
+</div>
+
+<p>Try examining the contents of the <i>runs</i> selector matrix yourself (the
+1x1210 <i>mat</i> field) as before, using:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; runs = get_mat(subj,'selector','runs');</p>
+
+</div>
+
+<p>You should see that it contains 1210 integer labels, one for each TR,
+identifying which scanning run that TR came from.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274585">Waypoint before further pre-classification steps</a></h3>
+
+<p>At this point, we've loaded everything in, and we're ready to start the
+pre-classification steps.</p>
+
+<p>By now, your subj structure should look much busier:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Patterns -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ nVox x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) epi<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Regressors -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[nCond x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) conds<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>8 x 1210]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Selectors -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[nCond x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) runs<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Masks -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ X<span style="mso-spacerun: yes">&nbsp; </span>x<span
+style="mso-spacerun: yes">&nbsp; </span>Y<span style="mso-spacerun: yes">&nbsp;
+</span>x<span style="mso-spacerun: yes">&nbsp; </span>Z ] [ nVox]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1)
+VT_category-selective<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ 64 x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span
+style="mso-spacerun: yes">&nbsp; </span>40] [<span style="mso-spacerun:
+yes">&nbsp; </span>577]</p>
+
+</div>
+
+<p>We're now ready to transform and slim this data down before passing it into
+the classifier.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274586">Zscoring</a></h3>
+
+<p>It helps to zscore the data by subtracting out the mean of each voxel's
+timecourse and scaling it so that the standard deviation of the timecourse is
+one.</p>
+
+<p><i style='mso-bidi-font-style:normal'>zscore_runs.m</i> actually treats each
+run as a separate timecourse, which can help remove any between run differences
+due to baseline shifts.</p>
+
+<p>It takes in the name of the pattern you want to zscore, and also the
+selector name that contains the runs information, so that it knows how to
+zscore each run separately.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = zscore_runs(subj,'epi','runs');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Beginning zscore_runs - max_runs = 10</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>3<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10</p>
+
+<p class=Code>Pattern 'epi_z' created by zscore_runs</p>
+
+</div>
+
+<p>This step requires the <i style='mso-bidi-font-style:normal'>zscore.m</i>
+function included in the Matlab Statistics toolbox, although it wouldn't be
+hard to write your own in its place.</p>
+
+<p>You can check with the <i>summarize</i> function that it has indeed created
+a new <i>epi_z</i> pattern of the same size as <i>epi_z</i>.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj,'objtype','pattern')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;</span></p>
+
+<p class=Code>Patterns -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ nVox x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) epi<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2) epi_z<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+
+</div>
+
+<p>Calling <i>summarise.m</i> with the 'objtype' and 'pattern' pair of
+arguments is useful if you only want to see one type of object. Many of the
+toolbox scripts allow optional property/value pairs of arguments like this.</p>
+
+<p>You could even try looking to see how the data has changed by comparing the
+data before and after:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; before_zscore_mat = get_mat(subj,'pattern','epi');</p>
+
+<p class=Code>&gt;&gt; after_zscore_mat = get_mat(subj,'pattern','epi_z');</p>
+
+</div>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274587">Creating the cross-validation indices</a> </h3>
+
+<p>This next step is essential, but not as transparent. We are going to create
+a group of selectors in anticipation of the n-minus-one cross-validation scheme
+that we will use to train and test our classifier.</p>
+
+<p>We have 10 runs, so our cross-validation will have 10 iterations. Each
+iteration will involve training a fresh classifier on most of the data (9 of
+the 10 runs), and testing on that lonely, withheld run. As a result, every
+timepoint gets used as training data in 9 of the iterations and as testing data
+in one of them.</p>
+
+<p>We are going to create each member of the group of 10 selectors to act as a
+kind of temporal mask for one of the iterations.</p>
+
+<p>See the 'Classification &#8211; n-minus-one (leave-one-out) cross-validation'
+section in the manual for a more extensive explanation of what's going on.</p>
+
+<p>The only information needed for this is the <i style='mso-bidi-font-style:
+normal'>runs</i> selector. As a result, the group we're going to create will
+automatically be named 'runs_xval', and its members will be individually named
+'runs_xval_1', 'runs_xval_1' etc.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; subj = create_xvalid_indices(subj,'runs');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Selector group 'runs_xval' created by create_xvalid_indices</p>
+
+</div>
+
+<p>Call <i style='mso-bidi-font-style:normal'>summarize.m</i> on the <i
+style='mso-bidi-font-style:normal'>subj</i> structure to see that it has added
+lots of new selectors:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj,'objtype','selector')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Selectors -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[nCond x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) runs<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2)
+runs_xval_1<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>3)
+runs_xval_2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4)
+runs_xval_3<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5)
+runs_xval_4<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6)
+runs_xval_5<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7)
+runs_xval_6<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8)
+runs_xval_7<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9)
+runs_xval_8<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10) runs_xval_9<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>11) runs_xval_10<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]
+[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+</div>
+
+<p>You can even peer at each selector individually, e.g.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; xval1 = get_object(subj,'selector','runs_xval_1')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>xval1 =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>name: 'runs_xval_1'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mat: [1x1210 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>matsize: [1
+1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>group_name: 'runs_xval'</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>derived_from: 'runs'</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created:
+[1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>last_modified:
+'050821_1826_07'</p>
+
+</div>
+
+<p>We can see that it has been individually named as we expected, and its
+group_name allows us to treat all 10 together later. We can also see in the
+'derived_from' field that this object was based on the 'runs' selector.</p>
+
+<p>Let's look at the first couple of hundred of items in the <i
+style='mso-bidi-font-style:normal'>mat</i> for this selector:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; xval1_mat = get_mat(subj,'selector','runs_xval_1');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>&gt;&gt; xval1_mat(1:200)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>ans =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 1 through
+14</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun:
+yes">&nbsp;</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 15 through
+28</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 29 through
+42</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 43 through
+56</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 57 through
+70</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 71 through
+84</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp; </span><span style="mso-spacerun:
+yes">&nbsp;&nbsp;</span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 85 through
+98</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 99 through
+112</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp; </span></p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Columns 113 through 126</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 127 through
+140</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 141 through
+154</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 155 through
+168</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 169 through
+182</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 183 through
+196</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp; </span>Columns 197 through
+200</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>1</p>
+
+</div>
+
+<p>We can see an unhelpful bunch of '2's and '1's. Think of this as a kind of
+code. '1's signify TRs that will be used as training data for the classifier
+for this iteration of the n-minus-one cross-validation. These '1' TRs will also
+be the timepoints that the ANOVA uses to create its statmap for this iteration.
+The '2's will be ignored by the ANOVA, and will become the testing data for the
+classifier when assessing its generalization to unseen data. In other words,
+for the selector shown above, the first 121 TRs are going to be withheld as
+testing ('2' ) TRs for this iteration, while the rest will be training ('1')
+TRs.</p>
+
+<p>If you look at the contents of different selector indices from the
+newly-created 'runs_xval' group, you will see that a different run's worth of TRs
+are coded with '2's as testing data each time, while all the rest are training
+'1's. Any TRs labelled with anything but '1' or '2' will be completely ignored
+by the functions from now on.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274588">ANOVA</a></h3>
+
+<p>Before actually doing the classification, it usually helps to throw away
+uninformative voxels. In the machine learning literature, this is termed
+'feature selection'.</p>
+
+<p>The easiest way to do this is to use an ANOVA which tells you the
+probability that a given voxel's activity varies significantly between
+conditions over the course of the experiment. Note that this ANOVA method runs
+completely separately for each voxel, yielding a p value for each.</p>
+
+<p>We will store the statmap of p values from the ANOVA as a pattern. We can
+then create a mask from that statmap of just those voxels which vary
+significantly between conditions (above a certain threshold probability).</p>
+
+<p>This whole business is unfortunately made more complicated, because it would
+be cheating (also termed 'peeking') if the ANOVA was run on timepoints that
+will later be used to test the classifier. Think of it this way &#8211; if you pass
+your entire data set through the ANOVA and remove all but the voxels that vary
+significantly across conditions, then this will definitely help classification.
+But that's because you've only fed your classifier features that you <i>know</i>
+will help with generalization, because you used your test data set during
+feature selection. The solution is to ensure that you run the ANOVA on only
+those TRs that your classifier will be trained on later. Since there are going
+to be multiple iterations, each with a fresh classifier, you're going to need
+to run the ANOVA multiple times, yielding a separate mask for each iteration.</p>
+
+<p>Fortunately, the <i>feature_selection</i><i style='mso-bidi-font-style:normal'>.m</i>
+function will do all of that for you. We want it to choose the features from
+our <i>epi</i> data pattern that vary between the conditions in <i>conds</i>,
+using the <i>runs_xval</i> group of selector indices that we just created to
+decide which TRs to use for each iteration.<sub><o:p></o:p></sub></p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; [subj] = feature_select(subj,'epi_z','conds','runs_xval');</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Starting 10 anova iterations</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>3<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10</p>
+
+<p class=Code>Pattern statmap group 'epi_z_statmap' and mask group
+'epi_z_thresh' created by feature_select</p>
+
+</div>
+
+<p>Try calling the <i>summarize</i> function. Things are getting crowded, so
+let's just show the group names (rather than all of the individual members):</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj,'display_groups',false)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Patterns -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>[
+nVox x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) epi<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2) epi_z<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp; </span>577 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>*<span
+style="mso-spacerun: yes">&nbsp; </span>epi_z_statmap<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Regressors -<span style="mso-spacerun: yes">&nbsp;&nbsp; </span><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>[nCond
+x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) conds<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>8 x 1210]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Selectors -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[nCond x nTRs]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1) runs<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="mso-spacerun: yes">&nbsp;</span>-<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>1 x 1210]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>*<span
+style="mso-spacerun: yes">&nbsp; </span>runs_xval<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Masks -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ X<span style="mso-spacerun: yes">&nbsp; </span>x<span
+style="mso-spacerun: yes">&nbsp; </span>Y<span style="mso-spacerun: yes">&nbsp;
+</span>x<span style="mso-spacerun: yes">&nbsp; </span>Z ] [ nVox]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1)
+VT_category-selective<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ 64 x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span
+style="mso-spacerun: yes">&nbsp; </span>40] [<span style="mso-spacerun:
+yes">&nbsp; </span>577]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>*<span
+style="mso-spacerun: yes">&nbsp; </span>epi_z_thresh<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10]</p>
+
+</div>
+
+<p>It's created a whole new <i>epi_z_statmap</i> pattern group and <i>epi_z_thresh</i>
+mask group based on that. The only problem with this is that we can't see how
+many voxels were allowed through on each iteration of the anova. To do that,
+try just showing the masks, including all the group members:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; summarize(subj,'objtype','mask')</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Subject 'tutorial_subj' in 'haxby8' experiment</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Masks -<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ X<span style="mso-spacerun: yes">&nbsp; </span>x<span
+style="mso-spacerun: yes">&nbsp; </span>Y<span style="mso-spacerun: yes">&nbsp;
+</span>x<span style="mso-spacerun: yes">&nbsp; </span>Z ] [ nVox]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1)
+VT_category-selective<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>[ 64 x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span
+style="mso-spacerun: yes">&nbsp; </span>40] [<span style="mso-spacerun:
+yes">&nbsp; </span>577]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2)
+epi_z_thresh_1<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>577]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>3)
+epi_z_thresh_2<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>574]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4)
+epi_z_thresh_3<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>573]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5)
+epi_z_thresh_4<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>571]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6)
+epi_z_thresh_5<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>575]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7)
+epi_z_thresh_6<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>575]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8)
+epi_z_thresh_7<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>573]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9)
+epi_z_thresh_8<span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>575]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10) epi_z_thresh_9<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>573]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>11) epi_z_thresh_10<span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>[GRP size 10] [ 64
+x<span style="mso-spacerun: yes">&nbsp; </span>64 x<span style="mso-spacerun:
+yes">&nbsp; </span>40] [<span style="mso-spacerun: yes">&nbsp; </span>574]</p>
+
+</div>
+
+<p>The number on the right hand side of each row denotes how many voxels were
+allowed through (out of 577 in the original <i>VT_category-selective mask</i>)
+each time the ANOVA was run. In this tutorial data set, almost all of the
+voxels passed the ANOVA, because the <i>VT_category-selective mask</i> was
+actually functionally defined with a GLM in AFNI to keep the number of voxels
+down. With other data sets, you'll find that an ANOVA-generated mask can be
+quite selective, when you start with a whole brain's worth of voxels.</p>
+
+<p>We glossed over what actually happened inside the feature_selection:</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>First, it ran an ANOVA to generate the <i>epi_z_statmap</i>,
+which contains p values for each voxel on each iteration.</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Then, <i>create_thresh_mask</i> was called (with the
+default value of 0.05 to create the boolean masks we have just been examining).
+We could have passed in a 'thresh' argument to <i>feature_selection</i> to have
+told <i>create_thresh_mask</i> to use a different threshold criterion. Or, we
+could call <i>create_thresh_mask</i> ourselves afterwards on the <i>epi_z_statmap</i>
+multiple times to create lots of masks of differing stringency.</p>
+
+<p style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo5;
+tab-stops:list 36.0pt'><![if !supportLists]><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Because both these steps ran multiple times (once for
+each iteration of the n-minus-one, leaving out a different run each time), both
+steps created groups. First a statmap pattern group (<i>epi_z_statmap</i>) and
+then a boolean 3D volume mask group (<i>epi_z_thresh</i>).</p>
+
+<p>In fact, the <i>feature_select</i> function is very powerful &#8211; you can
+easily feed in your own function to generate the statmaps instead of the
+default ANOVA if you prefer. This way, you can utilise the infrastructure to
+avoid peeking during feature selection with any feature selection method you
+like.<i><o:p></o:p></i></p>
+
+<p>So, to summarize, the <i style='mso-bidi-font-style:normal'>feature_select.m</i>
+ran <i style='mso-bidi-font-style:normal'>statmap_anova.m</i> 10 times, each
+time using a different <i>runs_xval</i> selector to use a different subset of
+the timepoints. This produced a group of 10 statmap patterns called <i>epi_z_statmap_#</i>,
+which were then thresholded to find voxels in them below a certain p value to
+create a group of 10 boolean masks called <i>epi_z_thresh_#</i>.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274589">Pre-classification summary</a></h3>
+
+<p>All the hard work has been done. Try nosing around the subj structure using
+the <i style='mso-bidi-font-style:normal'>get_object.m</i> function to view the
+contents of the various objects that have been created.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h3><a name="_Toc113274590">Cross-validation classification</a></h3>
+
+<p>Let's set some arguments for a basic backprop classifier with no hidden
+layer, and just leave the rest as the defaults:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; class_args.train_funct_name = 'train_bp';</p>
+
+<p class=Code>&gt;&gt; class_args.test_funct_name = 'test_bp';</p>
+
+<p class=Code>&gt;&gt; class_args.nHidden = 0;</p>
+
+</div>
+
+<p>Now, just call the <i style='mso-bidi-font-style:normal'>cross_validation.m</i>
+function to classify our <i>epi_z</i> data according to the <i>conds</i>
+conditions, which will call backprop multiple times, once per iteration of the
+n-minus-one, iterating through the <i>runs_xval</i> selector and <i>epi_z_thresh</i>
+mask groups each time.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; [subj results] = cross_validation(subj,'epi_z','conds','runs_xval','epi_z_thresh',class_args);</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Starting 10 cross-validation classification iterations</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.44</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>2<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.55</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>3<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.42</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.52</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>5<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.41</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>6<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.45</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>7<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.46</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>8<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.40</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>9<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.43</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>10<span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0.48</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>Cross-validation using class_bp and got total_perfs - 0.4562</p>
+
+</div>
+
+<p>Obviously, your performance values will be different because backprop
+randomly initializes its weights each time it is run.</p>
+
+<p><span style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h3><a name="_Toc113274591">Results</a></h3>
+
+<p>Now, we're ready to examine the results that this has generated.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; results</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>results =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>header: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>iterations: [1x10 struct]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>total_perf: 0.4562</p>
+
+</div>
+
+<p>The results.total_perf tells us the overall proportion of the time that the
+classifier guessed correctly on its testing TRs (averaged across all 10 iterations).</p>
+
+<p>Each <i>iteration</i> contains all the information needed to unpack what
+happened during classification during that iteration of the n-minus-one loop.</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; results.iteration(1)</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>ans =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>perfmet: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>perf:
+0.4380</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>created: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>train_idx: [1x1089 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>test_idx: [1x121 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>rest_idx: [1x0 double]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>unknown_idx: [1x0 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>acts:
+[8x121 double]</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>scratchpad: [1x1 struct]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>header: [1x1
+struct]</p>
+
+</div>
+
+<p>The most important fields are the <i style='mso-bidi-font-style:normal'>acts
+</i>and <i style='mso-bidi-font-style:normal'>perfmet</i> fields. The <i>acts</i>
+matrix contains the activations for the 8 output units in the 121 test TRs for
+this iteration. These are the values that were used to determine this
+particular classifier's guesses, as stored in <i>perfmet</i> ('performance
+metric'):</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; results.iteration(1).perfmet</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>ans =</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>guesses:
+[1x121 double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>desireds: [1x121
+double]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>corrects: [1x121
+logical]</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>perf: 0.4380</p>
+
+<p class=Code><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>scratchpad: []</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;
+</span>function_name: 'perfmet_maxclass'</p>
+
+</div>
+
+<p>Have a look at <i>guesses</i>. Each of the 121 values (one for each
+timepoint) ranges from 1-8, and indicates which condition the classifier
+thought that TR came from. The right answer is stored in <i>desireds</i>. <i>Corrects</i>
+tells you whether the guess is the right answer, and <i>perf</i> tells you what
+proportion of the time you guessed right. The code for generating these is
+incredibly simple &#8211; see <i>perfmet_maxclass.m</i>.</p>
+
+<p>Of course, you might want to calculate performance differently. You might
+want to give yourself a little pat on the back if you were almost right,
+whereas this only counts an answer as correct if the right unit was the most
+active. You might want to use a support vector machine instead of backprop.
+Three graduate students went insane calculating the combinatorics of all these
+possibilities. As a result, if you'd like to use a different classifier, or
+evalute its output with a different performance metric, this is easy to do.
+Just as with the statmap function, you can create your own, feed the name of
+the function in as an optional argument, and the cross-validation script will
+do all the n-minus-one no-peeking looping and build your results structure
+using your functions instead.</p>
+
+<p>There is considerably more to say about classification and the results
+structure. See the<span style="mso-spacerun: yes">&nbsp;
+</span>'Classification' section in the manual for more information, or <i>tutorial_hard.m</i>
+for ideas of other things you could try playing around with.</p>
+
+<p>Congratulations for completing this tutorial. Now you now enough to be
+dangerous.</p>
+
+<p>If you had any trouble, have a look at the <a href="#_Troubleshooting">Troubleshooting</a>
+section, otherwise take a look at the <a href="whatnext.htm">what next</a>
+document. If you're upgrading from an old version of the toolbox, you might
+benefit from the <a href="upgrading.htm">upgrading</a> document.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_Toc113274592"></a><a name="_Troubleshooting"></a><span
+style='mso-bookmark:_Toc113274592'>Troubleshooting</span></h2>
+
+<p class=MsoBodyText>This should work flawlessly, straight out of the box. No,
+really, it should.</p>
+
+<p class=MsoBodyText>If it doesn't, check the following:</p>
+
+<p class=MsoBodyText style='margin-left:36.0pt;text-indent:-18.0pt;mso-list:
+l0 level1 lfo7;tab-stops:list 36.0pt'><![if !supportLists]><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Check your paths are right. If they're not, Matlab
+won't be able to find the toolbox functions to run them, and you'll get an
+error like:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code style='margin-left:72.0pt'>??? Undefined function or variable
+'blah'.</p>
+
+</div>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo7;tab-stops:list 36.0pt'>check
+     you're in the same directory as your data files when trying to run the
+     tutorial</li>
+</ul>
+
+<p>If you're sure both of those are correct and you're still having a problem, <a
+href="mailto:mvpa_support@princeton.edu">let us know</a>.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+</body>
+
+</html>

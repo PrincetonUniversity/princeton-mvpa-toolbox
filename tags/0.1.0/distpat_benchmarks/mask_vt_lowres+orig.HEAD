@@ -1,0 +1,97 @@
+
+type = string-attribute
+name = HISTORY_NOTE
+count = 848
+'[mgobbini@haxbyfmri.Princeton.EDU: Wed Jul 14 10:47:48 2004] to3d jh_004_0001 jh_004_0002 jh_004_0003 ... jh_004_0175 jh_004_0176\n[mgobbini@haxbyfmri.Princeton.EDU: Wed Jul 14 11:29:43 2004] AFNI: markers were edited\n[mgobbini@haxbyfmri.Princeton.EDU: Fri Jul 16 10:57:13 2004] Dataset Copy {Input: Dataset=monk_dogs_low_res/JH_new_folder/jh_anat+orig.HEAD} {Output: Prefix=regions} {Data Fill: Method=Zero [All]} {Dataset: Type=fim} {Datum: Datum=float}\n[mgobbini@haxbyfmri.Princeton.EDU: Fri Jul 16 12:22:08 2004] 3dcalc -prefix mask1_vt_jh -a regions+orig -expr 'step(a)'\n[mgobbini@haxbyfmri.Princeton.EDU: Fri Jul 16 12:22:11 2004] 3dfractionize -template results_jh+orig -input mask1_vt_jh+orig -prefix mask2_vt_jh\n[mgobbini@haxbyfmri.Princeton.EDU: Fri Jul 16 12:22:11 2004] 3dcalc -prefix mask_vt_jh -a mask2_vt_jh+orig -expr 'step(a)'~
+
+type = string-attribute
+name = TYPESTRING
+count = 15
+'3DIM_HEAD_FUNC~
+
+type = string-attribute
+name = IDCODE_STRING
+count = 27
+'XYZ_yU4BKebVB1b_OmV_9qBqNw~
+
+type = string-attribute
+name = IDCODE_DATE
+count = 25
+'Fri Jul 16 12:22:11 2004~
+
+type = integer-attribute
+name = SCENE_DATA
+count = 8
+ 0 0 1 -999 -999
+ -999 -999 -999
+
+type = string-attribute
+name = LABEL_1
+count = 5
+'zyxt~
+
+type = string-attribute
+name = LABEL_2
+count = 5
+'zyxt~
+
+type = string-attribute
+name = DATASET_NAME
+count = 5
+'zyxt~
+
+type = integer-attribute
+name = ORIENT_SPECIFIC
+count = 3
+ 0 3 4
+
+type  = float-attribute
+name  = ORIGIN
+count = 3
+            -96      -82.98798      -72.52409
+
+type  = float-attribute
+name  = DELTA
+count = 3
+              3              3              3
+
+type  = float-attribute
+name  = BRICK_STATS
+count = 2
+              0              1
+
+type = integer-attribute
+name = DATASET_RANK
+count = 8
+ 3 1 0 0 0
+ 0 0 0
+
+type = integer-attribute
+name = DATASET_DIMENSIONS
+count = 5
+ 64 64 32 0 0
+
+type = integer-attribute
+name = BRICK_TYPES
+count = 1
+ 1
+
+type  = float-attribute
+name  = BRICK_FLOAT_FACS
+count = 1
+   3.051851e-05
+
+type = string-attribute
+name = BRICK_LABS
+count = 3
+'#0~
+
+type = string-attribute
+name = BRICK_KEYWORDS
+count = 1
+'~
+
+type = string-attribute
+name = BYTEORDER_STRING
+count = 10
+'LSB_FIRST~

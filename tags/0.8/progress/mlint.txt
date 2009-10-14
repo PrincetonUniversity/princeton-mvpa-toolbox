@@ -1,0 +1,454 @@
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/add_created.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/add_history.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/add_results_history.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/add_struct_fields.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/anova1_mvpa.m ==========
+L 32 (C 7-10): Logical indexing is usually faster than FIND.
+L 33 (C 6-9): Logical indexing is usually faster than FIND.
+L 36 (C 7-10): Logical indexing is usually faster than FIND.
+L 58 (C 3-9): WARNING takes SPRINTF-like arguments directly.
+L 58 (C 19): First argument of WARNING might not be a message identifier.
+L 74 (C 19-22): Logical indexing is usually faster than FIND.
+L 80 (C 56-61): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/apply_detrend.m ==========
+L 1 (C 40-47): Input variable 'varargin' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/apply_filt.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/apply_to_runs.m ==========
+L 95 (C 3-8): Array 'newmat' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/apply_zscore.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/average_object.m ==========
+L 61 (C 15-18): Logical indexing is usually faster than FIND.
+L 65 (C 18-25): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/change_objgroup.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/check_1ofn_regressors.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/check_subj.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/compare_size.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/confusion.m ==========
+L 46 (C 27-47): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/convolve_regressors_afni.m ==========
+L 73 (C 7-10): The value assigned here to variable 'regs' might never be used.
+L 89 (C 21-32): Logical indexing is usually faster than FIND.
+L 111 (C 16-29): Logical indexing is usually faster than FIND.
+L 146 (C 18-23): The value assigned here to variable 'infile' might never be used.
+L 195 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+L 201 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+L 222 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 235 (C 4-9): ISEMPTY(x) is usually faster than LENGTH(x)==0
+L 236 (C 11-53): First argument of WARNING might not be a message identifier.
+L 239 (C 4-9): ISEMPTY(x) is usually faster than LENGTH(x)==0
+L 240 (C 11-49): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/count.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_blocklabels.m ==========
+L 45 (C 11-33): First argument of WARNING might not be a message identifier.
+L 69 (C 11-45): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_norest_sel.m ==========
+L 20 (C 2-7): The value assigned here to variable 'isbool' might never be used.
+L 20 (C 16-27): The value assigned here to variable 'isoveractive' might never be used.
+L 29 (C 11): First argument of WARNING might not be a message identifier.
+L 33 (C 10-13): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_pattern_from_mask.m ==========
+L 51 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 51 (C 13-20): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_sorted_mask.m ==========
+L 33 (C 3-14): The value assigned here to variable 'hist_objtype' might never be used.
+L 35 (C 3-14): The value assigned here to variable 'hist_objtype' might never be used.
+L 64 (C 6-9): The value assigned here to variable 'vals' might never be used.
+L 66 (C 6-9): The value assigned here to variable 'vals' might never be used.
+L 78 (C 10-13): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_spatial_avg_pat.m ==========
+L 72 (C 11-14): Logical indexing is usually faster than FIND.
+L 73 (C 11-14): Logical indexing is usually faster than FIND.
+L 74 (C 11-14): Logical indexing is usually faster than FIND.
+L 80 (C 40-43): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_thresh_mask.m ==========
+L 63 (C 13-16): Logical indexing is usually faster than FIND.
+L 65 (C 13-16): Logical indexing is usually faster than FIND.
+L 74 (C 10-13): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/create_xvalid_indices.m ==========
+L 71 (C 11-14): Logical indexing is usually faster than FIND.
+L 72 (C 11-14): Logical indexing is usually faster than FIND.
+L 75 (C 11-14): Logical indexing is usually faster than FIND.
+L 149 (C 11): First argument of WARNING might not be a message identifier.
+L 154 (C 11): Use of brackets [] is unnecessary.  Use parentheses to group, if needed.
+L 154 (C 12-169): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/cross_entropy.m ==========
+L 1 (C 34): Input variable 'x' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/cross_entropy_deriv.m ==========
+L 1 (C 48-51): Input variable 'perf' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/cross_validation.m ==========
+L 170 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 170 (C 21): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/datetime.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/default_class_args.m ==========
+L 8 (C 5-9): EXIST with two input arguments is faster than with one input.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/display_history.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/display_results_history.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/duplicate_object.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_average_results.m ==========
+L 35 (C 3-15): Array 'results_array' might be grown using indexing. Consider preallocating for speed.
+L 35 (C 22-28): The variable 'results' can apparently be used before it is defined.
+L 44 (C 5-14): Array 'avgresults' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_feature_rater.m ==========
+L 1 (C 11-16): Function return value 'output' appears to never be set.
+L 83 (C 11-14): Logical indexing is usually faster than FIND.
+L 104 (C 8-11): Logical indexing is usually faster than FIND.
+L 110 (C 22): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 111 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 111 (C 20): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_adv.m ==========
+L 63 (C 20-29): Variable 'ebc_params' is used, but apparently is never set.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_adv_load.m ==========
+L 31 (C 1-7): The value assigned here to variable 'dataset' might never be used.
+L 33 (C 5-9): EXIST with two input arguments is faster than with one input.
+L 54 (C 12-19): The variable 'baseregs' can apparently be used before it is defined.
+L 55 (C 14-22): The variable 'condnames' can apparently be used before it is defined.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_adv_optimize.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_adv_preprocess.m ==========
+L 105 (C 13-16): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_adv_xval.m ==========
+L 70 (C 3-9): Array 'results' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_intro.m ==========
+L 45 (C 18-27): Variable 'ebc_params' is used, but apparently is never set.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ebc_tutorial_parameters.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/exist_group.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/exist_object.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/exist_objfield.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/exist_objsubfield.m ==========
+L 21 (C 11-67): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/feature_select.m ==========
+L 85 (C 16-22): The value assigned here to variable 'isgroup' might never be used.
+L 95 (C 11-123): First argument of WARNING might not be a message identifier.
+L 122 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/filter_runs.m ==========
+L 49 (C 9): First argument of WARNING might not be a message identifier.
+L 92 (C 3-8): Array 'newmat' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/find_group.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/find_group_single.m ==========
+L 38 (C 12): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 42 (C 13): Use && instead of & as the AND operator in (scalar) conditional statements.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/find_obj.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_masked_pattern.m ==========
+L 38 (C 2-8): STR2DOUBLE is faster than STR2NUM, however STR2DOUBLE operates only on scalars. Use the function that best suits your needs.
+L 38 (C 28-34): STR2DOUBLE is faster than STR2NUM, however STR2DOUBLE operates only on scalars. Use the function that best suits your needs.
+L 51 (C 11-75): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_mat.m ==========
+L 35 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 50 (C 3-9): WARNING takes SPRINTF-like arguments directly.
+L 50 (C 19): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_name.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_number.m ==========
+L 52 (C 7-11): ERROR takes SPRINTF-like arguments directly.
+L 67 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_object.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_objfield.m ==========
+L 35 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_objsubfield.m ==========
+L 24 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_ref_vol.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_relative_index.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_special_fields_list.m ==========
+L 38 (C 11-45): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_type.m ==========
+L 36 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/get_typeslist.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ind2vec_robust.m ==========
+L 34 (C 10-13): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/init_object.m ==========
+L 98 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/init_subj.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/initset_object.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/intersect_masks.m ==========
+L 34 (C 7-10): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_afni_mask.m ==========
+L 38 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 49 (C 13): First argument of WARNING might not be a message identifier.
+L 61 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 67 (C 5-8): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_afni_pattern.m ==========
+L 83 (C 3-7): The value assigned here to variable 'bDims' might never be used.
+L 84 (C 3-6): Array 'bLen' might be grown using indexing. Consider preallocating for speed.
+L 99 (C 14-22): Array 'AFNIheads' might be grown using indexing. Consider preallocating for speed.
+L 107 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_bv_pattern.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_matrix_pattern.m ==========
+L 50 (C 1-5): The value assigned here to variable 'mDims' might never be used.
+L 51 (C 14-17): ISEMPTY(FIND(x, 1)) is faster in this case.
+L 69 (C 4-7): NUMEL(x) is usually faster than PROD(SIZE(x)).
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_pattern_from_hd.m ==========
+L 32 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+L 42 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/load_subj.m ==========
+L 12 (C 5-9): EXIST with two input arguments is faster than with one input.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/make_clust.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/move_all_patterns_to_hd.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/move_pattern_to_hd.m ==========
+L 59 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/multiple_iterations_confusion.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/pause5.m ==========
+L 18 (C 5-9): EXIST with two input arguments is faster than with one input.
+L 22 (C 5-9): EXIST with two input arguments is faster than with one input.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/peek_feature_select.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/perfmet_corr.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/perfmet_for_class_corr.m ==========
+L 1 (C 22-33): Function name 'perfmet_corr' will be known to MATLAB by its file name: 'perfmet_for_class_corr'.
+L 30 (C 11-51): First argument of WARNING might not be a message identifier.
+L 35 (C 2-3): The value assigned here to variable 'yg' might never be used.
+L 38 (C 2-8): The value assigned here to variable 'max_val' might never be used.
+L 41 (C 2-3): The value assigned here to variable 'yd' might never be used.
+L 57 (C 15-26): Function 'sanity_check' appears never to be used.
+L 57 (C 28-36): Input variable 'trainpats' appears never to be used.
+L 57 (C 38-47): Input variable 'traintargs' appears never to be used.
+L 57 (C 49-56): Input variable 'testpats' appears never to be used.
+L 57 (C 58-66): Input variable 'testtargs' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/perfmet_maxclass.m ==========
+L 58 (C 2-7): The value assigned here to variable 'nUnits' might never be used.
+L 60 (C 2-3): The value assigned here to variable 'yg' might never be used.
+L 62 (C 2-3): The value assigned here to variable 'yd' might never be used.
+L 86 (C 1-7): The value assigned here to variable 'errmsgs' might never be used.
+L 87 (C 1-8): The value assigned here to variable 'warnmsgs' might never be used.
+L 91 (C 39-48): Input variable 'scratchpad' appears never to be used.
+L 101 (C 11-55): First argument of WARNING might not be a message identifier.
+L 111 (C 13-35): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/perfmet_template.m ==========
+L 1 (C 50-59): Input variable 'scratchpad' appears never to be used.
+L 1 (C 61-64): Input variable 'args' appears never to be used.
+L 16 (C 2-7): The value assigned here to variable 'nUnits' might never be used.
+L 16 (C 9-19): The value assigned here to variable 'nTimepoints' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/perfmet_xcorr.m ==========
+L 35 (C 2-7): The value assigned here to variable 'nUnits' might never be used.
+L 35 (C 9-19): The value assigned here to variable 'nTimepoints' might never be used.
+L 39 (C 20): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 40 (C 3-6): The value assigned here to variable 'perf' might never be used.
+L 50 (C 15-59): First argument of WARNING might not be a message identifier.
+L 52 (C 15-60): First argument of WARNING might not be a message identifier.
+L 84 (C 1-7): The value assigned here to variable 'errmsgs' might never be used.
+L 85 (C 1-8): The value assigned here to variable 'warnmsgs' might never be used.
+L 88 (C 39-48): Input variable 'scratchpad' appears never to be used.
+L 88 (C 50-53): Input variable 'args' appears never to be used.
+L 98 (C 11-55): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/plot_mds.m ==========
+L 88 (C 1-4): The value assigned here to variable 'nVox' might never be used.
+L 89 (C 9-12): The value assigned here to variable 'nTRs' might never be used.
+L 93 (C 13-16): Logical indexing is usually faster than FIND.
+L 95 (C 15-18): Logical indexing is usually faster than FIND.
+L 115 (C 11-121): First argument of WARNING might not be a message identifier.
+L 184 (C 21): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 253 (C 42-53): Function 'sanity_check' appears never to be used.
+L 255 (C 9-12): The value assigned here to variable 'nTRs' might never be used.
+L 288 (C 20): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 297 (C 25): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 301 (C 113-117): The variable 'nDims' can apparently be used before it is defined.
+L 302 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 302 (C 13-19): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/propval.m ==========
+L 90 (C 27): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 105 (C 1-18): The value assigned here to variable 'default_fieldnames' might never be used.
+L 134 (C 32-39): Use dynamic fieldnames with structures instead of GETFIELD. Type 'doc struct' for more information.
+L 152 (C 7-12): Use STRCMPI(str1,str2) instead of using LOWER in a call to STRCMP.
+L 153 (C 13-73): First argument of WARNING might not be a message identifier.
+L 162 (C 13-83): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/readvtc.m ==========
+L 22 (C 1-10): The value assigned here to variable 'singleChar' might never be used.
+L 42 (C 3-5): The value assigned here to variable 'v2a' might never be used.
+L 43 (C 3-5): The value assigned here to variable 'v2b' might never be used.
+L 44 (C 3-5): The value assigned here to variable 'v2c' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_group.m ==========
+L 25 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_mat.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_object.m ==========
+L 55 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 55 (C 21): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_objfield.m ==========
+L 42 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_objsubfield.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/remove_timepoints.m ==========
+L 50 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+L 60 (C 23-33): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/rename_group.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/rename_object.m ==========
+L 22 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 27 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/save_subj.m ==========
+L 57 (C 1-2): The value assigned here to variable 'id' might never be used.
+L 58 (C 1-6): The value assigned here to variable 'subdir' might never be used.
+L 106 (C 3-9): The value assigned here to variable 'results' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/scramble_regressors.m ==========
+L 42 (C 13-16): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/separate_regressors.m ==========
+L 46 (C 3-5): FOR may not be aligned with its matching END (line 48).
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/set_mat.m ==========
+L 67 (C 3-5): The value assigned here to variable 'mat' might never be used.
+L 121 (C 20): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 122 (C 3-9): WARNING takes SPRINTF-like arguments directly.
+L 122 (C 19): First argument of WARNING might not be a message identifier.
+L 131 (C 21): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 131 (C 52): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 132 (C 30): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 133 (C 4-10): WARNING takes SPRINTF-like arguments directly.
+L 133 (C 20): First argument of WARNING might not be a message identifier.
+L 166 (C 38): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 167 (C 11): First argument of WARNING might not be a message identifier.
+L 194 (C 11-79): First argument of WARNING might not be a message identifier.
+L 203 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/set_object.m ==========
+L 23 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/set_objfield.m ==========
+L 49 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 49 (C 14-21): First argument of WARNING might not be a message identifier.
+L 79 (C 5-11): WARNING takes SPRINTF-like arguments directly.
+L 79 (C 14-21): First argument of WARNING might not be a message identifier.
+L 85 (C 11-63): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/set_objsubfield.m ==========
+L 43 (C 3-9): WARNING takes SPRINTF-like arguments directly.
+L 43 (C 11-18): First argument of WARNING might not be a message identifier.
+L 46 (C 20): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 47 (C 11-59): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/set_type.m ==========
+L 22 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/shift_regressors.m ==========
+L 42 (C 8-22): Logical indexing is usually faster than FIND.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/shuffle.m ==========
+L 42 (C 2-5): The value assigned here to variable 'vals' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/statmap_anova.m ==========
+L 118 (C 9-14): The value assigned here to variable 'isrest' might never be used.
+L 119 (C 12): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 135 (C 15): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 140 (C 24): Use || instead of | as the OR operator in (scalar) conditional statements.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/statmap_template.m ==========
+L 84 (C 11): Function return value 'p' appears to never be set.
+L 84 (C 39-41): Input variable 'pat' appears never to be used.
+L 84 (C 43-46): Input variable 'regs' appears never to be used.
+L 84 (C 48-51): Input variable 'args' appears never to be used.
+L 91 (C 28-30): Input variable 'pat' appears never to be used.
+L 91 (C 32-35): Input variable 'regs' appears never to be used.
+L 91 (C 37-39): Input variable 'sel' appears never to be used.
+L 91 (C 41-44): Input variable 'args' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/statmap_xcorr.m ==========
+L 80 (C 49-52): Input variable 'args' appears never to be used.
+L 83 (C 4-8): EXIST with two input arguments is faster than with one input.
+L 87 (C 11): First argument of WARNING might not be a message identifier.
+L 110 (C 28-30): Input variable 'pat' appears never to be used.
+L 110 (C 37-39): Input variable 'sel' appears never to be used.
+L 110 (C 41-44): Input variable 'args' appears never to be used.
+L 113 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 113 (C 17-48): Format string apparently does not agree with the argument count.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/ste.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/summarize.m ==========
+L 132 (C 35): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 133 (C 4-13): Array 'gprintdims' might be grown using indexing. Consider preallocating for speed.
+L 142 (C 4-9): Array 'gnvoxs' might be grown using indexing. Consider preallocating for speed.
+L 161 (C 31): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 359 (C 5-9): Array 'isgrp' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_bp.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_bp_netlab.m ==========
+L 25 (C 1-9): The value assigned here to variable 'testtargs' might never be used.
+L 35 (C 47-56): Input variable 'scratchpad' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_corr.m ==========
+L 51 (C 38-47): Input variable 'traintargs' appears never to be used.
+L 55 (C 11-33): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_ridge.m ==========
+L 23 (C 1-4): The value assigned here to variable 'acts' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_svm.m ==========
+L 22 (C 2-13): The value assigned here to variable 'test_max_val' might never be used.
+L 35 (C 47-53): Input variable 'scratch' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/test_template.m ==========
+L 33 (C 28-35): Input variable 'testpats' appears never to be used.
+L 33 (C 37-45): Input variable 'testtargs' appears never to be used.
+L 33 (C 47-56): Input variable 'scratchpad' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_bp.m ==========
+L 1 (C 60-66): Input variable 'cv_args' appears never to be used.
+L 120 (C 17-19): Use the DIMENSION input argument to min instead of using transpose (').
+L 121 (C 17-19): Use the DIMENSION input argument to max instead of using transpose (').
+L 135 (C 31): Use of brackets [] is unnecessary.  Use parentheses to group, if needed.
+L 168 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed.
+L 220 (C 13-35): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_bp_netlab.m ==========
+L 1 (C 67-73): Input variable 'cv_args' appears never to be used.
+L 95 (C 30): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 105 (C 11-41): First argument of WARNING might not be a message identifier.
+L 109 (C 11-42): First argument of WARNING might not be a message identifier.
+L 113 (C 11-42): First argument of WARNING might not be a message identifier.
+L 117 (C 11-48): First argument of WARNING might not be a message identifier.
+L 121 (C 11-56): First argument of WARNING might not be a message identifier.
+L 125 (C 11-46): First argument of WARNING might not be a message identifier.
+L 129 (C 11-43): First argument of WARNING might not be a message identifier.
+L 133 (C 11-46): First argument of WARNING might not be a message identifier.
+L 139 (C 11-33): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_corr.m ==========
+L 1 (C 65-71): Input variable 'cv_args' appears never to be used.
+L 48 (C 49-58): Input variable 'scratchpad' appears never to be used.
+L 48 (C 60-63): Input variable 'args' appears never to be used.
+L 52 (C 11-33): First argument of WARNING might not be a message identifier.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_ridge.m ==========
+L 1 (C 66-72): Input variable 'cv_args' appears never to be used.
+L 41 (C 7-17): The value assigned here to variable 'nTimepoints' might never be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_svm.m ==========
+L 1 (C 61-67): Input variable 'cv_args' appears never to be used.
+L 62 (C 2-14): The value assigned here to variable 'train_max_val' might never be used.
+L 91 (C 13-35): First argument of WARNING might not be a message identifier.
+L 97 (C 47): Extra semicolon is unnecessary.
+L 102 (C 11-65): First argument of WARNING might not be a message identifier.
+L 150 (C 21): Terminate statement with semicolon to suppress output.
+L 174 (C 1-12): Terminate statement with semicolon to suppress output.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/train_template.m ==========
+L 1 (C 69-75): Input variable 'cv_args' appears never to be used.
+L 50 (C 28-36): Input variable 'trainpats' appears never to be used.
+L 50 (C 38-47): Input variable 'traintargs' appears never to be used.
+L 50 (C 49-58): Input variable 'scratchpad' appears never to be used.
+L 50 (C 60-63): Input variable 'args' appears never to be used.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/tutorial_easy.m ==========
+L 29 (C 3-15): Array 'raw_filenames' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/tutorial_hard.m ==========
+L 1 (C 16-22): Function return value 'results' appears to never be set.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/view_montage.m ==========
+L 53 (C 5-9): EXIST with two input arguments is faster than with one input.
+L 56 (C 5-9): EXIST with two input arguments is faster than with one input.
+L 63 (C 24): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 68 (C 25): Use && instead of & as the AND operator in (scalar) conditional statements.
+L 69 (C 13-56): First argument of WARNING might not be a message identifier.
+L 78 (C 11-14): Logical indexing is usually faster than FIND.
+L 104 (C 13-73): First argument of WARNING might not be a message identifier.
+L 111 (C 12-15): Logical indexing is usually faster than FIND.
+L 124 (C 15-18): Logical indexing is usually faster than FIND.
+L 127 (C 15-18): Logical indexing is usually faster than FIND.
+L 131 (C 13-59): First argument of WARNING might not be a message identifier.
+L 133 (C 13-16): Logical indexing is usually faster than FIND.
+L 155 (C 29): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 156 (C 29): Use && instead of & as the AND operator in (scalar) conditional statements.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/write_to_afni.m ==========
+L 69 (C 2-9): The value assigned here to variable 'objnames' might never be used.
+L 69 (C 11-17): The value assigned here to variable 'isgroup' might never be used.
+L 82 (C 5-10): Use ISCHAR instead of comparing the class to 'char'.
+L 82 (C 33): Use || instead of | as the OR operator in (scalar) conditional statements.
+L 82 (C 36-41): Use ISCHAR instead of comparing the class to 'char'.
+L 145 (C 11-17): The value assigned here to variable 'isgroup' might never be used.
+L 153 (C 3-22): Array 'output_pathfilenames' might be grown using indexing. Consider preallocating for speed.
+L 210 (C 10): First argument of WARNING might not be a message identifier.
+L 219 (C 21-74): First argument of WARNING might not be a message identifier.
+L 229 (C 21-24): Logical indexing is usually faster than FIND.
+L 243 (C 6-9): Logical indexing is usually faster than FIND.
+L 257 (C 27-30): Logical indexing is usually faster than FIND.
+L 276 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed.
+L 277 (C 18): Use of brackets [] is unnecessary.  Use parentheses to group, if needed.
+L 281 (C 9-12): Logical indexing is usually faster than FIND.
+L 283 (C 9-12): Logical indexing is usually faster than FIND.
+L 304 (C 76-83): Input variable 'varargin' appears never to be used.
+L 360 (C 22-25): Logical indexing is usually faster than FIND.
+L 420 (C 4-9): Use ISSTRUCT instead of comparing the class to 'struct'.
+L 421 (C 5): The value assigned here to variable 'r' might never be used.
+L 421 (C 9): The variable 'r' can apparently be used before it is defined.
+L 426 (C 5-10): Array 'runTRs' might be grown using indexing. Consider preallocating for speed.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/zeroify_write_afni.m ==========
+L 32 (C 5-9): EXIST with two input arguments is faster than with one input.
+L 62 (C 13-81): First argument of WARNING might not be a message identifier.
+L 76 (C 1-4): The value assigned here to variable 'info' might never be used.
+L 83 (C 13-28): Input variable 'sample_brik_name' appears never to be used.
+L 83 (C 48): Extra semicolon is unnecessary.
+L 91 (C 4-9): ISEMPTY(x) is usually faster than LENGTH(x)==0
+L 92 (C 11-62): First argument of WARNING might not be a message identifier.
+L 169 (C 3-7): ERROR takes SPRINTF-like arguments directly.
+L 189 (C 55-58): Input variable 'view' appears never to be used.
+L 215 (C 5-9): ERROR takes SPRINTF-like arguments directly.
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/zscore_mvpa.m ==========
+========== /mounts/jukebox_static/norman/dweiss/fmri/distpat/trunk/mvpa/zscore_runs.m ==========
+L 148 (C 11-54): First argument of WARNING might not be a message identifier.

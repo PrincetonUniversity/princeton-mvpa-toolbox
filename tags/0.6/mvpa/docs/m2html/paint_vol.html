@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of paint_vol</title>
+  <meta name="keywords" content="paint_vol">
+  <meta name="description" content="Creates a new single-TR BRIK">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>paint_vol
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a new single-TR BRIK</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [vol] = paint_vol(subj,objtype,objname,sample_brik_name,new_brik_name,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a new single-TR BRIK
+
+ [VOL] = PAINT_VOL(SUBJ,OBJTYPE,OBJNAME,SAMPLE_BRIK_NAME,NEW_BRIK_NAME,VARARGIN)
+
+ This creates a new single-TR BRIK called NEW_BRIK_NAME.BRIK from the
+ values in OBJNAME, which can be either a single-TR pattern or a
+ mask.
+
+ The SAMPLE_BRIK_NAME BRIK doesn't get written to at all, but we
+ do steal its header. This is easier and probably safer than
+ generating our own. However, it is important that the sample BRIK
+ uses the same reference space as the mask and pattern xxx
+
+ BRIKOPT (optional, default = []). If BRIKOPT.NoCheck is true, then
+ EXPORT_TO_AFNI.M tells WRITEBRIK.M to skip all the extra
+ checking. Not a good idea unless things won't work otherwise
+
+ e.g. to visualise a statmap:
+
+   vol = paint_vol(subj,'pattern','anova_statmap','samplebrik','newbrik');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="export_to_afni.html" class="code" title="function [] = export_to_afni(single_vol,sample_brik_name,new_brik_name,opt)">export_to_afni</a>	Write an object out to an AFNI BRIK</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [vol] = paint_vol(subj,objtype,objname,sample_brik_name,new_brik_name,varargin)</a>
+0002 
+0003 <span class="comment">% Creates a new single-TR BRIK</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [VOL] = PAINT_VOL(SUBJ,OBJTYPE,OBJNAME,SAMPLE_BRIK_NAME,NEW_BRIK_NAME,VARARGIN)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This creates a new single-TR BRIK called NEW_BRIK_NAME.BRIK from the</span>
+0008 <span class="comment">% values in OBJNAME, which can be either a single-TR pattern or a</span>
+0009 <span class="comment">% mask.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% The SAMPLE_BRIK_NAME BRIK doesn't get written to at all, but we</span>
+0012 <span class="comment">% do steal its header. This is easier and probably safer than</span>
+0013 <span class="comment">% generating our own. However, it is important that the sample BRIK</span>
+0014 <span class="comment">% uses the same reference space as the mask and pattern xxx</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% BRIKOPT (optional, default = []). If BRIKOPT.NoCheck is true, then</span>
+0017 <span class="comment">% EXPORT_TO_AFNI.M tells WRITEBRIK.M to skip all the extra</span>
+0018 <span class="comment">% checking. Not a good idea unless things won't work otherwise</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% e.g. to visualise a statmap:</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%   vol = paint_vol(subj,'pattern','anova_statmap','samplebrik','newbrik');</span>
+0023 
+0024 
+0025 nVox = length(find(vol));
+0026 
+0027 defaults.brikopt = []
+0028 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0029 
+0030 mat = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,objtype,objname);
+0031 
+0032 <span class="keyword">switch</span>(objtype)
+0033  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0034   <span class="keyword">if</span> size(mat,2)&gt;1
+0035     error(<span class="string">'Can only deal with single TR patterns'</span>);
+0036   <span class="keyword">end</span>
+0037   
+0038  <span class="keyword">case</span> <span class="string">'mask'</span>
+0039   
+0040  <span class="keyword">otherwise</span>
+0041   error(<span class="string">'Must be a pattern or mask'</span>);
+0042 <span class="keyword">end</span>
+0043 
+0044 vol = convert_pattern_to_4d(subj,objname);
+0045 
+0046 <a href="export_to_afni.html" class="code" title="function [] = export_to_afni(single_vol,sample_brik_name,new_brik_name,opt)">export_to_afni</a>(vol,sample_brik_name,new_brik_name,brikopt);
+0047 
+0048</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 01:59:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

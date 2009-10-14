@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of check_1ofn_regressors</title>
+  <meta name="keywords" content="check_1ofn_regressors">
+  <meta name="description" content="Tells you about your regressors matrix">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>check_1ofn_regressors
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Tells you about your regressors matrix</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [isbool isrest isoveractive] = check_1ofn_regressors(regressors) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Tells you about your regressors matrix
+
+ [isbool isrest isoveractive] = check_1ofn_regressors(regressors)
+
+ ISBOOL - true if all the regressors are 1s and 0s
+
+ ISREST - true if some rest is included, i.e. some timepoints
+ don't have an active condition
+
+ ISOVERACTIVE - true if some timepoints have more than one active
+ condition
+
+ It's up to the caller function to decide what form it wants the
+ regressors to take</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [isbool isrest isoveractive] = check_1ofn_regressors(regressors)</a>
+0002 
+0003 <span class="comment">% Tells you about your regressors matrix</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [isbool isrest isoveractive] = check_1ofn_regressors(regressors)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% ISBOOL - true if all the regressors are 1s and 0s</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% ISREST - true if some rest is included, i.e. some timepoints</span>
+0010 <span class="comment">% don't have an active condition</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ISOVERACTIVE - true if some timepoints have more than one active</span>
+0013 <span class="comment">% condition</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% It's up to the caller function to decide what form it wants the</span>
+0016 <span class="comment">% regressors to take</span>
+0017 
+0018 
+0019 ones_zeros = length(find(regressors==1)) + length(find(regressors==0));
+0020 <span class="keyword">if</span> ones_zeros ~= numel(regressors)
+0021   <span class="comment">% Some of your regressors aren''t one or zero');</span>
+0022   isbool = false;
+0023 <span class="keyword">else</span>
+0024   isbool = true;
+0025 <span class="keyword">end</span>
+0026   
+0027 <span class="comment">% Now check each column (timepoint) to see how many active</span>
+0028 <span class="comment">% conditions there are</span>
+0029 sum_regressors = sum(regressors,1);
+0030 
+0031 rests = find(sum_regressors==0);
+0032 overactives = find(sum_regressors&gt;1);
+0033 
+0034 <span class="keyword">if</span> length(rests)
+0035   isrest = true;
+0036 <span class="keyword">else</span>
+0037   isrest = false;
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="keyword">if</span> length(overactives)
+0041   isoveractive = true;
+0042 <span class="keyword">else</span>
+0043   isoveractive = false;
+0044 <span class="keyword">end</span>
+0045 
+0046 
+0047 
+0048</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

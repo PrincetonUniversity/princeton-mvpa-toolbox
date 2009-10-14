@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of init_subj</title>
+  <meta name="keywords" content="init_subj">
+  <meta name="description" content="Returns an empty initialized SUBJ structure">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>init_subj
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns an empty initialized SUBJ structure</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = init_subj(exp_name,id,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns an empty initialized SUBJ structure
+
+ [SUBJ] = INIT_SUBJ(EXP_NAME,ID,...)
+
+ The empty SUBJ structure contains no patterns, regressors, selectors
+ masks. Adds some rudimentary header info, including the following
+ string arguments
+
+ EXP_NAME: The name of the experiment
+
+ ID: a unique identifier for the subj, e.g. id/name/initials
+
+ SUBDIR: (optional, default is exp_name id datetime) The
+ subdirectory for storing auxiliary files
+
+ USERNAME (optional, default = ''): The user's name
+
+ e.g. subj = init_subj('my_experiment','GJD')
+      subj = init_subj('my_experiment','GJD','mydatadir','greg');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = init_subj(exp_name,id,varargin)</a>
+0002 
+0003 <span class="comment">% Returns an empty initialized SUBJ structure</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = INIT_SUBJ(EXP_NAME,ID,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% The empty SUBJ structure contains no patterns, regressors, selectors</span>
+0008 <span class="comment">% masks. Adds some rudimentary header info, including the following</span>
+0009 <span class="comment">% string arguments</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% EXP_NAME: The name of the experiment</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% ID: a unique identifier for the subj, e.g. id/name/initials</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% SUBDIR: (optional, default is exp_name id datetime) The</span>
+0016 <span class="comment">% subdirectory for storing auxiliary files</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% USERNAME (optional, default = ''): The user's name</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% e.g. subj = init_subj('my_experiment','GJD')</span>
+0021 <span class="comment">%      subj = init_subj('my_experiment','GJD','mydatadir','greg');</span>
+0022 
+0023 
+0024 version = 3;
+0025 created = <a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(true);
+0026 
+0027 defaults.subdir = sprintf(<span class="string">'%s_%s_%s'</span>,exp_name,id,created);
+0028 defaults.username = <span class="string">''</span>;
+0029 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0030 
+0031 <span class="comment">% Initializes a new subject structure</span>
+0032 
+0033 subj.patterns   = {};
+0034 subj.regressors = {};
+0035 subj.selectors  = {};
+0036 subj.masks      = {};
+0037 subj.header     = [];
+0038 
+0039 header.experiment = exp_name;
+0040 header.version    = version;
+0041 header.history    = {sprintf(<span class="string">'Initialized on %s'</span>,created)};
+0042 header.created    = created;
+0043 header.subdir     = args.subdir;
+0044 header.username   = args.username;
+0045 header.id         = id;
+0046 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'subj'</span>,<span class="string">''</span>,<span class="string">'header'</span>,header);
+0047 
+0048 subj.p  = <span class="string">'Unspecified'</span>;
+0049 subj.s  = <span class="string">'Unspecified'</span>;
+0050 subj.m  = <span class="string">'Unspecified'</span>;
+0051 subj.r  = <span class="string">'Unspecified'</span>;
+0052</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

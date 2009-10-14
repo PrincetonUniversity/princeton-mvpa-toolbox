@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of train_bp</title>
+  <meta name="keywords" content="train_bp">
+  <meta name="description" content="Creates a backpropagation neural network and trains it.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>train_bp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a backpropagation neural network and trains it.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [scratch] = train_bp(trainpats,traintargs,in_args) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a backpropagation neural network and trains it.
+
+ [SCRATCH] = TRAIN_BP(TRAINPATS,TRAINTARGS,IN_ARGS)
+
+ You need to call TEST_BP afterwards to assess how well this
+ generalizes to the test data.
+
+ See the distpat manual and the Mathworks Neural Networks manual
+ for more information on backpropagation
+
+ Requires the Mathworks Neural Networks toolbox -
+ http://www.mathworks.com/products/neuralnet. See CLASS_BP_NETLAB.M
+ if you want to call the freely-distributable Netlab backprop
+ implementation instead of the Mathworks Neural Networks toolbox
+ one
+
+ PATS = nFeatures x nTimepoints
+ TARGS = nOuts x nTimepoints
+
+ SCRATCH contains all the other information that you might need when
+ analysing the network's output, most of which is specific to
+ backprop. Some of this information is redundantly stored in multiple
+ places. This gets referred to as SCRATCHPAD outside this function
+
+ The classifier functions use a IN_ARGS structure to store possible
+ arguments (rather than a varargin and property/value pairs). This
+ tends to be easier to manage when lots of arguments are
+ involved. xxx
+
+ IN_ARGS required fields:
+ - nHidden - number of hidden units (0 for no hidden layer)
+
+ IN_ARGS optional fields:
+ - alg (default = 'traincgb'). The particular backpropagation
+ algorithm to use
+
+ - act_funct (default = 'logsig'). Activation function for each
+ layer. Cell array with 1 or 2 cell strings set to 'purelin',
+ 'tansig' etc. See NN manual for more information
+
+ - goal (default = 0.001). Stopping criterion - stop training when
+ the mean squared error drops below this
+
+ - epochs (default = 500). Stopping criterion - stop training
+ after this many epochs
+
+ - show (default = NaN). Change this to 25, for instance, to make it
+ pop up a graph and text progress report every 25 epochs of training
+ - intrusive
+
+ - performFcn (default = 'mse'). Change this if you want to use
+ 'cross_entropy' as your performance function, or regularization
+ to keep your weights low ('msereg') - if so, see performParam_ratio
+
+ - performParam_ratio (default = 0.5, if performFcn = 'mse', else
+ doesn't exist). Ratio of performance measure to weights size that
+ contributes to the overall performance measure - see the BP
+ manual section on 'Regularization' in 'Generalization'
+
+ - init_fcn (default = 'rand'). Affects how the weights are
+ initialized. Try 'initnw' to generate initial weights and biases so
+ that the active regions of the layer's neurons will be distributed
+ evenly over the input space.
+ 
+ - valid (default = false). Normally, you just have training and
+ testing data. If valid == true, then a portion of the training
+ data gets treated *as though* its test data, and the training
+ stops if generalization performance to this validation
+ (i.e. 'pretend test') data worsens, which indicates
+ overfitting. See also: the 'max_fail' arg below. See BP manual on
+ 'Validation' in the 'Generalization' section
+
+ - max_fail (default = 20) - see the 'valid' arg above. Determines how many
+ times in a row performance on the validation vectors should drop
+ before stopping training
+
+ This version is set up for ZeroOne normalized inputs alter newff
+ function if this is not appropriate - xxx???</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>	Auxiliary function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [args] = sanity_check(trainpats,traintargs,args)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [scratch] = train_bp(trainpats,traintargs,in_args)</a>
+0002 
+0003 <span class="comment">% Creates a backpropagation neural network and trains it.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SCRATCH] = TRAIN_BP(TRAINPATS,TRAINTARGS,IN_ARGS)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% You need to call TEST_BP afterwards to assess how well this</span>
+0008 <span class="comment">% generalizes to the test data.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% See the distpat manual and the Mathworks Neural Networks manual</span>
+0011 <span class="comment">% for more information on backpropagation</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% Requires the Mathworks Neural Networks toolbox -</span>
+0014 <span class="comment">% http://www.mathworks.com/products/neuralnet. See CLASS_BP_NETLAB.M</span>
+0015 <span class="comment">% if you want to call the freely-distributable Netlab backprop</span>
+0016 <span class="comment">% implementation instead of the Mathworks Neural Networks toolbox</span>
+0017 <span class="comment">% one</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% PATS = nFeatures x nTimepoints</span>
+0020 <span class="comment">% TARGS = nOuts x nTimepoints</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% SCRATCH contains all the other information that you might need when</span>
+0023 <span class="comment">% analysing the network's output, most of which is specific to</span>
+0024 <span class="comment">% backprop. Some of this information is redundantly stored in multiple</span>
+0025 <span class="comment">% places. This gets referred to as SCRATCHPAD outside this function</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% The classifier functions use a IN_ARGS structure to store possible</span>
+0028 <span class="comment">% arguments (rather than a varargin and property/value pairs). This</span>
+0029 <span class="comment">% tends to be easier to manage when lots of arguments are</span>
+0030 <span class="comment">% involved. xxx</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% IN_ARGS required fields:</span>
+0033 <span class="comment">% - nHidden - number of hidden units (0 for no hidden layer)</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% IN_ARGS optional fields:</span>
+0036 <span class="comment">% - alg (default = 'traincgb'). The particular backpropagation</span>
+0037 <span class="comment">% algorithm to use</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% - act_funct (default = 'logsig'). Activation function for each</span>
+0040 <span class="comment">% layer. Cell array with 1 or 2 cell strings set to 'purelin',</span>
+0041 <span class="comment">% 'tansig' etc. See NN manual for more information</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">% - goal (default = 0.001). Stopping criterion - stop training when</span>
+0044 <span class="comment">% the mean squared error drops below this</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">% - epochs (default = 500). Stopping criterion - stop training</span>
+0047 <span class="comment">% after this many epochs</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% - show (default = NaN). Change this to 25, for instance, to make it</span>
+0050 <span class="comment">% pop up a graph and text progress report every 25 epochs of training</span>
+0051 <span class="comment">% - intrusive</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">% - performFcn (default = 'mse'). Change this if you want to use</span>
+0054 <span class="comment">% 'cross_entropy' as your performance function, or regularization</span>
+0055 <span class="comment">% to keep your weights low ('msereg') - if so, see performParam_ratio</span>
+0056 <span class="comment">%</span>
+0057 <span class="comment">% - performParam_ratio (default = 0.5, if performFcn = 'mse', else</span>
+0058 <span class="comment">% doesn't exist). Ratio of performance measure to weights size that</span>
+0059 <span class="comment">% contributes to the overall performance measure - see the BP</span>
+0060 <span class="comment">% manual section on 'Regularization' in 'Generalization'</span>
+0061 <span class="comment">%</span>
+0062 <span class="comment">% - init_fcn (default = 'rand'). Affects how the weights are</span>
+0063 <span class="comment">% initialized. Try 'initnw' to generate initial weights and biases so</span>
+0064 <span class="comment">% that the active regions of the layer's neurons will be distributed</span>
+0065 <span class="comment">% evenly over the input space.</span>
+0066 <span class="comment">%</span>
+0067 <span class="comment">% - valid (default = false). Normally, you just have training and</span>
+0068 <span class="comment">% testing data. If valid == true, then a portion of the training</span>
+0069 <span class="comment">% data gets treated *as though* its test data, and the training</span>
+0070 <span class="comment">% stops if generalization performance to this validation</span>
+0071 <span class="comment">% (i.e. 'pretend test') data worsens, which indicates</span>
+0072 <span class="comment">% overfitting. See also: the 'max_fail' arg below. See BP manual on</span>
+0073 <span class="comment">% 'Validation' in the 'Generalization' section</span>
+0074 <span class="comment">%</span>
+0075 <span class="comment">% - max_fail (default = 20) - see the 'valid' arg above. Determines how many</span>
+0076 <span class="comment">% times in a row performance on the validation vectors should drop</span>
+0077 <span class="comment">% before stopping training</span>
+0078 <span class="comment">%</span>
+0079 <span class="comment">% This version is set up for ZeroOne normalized inputs alter newff</span>
+0080 <span class="comment">% function if this is not appropriate - xxx???</span>
+0081 
+0082 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0083 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0084 <span class="comment">% information.</span>
+0085 
+0086 
+0087 
+0088 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0089 <span class="comment">% SORT ARGUMENTS</span>
+0090 
+0091 defaults.alg = <span class="string">'traincgb'</span>;
+0092 defaults.act_funct{1} = <span class="string">'logsig'</span>;
+0093 <span class="comment">% Need separate activation functions for each layer</span>
+0094 <span class="keyword">if</span> in_args.nHidden
+0095     defaults.act_funct{2} = <span class="string">'logsig'</span>;
+0096 <span class="keyword">end</span>
+0097 defaults.goal = 0.001;
+0098 defaults.epochs = 500;
+0099 defaults.show = NaN;
+0100 defaults.performFcn = <span class="string">'mse'</span>;
+0101 defaults.performParam_ratio = 1;
+0102 defaults.valid = false;
+0103 defaults.max_fail = 5;
+0104 
+0105 <span class="comment">% Args contains the default args, unless the user has over-ridden them</span>
+0106 args = <a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>(in_args,defaults);
+0107 scratch.class_args = args;
+0108 
+0109 args = <a href="#_sub1" class="code" title="subfunction [args] = sanity_check(trainpats,traintargs,args)">sanity_check</a>(trainpats,traintargs,args);
+0110 
+0111 
+0112 
+0113 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0114 <span class="comment">% SETTING THINGS UP</span>
+0115 
+0116 scratch.nOut = size(traintargs,1);
+0117 
+0118 <span class="comment">% Backprop needs to know the range of its input patterns xxx</span>
+0119 patsminmax(:,1)=min(trainpats')'; 
+0120 patsminmax(:,2)=max(trainpats')';
+0121 scratch.patsminmax = patsminmax;
+0122 
+0123 
+0124 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0125 <span class="comment">% *** CREATING AND INITIALIZING THE NET ***</span>
+0126 
+0127 <span class="comment">% 2 layer BP (i.e. no hidden layer)</span>
+0128 <span class="keyword">if</span> ~args.nHidden
+0129   <span class="comment">% Initialize a feedforward net with nOut output units and</span>
+0130   <span class="comment">% act_funct as the activation function</span>
+0131   scratch.net = newff(patsminmax,[scratch.nOut],args.act_funct);
+0132   <span class="comment">% Set every unit in the input layer to be fully connected to</span>
+0133   <span class="comment">% every unit in the output layer</span>
+0134   scratch.net.outputConnect = [1]; <span class="comment">% 2-layer feedforward connectivity</span>
+0135 
+0136 <span class="comment">% 3 layer BP (i.e. with hidden layer)</span>
+0137 <span class="keyword">else</span>
+0138   <span class="comment">% Initialize as above, but setting both layers' activation</span>
+0139   <span class="comment">% functions</span>
+0140   scratch.net = newff(patsminmax,[args.nHidden scratch.nOut],scratch.act_funct);
+0141   <span class="comment">% Every input unit connected to every hidden unit, and every</span>
+0142   <span class="comment">% hidden unit to every output unit</span>
+0143   scratch.net.outputConnect = [1 1];
+0144 <span class="keyword">end</span> <span class="comment">% if 3 layer</span>
+0145 
+0146 scratch.net = init(scratch.net); <span class="comment">% initializes it</span>
+0147 
+0148 <span class="comment">% Setting the network's properties according to in_args</span>
+0149 scratch.net.trainFcn = args.alg;
+0150 scratch.net.trainParam.goal = args.goal;
+0151 scratch.net.trainParam.epochs = args.epochs;
+0152 scratch.net.trainParam.show = args.show; 
+0153 scratch.net.performFcn = args.performFcn;
+0154 
+0155 
+0156   
+0157 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0158 <span class="comment">% *** RUNNING THE NET ***</span>
+0159 
+0160 <span class="comment">% This is the main training function - see TRAIN.M in the NN toolbox</span>
+0161 [scratch.net, scratch.training_record, scratch.training_acts,scratch.training_error]= <span class="keyword">...</span>
+0162     train(scratch.net,trainpats,traintargs);
+0163 
+0164 <span class="comment">% Note that these contain the activations for all the units (both</span>
+0165 <span class="comment">% hidden and output). OUTIDX indexes just the output layer (whether</span>
+0166 <span class="comment">% you have a hidden layer or not)</span>
+0167 scratch.outidx = [args.nHidden+1:args.nHidden+scratch.nOut];
+0168 
+0169 
+0170 
+0171 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0172 <a name="_sub1" href="#_subfunctions" class="code">function [args] = sanity_check(trainpats,traintargs,args)</a>
+0173 
+0174 <span class="keyword">if</span> ~isfield(args,<span class="string">'nHidden'</span>)
+0175   error(<span class="string">'Need an nHidden field'</span>);
+0176 <span class="keyword">end</span>
+0177 
+0178 <span class="keyword">if</span> args.nHidden &lt; 0
+0179   error(<span class="string">'Illegal number of hidden units'</span>);
+0180 <span class="keyword">end</span>
+0181 
+0182 <span class="keyword">if</span> size(trainpats,2)==1
+0183   error(<span class="string">'Can''t classify a single timepoint'</span>);
+0184 <span class="keyword">end</span>
+0185 
+0186 <span class="keyword">if</span> size(trainpats,2) ~= size(traintargs,2)
+0187   error(<span class="string">'Different number of training pats and targs timepoints'</span>);
+0188 <span class="keyword">end</span>
+0189 
+0190 <span class="keyword">if</span> ~iscell(args.act_funct)
+0191   <span class="keyword">if</span> ischar(args.act_funct)
+0192     temp_act_funct = args.act_funct;
+0193     args.act_funct = [];
+0194     args.act_funct{1} = temp_act_funct;
+0195   <span class="keyword">else</span>
+0196     error(<span class="string">'Act_funct should be a cell array of two strings'</span>);
+0197   <span class="keyword">end</span>
+0198 <span class="keyword">end</span>
+0199 
+0200 <span class="keyword">if</span> length(args.act_funct)~=1 &amp;&amp; length(args.act_funct)~=2
+0201   error(<span class="string">'Can only deal with two act_funct cells'</span>);
+0202 <span class="keyword">end</span>
+0203 
+0204 
+0205 <span class="keyword">if</span> args.performParam_ratio ~= 1
+0206   error(<span class="string">'Haven''t implemented performParam ratio yet'</span>);
+0207 <span class="keyword">end</span>
+0208 
+0209 <span class="keyword">if</span> strcmp(args.performFcn,<span class="string">'msereg'</span>)
+0210   error(<span class="string">'Haven''t implemented msereg yet'</span>);
+0211 <span class="keyword">end</span>
+0212 
+0213 <span class="keyword">if</span> args.valid
+0214   error(<span class="string">'Haven''t implemented validation yet'</span>);
+0215 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

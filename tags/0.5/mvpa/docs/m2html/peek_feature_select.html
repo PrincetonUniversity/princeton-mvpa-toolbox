@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of peek_feature_select</title>
+  <meta name="keywords" content="peek_feature_select">
+  <meta name="description" content="Just like NOPEEK_FEATURE_SELECT, except that it peeks">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>peek_feature_select
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Just like NOPEEK_FEATURE_SELECT, except that it peeks</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = peek_feature_select(subj,data_patname,regsname,selname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Just like NOPEEK_FEATURE_SELECT, except that it peeks
+
+ [SUBJ] = PEEK_FEATURE_SELECT(SUBJ,DATA_PATNAME,REGSNAME,SELNAME,...)
+
+ Only creates a single statmap pattern and mask because it runs the
+ statmap_anova on all the TRs in the data.
+
+ This is 'peeking' (cheating), because it means that we're allowing
+ our feature selection method to peek at the test data that we will
+ use later to assess our classifier generalization
+
+ See NOPEEK_FEATURE_SELECT for more info, including about the
+ optional arguments (which are the same)
+
+ Adds the following objects:
+ - pattern statmap
+ - mask
+
+ Do not use - this function only exists as a check - this way of
+ using the anova is scientifically illegitimate.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = peek_feature_select(subj,data_patname,regsname,selname,varargin)</a>
+0002 
+0003 <span class="comment">% Just like NOPEEK_FEATURE_SELECT, except that it peeks</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = PEEK_FEATURE_SELECT(SUBJ,DATA_PATNAME,REGSNAME,SELNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Only creates a single statmap pattern and mask because it runs the</span>
+0008 <span class="comment">% statmap_anova on all the TRs in the data.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% This is 'peeking' (cheating), because it means that we're allowing</span>
+0011 <span class="comment">% our feature selection method to peek at the test data that we will</span>
+0012 <span class="comment">% use later to assess our classifier generalization</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% See NOPEEK_FEATURE_SELECT for more info, including about the</span>
+0015 <span class="comment">% optional arguments (which are the same)</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% Adds the following objects:</span>
+0018 <span class="comment">% - pattern statmap</span>
+0019 <span class="comment">% - mask</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% Do not use - this function only exists as a check - this way of</span>
+0022 <span class="comment">% using the anova is scientifically illegitimate.</span>
+0023 
+0024 
+0025 defaults.new_map_patname = sprintf(<span class="string">'%s_anovamap'</span>,data_patname);
+0026 defaults.new_maskname    = sprintf(<span class="string">'%s_anovathresh'</span>,data_patname);
+0027 defaults.thresh          = 0.05;
+0028 defaults.statmap_arg     = [];
+0029 defaults.statmap_funct = <span class="string">'statmap_anova'</span>;
+0030 defaults.statmap_arg = [];
+0031 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0032 
+0033 <span class="keyword">if</span> ~ischar(args.statmap_funct)
+0034   error(<span class="string">'The statmap function name has to be a string'</span>);
+0035 <span class="keyword">end</span>
+0036 
+0037 disp( <span class="string">'Starting peeking anova'</span>);
+0038 
+0039 sels = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,selname);  
+0040 
+0041 subj = <a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>(subj,data_patname,regsname,selname,args.new_map_patname,args.statmap_arg);
+0042 
+0043 <span class="comment">% Now, create a new thresholded binary mask from the p-values</span>
+0044 <span class="comment">% statmap pattern returned by the anova</span>
+0045 subj = <a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>(subj,args.new_map_patname,args.new_maskname,args.thresh);
+0046 
+0047 disp( sprintf(<span class="string">'Pattern statmap ''%s'' and mask ''%s'' created by peek_feature_select'</span>, <span class="keyword">...</span>
+0048          args.new_map_patname,args.new_maskname) );
+0049 
+0050 
+0051</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

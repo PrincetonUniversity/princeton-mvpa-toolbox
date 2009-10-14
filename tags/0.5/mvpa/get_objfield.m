@@ -1,0 +1,35 @@
+function [val] = get_objfield(subj,objtype,objname,fieldname)
+
+% Retrieves a field from an object
+%
+% [VAL] = GET_FIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)
+%
+%   e.g. nvox = get_objfield(subj,'mask','wholebrain','nvox');
+%
+% Use OBJTYPE = 'subj' and OBJNAME = '' if you want to get a field
+% in the root of the subj structure itself
+%   e.g. header = get_objfield(subj,'subj','','header');
+
+
+if nargin~=4
+  error('I think you''ve forgotten to feed in all your arguments');
+end
+
+if strcmp(fieldname,'mat')
+  error('You should use get_%s to retrieve the mat field',objtype);
+end
+
+if strcmp(objtype,'subj')
+  obj = subj;
+else
+  obj = get_object(subj,objtype,objname);
+end
+
+if isfield(obj,fieldname)
+  val = obj.(fieldname);
+else
+  error( sprintf('No %s fieldname in %s %s',fieldname,objname,objtype) );
+end
+
+
+

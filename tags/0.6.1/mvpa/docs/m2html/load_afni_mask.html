@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of load_afni_mask</title>
+  <meta name="keywords" content="load_afni_mask">
+  <meta name="description" content="Loads an AFNI dataset into the subj structure as a mask">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>load_afni_mask
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Loads an AFNI dataset into the subj structure as a mask</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = load_afni_mask(subj,new_maskname,filename) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Loads an AFNI dataset into the subj structure as a mask
+
+ [SUBJ] = LOAD_AFNI_MASK(SUBJ,NEW_MASKNAME,FILENAME)
+
+ Adds the following objects:
+ - mask object called NEW_MASKNAME</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>	Add a new empty object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = load_afni_mask(subj,new_maskname,filename)</a>
+0002 
+0003 <span class="comment">% Loads an AFNI dataset into the subj structure as a mask</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = LOAD_AFNI_MASK(SUBJ,NEW_MASKNAME,FILENAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Adds the following objects:</span>
+0008 <span class="comment">% - mask object called NEW_MASKNAME</span>
+0009 
+0010 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0011 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0012 <span class="comment">% information.</span>
+0013 
+0014 
+0015 <span class="comment">% Initialize the new mask</span>
+0016 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>(subj,<span class="string">'mask'</span>,new_maskname);
+0017 
+0018 [err,V,AFNIheads,ErrMessage]= BrikLoad(filename);
+0019 
+0020 <span class="comment">% Check for errors</span>
+0021 <span class="keyword">if</span> err == 1
+0022   error(sprintf(<span class="string">'error in BrikLoad -%s'</span>,ErrMessage));
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="keyword">if</span> ndims(V)&gt;3
+0026   error(<span class="string">'Trying to load in a 4D dataset as a mask'</span>);
+0027 <span class="keyword">end</span>
+0028 
+0029 <span class="keyword">if</span> ~length(find(V))
+0030   error( sprintf(<span class="string">'There were no voxels active in the %s.BRIK mask'</span>,filename) );
+0031 <span class="keyword">end</span>
+0032 
+0033 <span class="comment">% Does this consist of solely ones and zeros?</span>
+0034 <span class="keyword">if</span> length(find(V)) ~= (length(find(V==0))+length(find(V==1)))
+0035   disp( sprintf(<span class="string">'Setting all non-zero values in the %s.BRIK mask to one'</span>,filename) );
+0036   V(find(V)) = 1;
+0037 <span class="keyword">end</span>
+0038 
+0039 <span class="comment">% Store the data in the new mask structure</span>
+0040 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'mask'</span>,new_maskname,V);
+0041 
+0042 <span class="comment">% Add the AFNI header to the patterns</span>
+0043 hist_str = sprintf(<span class="string">'Mask ''%s'' created by load_afni_pattern'</span>,new_maskname);
+0044 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'mask'</span>,new_maskname,hist_str,true);
+0045 
+0046 <span class="comment">% Add information to the new mask's header, for future reference</span>
+0047 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'mask'</span>,new_maskname,<span class="string">'header'</span>, <span class="keyword">...</span>
+0048           <span class="string">'AFNI_heads'</span>,AFNIheads,<span class="string">'ignore_absence'</span>,true);
+0049 subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,<span class="string">'mask'</span>,new_maskname,<span class="string">'header'</span>, <span class="keyword">...</span>
+0050           <span class="string">'AFNI_filename'</span>,filename,<span class="string">'ignore_absence'</span>,true);
+0051 
+0052 <span class="comment">% Record how this mask was created</span>
+0053 created.function = <span class="string">'load_afni_mask'</span>;
+0054 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'mask'</span>,new_maskname,created);
+0055</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

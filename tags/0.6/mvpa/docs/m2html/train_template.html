@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of train_template</title>
+  <meta name="keywords" content="train_template">
+  <meta name="description" content="Template for creating custom training functions">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>train_template
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Template for creating custom training functions</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [scratchpad] = train_template(trainpats,traintargs,in_args) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Template for creating custom training functions
+
+ [SCRATCHPAD] = TRAIN_TEMPLATE(TRAINPATS,TRAINTARGS,IN_ARGS)
+
+ See 'Creating your own training function' in manual.htm
+
+ See the related TEST_TEMPLATE function that gets called
+ afterwards to assess how well this generalizes to the test data.
+
+ Doesn't calculate its performance. Just spits out the activations
+
+ PATS = nFeatures x nTimepoints
+ TARGS = nOuts x nTimepoints
+
+ SCRATCHPAD will contain all the other information that you might
+ need when analysing the network's output, most of which is specific
+ to each particular classifier.
+
+ The classifier functions use a IN_ARGS structure to store possible
+ arguments (rather than a varargin and property/value pairs). This
+ tends to be easier to manage when lots of arguments are
+ involved. xxx</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>	Auxiliary function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [] = sanity_check(trainpats,traintargs,scratchpad,args)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [scratchpad] = train_template(trainpats,traintargs,in_args)</a>
+0002 
+0003 <span class="comment">% Template for creating custom training functions</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SCRATCHPAD] = TRAIN_TEMPLATE(TRAINPATS,TRAINTARGS,IN_ARGS)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% See 'Creating your own training function' in manual.htm</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% See the related TEST_TEMPLATE function that gets called</span>
+0010 <span class="comment">% afterwards to assess how well this generalizes to the test data.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Doesn't calculate its performance. Just spits out the activations</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% PATS = nFeatures x nTimepoints</span>
+0015 <span class="comment">% TARGS = nOuts x nTimepoints</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% SCRATCHPAD will contain all the other information that you might</span>
+0018 <span class="comment">% need when analysing the network's output, most of which is specific</span>
+0019 <span class="comment">% to each particular classifier.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% The classifier functions use a IN_ARGS structure to store possible</span>
+0022 <span class="comment">% arguments (rather than a varargin and property/value pairs). This</span>
+0023 <span class="comment">% tends to be easier to manage when lots of arguments are</span>
+0024 <span class="comment">% involved. xxx</span>
+0025 
+0026 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0027 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0028 <span class="comment">% information.</span>
+0029 
+0030 
+0031 defaults.arg1 = <span class="string">'blah'</span>;
+0032 defaults.arg2 = <span class="string">'blah2'</span>;
+0033 
+0034 args = <a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>(in_args,defaults);
+0035 
+0036 scratchpad.class_args = args;
+0037 
+0038 <a href="#_sub1" class="code" title="subfunction [] = sanity_check(trainpats,traintargs,scratchpad,args)">sanity_check</a>(trainpats,traintargs,args);
+0039 
+0040 
+0041 <span class="comment">%%% set up your classifier here</span>
+0042 
+0043 <span class="comment">%%% train your classifier here</span>
+0044 
+0045 <span class="comment">%%% store all the useful parameters and working in SCRATCHPAD</span>
+0046 
+0047 
+0048 
+0049 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0050 <a name="_sub1" href="#_subfunctions" class="code">function [] = sanity_check(trainpats,traintargs,scratchpad,args)</a>
+0051 
+0052 <span class="comment">% check that your assumptions are met here</span></pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

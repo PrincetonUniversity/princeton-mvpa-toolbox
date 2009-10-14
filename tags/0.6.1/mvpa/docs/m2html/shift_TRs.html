@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of shift_TRs</title>
+  <meta name="keywords" content="shift_TRs">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>shift_TRs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = shift_TRs(subj,regsname,selname,nTRs) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> 
+ [SUBJ] = SHIFT_TRS(SUBJ,REGSNAME,SELNAME,nTRs)
+ 
+ Shifts regressors ahead in time to account for hemodynamic lag.
+ Modifies the regressors REGSNAME by shifting nTRs forward within
+ each run specified by SELNAME. Those TRs at the end of a run are
+ deleted.  TRs inserted at the beginning of each run default to 0.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = shift_TRs(subj,regsname,selname,nTRs)</a>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% [SUBJ] = SHIFT_TRS(SUBJ,REGSNAME,SELNAME,nTRs)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Shifts regressors ahead in time to account for hemodynamic lag.</span>
+0006 <span class="comment">% Modifies the regressors REGSNAME by shifting nTRs forward within</span>
+0007 <span class="comment">% each run specified by SELNAME. Those TRs at the end of a run are</span>
+0008 <span class="comment">% deleted.  TRs inserted at the beginning of each run default to 0.</span>
+0009 
+0010 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0011 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0012 <span class="comment">% information.</span>
+0013 
+0014 
+0015 <span class="comment">% Load in the run selector and calculate its size</span>
+0016 runs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,selname);
+0017 nRuns = length(unique((runs(find(runs)))));
+0018 
+0019 <span class="comment">% Error Check: Make sure the runs regressor has no rest</span>
+0020 <span class="keyword">if</span> any(runs == 0)
+0021   error(<span class="string">'Runs regressor includes 0s. Cannot identify ends of run'</span>);
+0022 <span class="keyword">end</span>
+0023 
+0024 <span class="comment">% Identify the last nTRs timepoints in each run</span>
+0025 <span class="comment">% Finds the TRs N, where run(TR) does not equal run(TR+n)</span>
+0026 lTR  = find(runs(1:end-nTRs) ~= runs(nTRs+1:end));
+0027 
+0028 <span class="comment">% When the regressor is shifted, these last TRs from each run will</span>
+0029 <span class="comment">% become the first TRs from the next run. Set them to = 0</span>
+0030 regs = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'regressors'</span>,regsname);
+0031 regs(:,lTR) = 0;
+0032 
+0033 <span class="comment">% Now shift the entire regressor by inserting zeros, and then lop</span>
+0034 <span class="comment">% off the final nTRs</span>
+0035 regs = cat(2, zeros(size(regs,1), nTRs), regs(:,1:end-nTRs));
+0036 
+0037 <span class="comment">% Now save the new regressors back into the regressor object</span>
+0038 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'regressors'</span>,regsname,regs);
+0039</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

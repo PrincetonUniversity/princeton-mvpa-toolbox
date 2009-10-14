@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of set_mat</title>
+  <meta name="keywords" content="set_mat">
+  <meta name="description" content="Updates the MAT contents of an object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>set_mat
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Updates the MAT contents of an object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = set_mat(subj,objtype,objname,newmat,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Updates the MAT contents of an object
+
+ [SUBJ] = SET_MAT(SUBJ,OBJTYPE,OBJNAME,[IGNORE_EMPTY])
+
+ Updates the MAT contents of the object of OBJTYPE type called
+ OBJNAME with NEWMAT. Does lots of error-checking to try and avoid
+ possible problems
+
+ IGNORE_EMPTY (optional, default = false). By default, this will
+ warn you if you're trying to replace your object's MAT with an
+ empty one. Set to true if you're sure you want to do that
+
+ IGNORE_DIFF_SIZE (optional, default = false). By default, this
+ will warn you if you're trying to replace your object's mat with
+ one of a different size. Set to true if you're sure you want to
+ do that
+
+ IGNORE_REGS_TRANSPOSE (optional, default = false). By default, this
+ will warn you if your regressors' nCols &lt; nRows, since this might
+ indicate that things need to be transposed. Set to true if you
+ don't want that warning
+
+ If the object is stored on the hard disk (see 'Moving patterns to
+ the hard disk' in the manual), this transparently writes the MAT
+ to the file
+
+ It also does lots and lots of error-checking and book-keeping. Bad
+ bad things will happen if you ignore it and access the subj
+ structure directly with subj.blah{i}.mat instead</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li><li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li><li><a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>	Replace the entire cell array of this objtype with a new one</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_pattern_from_mask.html" class="code" title="function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)">create_pattern_from_mask</a>	Creates a new pattern by masking an old one</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="load_afni_mask.html" class="code" title="function [subj] = load_afni_mask(subj,new_maskname,filename)">load_afni_mask</a>	Loads an AFNI dataset into the subj structure as a mask</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_afni_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="load_pattern_from_hd.html" class="code" title="function [subj] = load_pattern_from_hd(subj,patname)">load_pattern_from_hd</a>	Reverse of MOVE_PATTERN_TO_HD</li><li><a href="remove_mat.html" class="code" title="function [subj] = remove_mat(subj,objtype,objname)">remove_mat</a>	Sets the mat field of the OBJNAME of OBJTYPE to empty.</li><li><a href="scramble_regressors.html" class="code" title="function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargin)">scramble_regressors</a>	Scrambles your regressors for sanity-checking</li><li><a href="shift_TRs.html" class="code" title="function [subj] = shift_TRs(subj,regsname,selname,nTRs)">shift_TRs</a>	</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li><li><a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>	Zscore each voxel, separately for each run</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [newmat] = sanity_check(subj,objtype,objname,newmat,args)</a></li><li><a href="#_sub2" class="code">function [] = check_regressors_dims(newmat,args)</a></li><li><a href="#_sub3" class="code">function [newmat] = check_selector_dims(newmat)</a></li><li><a href="#_sub4" class="code">function [] = check_dims(newmat,nd)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = set_mat(subj,objtype,objname,newmat,varargin)</a>
+0002 
+0003 <span class="comment">% Updates the MAT contents of an object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = SET_MAT(SUBJ,OBJTYPE,OBJNAME,[IGNORE_EMPTY])</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Updates the MAT contents of the object of OBJTYPE type called</span>
+0008 <span class="comment">% OBJNAME with NEWMAT. Does lots of error-checking to try and avoid</span>
+0009 <span class="comment">% possible problems</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% IGNORE_EMPTY (optional, default = false). By default, this will</span>
+0012 <span class="comment">% warn you if you're trying to replace your object's MAT with an</span>
+0013 <span class="comment">% empty one. Set to true if you're sure you want to do that</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% IGNORE_DIFF_SIZE (optional, default = false). By default, this</span>
+0016 <span class="comment">% will warn you if you're trying to replace your object's mat with</span>
+0017 <span class="comment">% one of a different size. Set to true if you're sure you want to</span>
+0018 <span class="comment">% do that</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% IGNORE_REGS_TRANSPOSE (optional, default = false). By default, this</span>
+0021 <span class="comment">% will warn you if your regressors' nCols &lt; nRows, since this might</span>
+0022 <span class="comment">% indicate that things need to be transposed. Set to true if you</span>
+0023 <span class="comment">% don't want that warning</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% If the object is stored on the hard disk (see 'Moving patterns to</span>
+0026 <span class="comment">% the hard disk' in the manual), this transparently writes the MAT</span>
+0027 <span class="comment">% to the file</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% It also does lots and lots of error-checking and book-keeping. Bad</span>
+0030 <span class="comment">% bad things will happen if you ignore it and access the subj</span>
+0031 <span class="comment">% structure directly with subj.blah{i}.mat instead</span>
+0032 
+0033 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0034 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0035 <span class="comment">% information.</span>
+0036 
+0037 <span class="comment">% This function looks long, but all it comes down to is:</span>
+0038 <span class="comment">%   objcell = get_type</span>
+0039 <span class="comment">%   objno = get_number</span>
+0040 <span class="comment">%   objcell{objno}.mat = newmat</span>
+0041 <span class="comment">%   subj = set_type</span>
+0042 
+0043 
+0044 <span class="keyword">if</span> nargin&lt;4
+0045   error(<span class="string">'I think you''ve forgotten to feed in one of your arguments'</span>);
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="keyword">if</span> ~nargout
+0049   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0050 <span class="keyword">end</span>
+0051 
+0052 defaults.ignore_regs_transpose = false;
+0053 defaults.ignore_empty = false;
+0054 defaults.ignore_diff_size = false;
+0055 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0056 
+0057 <span class="comment">% Don't let me mess up, catch me before I fall, the distpat toolbox</span>
+0058 <span class="comment">% does it all</span>
+0059 newmat = <a href="#_sub1" class="code" title="subfunction [newmat] = sanity_check(subj,objtype,objname,newmat,args)">sanity_check</a>(subj,objtype,objname,newmat,args);
+0060 
+0061 <span class="comment">% If the object resides on the hard disk, overwrite the existing file</span>
+0062 <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,<span class="string">'movehd'</span>)
+0063   movehd = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,<span class="string">'movehd'</span>);
+0064   disp( sprintf(<span class="string">'Writing mat to %s'</span>,movehd.pathfilename) );
+0065   save(movehd.pathfilename,<span class="string">'newmat'</span>);
+0066   subj = <a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>(subj,objtype,objname,<span class="string">'movehd'</span>,<span class="string">'last_saved'</span>,<a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(true),<span class="string">'ignore_absence'</span>,true);
+0067  
+0068 <span class="comment">% Otherwise, get the cell array. Mess with the appropriate cell in</span>
+0069 <span class="comment">% it. Set it back into the subj structure</span>
+0070 <span class="keyword">else</span>
+0071   objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0072   objno = <a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>(subj,objtype,objname);
+0073   objcell{objno}.mat = newmat;
+0074   subj = <a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>(subj,objtype,objcell);
+0075 <span class="keyword">end</span>
+0076 
+0077 <span class="comment">% Oh, and update the matsize. This avoids lots of passing around of</span>
+0078 <span class="comment">% the MAT fields, just to find the size (e.g. in summarize) which</span>
+0079 <span class="comment">% could slow things down</span>
+0080 <span class="comment">% xxx but i thought matlab only passed by value when the object was</span>
+0081 <span class="comment">% modified???</span>
+0082 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,<span class="string">'matsize'</span>,size(newmat));
+0083 
+0084 <span class="comment">% Record that we modified this. Could be useful. Don't ask me when</span>
+0085 <span class="comment">% or why. Mine is not the place to know these things. The brain</span>
+0086 <span class="comment">% moves in mysterious ways</span>
+0087 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,<span class="string">'last_modified'</span>,<a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(true),<span class="string">'ignore_absence'</span>,true);
+0088 
+0089 <span class="comment">% Update type-specific stuff</span>
+0090 <span class="keyword">switch</span>(objtype)
+0091  <span class="keyword">case</span> <span class="string">'mask'</span>
+0092   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'mask'</span>,objname,<span class="string">'nvox'</span>,length(find(newmat)));
+0093 <span class="keyword">end</span>
+0094 
+0095 
+0096 
+0097 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0098 <a name="_sub1" href="#_subfunctions" class="code">function [newmat] = sanity_check(subj,objtype,objname,newmat,args)</a>
+0099 
+0100 <span class="keyword">if</span> ~isnumeric(newmat)
+0101   <span class="keyword">if</span> isstruct(newmat)
+0102     error(<span class="string">'Your new mat is a structure - did you call get_object by mistake?'</span>);
+0103   <span class="keyword">else</span>
+0104     error(<span class="string">'Your new mat isn''t a matrix'</span>);
+0105   <span class="keyword">end</span>
+0106 <span class="keyword">end</span> 
+0107     
+0108 <span class="keyword">if</span> ~<a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,objname,<span class="string">'mat'</span>)
+0109   error(<span class="string">'This object doesn''t have a MAT - not been initialized properly - use init_object next time'</span>);
+0110 <span class="keyword">end</span>
+0111 
+0112 <span class="comment">% Warn if the new mat is empty, unless:</span>
+0113 <span class="comment">%  - IGNORE_EMPTY is true</span>
+0114 <span class="keyword">if</span> isempty(newmat) &amp; ~args.ignore_empty
+0115   warning( sprintf(<span class="string">'Setting the %s %s mat to empty'</span>,objname,objtype) );
+0116 <span class="keyword">end</span>
+0117 
+0118 <span class="comment">% Warn if the old and new mats are different sizes, unless:</span>
+0119 <span class="comment">%  - IGNORE_DIFF_SIZE is true</span>
+0120 <span class="comment">%  - the old mat was empty (cos it had probably just been initialized)</span>
+0121 <span class="comment">%  - the new mat is empty (cos IGNORE_EMPTY deals with that)</span>
+0122 oldmatsize = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,<span class="string">'matsize'</span>);
+0123 newmatsize = size(newmat);
+0124 <span class="keyword">if</span> find(oldmatsize) &amp; ~all(oldmatsize==newmatsize) &amp; <span class="keyword">...</span>
+0125       ~args.ignore_diff_size &amp; ~isempty(newmat)
+0126    warning( sprintf(<span class="string">'The dimensions of the new %s %s mat are different'</span>,objname,objtype) );
+0127 <span class="keyword">end</span>
+0128 
+0129 <span class="comment">% Check that the dimensions of the new mat are about right for the type</span>
+0130 <span class="keyword">switch</span>(objtype)
+0131   
+0132  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0133   <a href="#_sub4" class="code" title="subfunction [] = check_dims(newmat,nd)">check_dims</a>(newmat,2);
+0134   
+0135  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0136   <a href="#_sub2" class="code" title="subfunction [] = check_regressors_dims(newmat,args)">check_regressors_dims</a>(newmat,args);
+0137   
+0138  <span class="keyword">case</span> <span class="string">'selector'</span>
+0139   <span class="comment">% Transpose if not a row vector</span>
+0140   newmat = <a href="#_sub3" class="code" title="subfunction [newmat] = check_selector_dims(newmat)">check_selector_dims</a>(newmat);
+0141   
+0142  <span class="keyword">case</span> <span class="string">'mask'</span>
+0143   <span class="comment">% We should probably allow 2D masks in future - set as an</span>
+0144   <span class="comment">% optional argument??? xxx</span>
+0145   <a href="#_sub4" class="code" title="subfunction [] = check_dims(newmat,nd)">check_dims</a>(newmat,3);
+0146 
+0147  <span class="keyword">otherwise</span>
+0148   error(<span class="string">'Unknown object type'</span>);
+0149 <span class="keyword">end</span>
+0150 
+0151 
+0152 
+0153 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0154 <a name="_sub2" href="#_subfunctions" class="code">function [] = check_regressors_dims(newmat,args)</a>
+0155 
+0156 <span class="comment">% This just checks to see if your nCols &lt; nRows, indicating you've</span>
+0157 <span class="comment">% fed in nTRs by nConds by accident</span>
+0158 
+0159 <a href="#_sub4" class="code" title="subfunction [] = check_dims(newmat,nd)">check_dims</a>(newmat,2);
+0160 
+0161 <span class="keyword">if</span> (size(newmat,1) &gt; size(newmat,2)) &amp; ~args.ignore_regs_transpose
+0162   warning([<span class="string">'It looks like you have more conditions than timepoints'</span> <span class="keyword">...</span>
+0163       <span class="string">' in your regressors. Do they need to be transposed?'</span>]);
+0164 <span class="keyword">end</span>
+0165 
+0166   
+0167 
+0168 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0169 <a name="_sub3" href="#_subfunctions" class="code">function [newmat] = check_selector_dims(newmat)</a>
+0170 
+0171 <span class="comment">% This just transposes the selector if it's accidentally fed in as</span>
+0172 <span class="comment">% a column-vector</span>
+0173 
+0174 <a href="#_sub4" class="code" title="subfunction [] = check_dims(newmat,nd)">check_dims</a>(newmat,2);
+0175 
+0176 <span class="keyword">if</span> ~isvector(newmat)
+0177   error(<span class="string">'Selector has to be a row vector'</span>);
+0178 <span class="keyword">end</span>
+0179 
+0180 <span class="keyword">if</span> ~isint(newmat)
+0181   error(<span class="string">'Selector has to be integers only'</span>);
+0182 <span class="keyword">end</span>
+0183 
+0184 <span class="keyword">if</span> size(newmat,1) &gt; size(newmat,2)
+0185   warning(<span class="string">'You need to transpose your selectors - fixed for you inside set_mat'</span>);
+0186   newmat = newmat';
+0187 <span class="keyword">end</span>
+0188 
+0189 
+0190 
+0191 
+0192 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0193 <a name="_sub4" href="#_subfunctions" class="code">function [] = check_dims(newmat,nd)</a>
+0194 
+0195 <span class="keyword">if</span> ndims(newmat) ~= nd
+0196   warning( sprintf(<span class="string">'Your mat should have %i dims - this will probably break soon'</span>,nd) );
+0197 <span class="keyword">end</span>
+0198</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,321 @@
+*** high-priority
+add changes to default create_thresh_mask naming
+
+*** low-priority
+update scripts that take a long time so they do all their creation of
+objects at the beginning rather than the end, in case there's a
+problem with the object name
+
+*** low-priority
+add documentation re duplicate vs init
+
+*** high-priority
+replace all created.function = mfilename with = dbstack
+
+*** low-priority
+add a 'visibility' flag to all objects to stop things showing up in
+the subj structure
+
+*** low-priority
+add 051024 reply to mkc to faqs
+
+*** low-priority
+add a find_unlicensed_mvpa release script that checks that all scripts
+have the GPL license text included by grepping
+
+*** low-priority
+fix summarize noncontig bug
+
+*** low-priority
+fix summarize so that it runs a few checks on each object
+and also creates a summary struct on a single run through the subj
+structure, and then displays based on that
+
+*** low-priority
+add check to get_type so that it points out if you erroneously used a
+plural
+
+*** low-priority
+add associate_pattern_from_hd.m
+
+*** low-priority
+get mkc's version of vec2ind
+
+*** low-priority
+add cv_args to all train_ functions and documentation
+
+*** low-priority
+get rid of rest from tutorial dataset
+
+
+Subj maintenance and accessor scripts
+-
+*** high-priority
+need a way of creating a volume from a pattern. we'll need this if we
+want to write 4D patterns-with-time back to AFNI, for instance
+
+*** high-priority
+better documentation for optional arguments, custom functions etc.
+
+*** low-priority
+propval's a mess. it should take an optional cellORstruct arg, that
+defaults to cell. that way it can do proper error-checking with decent
+expectations
+
+*** low-priority
+add a check so that set_object doesn''t allow you to set the mat
+
+*** low-priority
+add a flag so that load_afni_mask can deal with sub-briks
+
+*** low-priority
+when you remove an object, it should rename it '_removed', which
+get_number will know to check for
+refuse to init an object called '_...'
+
+*** high-priority
+fix duplicate_object (and any calls to it) so that group_name is a
+standard optional parameter
+
+*** low-priority
+add functionality for saving subfields when moving to the hard disk
+allow moving masks etc. to the hard disk too???
+
+*** low-priority
+add to mailing list
+    penn people
+	 geoff aguirre
+	 lyle ungard
+	 kahanoids
+	 others???
+    cmu people
+    other people ken emailed me about
+    rob schapire
+    niam people
+    afni people
+   
+
+*** low-priority
+add new classifiers
+add 2-way anova
+
+
+
+Importing
+-
+
+
+
+
+Preprocessing scripts
+-
+*** low-priority
+is shifting TRs ready to go?
+what about convolved regressors
+
+*** high-priority
+check home-grown anova and zscore code
+
+*** low-priority
+add checks to zscore so that it looks for single-condition runs
+
+*** low-priority
+feature select should be able to take in a cell array of thresholds to
+create multiple mask groups
+
+
+
+Classification etc.
+-
+*** high-priority
+include CrossEntropy??? did sean write this himself???
+fix it
+
+*** high-priority
+change documentation to reflect perfmet having scratchpad
+
+
+
+Exporting
+-
+*** high-priority
+check write_to_afni
+
+
+
+
+Documentation
+-
+*** low-priority
+bulletin board etc. ideas
+	 tortoise svn bug tracking
+		  http://tortoisesvn.berlios.de/issues/index.php?do=details&id=156&PHPSESSID=2f7db06257dc8d39ee544667dbf65d52
+-
+- Our philosophy regarding the removal of TRs, and how it differs
+from the philosophy of removing voxels
+- Accessing subj structure directly
+- classification and results
+- see conversation with ken about other docs stuff
+- FAQ
+- Importing a pattern of arbitrary size without a mask
+- Divide by zero from backprop
+- Mention when you need the stats toolbox
+     mention that prestd might do the same thing as zscore
+- Good practices
+		   save out as many of the patterns to the hd as
+		   possible beforehand
+		   lower case
+		   split up your BRIKs
+- Info about subj.x
+- Definitions
+	e.g. selectors are discrete, probably exclusive and 1xtimepoints
+	stick with the selectors name
+- Censoring TRs and dealing with rest
+- Conventions
+    commenting of m-files
+    book-keeping objects, e.g. creation - checklist for developers
+    propval argumentations
+    incorporate conventions.txt
+- Using scripts without using the whole toolbox infrastructure
+- More on getting started and setting up work environment
+- Running this on your own data
+- Things to avoid when designing an experiment
+    e.g. diff sizes of conditions, diff sized runs, one condition per run
+- How to do event-related
+- Solicit requests for future directions
+- Extract memory documentation from init_object
+
+*** low-priority
+need sample dataset stuff
+
+*** high-priority
+Things to talk to Ben Singer about
+- Setting up a bulletin board (internal and external)
+- Other stuff discussed with CDM and MJB
+- SVN permissions
+- Adding SVN module for papers
+- SVN encrypted passwords
+- Adding SVN users
+- Bugzilla
+- M2HTML
+- Wikipedia
+- Where are things going to get hosted, contact details etc.
+- Quality control
+- Logins for outside users
+
+*** low-priority
+check documentation for removing voxels???
+
+*** low-priority
+add checkout netlab to setup_princeton.htm
+
+*** low-priority
+good practices
+- don't use a groupname and and objname that are the same
+- don't use uppercase
+
+*** low-priority
+update the 'removing conditions' section of the documentation
+
+*** low-priority
+combine conventions, good practices, errors or howtos???
+
+Testing
+-
+*** low-priority
+try creating a pattern, moving it to the hd while empty, and then
+adding to it
+
+
+
+
+
+
+Unsorted
+-
+*** high-priority
+add a high-level mvpa.m function so people can type help mvpa???
+
+*** low-priority
+tutorial reading recomendations:
+Haxby et al.
+Start with theoretical overview
+
+*** low-priority
+take m2html out of the svn
+
+*** high-priority
+add test suite
+
+*** low-priority
+add info about saving to the tutorial
+
+
+
+Unsorted
+-
+*** low-priority
+check with ziad saad that it's ok to bundle his afni_matlab scripts
+
+*** high-priority
+Tests to run
+- Check that the appropriate get/set scripts work with 'subj' as
+objtype
+
+*** high-priority
+look for xxx in the scripts
+rename to yyy if they're not crucial to the first release
+
+*** low-priority
+look into bugzilla
+
+*** low-priority
+add a copyright or website address to all scripts???
+what are the contact details for the toolbox???
+
+*** low-priority
+tidy up the test_mem functions so that we can refer to them in the
+manual in the memory efficiency section
+
+*** high-priority
+questions for ronnie/jim/ida
+	 why sometimes 5 sometimes 6 rest TRs between conditions
+	 which subject???
+	 anatomical-only VT mask???
+	 what performance were they getting with this???
+	 any afni scripts available???
+	 shift TRs???
+	 what pcrit did they use to define their GLM mask??? is it
+	 right that almost all of the voxels pass at 0.05???
+
+*** high-priority
+look over BVtoSubj
+
+*** low-priority
+convert_pattern_to_4d(subj,patname)
+
+*** low-priority
+add functionality to tutorial_haxby for reading in beta weights (that was in AFNItoSubj)
+
+*** low-priority
+summarise individual objects
+
+
+
+
+
+
+Latest assigned
+-
+CDM
+
+
+BDS
+
+
+GJD
+
+
+
+
+

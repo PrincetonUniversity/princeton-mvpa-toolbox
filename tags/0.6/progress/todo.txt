@@ -1,0 +1,248 @@
+Subj maintenance and accessor scripts
+-
+*** high-priority
+need a way of creating a volume from a pattern. we'll need this if we
+want to write 4D patterns-with-time back to AFNI, for instance
+
+*** high-priority
+use tags for release versions
+
+
+
+
+
+Importing
+-
+*** high-priority
+check that i'm not accidentally reading in beta weights too
+
+
+
+
+
+Preprocessing scripts
+-
+*** low-priority
+is shifting TRs ready to go?
+
+
+
+
+Classification etc.
+-
+*** high-priority
+include CrossEntropy??? did sean write this himself???
+
+*** high-priority
+store the training and testing classification functions in
+results.iterations.created. anything else?
+
+
+
+
+Exporting
+-
+*** high-priority
+check write_to_afni
+
+
+
+
+Documentation
+-
+*** low-priority
+bulletin board etc. ideas
+	 tortoise svn bug tracking
+		  http://tortoisesvn.berlios.de/issues/index.php?do=details&id=156&PHPSESSID=2f7db06257dc8d39ee544667dbf65d52
+-
+- Our philosophy regarding the removal of TRs, and how it differs
+from the philosophy of removing voxels
+- Accessing subj structure directly
+- classification and results
+- see conversation with ken about other docs stuff
+- FAQ
+- Importing a pattern of arbitrary size without a mask
+- Divide by zero from backprop
+- Mention when you need the stats toolbox
+     mention that prestd might do the same thing as zscore
+- Good practices
+		   save out as many of the patterns to the hd as
+		   possible beforehand
+		   lower case
+		   split up your BRIKs
+- Info about subj.x
+- Definitions
+	e.g. selectors are discrete, probably exclusive and 1xtimepoints
+	stick with the selectors name
+- Censoring TRs and dealing with rest
+- Conventions
+    commenting of m-files
+    book-keeping objects, e.g. creation - checklist for developers
+    propval argumentations
+    incorporate conventions.txt
+- Using scripts without using the whole toolbox infrastructure
+- More on getting started and setting up work environment
+- Running this on your own data
+- Things to avoid when designing an experiment
+    e.g. diff sizes of conditions, diff sized runs, one condition per run
+- How to do event-related
+- Solicit requests for future directions
+- Extract memory documentation from init_object
+
+*** low-priority
+need sample dataset stuff
+
+*** high-priority
+create instructions for internal testing
+Things we want people to point out and try:
+- formatting problems with the documentation
+- try multiple different kinds of perfmets at once
+Things we want people to ignore:
+
+*** high-priority
+Tutorial
+- What next section at the end
+- Pointer to setting up work environment
+
+*** high-priority
+Things to talk to Ben Singer about
+- Setting up a bulletin board (internal and external)
+- Other stuff discussed with CDM and MJB
+- SVN permissions
+- Adding SVN module for papers
+- SVN encrypted passwords
+- Adding SVN users
+- Bugzilla
+- M2HTML
+- Wikipedia
+- Where are things going to get hosted, contact details etc.
+- Quality control
+- Logins for outside users
+
+*** low-priority
+check documentation for removing voxels???
+
+*** low-priority
+add checkout netlab to setup_princeton.htm
+
+*** low-priority
+good practices
+- don't use a groupname and and objname that are the same
+- don't use uppercase
+
+*** low-priority
+update the 'removing conditions' section of the documentation
+
+*** low-priority
+combine conventions, good practices, errors or howtos???
+
+Testing
+-
+*** low-priority
+try creating a pattern, moving it to the hd while empty, and then
+adding to it
+
+
+
+
+
+
+Unsorted
+-
+*** high-priority
+figure out how to make the m2html look pretty
+
+*** high-priority
+add a high-level mvpa.m function so people can type help mvpa???
+
+*** low-priority
+tutorial reading recomendations:
+Haxby et al.
+Start with theoretical overview
+
+*** high-priority
+download graphviz and try the crazy functions visualization
+
+*** low-priority
+be sure to add the html files to the svn every so often (i.e. update
+my add_scripts.sh file)
+
+*** high-priority
+sort out a draft website
+
+*** high-priority
+figure out a better way for princeton people to get access to the
+tutorial data files
+update the tutorial data files tar.gz on the csbmb website
+
+
+
+
+Unsorted
+-
+*** low-priority
+check with ziad saad that it's ok to bundle his afni_matlab scripts
+
+*** high-priority
+Tests to run
+- Check that the appropriate get/set scripts work with 'subj' as
+objtype
+
+*** high-priority
+look for xxx in the scripts
+rename to yyy if they're not crucial to the first release
+
+*** low-priority
+look into bugzilla
+
+*** low-priority
+add a copyright or website address to all scripts???
+what are the contact details for the toolbox???
+
+*** low-priority
+tidy up the test_mem functions so that we can refer to them in the
+manual in the memory efficiency section
+
+*** high-priority
+questions for ronnie/jim/ida
+	 why sometimes 5 sometimes 6 rest TRs between conditions
+	 which subject???
+	 anatomical-only VT mask???
+	 what performance were they getting with this???
+	 any afni scripts available???
+	 shift TRs???
+	 what pcrit did they use to define their GLM mask??? is it
+	 right that almost all of the voxels pass at 0.05???
+
+*** high-priority
+look over BVtoSubj
+
+
+
+
+Latest assigned
+-
+CDM
+By wednesday
+- documentation on patterns and masks - see 'Figuring out which voxel
+is which, and where'
+- just cast your eye over things looking to criticize
+Soonish/eventually
+- write_to_afni
+- convert_pattern_to_4d(subj,patname)
+  rename get_masked_pattern relatedly (and update changelog)
+- add functionality to tutorial_haxby for reading in beta weights (that was in AFNItoSubj)
+- summarise individual objects
+
+
+BDS
+- sort out the permissions for the bulletin board or create another
+one so that external users can post to it. maybe create a login
+facility, but don't bother if this is a huge hassle
+
+GJD
+
+
+
+
+

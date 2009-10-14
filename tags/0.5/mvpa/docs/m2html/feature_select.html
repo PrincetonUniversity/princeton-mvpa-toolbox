@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of feature_select</title>
+  <meta name="keywords" content="feature_select">
+  <meta name="description" content="No-peeking feature selection">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>feature_select
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>No-peeking feature selection</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> No-peeking feature selection
+
+ [SUBJ] = NOPEEK_FEATURE_SELECT(SUBJ,DATA_PATNAME,REGSNAME,SELSGROUP,...)
+
+ Calls a statmap generation function multiple times, using a
+ different selector each time. This creates a group of statmaps,
+ which are then thresholded to create a group of boolean masks, ready
+ for use in no-peeking cross-validation classification.
+
+ Adds the following objects:
+ - pattern group of statmaps called NEW_MAP_PATNAME
+ - mask group based on the statmaps called NEW_MASKSTEM
+
+ DATA_PATNAME should contain the voxel (or other feature) values
+ that you want to create a mask of
+
+ REGSNAME should be a binary nConds x nTimepoints 1-of-n matrix
+
+ SELSGROUP should be the name of a selectors group, such as
+ created by create_xvalid_indices
+
+ For each iteration: call the ANOVA on the DATA_PATNAME data, which
+ will produce a statmap, employing only the TRs labelled with a 1
+ in the selector for that iteration
+
+ NEW_MAP_PATNAME (optional, default = DATA_PATNAME + '_anovamap'). The
+ name of the new statmap pattern group to be created
+
+ NEW_MASKSTEM (optional, default = DATA_PATNAME +
+ 'anovathresh'). The name of the new thresholded boolean mask
+ group to be created from the ANOVA statmap. You'll need to create
+ multiple mask groups if you want to try out multiple thresholds,
+ so adding the threshold to the name is a good idea
+
+ THRESH (optional, default = 0.05). Voxels that don't meet
+ this criterion value don't get included in the boolean mask that
+ gets created from the ANOVA statmap
+
+ STATMAP_FUNCT (optional, default = 'statmap_anova'). Feed in a
+ function name and this will create a function handle to that and
+ use it to create the statmaps instead of statmap_anova
+
+ STATMAP_ARG (optional, default = []). If you're using an
+ alternative voxel selection method, you can feed it a single
+ argument through this
+
+ Need to implement a THRESH_TYPE argument (for p vs F values), which would also
+ set the toggle differently xxx
+
+ e.g. subj = feature_select( ...
+         subj,'epi_z','conds','runs_nmo_xvalid','thresh',0.001)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>	Returns a list of names of objects from this group</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)</a>
+0002 
+0003 <span class="comment">% No-peeking feature selection</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = NOPEEK_FEATURE_SELECT(SUBJ,DATA_PATNAME,REGSNAME,SELSGROUP,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Calls a statmap generation function multiple times, using a</span>
+0008 <span class="comment">% different selector each time. This creates a group of statmaps,</span>
+0009 <span class="comment">% which are then thresholded to create a group of boolean masks, ready</span>
+0010 <span class="comment">% for use in no-peeking cross-validation classification.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Adds the following objects:</span>
+0013 <span class="comment">% - pattern group of statmaps called NEW_MAP_PATNAME</span>
+0014 <span class="comment">% - mask group based on the statmaps called NEW_MASKSTEM</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% DATA_PATNAME should contain the voxel (or other feature) values</span>
+0017 <span class="comment">% that you want to create a mask of</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% REGSNAME should be a binary nConds x nTimepoints 1-of-n matrix</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% SELSGROUP should be the name of a selectors group, such as</span>
+0022 <span class="comment">% created by create_xvalid_indices</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% For each iteration: call the ANOVA on the DATA_PATNAME data, which</span>
+0025 <span class="comment">% will produce a statmap, employing only the TRs labelled with a 1</span>
+0026 <span class="comment">% in the selector for that iteration</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% NEW_MAP_PATNAME (optional, default = DATA_PATNAME + '_anovamap'). The</span>
+0029 <span class="comment">% name of the new statmap pattern group to be created</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% NEW_MASKSTEM (optional, default = DATA_PATNAME +</span>
+0032 <span class="comment">% 'anovathresh'). The name of the new thresholded boolean mask</span>
+0033 <span class="comment">% group to be created from the ANOVA statmap. You'll need to create</span>
+0034 <span class="comment">% multiple mask groups if you want to try out multiple thresholds,</span>
+0035 <span class="comment">% so adding the threshold to the name is a good idea</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">% THRESH (optional, default = 0.05). Voxels that don't meet</span>
+0038 <span class="comment">% this criterion value don't get included in the boolean mask that</span>
+0039 <span class="comment">% gets created from the ANOVA statmap</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">% STATMAP_FUNCT (optional, default = 'statmap_anova'). Feed in a</span>
+0042 <span class="comment">% function name and this will create a function handle to that and</span>
+0043 <span class="comment">% use it to create the statmaps instead of statmap_anova</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% STATMAP_ARG (optional, default = []). If you're using an</span>
+0046 <span class="comment">% alternative voxel selection method, you can feed it a single</span>
+0047 <span class="comment">% argument through this</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% Need to implement a THRESH_TYPE argument (for p vs F values), which would also</span>
+0050 <span class="comment">% set the toggle differently xxx</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">% e.g. subj = feature_select( ...</span>
+0053 <span class="comment">%         subj,'epi_z','conds','runs_nmo_xvalid','thresh',0.001)</span>
+0054 
+0055 
+0056 defaults.new_map_patname = sprintf(<span class="string">'%s_statmap'</span>,data_patname);
+0057 defaults.new_maskstem = sprintf(<span class="string">'%s_thresh'</span>,data_patname);
+0058 defaults.thresh = 0.05;
+0059 defaults.statmap_funct = <span class="string">'statmap_anova'</span>;
+0060 defaults.statmap_arg = [];
+0061 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0062 
+0063 <span class="comment">% Find the selectors within the specified group</span>
+0064 selsnames = <a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,<span class="string">'selector'</span>,selsgroup);
+0065 nIterations = length(selsnames);
+0066 
+0067 <span class="keyword">if</span> nIterations == 0
+0068   error(<span class="string">'No selectors in that group'</span>);
+0069 <span class="keyword">end</span>
+0070 <span class="keyword">if</span> nIterations == 1
+0071   warning(<span class="string">'You''re only going to call the anova once because you only have one selector - use peek_feature_select instead?'</span>);
+0072 <span class="keyword">end</span>
+0073 
+0074 <span class="keyword">if</span> ~ischar(args.statmap_funct)
+0075   error(<span class="string">'The statmap function name has to be a string'</span>);
+0076 <span class="keyword">end</span>
+0077 
+0078 disp( sprintf(<span class="string">'Starting %i anova iterations'</span>,nIterations) );
+0079 
+0080 <span class="keyword">for</span> n=1:nIterations
+0081   fprintf(<span class="string">'\t%i'</span>,n);
+0082   
+0083   <span class="comment">% Get the selector for this iteration</span>
+0084   cur_selname = selsnames{n};    
+0085   sels = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,cur_selname);  
+0086 
+0087   <span class="comment">% Name the new statmap pattern and thresholded mask that will be created</span>
+0088   cur_maskname = sprintf(<span class="string">'%s_%i'</span>,args.new_maskstem,n);
+0089   cur_patname = sprintf(<span class="string">'%s_%i'</span>,args.new_map_patname,n);
+0090   
+0091   <span class="comment">% Create a handle for the statmap function handle and then run it</span>
+0092   <span class="comment">% to generate the statmaps</span>
+0093   statmap_fh = str2func(args.statmap_funct);
+0094   subj = statmap_fh(subj,data_patname,regsname,cur_selname,cur_patname,args.statmap_arg);
+0095   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'pattern'</span>,cur_patname,<span class="string">'group_name'</span>,args.new_map_patname);
+0096 
+0097   <span class="comment">% Now, create a new thresholded binary mask from the p-values</span>
+0098   <span class="comment">% statmap pattern returned by the anova</span>
+0099   subj = <a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>(subj,cur_patname,cur_maskname,args.thresh);
+0100   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'mask'</span>,cur_maskname,<span class="string">'group_name'</span>,args.new_maskstem);
+0101   
+0102 <span class="keyword">end</span> <span class="comment">% i nIterations</span>
+0103 
+0104 disp(<span class="string">' '</span>);
+0105 disp( sprintf(<span class="string">'Pattern statmap group ''%s'' and mask group ''%s'' created by feature_select'</span>, <span class="keyword">...</span>
+0106          args.new_map_patname,args.new_maskstem) );
+0107 
+0108 
+0109     
+0110 
+0111 
+0112 
+0113 
+0114</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

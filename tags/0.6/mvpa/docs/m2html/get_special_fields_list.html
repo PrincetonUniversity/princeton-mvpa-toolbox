@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_special_fields_list</title>
+  <meta name="keywords" content="get_special_fields_list">
+  <meta name="description" content="Internal - gets a list of special fieldnames">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_special_fields_list
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Internal - gets a list of special fieldnames</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [fields] = get_special_fields_list(objtype) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Internal - gets a list of special fieldnames
+
+ [SPECIAL_FIELDS_LIST] = GET_SPECIAL_FIELDS_LIST([OBJTYPE])
+
+ Returns a cell array of field names that you can't remove or mess
+ with.
+
+ OBJTYPE (optional, default = ''). If this empty, returns the
+ common required fields. If set to a recognised object type,
+ also returns the required fields for that object</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="remove_objfield.html" class="code" title="function [subj] = remove_objfield(subj,objtype,objname,fieldname)">remove_objfield</a>	Removes a field from the object</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [fields] = get_special_fields_list(objtype)</a>
+0002 
+0003 <span class="comment">% Internal - gets a list of special fieldnames</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SPECIAL_FIELDS_LIST] = GET_SPECIAL_FIELDS_LIST([OBJTYPE])</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Returns a cell array of field names that you can't remove or mess</span>
+0008 <span class="comment">% with.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% OBJTYPE (optional, default = ''). If this empty, returns the</span>
+0011 <span class="comment">% common required fields. If set to a recognised object type,</span>
+0012 <span class="comment">% also returns the required fields for that object</span>
+0013 
+0014 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0015 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0016 <span class="comment">% information.</span>
+0017 
+0018 
+0019 fields = {<span class="string">'name'</span>, <span class="keyword">...</span>
+0020      <span class="string">'header'</span>, <span class="keyword">...</span>
+0021      <span class="string">'mat'</span>, <span class="keyword">...</span>
+0022      <span class="string">'group_name'</span>, <span class="keyword">...</span>
+0023      <span class="string">'matsize'</span>, <span class="keyword">...</span>
+0024      <span class="string">'derived_from'</span>, <span class="keyword">...</span>
+0025      <span class="string">'created'</span>};
+0026 
+0027 <span class="keyword">switch</span>(objtype)
+0028  <span class="keyword">case</span> <span class="string">''</span>
+0029  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0030   fields{end+1} = <span class="string">'masked_by'</span>;
+0031  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0032   fields{end+1} = <span class="string">'condnames'</span>;
+0033  <span class="keyword">case</span> <span class="string">'selector'</span>
+0034  <span class="keyword">case</span> <span class="string">'mask'</span>
+0035   fields{end+1} = <span class="string">'nvox'</span>;
+0036   fields{end+1} = <span class="string">'thresh'</span>;
+0037  <span class="keyword">otherwise</span>
+0038   warning(<span class="string">'Unknown objtype to get fields for'</span>);
+0039 <span class="keyword">end</span>
+0040</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

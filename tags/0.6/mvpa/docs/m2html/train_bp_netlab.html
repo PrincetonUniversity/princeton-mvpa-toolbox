@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of train_bp_netlab</title>
+  <meta name="keywords" content="train_bp_netlab">
+  <meta name="description" content="Creates a Netlab backpropagation network and trains it">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>train_bp_netlab
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a Netlab backpropagation network and trains it</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [scratch] = train_bp_netlab(trainpats,traintargs,in_args) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a Netlab backpropagation network and trains it
+
+ [SCRATCHPAD] = TRAIN_BP_NETLAB(TRAINPATS,TRAINTARGS,IN_ARGS)
+
+ You need to call TEST_BP_NETLAB afterwards to assess how well this
+ generalizes to the test data. See the distpat manual and the Netlab
+ MLP.M help for more information. Requires the open source Netlab
+ Neural Networks toolbox that should be bundled with the toolbox:
+
+   http://www.ncrg.aston.ac.uk/netlab/
+ 
+ SeeTRAIN_BP.M for info on the input/output arguments
+
+ NOTE: This script takes in the test/train pattterns and the
+ targets in the same manner as the class_bp, but internally
+ transposes the dimensions since the Netlab toolbox requires
+ different arguments from the Matlab NN toolbox.
+
+ xxx act_funct arguments</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>	Auxiliary function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [args] = sanity_check(trainpats,traintargs,args)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [scratch] = train_bp_netlab(trainpats,traintargs,in_args)</a>
+0002 
+0003 <span class="comment">% Creates a Netlab backpropagation network and trains it</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SCRATCHPAD] = TRAIN_BP_NETLAB(TRAINPATS,TRAINTARGS,IN_ARGS)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% You need to call TEST_BP_NETLAB afterwards to assess how well this</span>
+0008 <span class="comment">% generalizes to the test data. See the distpat manual and the Netlab</span>
+0009 <span class="comment">% MLP.M help for more information. Requires the open source Netlab</span>
+0010 <span class="comment">% Neural Networks toolbox that should be bundled with the toolbox:</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   http://www.ncrg.aston.ac.uk/netlab/</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% SeeTRAIN_BP.M for info on the input/output arguments</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% NOTE: This script takes in the test/train pattterns and the</span>
+0017 <span class="comment">% targets in the same manner as the class_bp, but internally</span>
+0018 <span class="comment">% transposes the dimensions since the Netlab toolbox requires</span>
+0019 <span class="comment">% different arguments from the Matlab NN toolbox.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% xxx act_funct arguments</span>
+0022 
+0023 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0024 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0025 <span class="comment">% information.</span>
+0026 
+0027 
+0028 defaults.act_funct{1} = <span class="string">'logistic'</span>;
+0029 defaults.act_funct{2} = <span class="string">'logistic'</span>;
+0030 defaults.epochs = 500;
+0031 
+0032 args = <a href="add_struct_fields.html" class="code" title="function [args] = add_struct_fields(specifieds,defaults)">add_struct_fields</a>(in_args,defaults);
+0033 scratch.class_args = args;
+0034 
+0035 args = <a href="#_sub1" class="code" title="subfunction [args] = sanity_check(trainpats,traintargs,args)">sanity_check</a>(trainpats,traintargs,args);
+0036 
+0037 
+0038 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0039 <span class="comment">% Set things up</span>
+0040 scratch.nOut = size(traintargs,1);
+0041 nIn = size(trainpats,1);
+0042 
+0043 <span class="comment">% Transpose pats and targs for Netlab toolbox</span>
+0044 trainpats = trainpats';
+0045 traintargs = traintargs';
+0046 
+0047 <span class="comment">% Creating the network</span>
+0048 net = mlp(nIn, args.nHidden, scratch.nOut, args.act_funct{1});
+0049 
+0050 <span class="comment">% Train the network</span>
+0051 [net, errorfun] = mlptrain(net,trainpats,traintargs,args.epochs);
+0052 
+0053 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0054 scratch.net = net;
+0055 scratch.errorfun = errorfun;
+0056 
+0057 
+0058 
+0059 
+0060 
+0061 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0062 <a name="_sub1" href="#_subfunctions" class="code">function [args] = sanity_check(trainpats,traintargs,args)</a>
+0063 
+0064 <span class="keyword">if</span> ~isfield(args,<span class="string">'nHidden'</span>)
+0065   error(<span class="string">'Need an nHidden field'</span>);
+0066 <span class="keyword">end</span>
+0067 
+0068 <span class="keyword">if</span> args.nHidden &lt; 0
+0069   error(<span class="string">'Illegal number of hidden units'</span>);
+0070 <span class="keyword">end</span>
+0071 
+0072 <span class="keyword">if</span> args.nHidden == 0
+0073   error(<span class="string">'Haven''t figured out how to do BP_Netlab with no hidden layer'</span>);
+0074 <span class="keyword">end</span>
+0075 
+0076 <span class="keyword">if</span> size(trainpats,2)==1
+0077   error(<span class="string">'Can''t classify a single timepoint'</span>);
+0078 <span class="keyword">end</span>
+0079 
+0080 <span class="keyword">if</span> size(trainpats,2) ~= size(traintargs,2)
+0081   error(<span class="string">'Different number of training pats and targs timepoints'</span>);
+0082 <span class="keyword">end</span>
+0083 
+0084 <span class="keyword">if</span> ~iscell(args.act_funct)
+0085   <span class="keyword">if</span> ischar(args.act_funct)
+0086     temp_act_funct = args.act_funct;
+0087     args.act_funct = [];
+0088     args.act_funct{1} = temp_act_funct;
+0089   <span class="keyword">else</span>
+0090     error(<span class="string">'Act_funct should be a cell array of two strings'</span>);
+0091   <span class="keyword">end</span>
+0092 <span class="keyword">end</span>
+0093 
+0094 <span class="keyword">if</span> length(args.act_funct)~=1 &amp; length(args.act_funct)~=2
+0095   error(<span class="string">'Can only deal with two act_funct cells'</span>);
+0096 <span class="keyword">end</span>
+0097 
+0098 <span class="keyword">if</span> ~strcmp(args.act_funct{1},args.act_funct{2})
+0099   error(<span class="string">'Haven''t figured out how to use different act_functs for BP_Netlab'</span>);
+0100 <span class="keyword">end</span>
+0101 
+0102 
+0103 <span class="keyword">if</span> isfield(in_args,<span class="string">'alg'</span>)
+0104   warning(<span class="string">'Ignoring ''alg'' in BP_Netlab'</span>);
+0105 <span class="keyword">end</span>
+0106 
+0107 <span class="keyword">if</span> isfield(in_args,<span class="string">'goal'</span>)
+0108   warning(<span class="string">'Ignoring ''goal'' in BP_Netlab'</span>);
+0109 <span class="keyword">end</span>
+0110 
+0111 <span class="keyword">if</span> isfield(in_args,<span class="string">'show'</span>)
+0112   warning(<span class="string">'Ignoring ''show'' in BP_Netlab'</span>);
+0113 <span class="keyword">end</span>
+0114 
+0115 <span class="keyword">if</span> isfield(in_args,<span class="string">'performFcn'</span>)
+0116   warning(<span class="string">'Ignoring ''performFcn'' in BP_Netlab'</span>);
+0117 <span class="keyword">end</span>
+0118 
+0119 <span class="keyword">if</span> isfield(in_args,<span class="string">'performParam_ratio'</span>)
+0120   warning(<span class="string">'Ignoring ''performParam_ratio'' in BP_Netlab'</span>);
+0121 <span class="keyword">end</span>
+0122 
+0123 <span class="keyword">if</span> isfield(in_args,<span class="string">'init_fcn'</span>)
+0124   warning(<span class="string">'Ignoring ''init_fcn'' in BP_Netlab'</span>);
+0125 <span class="keyword">end</span>
+0126 
+0127 <span class="keyword">if</span> isfield(in_args,<span class="string">'valid'</span>)
+0128   warning(<span class="string">'Ignoring ''valid'' in BP_Netlab'</span>);
+0129 <span class="keyword">end</span>
+0130 
+0131 <span class="keyword">if</span> isfield(in_args,<span class="string">'max_fail'</span>)
+0132   warning(<span class="string">'Ignoring ''max_fail'' in BP_Netlab'</span>);
+0133 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

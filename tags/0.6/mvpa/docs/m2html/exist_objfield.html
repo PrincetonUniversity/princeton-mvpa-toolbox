@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of exist_objfield</title>
+  <meta name="keywords" content="exist_objfield">
+  <meta name="description" content="Checks whether the field exists">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>exist_objfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Checks whether the field exists</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [isthere] = exist_objfield(subj,objtype,objname,fieldname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Checks whether the field exists
+
+ [ISTHERE] = EXIST_FIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)
+
+ Checks whether the FIELDNAME exists inside the object OBJNAME of
+ OBJTYPE.
+
+ Returns true if it does, else false.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="load_pattern_from_hd.html" class="code" title="function [subj] = load_pattern_from_hd(subj,patname)">load_pattern_from_hd</a>	Reverse of MOVE_PATTERN_TO_HD</li><li><a href="move_pattern_to_hd.html" class="code" title="function [subj pathfilename] = move_pattern_to_hd(subj,patname,varargin)">move_pattern_to_hd</a>	Moves the pattern MAT to the hard disk</li><li><a href="remove_objfield.html" class="code" title="function [subj] = remove_objfield(subj,objtype,objname,fieldname)">remove_objfield</a>	Removes a field from the object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li><li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [isthere] = exist_objfield(subj,objtype,objname,fieldname)</a>
+0002 
+0003 <span class="comment">% Checks whether the field exists</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [ISTHERE] = EXIST_FIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Checks whether the FIELDNAME exists inside the object OBJNAME of</span>
+0008 <span class="comment">% OBJTYPE.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Returns true if it does, else false.</span>
+0011 
+0012 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0013 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0014 <span class="comment">% information.</span>
+0015 
+0016 
+0017 obj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,objname);
+0018 
+0019 <span class="keyword">if</span> isfield(obj,fieldname)
+0020   isthere = true;
+0021 <span class="keyword">else</span>
+0022   isthere = false;
+0023 <span class="keyword">end</span>
+0024</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

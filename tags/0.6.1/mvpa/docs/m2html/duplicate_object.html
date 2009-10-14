@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of duplicate_object</title>
+  <meta name="keywords" content="duplicate_object">
+  <meta name="description" content="Duplicate an object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>duplicate_object
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Duplicate an object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Duplicate an object
+
+ [SUBJ MAT] = DUPLICATE_OBJECT(SUBJ,OBJTYPE,OLD_OBJNAME,NEW_OBJNAME,GROUP_NAME)
+
+ Calls init_object to create a new obj called NEW_OBJNAME,
+ and then copies across the mat from OLD_OBJNAME and sets
+ the derived_from field to OLD_OBJNAME.
+
+ Adds the following objects:
+ - object
+
+ If GROUP_NAME is empty, then sets the new object's group name to be
+ empty (i.e. no group). If GROUP_NAME = 'same', it sets the new
+ object's group name to be the same as the old object's. If
+ unspecified, defaults to empty
+
+ Also copies the appropriate required fields for different object types</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>	Checks whether the field exists</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>	Add a new empty object</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_pattern_from_mask.html" class="code" title="function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)">create_pattern_from_mask</a>	Creates a new pattern by masking an old one</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="scramble_regressors.html" class="code" title="function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargin)">scramble_regressors</a>	Scrambles your regressors for sanity-checking</li><li><a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>	Zscore each voxel, separately for each run</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)</a>
+0002 
+0003 <span class="comment">% Duplicate an object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ MAT] = DUPLICATE_OBJECT(SUBJ,OBJTYPE,OLD_OBJNAME,NEW_OBJNAME,GROUP_NAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Calls init_object to create a new obj called NEW_OBJNAME,</span>
+0008 <span class="comment">% and then copies across the mat from OLD_OBJNAME and sets</span>
+0009 <span class="comment">% the derived_from field to OLD_OBJNAME.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Adds the following objects:</span>
+0012 <span class="comment">% - object</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% If GROUP_NAME is empty, then sets the new object's group name to be</span>
+0015 <span class="comment">% empty (i.e. no group). If GROUP_NAME = 'same', it sets the new</span>
+0016 <span class="comment">% object's group name to be the same as the old object's. If</span>
+0017 <span class="comment">% unspecified, defaults to empty</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% Also copies the appropriate required fields for different object types</span>
+0020 
+0021 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0022 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0023 <span class="comment">% information.</span>
+0024 
+0025 
+0026 <span class="keyword">if</span> nargin&lt;4
+0027   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0028 <span class="keyword">end</span>
+0029 
+0030 <span class="keyword">if</span> ~exist(<span class="string">'group_name'</span>,<span class="string">'var'</span>)
+0031   group_name = <span class="string">''</span>;
+0032 <span class="keyword">end</span>
+0033 
+0034 <span class="comment">% xxx This check is probably unnecessary???</span>
+0035 <span class="keyword">if</span> <a href="exist_objfield.html" class="code" title="function [isthere] = exist_objfield(subj,objtype,objname,fieldname)">exist_objfield</a>(subj,objtype,old_objname,<span class="string">'movehd'</span>)
+0036   error( sprintf(<span class="string">'Unable to duplicate a %s object that has been moved to HD'</span>,objtype) );
+0037 <span class="keyword">end</span>
+0038 
+0039 <span class="comment">% Access the object's mat (&quot;Whats your vector, victor?&quot;)</span>
+0040 mat = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,objtype,old_objname);
+0041 
+0042 <span class="comment">% Initialize the new object</span>
+0043 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname)">init_object</a>(subj,objtype,new_objname);
+0044 
+0045 <span class="comment">% Set the new object's mat to the old object's mat</span>
+0046 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,objtype,new_objname,mat);
+0047 
+0048 <span class="comment">% Set the derived from field</span>
+0049 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,new_objname,<span class="string">'derived_from'</span>,old_objname);
+0050 
+0051 <span class="comment">% Group Name: if this is empty, it has no group. If it is 'same',</span>
+0052 <span class="comment">% its the same as the old obj. default is groupless</span>
+0053 <span class="keyword">if</span> strmatch(group_name,<span class="string">'same'</span>)
+0054   group_name = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,old_objname,<span class="string">'group_name'</span>);
+0055 <span class="keyword">end</span>
+0056 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,new_objname,<span class="string">'group_name'</span>,group_name);
+0057 
+0058 <span class="keyword">switch</span> objtype
+0059  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0060   masked_by = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,<span class="string">'pattern'</span>,old_objname,<span class="string">'masked_by'</span>);
+0061   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'pattern'</span>,new_objname,<span class="string">'masked_by'</span>,masked_by);
+0062  
+0063  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0064   condnames = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,<span class="string">'regressors'</span>,old_objname,<span class="string">'condnames'</span>);
+0065   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'regressors'</span>,new_objname,<span class="string">'condnames'</span>,condnames);
+0066  
+0067  <span class="keyword">case</span> <span class="string">'selector'</span>
+0068  
+0069  <span class="keyword">case</span> <span class="string">'mask'</span>
+0070   thresh = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,<span class="string">'mask'</span>,old_objname,<span class="string">'thresh'</span>);
+0071   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'mask'</span>,new_objname,<span class="string">'thresh'</span>,thresh);
+0072  
+0073  <span class="keyword">otherwise</span>
+0074   error(<span class="string">'Duplicating unknown object type'</span>);
+0075 <span class="keyword">end</span>
+0076 
+0077 <span class="comment">% Check to see whether any fields were missed out</span>
+0078 oldobj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,old_objname);
+0079 newobj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,new_objname);
+0080 <span class="keyword">if</span> length(fieldnames(oldobj)) ~= length(fieldnames(newobj))
+0081   warning( sprintf(<span class="string">'In duplicating from %s to %s, some fields were ignored'</span>, <span class="keyword">...</span>
+0082      old_objname,new_objname) );
+0083 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

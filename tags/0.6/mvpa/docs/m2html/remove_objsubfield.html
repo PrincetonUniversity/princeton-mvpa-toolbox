@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of remove_objsubfield</title>
+  <meta name="keywords" content="remove_objsubfield">
+  <meta name="description" content="Removes the subfield from an object.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>remove_objsubfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Removes the subfield from an object.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = remove_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Removes the subfield from an object.
+
+ SUBJ = REMOVE_SUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME,NEWVAL)
+ 
+ See remove_objsubfield for more information</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = remove_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval)</a>
+0002 
+0003 <span class="comment">% Removes the subfield from an object.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% SUBJ = REMOVE_SUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME,NEWVAL)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% See remove_objsubfield for more information</span>
+0008 
+0009 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0010 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0011 <span class="comment">% information.</span>
+0012 
+0013 
+0014 <span class="keyword">if</span> ~nargout
+0015   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0016 <span class="keyword">end</span>
+0017 
+0018 field = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,fieldname);
+0019 field = rmfield(field,subfieldname);
+0020 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,objtype,objname,fieldname,field);
+0021</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

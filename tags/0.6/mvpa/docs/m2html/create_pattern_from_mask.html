@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of create_pattern_from_mask</title>
+  <meta name="keywords" content="create_pattern_from_mask">
+  <meta name="description" content="Creates a new pattern by masking an old one">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>create_pattern_from_mask
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a new pattern by masking an old one</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a new pattern by masking an old one
+
+ SUBJ = CREATE_PATTERN_FROM_MASK(SUBJ,OLD_PATNAME,MASKNAME,NEW_PATNAME,...)
+
+ Creates a new pattern called NEW_PATNAME from an
+ existing one called OLD_PATNAME, including only the voxels
+ allowed through by MASKNAME
+ 
+ Adds the following objects:
+ - pattern (unless IGNORE_EMPTY condition)
+
+ If the intersection is empty, it returns a warning and does not
+ create a new patterns cell, unless IGNORE_EMPTY is true
+
+ IGNORE_EMPTY (optional, default = false). By default, this exits
+ without creating a pattern if no features are allowed through. If
+ set to true, this will create the pattern anyway without issuing
+ a warning</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>	Returns the pattern's voxels allowed by the mask</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)</a>
+0002 
+0003 <span class="comment">% Creates a new pattern by masking an old one</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% SUBJ = CREATE_PATTERN_FROM_MASK(SUBJ,OLD_PATNAME,MASKNAME,NEW_PATNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Creates a new pattern called NEW_PATNAME from an</span>
+0008 <span class="comment">% existing one called OLD_PATNAME, including only the voxels</span>
+0009 <span class="comment">% allowed through by MASKNAME</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Adds the following objects:</span>
+0012 <span class="comment">% - pattern (unless IGNORE_EMPTY condition)</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% If the intersection is empty, it returns a warning and does not</span>
+0015 <span class="comment">% create a new patterns cell, unless IGNORE_EMPTY is true</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% IGNORE_EMPTY (optional, default = false). By default, this exits</span>
+0018 <span class="comment">% without creating a pattern if no features are allowed through. If</span>
+0019 <span class="comment">% set to true, this will create the pattern anyway without issuing</span>
+0020 <span class="comment">% a warning</span>
+0021 
+0022 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0023 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0024 <span class="comment">% information.</span>
+0025 
+0026 
+0027 defaults.ignore_empty = false;
+0028 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0029 
+0030 <span class="comment">% Do the hard work</span>
+0031 masked_pat = <a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>(subj,old_patname,maskname);
+0032 
+0033 <span class="comment">% Warn and return if no voxels are allowed through (unless IGNORE_EMPTY)</span>
+0034 <span class="keyword">if</span> isempty(masked_pat) &amp; ~args.ignore_empty
+0035   warn_str = sprintf(<span class="string">'No features from %s were allowed through by %s - not creating %s'</span>, <span class="keyword">...</span>
+0036            old_patname,maskname,new_patname);
+0037   warning(warn_str);
+0038   <span class="keyword">return</span>
+0039 <span class="keyword">end</span>
+0040 
+0041 <span class="comment">% Create the new object</span>
+0042 subj = <a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>(subj,<span class="string">'pattern'</span>,old_patname,new_patname);
+0043 
+0044 <span class="comment">% Now replace the new pattern's mat with the masked_pat</span>
+0045 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'pattern'</span>,new_patname,masked_pat,<span class="string">'ignore_diff_size'</span>,true);
+0046 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'pattern'</span>,new_patname,<span class="string">'masked_by'</span>,maskname);
+0047 
+0048 created.function = <span class="string">'create_pattern_from_mask'</span>;
+0049 subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'pattern'</span>,new_patname,created);
+0050 
+0051 hist = sprintf(<span class="string">'Pattern ''%s'' created by %s'</span>,<span class="keyword">...</span>
+0052           new_patname,created.function);
+0053 subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'pattern'</span>,new_patname,hist,true);</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of perfmet_template</title>
+  <meta name="keywords" content="perfmet_template">
+  <meta name="description" content="This is the template perfmet function for creating your own">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>perfmet_template
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is the template perfmet function for creating your own</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [perfmet] = perfmet_template(acts,targs,args) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This is the template perfmet function for creating your own
+
+ [PERFMET] = PERFMET_TEMPLATE(ACTS,TARGS,ARGS)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>	Returns true if two matrices are the same size</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [perfmet] = perfmet_template(acts,targs,args)</a>
+0002 
+0003 <span class="comment">% This is the template perfmet function for creating your own</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [PERFMET] = PERFMET_TEMPLATE(ACTS,TARGS,ARGS)</span>
+0006 
+0007 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0008 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0009 <span class="comment">% information.</span>
+0010 
+0011 
+0012 <span class="keyword">if</span> ~<a href="compare_size.html" class="code" title="function [issame] = compare_size(m1,m2)">compare_size</a>(acts,targs)
+0013   error(<span class="string">'Can''t calculate performance if acts and targs are different sizes'</span>);
+0014 <span class="keyword">end</span>
+0015 
+0016 [nUnits nTimepoints] = size(acts);
+0017 
+0018 <span class="comment">% Calculate your performance PERF here, using the acts, targs and</span>
+0019 <span class="comment">% args however you like</span>
+0020 
+0021 <span class="comment">% This just returns a random performance value</span>
+0022 perf = rand(1);
+0023 
+0024 <span class="comment">% Be sure to save your working</span>
+0025 perfmet.perf       = perf;
+0026 perfmet.scratchpad = [];</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

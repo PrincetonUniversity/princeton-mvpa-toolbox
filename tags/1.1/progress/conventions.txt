@@ -1,0 +1,33 @@
+Functions should be declared like this:
+
+function [out1 out2] = function_name(in1,in2)
+
+% [OUT1 OUT2] = FUNCTION_NAME(IN1,[IN2])
+%
+% Documentation goes here
+
+The first line of the help function should be copied and pasted
+exactly from the function declaration in upper-case form (use
+upcase-region in emacs)
+
+Enclose optional input parameters in square brackets.
+
+ARGNAME
+ARGNAME (optional, default = )
+
+explain about property/value pairs
+
+varargin = ...
+
+Need ways to highlight when a script creates a new object
+
+Creation stuff
+
+todo.txt - when you add a new item, give it a header-line saying how
+important it is. when it gets fixed, add your initials and a comment
+saying that it's been done. when we meet, we'll cross items off
+together
+
+
+
+

@@ -1,0 +1,32 @@
+***
+IMPLEMENTED CHANGES SINCE 25 AUG 05
+
+Renamed nopeek_feature_select.m to feature_select.m
+
+Moved class_args to be the last argument - changed cross-validation.m and
+class_bp.m
+
+Renamed get_field.m to get_objfield.m
+Renamed get_subfield.m to get_objsubfield.m
+Renamed set_field.m to set_objfield.m
+Renamed set_subfield.m to set_objsubfield.m
+Renamed exist_field.m to exist_objfield.m
+Renamed exist_subfield.m to exist_objsubfield.m
+Renamed remove_field.m to remove_objfield.m
+Renamed remove_subfield.m to remove_objsubfield.m
+
+*** IMPLEMENTED CHANGES 30 AUG 05
+Split class_*.m into train_*.m and test_*.m
+
+Changed the cross_validation.m argument order - class_args is now at
+the end
+
+Added required arguments to class_args - train_funct_name and
+test_funct_name
+class_args.classifier doesn't do anything now
+
+Fixed a bug in create_pattern_from_mask
+
+Renamed load_AFNI_pattern to load_afni_pattern
+Renamed load_AFNI_mask to load_afni_mask
+

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_objsubfield</title>
+  <meta name="keywords" content="get_objsubfield">
+  <meta name="description" content="Returns the subfield for this object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_objsubfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns the subfield for this object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns the subfield for this object
+
+ [VAL] = GET_SUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME)
+
+ For instance, if you wanted to know which function created a
+ particular object:
+
+   function_used = get_objsubfield(subj,'pattern','epi_z','creation','function');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="load_pattern_from_hd.html" class="code" title="function [subj] = load_pattern_from_hd(subj,patname)">load_pattern_from_hd</a>	Reverse of MOVE_PATTERN_TO_HD</li><li><a href="move_pattern_to_hd.html" class="code" title="function [subj pathfilename] = move_pattern_to_hd(subj,patname,varargin)">move_pattern_to_hd</a>	Moves the pattern MAT to the hard disk</li><li><a href="save_subj.html" class="code" title="function [subj fn] = save_subj(subj,varargin)">save_subj</a>	This just saves the subj structure to a file.</li><li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)</a>
+0002 
+0003 <span class="comment">% Returns the subfield for this object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [VAL] = GET_SUBFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,SUBFIELDNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% For instance, if you wanted to know which function created a</span>
+0008 <span class="comment">% particular object:</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%   function_used = get_objsubfield(subj,'pattern','epi_z','creation','function');</span>
+0011 
+0012 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0013 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0014 <span class="comment">% information.</span>
+0015 
+0016 
+0017 <span class="keyword">if</span> nargin~=5
+0018   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0019 <span class="keyword">end</span>
+0020 
+0021 field = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,objtype,objname,fieldname);
+0022 
+0023 <span class="keyword">if</span> ~isfield(field,subfieldname)
+0024   error( sprintf(<span class="string">'No subfield %s exists in %s field of %s %s'</span>, <span class="keyword">...</span>
+0025        subfieldname,fieldname,objname,objtype) );
+0026 <span class="keyword">end</span>
+0027 
+0028 val = field.(subfieldname);
+0029</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

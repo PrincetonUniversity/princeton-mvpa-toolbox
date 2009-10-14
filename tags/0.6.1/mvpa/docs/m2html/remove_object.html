@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of remove_object</title>
+  <meta name="keywords" content="remove_object">
+  <meta name="description" content="This removes an object permanently">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>remove_object
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This removes an object permanently</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = remove_object(subj,objtype,objname,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This removes an object permanently
+
+ [SUBJ] = REMOVE_OBJECT(SUBJ,OBJTYPE,OBJNAME,...)
+
+ This will remove the entire object permanently from the subj
+ structure - NOT RECOMMENDED
+
+ There is no reason to remove the actual cell itself, since it
+ takes up little memory and provides a record of the object that
+ used to exist. However, if you really want to remove the actual
+ cell itself and shunt all the other cells along, this function
+ will do that. It does warn you that this is a bad idea though.
+
+ REMOVE_HD_TOO (optional, default = true). By default, if the object's
+ contents are residing on the hard disk, the file will be deleted
+ too. Set this to false if you want to leave the file. Note: only
+ works for Unix xxx
+
+ N.B. This doesn't change the subj.x strings. If subj.x refers to
+ the object that was just removed, remember to update subj.x
+ accordingly.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li><li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>	Replace the entire cell array of this objtype with a new one</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="remove_group.html" class="code" title="function [subj] = remove_group(subj,objtype,groupname)">remove_group</a>	Removes an entire group's worth of objects permanently</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = remove_object(subj,objtype,objname,varargin)</a>
+0002 
+0003 <span class="comment">% This removes an object permanently</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = REMOVE_OBJECT(SUBJ,OBJTYPE,OBJNAME,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This will remove the entire object permanently from the subj</span>
+0008 <span class="comment">% structure - NOT RECOMMENDED</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% There is no reason to remove the actual cell itself, since it</span>
+0011 <span class="comment">% takes up little memory and provides a record of the object that</span>
+0012 <span class="comment">% used to exist. However, if you really want to remove the actual</span>
+0013 <span class="comment">% cell itself and shunt all the other cells along, this function</span>
+0014 <span class="comment">% will do that. It does warn you that this is a bad idea though.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% REMOVE_HD_TOO (optional, default = true). By default, if the object's</span>
+0017 <span class="comment">% contents are residing on the hard disk, the file will be deleted</span>
+0018 <span class="comment">% too. Set this to false if you want to leave the file. Note: only</span>
+0019 <span class="comment">% works for Unix xxx</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% N.B. This doesn't change the subj.x strings. If subj.x refers to</span>
+0022 <span class="comment">% the object that was just removed, remember to update subj.x</span>
+0023 <span class="comment">% accordingly.</span>
+0024 
+0025 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0026 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0027 <span class="comment">% information.</span>
+0028 
+0029 
+0030 defaults.remove_hd_too = true;
+0031 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0032 
+0033 <span class="keyword">if</span> ~nargout
+0034   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0035 <span class="keyword">end</span>
+0036 
+0037 <span class="keyword">if</span> nargin~=3
+0038   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0039 <span class="keyword">end</span>
+0040 
+0041 warning( sprintf(<span class="string">'Removing entire %s %s object'</span>,objname,objtype) );
+0042 
+0043 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0044 
+0045 objno = <a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>(subj,objtype,objname);
+0046 
+0047 <span class="comment">% If the object resides on the hard disk and REMOVE_HD_TOO, delete</span>
+0048 <span class="comment">% the file too</span>
+0049 <span class="keyword">if</span> isfield(objcell{objno},<span class="string">'movehd'</span>) &amp;&amp; args.remove_hd_too
+0050   movehd = objcell{objno}.movehd;
+0051   disp( sprintf(<span class="string">'Erasing %s'</span>,movehd.pathfilename) );
+0052   fn = sprintf(<span class="string">'%s.mat'</span>,movehd.pathfilename);
+0053   delete(fn);
+0054   <span class="keyword">if</span> exist(fn,<span class="string">'file'</span>)
+0055     warning( sprintf(<span class="string">'Unable to delete %s'</span>,fn) );
+0056   <span class="keyword">end</span>
+0057 <span class="keyword">end</span>
+0058 
+0059 <span class="comment">% This is special matlab syntax for completely removing a cell from</span>
+0060 <span class="comment">% a cell array and shunting all the ones above it along</span>
+0061 objcell(objno) = [];
+0062 
+0063 subj = <a href="set_type.html" class="code" title="function [subj] = set_type(subj,objtype,objcell)">set_type</a>(subj,objtype,objcell);</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

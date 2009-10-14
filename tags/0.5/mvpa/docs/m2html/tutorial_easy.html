@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of tutorial_easy</title>
+  <meta name="keywords" content="tutorial_easy">
+  <meta name="description" content="Tutorial script to accompany TUTORIAL_EASY.HTM">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>tutorial_easy
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Tutorial script to accompany TUTORIAL_EASY.HTM</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj results] = tutorial_easy() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Tutorial script to accompany TUTORIAL_EASY.HTM
+
+ [SUBJ RESULTS] = TUTORIAL_EASY()
+
+ This is the sample script for the Haxby et al. (Science, 2001) 8-
+ categories study. See the accompanying tutorial_easy.htm</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li><li><a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>	No-peeking feature selection</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>	Add a new empty object</li><li><a href="init_subj.html" class="code" title="function [subj] = init_subj(exp_name,id,varargin)">init_subj</a>	Returns an empty initialized SUBJ structure</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li><li><a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>	Zscore each voxel, separately for each run</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj results] = tutorial_easy()</a>
+0002 
+0003 <span class="comment">% Tutorial script to accompany TUTORIAL_EASY.HTM</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ RESULTS] = TUTORIAL_EASY()</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This is the sample script for the Haxby et al. (Science, 2001) 8-</span>
+0008 <span class="comment">% categories study. See the accompanying tutorial_easy.htm</span>
+0009 
+0010 
+0011 
+0012 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0013 <span class="comment">% INITIALIZING THE SUBJ STRUCTURE</span>
+0014 
+0015 <span class="comment">% start by creating an empty subj structure</span>
+0016 subj = <a href="init_subj.html" class="code" title="function [subj] = init_subj(exp_name,id,varargin)">init_subj</a>(<span class="string">'haxby8'</span>,<span class="string">'tutorial_subj'</span>);
+0017 
+0018 <span class="comment">%%% create the mask that will be used when loading in the data</span>
+0019 subj = load_AFNI_mask(subj,<span class="string">'VT_category-selective'</span>,<span class="string">'mask_cat_select_vt+orig'</span>);
+0020 
+0021 <span class="comment">% now, read and set up the actual data. load_AFNI_pattern reads in the</span>
+0022 <span class="comment">% EPI data from a BRIK file, keeping only the voxels active in the</span>
+0023 <span class="comment">% mask (see above)</span>
+0024 <span class="keyword">for</span> i=1:10
+0025   raw_filenames{i} = sprintf(<span class="string">'haxby8_r%i+orig'</span>,i);
+0026 <span class="keyword">end</span>
+0027 subj = load_AFNI_pattern(subj,<span class="string">'epi'</span>,<span class="string">'VT_category-selective'</span>,raw_filenames);
+0028 
+0029 <span class="comment">% initialize the regressors object in the subj structure, load in the</span>
+0030 <span class="comment">% contents from a file, set the contents into the object and add a</span>
+0031 <span class="comment">% cell array of condnames to the object for future reference</span>
+0032 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>(subj,<span class="string">'regressors'</span>,<span class="string">'conds'</span>);
+0033 load(<span class="string">'tutorial_regs'</span>);
+0034 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'regressors'</span>,<span class="string">'conds'</span>,regs);
+0035 condnames = {<span class="string">'face'</span>,<span class="string">'house'</span>,<span class="string">'cat'</span>,<span class="string">'bottle'</span>,<span class="string">'scissors'</span>,<span class="string">'shoe'</span>,<span class="string">'chair'</span>,<span class="string">'scramble'</span>};
+0036 subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'regressors'</span>,<span class="string">'conds'</span>,<span class="string">'condnames'</span>,condnames);
+0037 
+0038 <span class="comment">% store the names of the regressor conditions</span>
+0039 <span class="comment">% initialize the selectors object, then read in the contents</span>
+0040 <span class="comment">% for it from a file, and set them into the object</span>
+0041 subj = <a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>(subj,<span class="string">'selector'</span>,<span class="string">'runs'</span>);
+0042 load(<span class="string">'tutorial_runs'</span>);
+0043 subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'selector'</span>,<span class="string">'runs'</span>,runs);
+0044 
+0045 
+0046 
+0047 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0048 <span class="comment">% PRE-PROCESSING - z-scoring in time and no-peeking anova</span>
+0049 
+0050 <span class="comment">% we want to z-score the EPI data (called 'epi'),</span>
+0051 <span class="comment">% individually on each run (using the 'runs' selectors)</span>
+0052 subj = <a href="zscore_runs.html" class="code" title="function [subj new_patname] = zscore_runs(subj,patname,selname)">zscore_runs</a>(subj,<span class="string">'epi'</span>,<span class="string">'runs'</span>);
+0053 
+0054 <span class="comment">% now, create selector indices for the n different iterations of</span>
+0055 <span class="comment">% the nminusone</span>
+0056 subj = <a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>(subj,<span class="string">'runs'</span>);
+0057 
+0058 <span class="comment">% run the anova multiple times, separately for each iteration,</span>
+0059 <span class="comment">% using the selector indices created above</span>
+0060 [subj] = <a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>(subj,<span class="string">'epi_z'</span>,<span class="string">'conds'</span>,<span class="string">'runs_xval'</span>);
+0061 
+0062 
+0063 
+0064 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0065 <span class="comment">% CLASSIFICATION - n-minus-one cross-validation</span>
+0066 
+0067 save
+0068 
+0069 <span class="comment">% set some basic arguments for a backprop classifier</span>
+0070 class_args.train_funct_name = <span class="string">'train_bp'</span>;
+0071 class_args.test_funct_name = <span class="string">'test_bp'</span>;
+0072 class_args.nHidden = 0;
+0073 
+0074 <span class="comment">% now, run the classification multiple times, training and testing</span>
+0075 <span class="comment">% on different subsets of the data on each iteration</span>
+0076 [subj results] = <a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>(subj,<span class="string">'epi_z'</span>,<span class="string">'conds'</span>,<span class="string">'runs_xval'</span>,<span class="string">'epi_z_thresh'</span>,class_args);
+0077 
+0078</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

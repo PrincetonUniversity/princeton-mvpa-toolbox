@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_objfield</title>
+  <meta name="keywords" content="get_objfield">
+  <meta name="description" content="Retrieves a field from an object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_objfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Retrieves a field from an object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [val] = get_objfield(subj,objtype,objname,fieldname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Retrieves a field from an object
+
+ [VAL] = GET_FIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)
+
+   e.g. nvox = get_objfield(subj,'mask','wholebrain','nvox');
+
+ Use OBJTYPE = 'subj' and OBJNAME = '' if you want to get a field
+ in the root of the subj structure itself
+   e.g. header = get_objfield(subj,'subj','','header');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_objsubfield.html" class="code" title="function [val] = get_objsubfield(subj,objtype,objname,fieldname,subfieldname)">get_objsubfield</a>	Returns the subfield for this object</li><li><a href="get_ref_vol.html" class="code" title="function [vol] = get_ref_vol(subj,patname)">get_ref_vol</a>	Returns the mat of the pattern's masked_by mask</li><li><a href="get_relative_index.html" class="code" title="function [ia ib vol] = get_relative_index(subj, patname, maskname)">get_relative_index</a>	Returns an index into a mask of the voxels in a pattern xxx</li><li><a href="remove_objsubfield.html" class="code" title="function [subj] = remove_objsubfield(subj,objtype,objname,fieldname,subfieldname)">remove_objsubfield</a>	Removes the subfield from an object.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li><li><a href="write_to_afni.html" class="code" title="function [err] = write_to_afni(subj, objtype, objname, sample_filename, varargin)">write_to_afni</a>	Writes an object to a file, using the header info from a specified file.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [val] = get_objfield(subj,objtype,objname,fieldname)</a>
+0002 
+0003 <span class="comment">% Retrieves a field from an object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [VAL] = GET_FIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%   e.g. nvox = get_objfield(subj,'mask','wholebrain','nvox');</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Use OBJTYPE = 'subj' and OBJNAME = '' if you want to get a field</span>
+0010 <span class="comment">% in the root of the subj structure itself</span>
+0011 <span class="comment">%   e.g. header = get_objfield(subj,'subj','','header');</span>
+0012 
+0013 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0014 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0015 <span class="comment">% information.</span>
+0016 
+0017 
+0018 <span class="keyword">if</span> nargin~=4
+0019   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0020 <span class="keyword">end</span>
+0021 
+0022 <span class="keyword">if</span> strcmp(fieldname,<span class="string">'mat'</span>)
+0023   error(<span class="string">'You should use get_%s to retrieve the mat field'</span>,objtype);
+0024 <span class="keyword">end</span>
+0025 
+0026 <span class="keyword">if</span> strcmp(objtype,<span class="string">'subj'</span>)
+0027   obj = subj;
+0028 <span class="keyword">else</span>
+0029   obj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,objname);
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="keyword">if</span> isfield(obj,fieldname)
+0033   val = obj.(fieldname);
+0034 <span class="keyword">else</span>
+0035   error( sprintf(<span class="string">'No %s fieldname in %s %s'</span>,fieldname,objname,objtype) );
+0036 <span class="keyword">end</span>
+0037 
+0038 
+0039</pre></div>
+<hr><address>Generated on Thu 08-Sep-2005 12:05:17 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

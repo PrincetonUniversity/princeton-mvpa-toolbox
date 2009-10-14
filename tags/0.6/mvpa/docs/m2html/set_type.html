@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of set_type</title>
+  <meta name="keywords" content="set_type">
+  <meta name="description" content="Replace the entire cell array of this objtype with a new one">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>set_type
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Replace the entire cell array of this objtype with a new one</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = set_type(subj,objtype,objcell) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Replace the entire cell array of this objtype with a new one
+
+ [SUBJ] = SET_TYPE(SUBJ,OBJTYPE,OBJCELL)
+
+ Recommended for internal use only
+
+ See the discussion in the manual about memory efficiency for why
+ this isn't an incredibly costly way to do things</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>	Add a new empty object</li><li><a href="remove_object.html" class="code" title="function [subj] = remove_object(subj,objtype,objname,varargin)">remove_object</a>	This removes an object permanently</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>	Replaces an entire object, i.e. a cell from one of the main 4 cell arrays</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = set_type(subj,objtype,objcell)</a>
+0002 
+0003 <span class="comment">% Replace the entire cell array of this objtype with a new one</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = SET_TYPE(SUBJ,OBJTYPE,OBJCELL)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Recommended for internal use only</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% See the discussion in the manual about memory efficiency for why</span>
+0010 <span class="comment">% this isn't an incredibly costly way to do things</span>
+0011 
+0012 <span class="comment">% This is part of the Princeton MVPA toolbox, released under the</span>
+0013 <span class="comment">% GPL. See http://www.csbmb.princeton.edu/mvpa for more</span>
+0014 <span class="comment">% information.</span>
+0015 
+0016 
+0017 <span class="keyword">if</span> ~nargout
+0018   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0019 <span class="keyword">end</span>
+0020 
+0021 <span class="keyword">if</span> ~iscell(objcell)
+0022   error(<span class="string">'Trying to set %s cell array but it''s not a cell array'</span>);
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="keyword">switch</span>(objtype)
+0026  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0027   subj.patterns = objcell;
+0028  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0029   subj.regressors = objcell;
+0030  <span class="keyword">case</span> <span class="string">'selector'</span>
+0031   subj.selectors = objcell;
+0032  <span class="keyword">case</span> <span class="string">'mask'</span>
+0033   subj.masks = objcell;
+0034  
+0035  <span class="keyword">otherwise</span>
+0036   error(<span class="string">'Unknown object type'</span>);
+0037 <span class="keyword">end</span>
+0038 
+0039</pre></div>
+<hr><address>Generated on Tue 06-Sep-2005 22:11:31 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

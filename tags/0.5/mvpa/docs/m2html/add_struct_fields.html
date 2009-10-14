@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of add_struct_fields</title>
+  <meta name="keywords" content="add_struct_fields">
+  <meta name="description" content="Auxiliary function">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>add_struct_fields
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Auxiliary function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [args] = add_struct_fields(specifieds,defaults) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Auxiliary function
+
+ [ARGS] = ADD_STRUCT_FIELDS(SPECIFIEDS,DEFAULTS)
+
+ Deals with user-specified arguments and default arguments as
+ structs.
+
+ It creates an amalgamated ARGS struct that assumes that if the user
+ hasn't specified an argument in SPECIFIEDS, then it should use the
+ one in DEFAULTS.
+
+ It doesn't do as much error-checking as PROPVAL.M xxx</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="train_bp.html" class="code" title="function [bp] = train_bp(trainpats,traintargs,in_args)">train_bp</a>	Creates a backpropagation neural network and trains it.</li><li><a href="train_template.html" class="code" title="function [scratchpad] = train_template(trainpats,traintargs,in_args)">train_template</a>	Template for creating custom training functions</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [args] = add_struct_fields(specifieds,defaults)</a>
+0002 
+0003 <span class="comment">% Auxiliary function</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [ARGS] = ADD_STRUCT_FIELDS(SPECIFIEDS,DEFAULTS)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Deals with user-specified arguments and default arguments as</span>
+0008 <span class="comment">% structs.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% It creates an amalgamated ARGS struct that assumes that if the user</span>
+0011 <span class="comment">% hasn't specified an argument in SPECIFIEDS, then it should use the</span>
+0012 <span class="comment">% one in DEFAULTS.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% It doesn't do as much error-checking as PROPVAL.M xxx</span>
+0015 
+0016 
+0017 def_fnames = fieldnames(defaults);
+0018 
+0019 args = specifieds;
+0020 
+0021 <span class="keyword">for</span> i=1:length(def_fnames)
+0022   cur_def_fname = def_fnames{i};
+0023 
+0024   <span class="comment">% If this default argument wasn't specified, then use the default</span>
+0025   <span class="comment">% value</span>
+0026   <span class="keyword">if</span> ~isfield(args,cur_def_fname)
+0027     args.(cur_def_fname) = defaults.(cur_def_fname);
+0028   <span class="keyword">end</span>
+0029   
+0030 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
