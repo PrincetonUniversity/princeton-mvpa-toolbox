@@ -1,0 +1,12 @@
+You can download example data files from:
+
+http://sun.csbmb.princeton.edu/downloads/distpat
+
+for the benchmarks. The current files there are:
+
+s2_all_lowres+orig.BRIK [384MB]
+s2_all_lowres+orig.HEAD [128K]
+subj_master_small.mat   [27MB]
+
+These aren't being kept in the repository because of
+their size (the HEAD is there since it goes with BRIK).

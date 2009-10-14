@@ -1,0 +1,102 @@
+
+type = string-attribute
+name = HISTORY_NOTE
+count = 2209
+'[claudio@haxbyfmri.Princeton.EDU: Tue Mar 23 17:53:30 2004] 3dTcat -prefix jh_all jh_ts_r1+orig jh_ts_r2+orig jh_ts_r3+orig jh_ts_r4+orig jh_ts_r5+orig jh_ts_r6+orig jh_ts_r7+orig jh_ts_r8+orig\n[claudio@haxbyfmri.Princeton.EDU: Mon Mar 29 15:06:49 2004] 3dDeconvolve -input jh_all+orig -mask jh_mask+orig -censor censor.txt -concat runs.txt -polort 2 -xout -num_stimts 22 -stim_file 1 jh_f_faces_even.1D -stim_nptr 1 4 -stim_label 1 fem_even -stim_file 2 jh_f_faces_odd.1D -stim_nptr 2 4 -stim_label 2 fem_odd -stim_file 3 jh_m_faces_even.1D -stim_nptr 3 4 -stim_label 3 male_even -stim_file 4 jh_m_faces_odd.1D -stim_nptr 4 4 -stim_label 4 male_odd -stim_file 5 jh_monkeys_even.1D -stim_nptr 5 4 -stim_label 5 monkeys_even -stim_file 6 jh_monkeys_odd.1D -stim_nptr 6 4 -stim_label 6 monkeys_odd -stim_file 7 jh_dogs_even.1D -stim_nptr 7 4 -stim_label 7 dogs_even -stim_file 8 jh_dogs_odd.1D -stim_nptr 8 4 -stim_label 8 dogs_odd -stim_file 9 jh_houses_even.1D -stim_nptr 9 4 -stim_label 9 houses_even -stim_file 10 jh_houses_odd.1D -stim_nptr 10 4 -stim_label 10 houses_odd -stim_file 11 jh_chairs_even.1D -stim_nptr 11 4 -stim_label 11 chair_even -stim_file 12 jh_chairs_odd.1D -stim_nptr 12 4 -stim_label 12 chair_odd -stim_file 13 jh_shoes_even.1D -stim_nptr 13 4 -stim_label 13 shoes_even -stim_file 14 jh_shoes_odd.1D -stim_nptr 14 4 -stim_label 14 shoes_odd -stim_file 15 'mov.out[1]' -stim_file 16 'mov.out[2]' -stim_file 17 'mov.out[3]' -stim_file 18 'mov.out[4]' -stim_file 19 'mov.out[5]' -stim_file 20 'mov.out[6]' -stim_file 21 'mov.out[7]' -stim_file 22 'mov.out[8]' -full_first -fout -tout -num_glt 6 -glt 7 glt_all_stimuli.txt -glt_label 1 all_stimuli -glt 1 glt_faces_vs_objects.txt -glt_label 2 faces_vs_objs -glt 1 glt_humans_vs_monkeys.txt -glt_label 3 hum_vs_monks -glt 1 glt_humans_vs_dogs.txt -glt_label 4 hum_vs_dogs -glt 1 glt_monkeys_vs_dogs.txt -glt_label 5 monks_vs_dogs -glt 6 glt_diff_among_cats.txt -glt_label 6 diff_among_cats -bucket results_jh\n[claudio@haxbyfmri.Princeton.EDU: Mon Mar 29 15:06:49 2004] Output prefix: results_jh\n[mgobbini@haxbyfmri.Princeton.EDU: Fri Jul 16 12:22:20 2004] 3dcalc -prefix mask_diff_cats_jh -a 'results_jh+orig[154]' -expr 'step(a-2.819)'~
+
+type = string-attribute
+name = TYPESTRING
+count = 15
+'3DIM_HEAD_FUNC~
+
+type = string-attribute
+name = IDCODE_STRING
+count = 27
+'XYZ_IB_mbfyZXAlMvUMdMF0LaA~
+
+type = string-attribute
+name = IDCODE_DATE
+count = 25
+'Fri Jul 16 12:22:20 2004~
+
+type = integer-attribute
+name = SCENE_DATA
+count = 8
+ 0 11 1 -999 -999
+ -999 -999 -999
+
+type = string-attribute
+name = LABEL_1
+count = 5
+'zyxt~
+
+type = string-attribute
+name = LABEL_2
+count = 5
+'zyxt~
+
+type = string-attribute
+name = DATASET_NAME
+count = 5
+'zyxt~
+
+type = integer-attribute
+name = ORIENT_SPECIFIC
+count = 3
+ 0 3 4
+
+type  = float-attribute
+name  = ORIGIN
+count = 3
+            -96      -82.98798      -72.52409
+
+type  = float-attribute
+name  = DELTA
+count = 3
+              3              3              3
+
+type  = float-attribute
+name  = BRICK_STATS
+count = 2
+              0              1
+
+type = integer-attribute
+name = DATASET_RANK
+count = 8
+ 3 1 0 0 0
+ 0 0 0
+
+type = integer-attribute
+name = DATASET_DIMENSIONS
+count = 5
+ 64 64 32 0 0
+
+type = integer-attribute
+name = BRICK_TYPES
+count = 1
+ 1
+
+type  = float-attribute
+name  = BRICK_FLOAT_FACS
+count = 1
+   3.051851e-05
+
+type = string-attribute
+name = BRICK_LABS
+count = 23
+'diff_among_cats F-stat~
+
+type = string-attribute
+name = BRICK_KEYWORDS
+count = 1
+'~
+
+type  = float-attribute
+name  = BRICK_STATAUX
+count = 5
+              0              4              2              6           1466
+
+type = string-attribute
+name = BYTEORDER_STRING
+count = 10
+'LSB_FIRST~
