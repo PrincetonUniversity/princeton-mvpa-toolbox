@@ -1,100 +1,7 @@
-*** 1.0
-
- - Reorganized directory structure.
-
- - Removed add_struct_fields, which is deprecated.  
-
- - Added "mergestructs" to replace add_struct_fields, which merges two
-   structures and has exactly the same behavior. add_struct_fields
-   should not be used for parsing arguments anymore.
-
- - Changed all train_* functions to use PROPVAL.
-
- - Added add_mvpa_paths.m to add all necessary paths, rather than
-   requiring the user to enter them by hand.
- 
- - Deprecated 'get_funct_handle_name', is now 'arg2funct'. 
-
- - Added searchlight functionality:
-    - statmap_searchlight
-    - statmap_classify
-    - statmap_glm_multiv  
-
- - Removed "tutorial_hard.m"
- 
- - Added function ISCATEGORICAL -- like check_1ofn_regressors.m, but
-   it checks both binary, "1ofn" style classification regressors, and
-   single row "desireds" vectors. This was to get wavestrapping to
-   work; in the next release, we'll formalize the behavior of
-   categorical and continuous labels.
-
- - Added wavestrapping
-
-*** 0.9
-
-write_to_afni now uses zeroify by default
-  
-  argument DO_ZEROIFY renamed to ONLY_DO_ZEROIFY
-
-  argument RUNS renamed to RUNSNAME
-
-write_to_afni can now write out multiple volumes, and use
-views other than +orig (though that's the default)
-
-added statmap_3dDeconvolve
-
-create_xvalid_odds_and_evens???
-
-feature_select can optionally pass in extra timepoints
-
-statmap_searchlight
-
-statmap_classify
-
-average_object
-
-
-*** 0.8 060707, rev 1130
-
-Switched documentation to wiki
-
-Many miscellaneous bug fixes
-
-Some important new functions:
-
-     - change_objgroup
-     - multiple_iterations_confusion
-     - create_sorted_mask
-     - ind2vec_robust
-     - default_class_args
-     - intersect_masks
-     - load_matrix_pattern
-     - load_bv_pattern
-     - plot_mds
-
-In general, check out the m2html to browse for new functionality.
-
-*** 0.7.1 051103, rev ???
-
-Updated tutorial_easy documentation about 1-of-n warning
-
-Added download logging page (thanks to RT)
-
-Duplicate_object can now deal with objects stored on the HD
-
-Average_object excludes rest
-
-Updated the manual section
-
-Renamed shift_TRs to shift_trs
-
-
-
-*** 0.7, 051024, rev 724
-
+*** 0.7 051024
 Started work on unit test suite - not included yet
 
-Added home-grown anova1_mvpa and zscore_mvpa so things should pretty much
+Added home-grown anova1_mvpa and zscore_mvpa so there things should pretty much
 work without any extra toolboxes. Updated manual and tutorial
 accordingly.
 
@@ -108,40 +15,12 @@ Changed cross-validation so that it can now take in a group of
 patterns (e.g. for PCA, where the components will be different for
 each voxel selection iteration)
 
-Added various functionality to write_to_afni and load_afni_pattern
-(e.g. load specific sub-briks only)
+Added various functionality to write_to_afni
 
 Changed duplicate_object arguments so that it takes
 'transfer_group_name' as an optional propval argument
 
-Fixed issues with passing statmap_arg to statmap functions, cv_args
-to classifier functions and perfmet_args to perfmet functions.
-
-Fixed small bug with the way set_mat dealt with objects that have been
-moved to the HD (thanks to MKC)
-
-Added functionality for parallelising the statmaps across a cluster
-
-Added various accessor functions to make life easier,
-e.g. change_objgroup, initset_object
-
-Added average_object and create_blocklabels to deal with averaging
-
-Optimized summarize a little bit. Still could do with further
-improvements
-
-Minor changes to perfmet_maxclass and train_bp
-
-Improved propval - added optional arguments capabilities to it. Could
-do with tidying up
-
-Added create_sorted_mask as a complement to create_thresh_mask
-
-Create_thresh_mask appends the thresh to the end of the maskname
-
-Fixed bug in get_type so that it checks for accidental
-plural/uppercase forms of the type
-
+Fixed issues with passing optional arguments to statmaps
 
 
 

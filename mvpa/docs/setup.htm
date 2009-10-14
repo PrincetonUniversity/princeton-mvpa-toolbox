@@ -1,0 +1,547 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./setup_files/filelist.xml">
+<title>Princeton multi-voxel pattern analysis setup - internal</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:553663111 0 0 0 66047 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:13.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:2.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.1pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{mso-style-next:Normal;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:4.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:35.7pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:EN-US;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-parent:"Normal \(Web\)";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .25pt;
+	padding:0cm;
+	mso-padding-alt:6.0pt 3.0pt 6.0pt 3.0pt;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:272445749;
+	mso-list-type:hybrid;
+	mso-list-template-ids:481742752 67698689 -56846176 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:90.0pt;
+	mso-level-number-position:left;
+	margin-left:90.0pt;
+	text-indent:-18.0pt;}
+@list l1
+	{mso-list-id:1948192142;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1520746370 -56846176 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:54.0pt;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-18.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+</head>
+
+<body lang=EN-GB link=blue vlink=blue style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc111992856"></a><a name="_Princeton_multi-voxel_pattern"></a><a
+name="__Contact_details"></a><span style='mso-bookmark:_Toc111992856'>Princeton
+multi-voxel pattern analysis </span>setup and installation guide</h1>
+
+<p class=MsoNormal align=right style='margin-top:2.0pt;mso-margin-bottom-alt:
+auto;text-align:right'><a href="http://www.csbmb.princeton.edu/mvpa">http://www.csbmb.princeton.edu/mvpa</a></p>
+
+<p><a name="_Toc112582916"></a><a name="_Toc113346238"></a><a
+name="_Toc113346316"><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'><span lang=EN-US style='mso-ansi-language:
+EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></span></span></a></p>
+
+<h2><span style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'><span lang=EN-US style='mso-ansi-language:
+EN-US'>Compatibility and requirements<o:p></o:p></span></span></span></span></h2>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'>We have only been tested the toolbox on
+Matlab R14 (version 7) on Red Hat Linux, though we think that everything should
+work on R13 (version 6) too and on other operating systems. Currently, none of
+the scripts require the Java Virtual Machine or display any figures. Please </span></span></span><a
+href="mailto:gdetre@princeton.edu?subject=%5Bdistpat%5D"><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'>contact us</span></span></span><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'></span></span></span></a><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'> if you notice any compatibility issues.</span></span></span></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'>The default ANOVA and zscoring functionality
+require the Matlab Stats toolbox, although home-grown alternatives have been
+provided instead for your use. Likewise, the default backpropagation classifier
+needs the Neural Networks toolbox, but we have bundled the Netlab open source
+toolbox that you can use instead. See the 'Mathworks toolboxes' and 'External
+bundled packages' in the </span></span></span><a href="manual.htm"><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'>manual</span></span></span><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'></span></span></span></a><span
+style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'> for more information.</span></span></span></p>
+
+<p><span style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'><span lang=EN-US style='mso-ansi-language:
+EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></span></span></span></p>
+
+<h2><span style='mso-bookmark:_Toc113346316'><span style='mso-bookmark:_Toc113346238'><span
+style='mso-bookmark:_Toc112582916'><span lang=EN-US style='mso-ansi-language:
+EN-US'>Downloading the toolbox</span></span></span></span><span lang=EN-US
+style='mso-ansi-language:EN-US'><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>You
+probably have it if you're reading this document, but the latest version can
+always be found at:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><a
+href="http://www.csbmb.princeton.edu/mvpa">http://www.csbmb.princeton.edu/mvpa</a><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See the <a
+href="manual.htm#__Contact_details">contact details</a> in the manual for more
+information about mailing lists.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>There are
+two parts to download: the scripts and the sample dataset. You only really need
+the sample dataset if you want to try running through the tutorial (highly
+recommended).<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>The main scripts are stored
+in a gzipped tarball file called mvpa.<i>version</i>.tar.gz. Unpack this as
+follows:<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo2;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='font-family:
+Symbol;mso-ansi-language:EN-US'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>On any
+form of Unix (including Linux and Mac OS X): change directory to where you
+saved the .tar.gz file, and type </span><span style='font-size:10.0pt;
+mso-bidi-font-size:12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>tar
+&#8211;zxvf mvpa.<i>version</i>.tar.gz</span><span lang=EN-US style='mso-ansi-language:
+EN-US'><o:p></o:p></span></p>
+
+<p style='margin-top:4.0pt;margin-left:54.0pt'><span lang=EN-US
+style='mso-ansi-language:EN-US'>This just says to unzip and unpack the
+contents, showing you the names of the files as it goes.<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo2;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='font-family:
+Symbol;mso-ansi-language:EN-US'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><span lang=EN-US style='mso-ansi-language:EN-US'>On
+Windows, use a program like <a href="http://www.winzip.com/">Winzip</a> (evaluation
+version available for free)<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>This will create 5
+directories:<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='mso-ansi-language:
+EN-US'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><i><span lang=EN-US style='mso-ansi-language:EN-US'>afni_matlab</span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> &#8211; for importing from AFNI<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='mso-ansi-language:
+EN-US'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><i><span lang=EN-US style='mso-ansi-language:EN-US'>bv2mat</span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> &#8211; for importing from BrainVoyager<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='mso-ansi-language:
+EN-US'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><i><span lang=EN-US style='mso-ansi-language:EN-US'>mvpa</span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> &#8211; the main toolbox scripts<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='mso-ansi-language:
+EN-US'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><i><span lang=EN-US style='mso-ansi-language:EN-US'>netlab</span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> &#8211; for neural networks
+classification, if you don't have the Matlab Neural Networks toolbox<o:p></o:p></span></p>
+
+<p style='margin-left:54.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 54.0pt'><![if !supportLists]><span lang=EN-US style='mso-ansi-language:
+EN-US'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]><i><span lang=EN-US style='mso-ansi-language:EN-US'>progress</span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> &#8211; changelogs, planned improvements
+etc. &#8211; no actual functionality here<o:p></o:p></span></p>
+
+<p><i><span lang=EN-US style='mso-ansi-language:EN-US'>mvpa </span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'>is the one with all the toolbox
+scripts, and <i>mvpa/docs</i> contains all the documentation, including a copy
+of this file. See 'What is the toolbox?' in the <a
+href="http://www.csbmb.princeton.edu/mvpa/docs/manual.htm">manual</a> for more
+detailed information about the other directories.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>Data files<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>You're also
+going to need to store a copy of the sample dataset files &#8211; just unpack the
+tutorial_easy.tar.gz file as before, and it should create a tutorial_easy
+directory containing some AFNI <i>.BRIK</i>, <i>.HEAD</i> and Matlab <i>.mat</i>
+files.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>Paths</span></h2>
+
+<p>Now you need to set your paths, so that when you run matlab, it will know
+about the toolbox m-files. One easy way is create a <i>startup.m</i> in <i>~/matlab</i>
+that Matlab will run every time it opens, and add the <i>addpath</i> command to
+that.</p>
+
+<p>Note: if you don't have a <i>~/matlab</i> directory, just create one first.</p>
+
+<p>Note for Windows users: I'm not sure what the Windows equivalent of <i>~/matlab</i>
+is. Try something like <i>c:\matlab\work</i>, or <i>c:\program files\matlab\</i>
+or <i>My Documents</i> &#8211; let me know which works.<i><o:p></o:p></i></p>
+
+<p>A sample <i>startup.m</i> would look like this:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>addpath ~/mvpa</p>
+
+<p class=Code>addpath ~/afni_matlab</p>
+
+<p class=Code>addpath ~/netlab</p>
+
+<p class=Code>addpath ~/bv2mat</p>
+
+</div>
+
+<p>Test that this is working by running Matlab while in another directory.
+Type:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; help tutorial_easy</p>
+
+<p class=Code>[SUBJ RESULTS] = TUTORIAL_EASY()</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;</span></p>
+
+<p class=Code>This is the sample script for the Haxby et al. (Science, 2001)
+8-categories study. See the accompanying tutorial_easy.htm</p>
+
+</div>
+
+<p>If you see the above, you're in good shape. If not, your paths haven't been
+set correctly.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Start your engines</h2>
+
+<p>Ok, we're ready to go. Change directory to where your sample data was stored
+and run matlab. Then, follow the instructions in the <a
+href="http://www.csbmb.princeton.edu/mvpa/docs/tutorial_easy.htm">tutorial</a>.</p>
+
+<p>Things are still in a state of flux, and we expect to be finding and fixing
+bugs for a little bit longer. To minimise your own and others' suffering, we
+ask that you let us know as soon as possible if you've found any serious bugs.
+Also, please contact <a href="mailto:mvpa_support@princeton.edu">mvpa_support@princeton.edu</a>
+to be added to our mailing list so that we can let you know of any major new
+releases or bugfixes.</p>
+
+<p>Good luck.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+<u1:p></u1:p><u1:p></u1:p>
+</body>
+
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./glossary_files/filelist.xml">
+<title>Princeton multi-voxel pattern analysis manual</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{mso-style-update:auto;
+	mso-style-next:"Normal \(Web\)";
+	margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:2.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.1pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:4.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:35.7pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:EN-US;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-parent:"Normal \(Web\)";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .25pt;
+	padding:0cm;
+	mso-padding-alt:6.0pt 3.0pt 6.0pt 3.0pt;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-GB link=blue vlink=blue style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc111992856"></a><a name="_Toc112582956"></a><a
+name="_Princeton_multi-voxel_pattern"></a><a name="__Data_structures"></a><a
+name="__Statmaps"></a><a name="__4._Masks"></a><a name="__Peeking"></a><span
+style='mso-bookmark:_Toc111992856'><span style='mso-bookmark:_Toc112582956'>Princeton
+multi-voxel pattern analysis</span></span> &#8211; glossary</h1>
+
+<p class=MsoNormal align=right style='margin-top:2.0pt;mso-margin-bottom-alt:
+auto;text-align:right'><a href="http://www.csbmb.princeton.edu/mvpa">http://www.csbmb.princeton.edu/mvpa</a></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+lang=EN-US style='mso-ansi-language:EN-US'>See <a
+href="manual.htm#__Data_structures">Data structures</a> for more information on
+terms relating to the way the data is stored by the toolbox.<u1:p></u1:p><span
+style='color:red'><o:p></o:p></span></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_block"></a><span lang=EN-US style='mso-ansi-language:EN-US'>block<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>A group of
+contiguous <a href="#_TR">TR</a>s from the same <a href="#_condition">condition</a>
+in a particular <a href="#_run">run</a>. Usually comprises multiple behavioural
+<a href="#_trial">trials</a>.</span></p>
+
+<h2><a name="_condition"></a><span lang=EN-US style='mso-ansi-language:EN-US'>classification<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>In the
+machine learning sense, classification means taking a labelled training data
+set and showing the classifier algorithm examples of each condition over and
+over until it can successfully identify the training data. Then, the
+classifier&#8217;s generalization performance is tested by asking it to guess the
+conditions of new, unseen data points.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="manual.htm#_Classification">Classification section</a> in the manual<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>condition<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal>The groups that you&#8217;re trying to teach your classifier to
+distinguish, e.g. different tasks being performed by the subject in the
+experiment, or different stimuli being viewed.</p>
+
+<h2><a name="_header"></a><a name="_cross-validation"></a><span lang=EN-US
+style='mso-ansi-language:EN-US'>cross-validation<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>When you
+use n-minus-one/leave-one-out cross-validation classification, you iterate over
+your data multiple times. Each <a href="#_iteration">iteration</a> involves a
+fresh classifier <a href="#_condition">trained</a> on a subset of the data, and
+tested on the withheld data.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_N-minus-one_(leave-one-out)_cross-valid">N-minus-one (leave-one-out)
+cross-validation</a><o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>feature selection<o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Deciding which of your
+features (e.g. voxels) you want to include in your analysis.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>generalization<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Testing the
+performance of a trained classifier on previously-unseen (test) data<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>header<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_Book-keeping_and_the">Data structure &#8211; Book-keeping and the headers</a><o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>history<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>A free-text
+field in the <a href="#_header">header</a> that gets automatically appended to,
+creating a sort of narrative of that object&#8217;s role in the analysis.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See <a
+href="#_Book-keeping_and_the">Data structure &#8211; Book-keeping and the headers</a><o:p></o:p></span></p>
+
+<h2><a name="_iteration"></a><span lang=EN-US style='mso-ansi-language:EN-US'>iteration<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Running the
+classifier once, using a particular subset of the data for testing, and the
+remainder for training. For example, you have 10 runs, you'll have 10
+iterations, each time withholding a different run as the testing data.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_n-minus-one_cross-validation_1">Glossary &#8211; n-minus-one</a> and <a
+href="#_N-minus-one_(leave-one-out)_cross-valid">Classification &#8211; N-minus-one</a>.<o:p></o:p></span></p>
+
+<h2><a name="_mask"></a><span lang=EN-US style='mso-ansi-language:EN-US'>leave-one-out<o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>We use 'leave-one-out' and
+'n-minus-one' interchangeably to refer to the <a href="#_cross-validation">cross-validation</a>
+procedure that leaves out a different subsection (e.g. <a href="#_run">run</a>)
+of the data each <a href="#_iteration">iteration</a>.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>mask<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>A boolean 3D (or maybe 2D)
+single-TR volume indicating which voxels are to be included.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See </span><a
+href="#_mask">Data structure &#8211; masks</a><span lang=EN-US style='mso-ansi-language:
+EN-US'>.</span></p>
+
+<h2><a name="_n-minus-one_cross-validation"></a><a name="_name"></a><span
+lang=EN-US style='mso-ansi-language:EN-US'>name<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Every <a
+href="#_object">object</a> in the <span style='font-variant:small-caps'><a
+href="#_subj"><i style='mso-bidi-font-style:normal'><span style='font-variant:
+normal'>subj</span></i></a></span> structure has a name. This is a very
+important field, since it is used whenever accessing that object. The user is
+advised to refrain from accessing objects directly (e.g. subj.patterns{1}).<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_The_innards_of">Data structure &#8211; innards of the <i style='mso-bidi-font-style:
+normal'>subj</i> structure</a> and <a href="#_Accessing_the_subj">Advanced &#8211;
+accessing <i style='mso-bidi-font-style:normal'>subj</i> directly</a><o:p></o:p></span></p>
+
+<h2><a name="_n-minus-one_cross-validation_1"></a><span lang=EN-US
+style='mso-ansi-language:EN-US'>n-minus-one cross-validation<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>We use 'leave-one-out' and
+'n-minus-one' interchangeably to refer to the <a href="#_cross-validation">cross-validation</a>
+procedure that leaves out a different subsection (e.g. <a href="#_run">run</a>)
+of the data each <a href="#_iteration">iteration</a>.<o:p></o:p></span></p>
+
+<h2><a name="_object"></a><span lang=EN-US style='mso-ansi-language:EN-US'>object<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>An example
+of one of the <a href="#_Data_structure">4 main data types</a>, e.g. a single
+cell in <i style='mso-bidi-font-style:normal'>subj</i>.<i style='mso-bidi-font-style:
+normal'>patterns</i> or <i style='mso-bidi-font-style:normal'>subj.masks</i>.
+Contains a <i style='mso-bidi-font-style:normal'>mat</i> field with all the
+data, as well other required fields such as <a href="#_name">name</a>,
+group_name, derived_from, <a href="#_header">header</a> etc.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_The_innards_of">The innards of the subj structure</a><o:p></o:p></span></p>
+
+<h2><a name="_pattern"></a><span lang=EN-US style='mso-ansi-language:EN-US'>one-of-n<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>In this
+toolbox, this tends to refer a regressors matrix, to the idea that only a single
+condition can be active at any timepoint. This makes sense for basic/standard
+classification &#8211; each timepoint belongs to one or other of the conditions, but
+not more than one at once. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Convolving
+regressors with a hemodynamic response function will lead to continuous-valued
+regressors, which may overlap (i.e. more than one condition may be non-zero at
+a given timepoint), which may violate some functions' one-of-n requirements.<o:p></o:p></span></p>
+
+<p class=MsoNormal><i><span lang=EN-US style='mso-ansi-language:EN-US'><a
+href="m2html\check_1ofn_regressors.html">Check_1ofn_regressors.m</a></span></i><span
+lang=EN-US style='mso-ansi-language:EN-US'> allows you to test whether a matrix
+is one-of-n.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>pattern<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal>A (features x timepoints) matrix, usually of voxel
+activities, but could also be PCA components, wavelet coefficients, GLM beta
+weights or a statmap.</p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: </span><a
+href="#_pattern">Data structure &#8211; patterns</a><span lang=EN-US
+style='mso-ansi-language:EN-US'>.</span></p>
+
+<h2><a name="_regressors"></a><span lang=EN-US style='mso-ansi-language:EN-US'>peeking<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>When you
+use your testing data set to help with voxel selection. Basically, this is a
+kind of cheating, and spuriously/illegitimately improves your classification by
+some margin.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="manual.htm\#__Peeking">Pre-classification &#8211; peeking</a>.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>performance<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>The
+performance metric measures the similarity between the output produced by a
+classifier to the output it's supposed to produce.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See <a
+href="manual.htm#_Performance">Performance</a> in the Classification section of
+the manual.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>pre-classification<o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>By this, we mean the
+normalization and feature selection steps that go on before after the data
+structure has been created but before beginning classification, e.g. <i><a
+href="m2html\zscore_runs.html">zscore_runs.m</a></i> and <i><a
+href="m2html\feature_select.html">feature_select.m</a></i>.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>See <a
+href="manual.htm#_Pre-classification">pre-classification</a>.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>regressors<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>For our
+purposes, the term &#8216;regressors&#8217; refers to a set of values for each TR that denote
+the extent to which each condition is active. Used by statistical tests, and
+also as the teacher signal for the classifiers.</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: </span><a
+href="#_regressors">Data structure &#8211; regressors</a><span lang=EN-US
+style='mso-ansi-language:EN-US'>.</span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>results<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>This is
+where all the information about <a href="#_condition">classification</a> is
+stored.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: <a
+href="#_The_results_structure">Classification &#8211; results structure</a>.</span></p>
+
+<h2><a name="_run"></a><span lang=EN-US style='mso-ansi-language:EN-US'>run<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>A single
+scanning session. There are usually a handful of runs in a given hour-long
+experiment.</span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>selector<u1:p></u1:p><o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>A set of labels
+for each <a href="#_TR">TR</a>, e.g. where all the <a href="#_run">runs</a>
+start and finish, or which TRs should be used for <a href="#_condition">training</a>
+and which for testing on this <a href="#_iteration">iteration</a>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: </span><a
+href="#_3._Selectors">Data structure &#8211; selectors</a><span lang=EN-US
+style='mso-ansi-language:EN-US'>.</span></p>
+
+<h2><a name="_statmap"></a><span lang=EN-US style='mso-ansi-language:EN-US'>statmap<o:p></o:p></span></h2>
+
+<p class=MsoNormal style='margin-top:4.0pt'><span lang=EN-US style='mso-ansi-language:
+EN-US'>The result of some kind of statistical test, usually performed
+separately for each voxel. For instance, the ANOVA yields a statmap of p values,
+one for each voxel. Each p value denotes the probability that that voxel varies
+significantly between conditions.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt'><span lang=EN-US style='mso-ansi-language:
+EN-US'>Statmaps are stored as patterns, since the term &#8216;mask&#8217; is usually used
+to refer to a boolean 3D volume.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt'><span lang=EN-US style='mso-ansi-language:
+EN-US'>A mask can be created from a statmap by choosing all the voxels that are
+above/below some threshold.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:4.0pt'><span lang=EN-US style='mso-ansi-language:
+EN-US'>See <a href="manual.htm#__4._Masks">Data structure &#8211; masks</a> and <a
+href="manual.htm#__Statmaps">Pre-classification &#8211; Statmaps</a>.<o:p></o:p></span></p>
+
+<h2><a name="_subj"></a><span lang=EN-US style='mso-ansi-language:EN-US'>subj<u1:p></u1:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See: </span><a
+href="#_3._Selectors">Data structure &#8211; selectors</a><span lang=EN-US
+style='mso-ansi-language:EN-US'>.</span></p>
+
+<h2><a name="_testing"></a><a name="_TR"></a><span lang=EN-US style='mso-ansi-language:
+EN-US'>testing<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Presented a
+<a href="#_training">trained</a> classifier with patterns that it has never
+seen before, and testing its performance.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>TR<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Stands for
+&#8216;time to repetition&#8217;. Basically, the time taken for the scanner to acquire a
+single 3D brain volume. Used in this manual to refer to a single timepoint.<o:p></o:p></span></p>
+
+<h2><a name="_training"></a><a name="_trial"></a><span lang=EN-US
+style='mso-ansi-language:EN-US'>training<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Showing a
+classifier lots of examples of a person's brain in condition A, and telling it
+each time, 'This is an example of the brain in condition A'. We then show it
+lots of examples of the same brain in condition B, also telling it which
+condition these brain examples came from. This process repeats until the
+classifier has learned which are which.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>In reality,
+the examples tend to be interleaved with each other and presented in a
+different order each time. Most classifier algorithms can also deal with more
+than just two categories.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>trial<o:p></o:p></span></h2>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+lang=EN-US style='mso-ansi-language:EN-US'>A behavioural trial in the
+experiment, that probably spans multiple <a href="#_TR">TR</a>s. Multiple
+trials make up a <a href="#_block">block</a>.</span></p>
+
+<h2><a name="_voxel_selection"></a><span lang=EN-US style='mso-ansi-language:
+EN-US'>voxel selection<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Whenever
+you apply a <i style='mso-bidi-font-style:normal'>mask</i> to a <i
+style='mso-bidi-font-style:normal'>pattern</i>, you are selecting voxels. This
+term tends to be used more often in the machine learning context of &#8216;feature
+selection&#8217; &#8211; choosing which of the features (voxels) contain signal for the
+classification problem you are attempting.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>See:
+'Pre-classification &#8211; Anova' in the <a href="manual.htm">manual</a>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+<u1:p></u1:p><u1:p></u1:p>
+</body>
+
+</html>
