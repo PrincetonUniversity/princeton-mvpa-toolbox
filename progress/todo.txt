@@ -1,7 +1,46 @@
-*** high-priority
+= Version 1.0 To Do =
 
-see Ryan Mruczek's SVM suggestions
+aim to get 1.0 released by wed 19
 
+== Documentation and webpage ==
+
+ * Walk through the tutorials to make sure they're still accurate.
+ * Walk through the manual to make sure it's still accurate.
+ * Clean up the main MVPA documentation front page.
+ * Add a "What's New" documentation page, a la http://www.mathworks.com/products/matlab/whatsnew.html.
+ * Update MVPA installation instructions
+ * Send out a notice to everyone when we release v 1.0
+ x Maybe modify the download php page to point people to sign up for the mailing list
+
+== Internal ==
+
+ x Warn users of the upcoming reorganization to the SVN
+
+== Programming ==
+
+ x Incorporate new propval.
+ * Go through each of the {{{mvpa}}} directories and check the documentation on each .m file. Then we can generate an automatic "summary" page with m2html
+ x Restructure {{{trunk}}} so that we have a {{{mvpa}}} directory, with {{{core}}} and then the external directories.
+ x Determine which {{{extern}}} packages we are actually going to package, or incorporate them into core.
+ * Change publishing script to reflect new structural changes.
+
+== Functionality ==
+
+ x searchlight spheres 
+ x statmap_3dDeconvolve
+ * other miscellaneous new SUBJ functions
+ * new visualization functions
+ x wavestrapping
+ * SPM importing/exporting
+
+== Testing ==
+
+ x Run through each of the online tutorials to make sure they work.
+x   x tutorial_easy: works
+   x searchlight: works
+   x 3dDeconvolve: works
+   x advanced: works (except for very end)
+   x classification: works
 
 = Version 1.1 To Do =
 
@@ -15,6 +54,7 @@ see Ryan Mruczek's SVM suggestions
 
  * Update the "What's New" documentation page.
  * Update the manual, existing tutorials, .m files and glossary to reflect new terminology and procedures.
+ * Nag the semi-volunteer documentators to do finish up (mattheww, mkc, djweiss)
 
 == Programming ==
 
@@ -50,9 +90,24 @@ tidy up the unit tests
 
 *** high-priority
 we should use fisher's z-transform to average multiple correlation 
-cross-validation perfmets.
-we should have a non-default option to weight each run according 
-to its nTimepoints
+cross-validation perfmets 
+
+
+*** high-priority
+create new mvpa toolbox sample data .zip
+
+ include anatomical masks
+
+ include analyze versions of toolbox data???
+
+ get permission from MRIcro people
+
+ upload it
+
+ announce on front page
+
+ add to what's new
+
 
 *** low-priority
 find supergraph_significance.m so that unit_wavestrapper_results.m works
@@ -76,8 +131,7 @@ note that
 create a mechanism for dummy variables, e.g. the patname in statmap_3dDeconvolve
 
 *** low-priority
-add adaboost_mkc to the distribution.
-move mvpa/boosting into mvpa/contrib/learn/boostexter
+add adaboost_mkc to the distribution
 
 *** high-priority
 add Brodmann mask generation stuff to next release
