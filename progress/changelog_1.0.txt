@@ -1,0 +1,396 @@
+change log v 1.0
+
+New Functionality:
+
+- On/off metric from supporting materials of Polyn et al (2005) - see
+  core/util/onoff.m and core/learn/perfmet_xcorr_onoff.m
+
+- titlef.m - a simple shortcut for printing graphs using the 'title'
+  command
+
+- wavelet_scramble_multi.m - a wavelet decomposition and scrambling
+  script
+
+- wavestrapper_results - calculates significance of on/off metric
+  using wave-strapping (see wavelet_scramble_multi.m)
+
+- create_anatomical_regions.m - a big red button for population SUBJ
+  structures with anatomical masks, based on Brodmann areas.
+
+- adj_cuboid.m - creates an adjacency list using a rectangular
+  neighborhood function
+
+- adj_sphere.m - creates an adjacency list using a spherical
+  neighborhood function
+
+- apply_trained_declasifier.m - applies result sets and trained
+  classifiers on a new set of timepoints
+
+- calc_avg_adj_neighborhood.m - a function to help get a handle on the
+  size of the neighborhoods being utilized
+
+- create_adj_list.m - creates a list of neighborhoods for each voxel in
+  a mask.
+
+- create _main_effect_contrast.m - This script creates a contrast matrix
+  that will test for differences between each regressor
+
+- create_xvalid_oddeven.m - create split-halves xvalid indices
+
+- dimred_template.m - template for dimensionality reduction methods
+
+- get_group_as_matrix - Utility function that returns all the members
+  of a group as a single matrix, with each member of the group getting
+  its own row in the first dimension
+
+- Using AFNI's 3dDeconvolve GLM contrasts for feature selection:
+
+    * statmap_3dDeconvolve.m - writes parts of the MVPA subj structure
+      out as files and calls AFNI's 3dDeconvolve GLM to select
+      features that vary between conditions
+
+    * write_out_censor_from_sel.m - takes in a selector object/group,
+      and writes each out to .1d censor files (for use with AFNI)
+
+    * write_regs_1d.m - writes your regressors out as .1d files (for
+      use with AFNI)
+
+- summ.m - quick shortcut for typing summarize(subj)
+
+- vec2ind_inclrest.m - a form of Matlab's built-in vec2ind.m for
+  dealing with rest conditions (or zeros depending on how you define
+  it)
+
+- plot_stability.m - Simple visualization of the stability of your
+  signal
+
+- Public SVN now enabled, all mvpa code now located in the 'core'
+  directory of the public checkout. See
+  https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/
+
+- External packages 'adaboost', 'afni_matlab', 'bv2mat', and
+  'montage_kas' have been moved to the public SVN area so they are
+  downloadable as part of the standard SVN checkout. They may be moved
+  into the contrib/ directory in the future.
+
+- Gaussian naive Bayes classifier. See:
+
+    * train_gnb.m
+
+    * test_gnb.m
+
+- Spherical searchlight methods (for feature selection and
+  classification). Based on Kriegeskorte et al (2006). See:
+
+    * statmap_searchlight.m
+
+    * adj_cuboid.m - Creates adjacency list using cuboid neighborhoods
+
+    * adj_sphere.m - Creates adjacency list using spherical
+      neighbourhoods
+
+    * calc_avg_adj_neighborhood.m - This is just a v simple function
+      that gives you a sense of how big the neighborhoods in your
+      ADJ_LIST are.
+
+- and_bool_selectors.m - Takes in multiple boolean selectors and ANDs
+  them
+
+- apply_to_runs.m - Applies a function to the runs of a given
+  pattern. Designed as a generic wrapper for multiple small
+  preprocessing functions. Some of these have more verbose
+  alternatives, such as ZSCORE_RUNS.M. See also:
+
+    * apply_detrend.m - Detrend each feature of a pattern.
+
+    * apply_filt.m - Filter the run of a pattern
+
+    * apply_trained_classifier - takes a RESULTS structure (including
+      its already-trained classifiers), and reapplies them on a
+      different set of timepoints
+
+    * apply_zscore.m - Z-score a pattern
+
+- check_1ofn_regressors.m - Confirms that your regressors matrix is
+  set up for classification - all boolean, no rest, no overactive
+  timepoints. See also check_1ofn_regressors_subj.m
+
+- compute_xcorr(.c,.mexa64,.mexglx,mexmac) - simple, rapid function
+  for computing cross-correlation between all rows in a matrix and a
+  given row vector. The MEX files were accidentally excluded from the
+  0.9 release.
+
+- intersect_masks.m - Creates a new mask that's an intersection of two
+  masks
+
+- make_clust.m - Removes isolated voxels from a mask
+
+- scramble_regressors.m - Scrambles your regressors. Useful for
+  sanity-checking
+
+- separate_regressors.m - Separates a single regressors matrix into
+  multiple row vectors
+
+- shift_regressors.m - Shifts regressors ahead in time to account for
+  hemodynamic lag.
+
+- statmap_glm_multiv.m - Runs a GLM using a set of voxels as
+  predictors, predicting a single continuous response variable.
+  Useful in combination with statmap_searchlight.m
+
+- arg2funct.m - Returns both function handle and name from an
+  ambiguous arg
+
+- iscategorical - Returns true if the matrix is a categorical
+  regressors matrix.
+
+- mergestructs.m - Merges two structures together.
+
+- add_mvpa_paths.m - a utility function for adding all of the MVPA
+  paths to your working area path, as well as the dependencies. Call
+  this as directed from your startup.m
+
+- Logistic regression with L2 penalty (from Greg
+  Stephens). Incorporates the following files:
+
+    * train_logreg.m
+
+    * test_logreg.m
+
+    * logRegFun.m
+
+- get_perfmet_called.m - a utility function for retrieving the index
+  of a given performance metric. only useful if you're using multiple
+  performance metrics in the same cross-validation
+
+- new visualization tools. See:
+
+    * view_pattern_overlay.m - powerful visualization tool for viewing
+      patterns/masks (see documentation)
+
+    * build_overlay_rgb.m - assembles the overlay RGB image from
+      anatomical and overlay data
+
+    * Cdata2rbg - converts indexed image data to RGB with a specific
+      colormap
+
+    * barerr.m - Bar graphs with error bars and significance marks
+
+    * imagetxt.m - Plot matrices with colors and numeric text (for
+      readability)
+
+    * bluewhitered.m - New colormap for clearly separating positive
+      and negative values.
+
+    * darkgray.m - New colormap, good for anatomical underlays in
+      view_pattern_overlay.m
+
+- find_obj_regexp.m - Search for objects in the subj structure with
+  regular expressions
+
+- combine_masks.m - Combine any number of masks using arbitrary functions
+
+    * union_masks.m - Example wrapper for unioning multiple masks
+
+- fill_clusters.m - Very fast mask clustering based on adjacency lists
+
+- get_full_pattern.m - Get whole volume patterns in a variety of formats
+
+- new preprocessing tools. See:
+
+   * detrend_pattern.m - Detrending polynomial, linear, and arbitrary
+     trends from patterns in a precise matter. Supercedes the
+     functionality of detrend_runs.m, apply_detrend.m, and more
+ 
+   * blur_pattern.m - Spatial blurring using a 3D Gaussian kernel
+
+- genpathsafe.m - Like genpath, but handles source control directories
+
+- getpropval.m - Inline propval for more general functions
+
+- unixf.m - Wrapper to unix(sprintf(...))
+
+- compress.m - Call on the subj structure (or any variable) to
+  conserve memory by finding matrices and converting them to single or
+  logical precision
+
+- create_legendre.m - Generates legendre polynomials for use with detrend_pattern.m
+
+- normfilt.m - Generates Gaussian kernels for convolution
+
+- sympad.m - Symmetrically pads a signal to avoid dropoff after convolution
+
+- A suite of wavelet decomposition tools that don't depend on the
+  Wavelet toolbox. See:
+
+    * db4dwt.m - Debauchies 4 wavelet DWT
+
+    * db4idwt.m - Debauchies 4 wavelet IDWT
+
+    * dwt1.m - Simple 1-D DWT step
+
+    * idwt1.m - Simple 1-D IDWT step
+
+    * wavescram.m - Simple wavelet scrambler (similar to wavelet_scramble_multi.m)
+
+    * note: we need someone to port wavestrapper_results.m to use these commands
+ 
+- import/export functions for SPM/Analyze files. See:
+
+    * load_analyze_mask.m - load masks from SPM/Analyze files
+
+    * load_analyze_pattern.m - load patterns from SPM/Analyze files
+
+    * write_to analyze.m - write masks and patterns to
+
+    * tutorial_easy_spm.m - a simple tutorial for using the SPM code,
+      based on tutorial_easy.m (for AFNI)
+
+    * spm_extract_voxel_dims.m - a function for retrieving the
+      original voxel dimensions from a pattern created through the
+      load_analyze_pattern(_mask) function.
+
+    * see also tests/unit_spm_*.m - SPM/Analyze import/export unit
+      tests
+
+- Thomas Wolbers' contributions:
+
+    * detrend_runs - removes trends from individual runs
+
+    * hpfilter_run - runs a high pass filter across runs
+
+- SMLR - Sparse Multinomial Logistic Regression is a new multi-class
+  classification algorithm (based on logistic regression but with
+  regularization) that doesn't require prior feature
+  selection. Incoporates the following files:
+
+    * smlr.m
+
+    * smlr_mex.c
+
+    * test_smlr.m
+
+    * train_smlr.m
+
+- bundle.m - bundles a bunch of workspace variables/expressions into a
+  structure
+
+- interpret_weights.m - algorithm used to determine the level of
+  influence of a given voxel to a given category
+
+- added 'synth' sub area of the mvpa tool kit - this area holds
+  functions for generating synthetic data, that can be used for
+  testing assumptions and scripts
+
+- fake_smooth_regs.m - randomly generates nConds' worth of sine waves
+  at roughly the same frequency, shifted relative to the one
+  another. useful for generating synthetic data
+
+- noisify_regressors.m - tile and add noise to regs matrix to create a
+  synthetic pattern. useful for testing
+
+- added mvpa/contrib directory - contains contributed works and
+  accompanying test files
+
+- added mvpa/tests directory - contains various unit tests
+
+- added mvpa/progress directory - contains this file, todo.txt,
+  authors.txt etc.
+
+- moved discussion from old mvpa_support@princeton.edu mailing list to
+  new mvpa-toolbox@googlegroups.com, to provide a public and
+  web-searchable forum for discussion
+
+Changing Functionality:
+
+- Added the 'logical' optional argument which loads in the values of
+  the mask as doubles. See load_afni_mask.m and set_mat.m
+
+- convolve_regressors_afni.m - added support to display the shell
+  script 'WAVER' instead of running it invisibly
+
+- multiple_interations_confusion.m - upgraded to a function, and added
+  support to change the default file the function is saved to
+
+- statmap_searchlight.m - ADD_CENTER_VOXEL will now default to false
+
+- propval.m - has gone thru a significant rewrite, new functionality
+  includes a 'STRICT' argument to alter the guidelines when processing
+  property/value pairs
+
+- create_xvalid_indices.m - Added new optional argument to ignore zeros
+  in run vectors, defaulted to false
+
+- multiple_iterations_confusion.m - added optional argument
+  PERFMET_NAME, utilize if you have multiple performance metrics.
+  Code was refactored to accommodate this feature
+
+- load_afni_mask.m - added the FILTER_BY option which defaults to an
+  empty array.  Can be used for using a mask to store multiple regions
+  of interest and filtering out to the only region you are currently
+  working on.
+
+- License notifications have been added to all of the files included
+  in the MVPA toolbox and all future files being contributed to or
+  included in the MVPA toolbox builds should include this notification
+  as well.
+
+- train_bp.m - modified to deal with the alterations made to the
+  Neural Networking toolbox in 2007b of Matlab
+
+- logRegFun.m - gained a new required argument 'tol' to handle
+  tolerance.  The tests were expanded to accommodate this new
+  requirement as well.
+
+- Test coverage has been expanded to cover more files and functions as
+  time goes by.  Some notable recent improvements are
+  wavestrapper_results coverage.m and adj_sphere.m, and
+  create_anatomical_regions.m as well.
+
+
+
+Bug Fixes:
+
+- progress.m - a variety of enhancements and bugfixes.
+
+- convolve_regressors_afni.m - code refactoring and a few basic bug
+  corrections
+
+- summarize.m - some code refactoring to polish the behavior
+
+- convolve_regressors_afni.m - some notes and bug fixes have been
+  applied
+
+- cross_validation.m - small bug fix in the preference handler
+
+- write_regs_1d.m - code refactored and cleaned up a bit to enhance
+  readability
+
+- shift_regressors.m - code refactoring and semantic updates
+
+- ste.m - has gone thru a full rewrite, a bit cleaner and much more
+  rubust than before
+
+- get_mat.m - updated syntax and some logic improvements to make it more
+  reliable
+
+- init_object.m - added support for the obj.last_modified field for
+  patterns and masks
+
+- train_bp.m - updated to working with matlab 2007b requiring
+  signifigant changes
+
+- mergestructs.m - updated to slightly more robust handling of merging
+
+- get_mat.m - Will convert logically stored masks to numeric type before returning
+
+- summarize.m - will now properly determine whether or not to display_groups
+
+Deprecated Functionality:
+
+- tutorial_hard.m - this function has been removed for becoming
+  unwieldy and difficult to manage correctly.  Please refer to the
+  TutorialAdv page on the wiki instead.
+
+- get_funct_handle_name.m has been deprecated
+
