@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of find_group</title>
+  <meta name="keywords" content="find_group">
+  <meta name="description" content="Returns a list of names of objects from this group">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>find_group
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns a list of names of objects from this group</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [matches] = find_group(subj,objtype,groupname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns a list of names of objects from this group
+
+ [MATCHES] = FIND_GROUP(SUBJ,OBJTYPE,GROUPNAME)
+
+ Returns a cell array of the names of all objects within SUBJ of
+ OBJTYPE object type that belong to group GROUPNAME
+
+ Returns no names if groupname is empty</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>	For internal use. Returns the entire cell array of a given type</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="change_groupname.html" class="code" title="function [subj] = change_groupname(subj,objtype,old_groupname,new_groupname)">change_groupname</a>	Changes the groupname for all objects in a group</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="cross_validation.html" class="code" title="function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)">cross_validation</a>	Cross-validation classification</li><li><a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>	No-peeking feature selection</li><li><a href="remove_group.html" class="code" title="function [subj] = remove_group(subj,objtype,groupname)">remove_group</a>	Removes an entire group's worth of objects permanently</li><li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li><li><a href="write_to_afni.html" class="code" title="function [err] = write_to_afni(subj, objtype, objname, sample_filename, varargin)">write_to_afni</a>	Writes an object to a file, using the header info from a specified file.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [matches] = find_group(subj,objtype,groupname)</a>
+0002 
+0003 <span class="comment">% Returns a list of names of objects from this group</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [MATCHES] = FIND_GROUP(SUBJ,OBJTYPE,GROUPNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Returns a cell array of the names of all objects within SUBJ of</span>
+0008 <span class="comment">% OBJTYPE object type that belong to group GROUPNAME</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Returns no names if groupname is empty</span>
+0011 
+0012 
+0013 <span class="keyword">if</span> nargin~=3
+0014   error(<span class="string">'I think you''ve forgotten to feed in all your arguments'</span>);
+0015 <span class="keyword">end</span>
+0016 
+0017 matches = {};
+0018 
+0019 <span class="keyword">if</span> isempty(groupname)
+0020   <span class="keyword">return</span>
+0021 <span class="keyword">end</span>
+0022 
+0023 objcell = <a href="get_type.html" class="code" title="function [objcell] = get_type(subj,objtype)">get_type</a>(subj,objtype);
+0024 nbr_objects = length(objcell);
+0025 
+0026 <span class="keyword">for</span> i=1:nbr_objects
+0027   <span class="keyword">if</span> strmatch(objcell{i}.group_name,groupname,<span class="string">'exact'</span>)
+0028     matches{end+1} = objcell{i}.name;
+0029   <span class="keyword">end</span>
+0030 <span class="keyword">end</span>
+0031 
+0032</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

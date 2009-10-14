@@ -1,6 +1,6 @@
-function [err,p,f] = GetPath (s, allmc)
+function [err,p,f] = GetPath (s)
 %
-%   [err,PathString,FileString] = GetPath (s, allmc)
+%   [err,PathString,FileString] = GetPath (s)
 %
 %Purpose:
 %   Breaks the string s into a path and file part
@@ -8,8 +8,7 @@ function [err,p,f] = GetPath (s, allmc)
 %   
 %Input Parameters:
 %   s is a string like How/Didley/Doo
-%   allmc : 1 --> search for path using both types of file-separators / and \
-%           0 --> search for path using filesep's output (default)
+%   
 %   
 %Output Parameters:
 %   err : 0 No Problem
@@ -30,13 +29,9 @@ function [err,p,f] = GetPath (s, allmc)
 %Define the function name for easy referencing
 FuncName = 'GetPath';
 
-if (nargin == 1),
-   allmc = 0;
-end
-
 %initailize return variables
 err = 1;
-p = '.';
+p = '';
 f = '';
 
 N = length(s);
@@ -44,13 +39,9 @@ if (N == 0),
 	err = ErrEval(FuncName,'Err_Emtpy string');	return;
 end
 
-if (allmc == 0),  
-   [i] = findstr(s,filesep);
-else 
-   [i] = union(findstr(s,'/'), findstr(s,'\'));
-end
+[i] = findstr(s,'/');
 if (isempty(i)),
-	p = '.';
+	p = '';
 	f = s;
 elseif (max(i)==N);
 	p = s;

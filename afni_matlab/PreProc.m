@@ -58,7 +58,7 @@ dfvar = zeros(ng,1);
 
 if (unbalanced.yes == 0), % Balanced designs
    vconstr = cell(ng,1);
-   %vmean = cell(ng,1);   %vmean is never used!!!
+   %vmean = cell(ng,1);  %vmean is never used!!!
 end
 
 for j=1:ng   % for each factor
@@ -69,26 +69,18 @@ for j=1:ng   % for each factor
    nlevels = size(gnj,1);     % levels for this factor
    dfvar(j) = nlevels - 1;    % D. F. for this factor
 
-   if (unbalanced.yes == 0),	% balanced
-      if (cov.do & j==cov.marker)        
-	      gdum{j} = gj;
-         dfvar(j) = 1;           % D. F. = 1
-         vconstr{j} = zeros(0,1);
-%        vmean{j} = 1;		
-      else
-         gdum{j} = idummy(gij, 3);
-         vconstr{j} = idummy(1:nlevels)';
-%        vmean{j} = ones(1,nlevels) / nlevels;  % array (1Xnlevels) of one ones, but vmean is never used in the code!!!!!!!!!1
-	   end
-	else % Unbalanced designs	
-	   if (cov.do & j==cov.marker)        
-	      gdum{j} = gj;
-         dfvar(j) = 1;           % D. F. = 1
-         vconstr{j} = zeros(0,1);
-%        vmean{j} = 1;		
-      else
-		   gdum{j} = idummy(gij, 3);
-		end	  
+   if (unbalanced.yes == 0),	
+   if (cov.do & j==cov.marker)        
+	   gdum{j} = gj;
+      dfvar(j) = 1;           % D. F. = 1
+      vconstr{j} = zeros(0,1);
+%     vmean{j} = 1;		
+   else
+      gdum{j} = idummy(gij, 3);
+      vconstr{j} = idummy(1:nlevels)';
+%     vmean{j} = ones(1,nlevels) / nlevels;  % array (1Xnlevels) of one ones, but vmean is never used in the code!!!!!!!!!1
+	end
+	else gdum{j} = idummy(gij, 3);  % Unbalanced designs	
 	end % if (unbalanced.yes == 0): Only for balanced designs
 		
 end
@@ -233,7 +225,7 @@ if (unbalanced.yes == 1)
    sindices = [(1:size(termlist,1)), (1:size(termlist,1))]';	
 else	
 termsize = sum(termlist,2)';      %sum of all the elements along 2nd dimension (row)
-[stermsize,sindices] = sort(termsize); % sort in ascending order, output is stored in stermsize; sindices is the index for the new array
+[stermsize,sindices] = sort(termsize); % sort in ascending order, output is stored in stermszie; sindices is the index for the new array
 sindices = [sindices(:); sindices(:)];
 
 end % if (unbalanced.yes == 1)
@@ -321,16 +313,18 @@ if (Contr.do == 1),
       end
    end
 
-   if (NF > 2),
-      num_col(3) = 0;
-      for (i = 1:1:(NF-2)),
-      for (j = (i+1):1:(NF-1)),
-   	for (k = (j+1):1:NF),
-         num_col(3) = num_col(3) + FL(i).N_level*FL(j).N_level*FL(k).N_level;    %Columns for 3rd order interactions
-      end
-      end
-   	end
-   end
+   % The following two are not used right now: num_col(3) and num_col(4)
+
+   %if (NF > 2),
+   %   num_col(3) = 0;
+   %   for (i = 1:1:(NF-2)),
+   %   for (j = (i+1):1:(NF-1)),
+   %	for (k = (j+1):1:NF),
+   %      num_col(3) = num_col(3) + FL(i).N_level*FL(j).N_level*FL(k).N_level;    %Columns for 3rd order interactions
+   %   end
+   %   end
+   %	end
+   %end
 
    %if (NF == 4),
    %   num_col(4) = 1;
@@ -341,19 +335,15 @@ if (Contr.do == 1),
 
    % for every design
    if (Contr.ord1.tot > 0),		% 1st order contrasts   
-      [err, Contr] = ContrVec(1, n, NF, group, dmat, Contr, FL, num_col);
+      [err, Contr] = ContrVec(1, n, NF, dmat, Contr, FL, num_col);
    end   % if (Contr1.tot > 0)
 
    if (NF > 1 & Contr.ord2.tot > 0),  % 2nd order contrasts   
-      [err, Contr] = ContrVec(2, n, NF, group, dmat, Contr, FL, num_col);
+      [err, Contr] = ContrVec(2, n, NF, dmat, Contr, FL, num_col);
    end   % if (Contr2.tot > 0)
 
    if (NF > 2 & Contr.ord3.tot > 0),  % 3rd order contrasts   
-      [err, Contr] = ContrVec(3, n, NF, group, dmat, Contr, FL, num_col);
-   end   % if (Contr3.tot > 0)
-	
-	if (NF > 3 & Contr.ord4.tot > 0),  % 4th order contrasts   
-      [err, Contr] = ContrVec(4, n, NF, group, dmat, Contr, FL, num_col);
+      [err, Contr] = ContrVec(3, n, NF, dmat, Contr, FL, num_col);
    end   % if (Contr3.tot > 0)
 
 end % if (Contr.do == 1)

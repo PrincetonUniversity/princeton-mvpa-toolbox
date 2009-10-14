@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of find_obj</title>
+  <meta name="keywords" content="find_obj">
+  <meta name="description" content="Auxiliary function">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>find_obj
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Auxiliary function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [type_matches_str type_matches_vec] = find_obj(subj,objname) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Auxiliary function
+
+ [TYPE_MATCHES_STR TYPE_MATCHES_VEC] = FIND_OBJ(SUBJ,OBJNAME)
+
+ Zips through the SUBJ structure looking for objects of any type that
+ match OBJNAME.
+
+ It returns a string with the name of the types that contain an
+ OBJNAME object, as well as a 4-part boolean</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [type_matches_str type_matches_vec] = find_obj(subj,objname)</a>
+0002 
+0003 <span class="comment">% Auxiliary function</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [TYPE_MATCHES_STR TYPE_MATCHES_VEC] = FIND_OBJ(SUBJ,OBJNAME)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Zips through the SUBJ structure looking for objects of any type that</span>
+0008 <span class="comment">% match OBJNAME.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% It returns a string with the name of the types that contain an</span>
+0011 <span class="comment">% OBJNAME object, as well as a 4-part boolean</span>
+0012 
+0013 
+0014 objtypes{1} = <span class="string">'pattern'</span>;
+0015 objtypes{2} = <span class="string">'regressors'</span>;
+0016 objtypes{3} = <span class="string">'selector'</span>;
+0017 objtypes{4} = <span class="string">'mask'</span>;
+0018 
+0019 type_matches_vec = [false false false false];
+0020 type_matches_str = <span class="string">''</span>;
+0021 
+0022 <span class="keyword">for</span> t=1:length(objtypes)
+0023   <span class="keyword">if</span> <a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>(subj,objtypes{t},objname,<span class="string">'ignore_absence'</span>,true)
+0024     type_matches_str = sprintf(<span class="string">'%s\t%s'</span>,type_matches_str,objtypes{t});
+0025     type_matches_vec(t) = true;
+0026   <span class="keyword">end</span>
+0027 <span class="keyword">end</span> <span class="comment">% for t</span>
+0028 
+0029 
+0030</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

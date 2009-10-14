@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_type</title>
+  <meta name="keywords" content="get_type">
+  <meta name="description" content="For internal use. Returns the entire cell array of a given type">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>get_type
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>For internal use. Returns the entire cell array of a given type</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [objcell] = get_type(subj,objtype) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> For internal use. Returns the entire cell array of a given type
+
+ [OBJCELL] = GET_TYPE(SUBJ,OBJTYPE)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>	Auxiliary function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>	Returns a list of names of objects from this group</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_name.html" class="code" title="function [name obj] = get_name(subj,objtype,objno)">get_name</a>	Internal function - gets the object's name from its cell index</li><li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li><li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li><li><a href="init_object.html" class="code" title="function [subj] = init_object(subj,objtype,new_objname);">init_object</a>	Add a new empty object</li><li><a href="remove_object.html" class="code" title="function [subj] = remove_object(subj,objtype,objname,varargin)">remove_object</a>	This removes an object permanently</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>	Replaces an entire object, i.e. a cell from one of the main 4 cell arrays</li><li><a href="summarize.html" class="code" title="function [] = summarize(subj,varargin)">summarize</a>	Prints info about the contents of the subj structure</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [objcell] = get_type(subj,objtype)</a>
+0002 
+0003 <span class="comment">% For internal use. Returns the entire cell array of a given type</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [OBJCELL] = GET_TYPE(SUBJ,OBJTYPE)</span>
+0006 
+0007 
+0008 <span class="comment">% Check to see whether the type has been inputted as upper-case</span>
+0009 <span class="keyword">if</span> ~isempty(strmatch(lower(objtype),<a href="get_typeslist.html" class="code" title="function [types] = get_typeslist(plurality)">get_typeslist</a>(<span class="string">'single'</span>)))
+0010   error(<span class="string">'Use lower-case to refer to the objtype'</span>);
+0011 <span class="keyword">end</span>
+0012 
+0013 <span class="keyword">switch</span>(objtype)
+0014  <span class="keyword">case</span> <span class="string">'pattern'</span>
+0015   objcell = subj.patterns;
+0016  <span class="keyword">case</span> <span class="string">'regressors'</span>
+0017   objcell = subj.regressors;
+0018  <span class="keyword">case</span> <span class="string">'selector'</span>
+0019   objcell = subj.selectors;
+0020  <span class="keyword">case</span> <span class="string">'mask'</span>
+0021   objcell = subj.masks;
+0022 
+0023  <span class="keyword">case</span> <span class="string">'mask'</span>
+0024   error(<span class="string">'You''ve tried to get an objtype called ''subj'' - doesn''t make sense'</span>);
+0025 
+0026  <span class="keyword">otherwise</span>
+0027   error(<span class="string">'Unknown object type'</span>);
+0028 <span class="keyword">end</span>
+0029 
+0030 <span class="keyword">if</span> ~iscell(objcell) &amp; ~isempty(objcell)
+0031   error( sprintf(<span class="string">'Unrecoverable error with your entire %s set - should be a cell array'</span>,objtype) );
+0032 <span class="keyword">end</span>
+0033 
+0034</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

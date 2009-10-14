@@ -3,10 +3,6 @@ function [err, V, Info, ErrMessage] = BrikLoad (BrikName, param1, param2)
 %  OLD USAGE for backward compatibility, see New Usage
 %
 %   [err, V, Info, ErrMessage] = BrikLoad (BrikName, [form], [MachineFormat])
-% or 
-%  [V,Info] = BrikLoad (BrikName, [form], [MachineFormat])
-% or 
-%  [V] = BrikLoad (BrikName, [form], [MachineFormat])
 %
 %Purpose:
 %   loads an AFNI brik into V
@@ -25,8 +21,8 @@ function [err, V, Info, ErrMessage] = BrikLoad (BrikName, param1, param2)
 %   [err, V, Info, ErrMessage] = BrikLoad (BrikName, [Opt])
 %
 %Purpose:
-%   loads an AFNI brik or a NIFTI or a 1D file into V
-%   (NIFTI files are loaded via a hidden 3dcopy command)
+%   loads an AFNI brik or a 1D file into V
+%   
 %   
 %Input Parameters:
 %   BrikName, name of the brik
@@ -37,13 +33,11 @@ function [err, V, Info, ErrMessage] = BrikLoad (BrikName, param1, param2)
 %        (N * M * K) column vector. If the brick has multiple volumes (4-D)
 %        then an N x M x K x J brick is stored in an (N * M * K) x J  matrix.
 %        If you use 'vector' option you can change V to matrix format by using
-%        M = reshape(...
-%              V, Info.DATASET_DIMENSIONS(1), Info.DATASET_DIMENSIONS(2),...
-%              Info.DATASET_DIMENSIONS(3), Info.DATASET_RANK(2));
+%        M = reshape(V, Info.DATASET_DIMENSIONS(1), Info.DATASET_DIMENSIONS(2),...
+%            Info.DATASET_DIMENSIONS(3), Info.DATASET_RANK(2));
 %        
-%        Note that indexing in matlab is different than in AFNI. 
-%        Matlab starts indexing at  1 while AFNI starts with 0. 
-%        So voxel (i,j,k) in AFNI corresponds to voxel (i+1,j+1,k+1) 
+%        Note that indexing in matlab is different than in AFNI. Matlab starts indexing at 
+%        1 while AFNI starts with 0. So voxel (i,j,k) in AFNI corresponds to voxel (i+1,j+1,k+1) 
 %        in matlab. (see example below).
 %
 %   .MachineFormat is a string such as 'native' or 'ieee-le' (LSB_FIRST) or 'ieee-be' (MSB_FIRST)
@@ -52,29 +46,13 @@ function [err, V, Info, ErrMessage] = BrikLoad (BrikName, param1, param2)
 %       since most files created with the old versions of AFNI were on the SGIs .
 %        You must specify the parameter Opt.Format, to specify Opt.MachineFormat and override the defaults
 %       see help fopen for more info 
-%   .OutPrecision: If specified, return V with a certain precision. The default is to return
-%                  V in double precision. Here are the available options:
-%                  '': Default, returns V as double
-%                  '*': Returns V in the precision of the Brik itself. 
-%          NOTE:        Scaling factors are not applied with this option
-%          -----        because of the risk of overflow. You will have to scale
-%                       each sub-brick of V by its scaling factor (if any) outside
-%                       of this BrikLoad function. For instructions on how to scale
-%                       a sub-brick, see the section in BrikLoad.m under the 'if (Opt.Scale)' 
-%                       statement.
+%
 %   .Scale 0/1 if 1, then the scaling factor is applied to the values read from the brik
-%        default is 1. Note that Scale cannot be used with OutPrecision.
+%        default is 1
 %
 %   .Slices: vector of slices, 1 based. Default is all slices. 
 %            Read the set of slices specified in .Slices (added for FMRISTAT)
-%   .SliceSize_1D: If you are reading 1D files in chunks, specify the 
-%                  number of rows you want read in at any one time.
-%                  If chunk is 1000 and .Slices = 1 then you would 
-%                  get values from rows 1 (the first row) to row 1000.
-%                  When .Slices = 2, you would get rows 1001 ... 2000 .
-%                  If the number of rows in your dataset is not an 
-%                  integer multiple of SliceSize_1D the last read
-%                  will return the left over rows.
+%
 %   .Frames: vector of frames, 1 based. Default is all frames. 
 %            Read the sub-bricks specified in .Frames (added for FMRISTAT)
 %   .method: method option for Read_1D if you are using 1D files.
@@ -114,7 +92,7 @@ function [err, V, Info, ErrMessage] = BrikLoad (BrikName, param1, param2)
 %     Biomedical Engineering, Marquette University
 %     Biophysics Research institute, Medical College of Wisconsin
 %
-%     Contact: saadz@mail.nih.gov
+%     Contact: ziad@nih.gov
 
 
 %Define the function name for easy referencing
@@ -138,7 +116,6 @@ switch nargin,
       Opt.Slices = [];
       Opt.Frames = [];
       Opt.FileFormat = '';
-      Opt.OutPrecision = '';
    case 2,
       if (~isstruct(param1)),
          Opt.Format = param1;
@@ -147,11 +124,9 @@ switch nargin,
          Opt.Slices = [];
          Opt.Frames = [];
          Opt.FileFormat = '';
-         Opt.OutPrecision = '';
       else
          Opt = param1;
          if (~isfield(Opt,'FileFormat')),   Opt.FileFormat = ''; end
-         if (~isfield(Opt,'OutPrecision')),   Opt.OutPrecision = ''; end
       end
    case 3,
          Opt.Format = param1;
@@ -159,8 +134,7 @@ switch nargin,
          Opt.Scale = 1;
          Opt.Slices = [];
          Opt.Frames = []; 
-         Opt.FileFormat = '';
-         Opt.OutPrecision = '';         
+         Opt.FileFormat = '';         
    otherwise,
    err= ErrEval(FuncName,'Err_Bad option');
    return;
@@ -173,80 +147,21 @@ if (isempty(Opt.FileFormat)), % try to guess
    if (~isempty(xtr)),
       is1D = 1;
    end
-elseif (strcmp(Opt.FileFormat, '1D') | strcmp(Opt.FileFormat, '1d')),
+elseif (strcmp(Opt.FileFormat, '1D') || strcmp(Opt.FileFormat, '1d')),
    is1D = 1;
-end
-isNIFTI = 0;
-if (isempty(Opt.FileFormat)), % try to guess 
-   [St, xtr] = RemoveNiftiExtension(BrikName);
-   if (~isempty(xtr)),
-      isNIFTI = 1;
-   end
-elseif (   strcmp(Opt.FileFormat, 'NIFTI') ...
-         | strcmp(Opt.FileFormat, 'nifti') ...
-         | strcmp(Opt.FileFormat, 'Nifti') ...
-         | strcmp(Opt.FileFormat, 'Nii') ...
-         | strcmp(Opt.FileFormat, 'nii') ...
-         | strcmp(Opt.FileFormat, 'NII')),
-   isNIFTI = 1;
 end
 
 if (is1D), % 1D land
    V = []; Info = []; ErrMessage = '';
    Opt.verb = 1;
-   if (~isfield(Opt, 'method') | isempty(Opt.method)), Opt.method = 0; end
-   if (isfield(Opt,'Slices') & ~isempty(Opt.Slices)),
-      if (length(Opt.Slices) ~= 1),
-         ErrMessage = sprintf ('%s: Opt.Slices can only be used to specify one slice at a time for 1D format', FuncName, BrikName);
-         err = ErrEval(FuncName,'Err_1D Bad .Slices option');
-         return;
-      end
-      if (~isfield(Opt, 'SliceSize_1D') | isempty(Opt.SliceSize_1D)),
-         ErrMessage = sprintf ('%s: SliceSize_1D must be specified with Slices option for 1D files', FuncName);
-         err = ErrEval(FuncName,'Err_1D Bad .SliceSize_1D option');
-         return;
-      end
-      Opt.chunk_size = Opt.SliceSize_1D;
-      Opt.chunk_index = Opt.Slices - 1;
-      if (isfield(Opt,'Frames') & ~isempty(Opt.Frames)), Opt.col_index = Opt.Frames - 1; end
-   end
-   
+   if (~isfield(Opt, 'method') || isempty(Opt.method)), Opt.method = 0; end
    [err, V, Info] = Read_1D(BrikName, Opt);
    if (err), 
       ErrMessage = sprintf ('%s: Failed to read %s file', FuncName, BrikName);
       err = ErrEval(FuncName,'Err_1D file could not be read');
       return;
    end
-   if (nargout == 4 | nargout == 3),   
-      err = 0;
-   else 
-      err = V;
-      V = Info;
-   end
-
    return;
-end
-
-if (isNIFTI),
-   [St, xtr] = RemoveNiftiExtension(BrikName); 
-   NiftiPref = St;          
-   %create a BRIK version
-   otmp = sprintf('./____tmp_%s', St);
-   stmp = sprintf('3dcopy %s %s', BrikName, otmp);
-   [us, uw] = unix(stmp);
-   if (us),
-      ErrMessage = sprintf ('%s: Failed to create afni brick:\n%s',...
-                            FuncName, uw);
-      err = ErrEval(FuncName,'Err_Could not create afni brick');
-      return;
-   end
-   obrik = dir(sprintf('%s+*',otmp));
-   if (length(obrik) ~= 2),
-      ErrMessage = sprintf ('%s: Failed to find afni brick', FuncName);
-      err = ErrEval(FuncName,'Err_Could not find afni brick');
-      return;
-   end
-   BrikName = obrik(1).name;
 end
 
 %assume you have a brik format and proceed as usual 
@@ -258,22 +173,7 @@ end
    if (~isfield(Opt,'Slices') | isempty(Opt.Slices)),   Opt.Slices = []; end 
    if (~isfield(Opt,'Frames') | isempty(Opt.Frames)),   Opt.Frames = []; end 
    if (~isfield(Opt,'FileFormat') | isempty(Opt.FileFormat)),   Opt.FileFormat = ''; end
-   if (~isfield(Opt,'OutPrecision') | isempty(Opt.OutPrecision)),   Opt.OutPrecision = ''; end
-
-%Check for conflicts between OutPrecision and Scale
-if (Opt.Scale & ~isempty(Opt.OutPrecision)),
-   ErrMessage = sprintf ('%s: Opt.Scale = 1 cannot be used with Opt.OutPrecision\n', FuncName);
-   err = ErrEval(FuncName,'Err_Opt.Scale = 1 cannot be used with Opt.OutPrecision');
-   return;
-end
-
-%check on OutPrecision
-if (~isempty(Opt.OutPrecision)),
-   if (~strcmp(Opt.OutPrecision,'*')),
-      ErrMessage = sprintf ('%s: Allowed OutPrecision value is ''*''\n', FuncName);
-      err = ErrEval(FuncName,'Err_Bad value for Opt.OutPrecision');
-   end
-end
+   
 
 %set the format   
    if (eq_str(Opt.Format,'vector')),
@@ -288,28 +188,20 @@ end
    if (~isempty(vtmp)), %remove .BRIK
       BrikName = BrikName(1:vtmp(1)-1);
    end
+   
    vtmp = findstr(BrikName,'.HEAD');
    if (~isempty(vtmp)), %remove .HEAD
       BrikName = BrikName(1:vtmp(1)-1);
    end
-   
-   %remove last dot if it is in name
-   if (BrikName(length(BrikName)) == '.' & length(BrikName)>1),
-      BrikName = BrikName(1:length(BrikName)-1);
-   end
+
 
    %Now make sure .HEAD and .BRIK are present
    sHead = sprintf('%s.HEAD', BrikName);
    sBRIK = sprintf('%s.BRIK', BrikName);
    if (~filexist(sHead)), 
       ErrMessage = sprintf ('%s: %s not found', FuncName, sHead);
-      err = ErrEval(FuncName,sprintf ('Err_HEAD file %s not found', sHead));
+      err = ErrEval(FuncName,'Err_HEAD file not found');
       return;
-   end
-   sBRIK_gz = sprintf('%s.BRIK.gz', BrikName);
-   if (filexist(sBRIK_gz)),
-      fprintf(2,'Unzipping %s...\n', sBRIK_gz);
-      unix(sprintf('gzip -d %s', sBRIK_gz)); %matlab gunzip version requires Java
    end
    if (~filexist(sBRIK)), 
       ErrMessage = sprintf ('%s: %s not found', FuncName, sBRIK);
@@ -385,7 +277,7 @@ end
    numframes=length(Opt.Frames);
 
    if isallslices & isallframes
-      V = fread(fidBRIK, (Info.DATASET_DIMENSIONS(1) .* Info.DATASET_DIMENSIONS(2) .* Info.DATASET_DIMENSIONS(3) .* Info.DATASET_RANK(2)) , [Opt.OutPrecision,typestr]);
+      V = fread(fidBRIK, (Info.DATASET_DIMENSIONS(1) .* Info.DATASET_DIMENSIONS(2) .* Info.DATASET_DIMENSIONS(3) .* Info.DATASET_RANK(2)) , typestr);
    else
       V=zeros(1,numpix*numslices*numframes);
       for k=1:numframes
@@ -394,14 +286,14 @@ end
             fseek(fidBRIK, numpix*Info.DATASET_DIMENSIONS(3)*(frame-1)*Info.TypeBytes, 'bof');
             istrt=1+numpix*numslices*(k-1);
             istp=istrt-1+numpix*numslices;
-            V(istrt:istp)=fread(fidBRIK,numpix*numslices,[Opt.OutPrecision,typestr]);
+            V(istrt:istp)=fread(fidBRIK,numpix*numslices,typestr);
          else
             for j=1:numslices
                slice=Opt.Slices(j);
                fseek(fidBRIK, numpix*(slice-1+Info.DATASET_DIMENSIONS(3)*(frame-1))*Info.TypeBytes, 'bof');
                istrt=1+numpix*(j-1+numslices*(k-1));
                istp=istrt-1+numpix;
-               V(istrt:istp)=fread(fidBRIK,numpix,[Opt.OutPrecision,typestr]);
+               V(istrt:istp)=fread(fidBRIK,numpix,typestr);
             end
          end
       end
@@ -420,15 +312,6 @@ end
             V(istrt:istp) = V(istrt:istp) .* facs(iscl(j));
          end
       end
-   else, %give warning
-      facs=Info.BRICK_FLOAT_FACS(Opt.Frames);
-      iscl = find (facs); %find non zero scales
-      if (~isempty(iscl)),
-         fprintf(2,'WARNING: Some sub-bricks read have non-zero scaling factors that were not applied\n');
-         fprintf(2,'         because Opt.Scale is turned off.\n');
-         fprintf(2,'         Those scale factors are in Info.BRICK_FLOAT_FACS and likely should be\n');
-         fprintf(2,'         applied before using values in V\n');
-      end
    end
 
 %if required, reshape V
@@ -439,19 +322,8 @@ end
 		V = reshape(V, Info.DATASET_DIMENSIONS(1).* Info.DATASET_DIMENSIONS(2).* numslices, numframes);
 	end
 
-if (isNIFTI),
-   delete(obrik(1).name);
-   delete(obrik(2).name);
-   Info.RootName = NiftiPref;
-end
-
-if (nargout == 4 | nargout == 3),   
-   err = 0;
-else 
-   err = V;
-   V = Info;
-end
-
+   
+err = 0;
 return;
 
 %test code

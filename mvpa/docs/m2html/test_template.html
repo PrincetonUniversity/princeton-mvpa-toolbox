@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of test_template</title>
+  <meta name="keywords" content="test_template">
+  <meta name="description" content="Template testing function">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>test_template
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Template testing function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [acts scratchpad] = test_template(testpats,testtargs,scratchpad) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Template testing function
+
+ [ACTS SCRATCHPAD] = TEST_TEMPLATE(TESTPATS,TESTTARGS,SCRATCHPAD)
+
+ This is the template testing function to use when creating your
+ own classifier testing function. Gets called after TRAIN_TEMPLATE
+
+ See also: <a href="test_bp.html" class="code" title="function [acts scratchpad] = test_bp(testpats,testtargs,scratchpad)">test_bp</a>.m and <a href="train_template.html" class="code" title="function [scratchpad] = train_template(trainpats,traintargs,in_args)">train_template</a>.m
+
+ ACTS is an nOuts x nTestTimepoints matrix that contains the
+ activations of the output units at test</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [] = sanity_check(testpats,testtargs,scratchpad)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [acts scratchpad] = test_template(testpats,testtargs,scratchpad)</a>
+0002 
+0003 <span class="comment">% Template testing function</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [ACTS SCRATCHPAD] = TEST_TEMPLATE(TESTPATS,TESTTARGS,SCRATCHPAD)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This is the template testing function to use when creating your</span>
+0008 <span class="comment">% own classifier testing function. Gets called after TRAIN_TEMPLATE</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% See also: test_bp.m and train_template.m</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% ACTS is an nOuts x nTestTimepoints matrix that contains the</span>
+0013 <span class="comment">% activations of the output units at test</span>
+0014 
+0015 
+0016 <a href="#_sub1" class="code" title="subfunction [] = sanity_check(testpats,testtargs,scratchpad)">sanity_check</a>(testpats,testtargs,scratchpad);
+0017 
+0018 
+0019 <span class="comment">%%% test generalization performance on the test data</span>
+0020 
+0021 <span class="comment">%%% save the activations into ACTS (nOuts x nTestTimepoints)</span>
+0022 
+0023 <span class="comment">%%% add to the scratchpad if there's anything new to say</span>
+0024 
+0025 
+0026 
+0027 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0028 <a name="_sub1" href="#_subfunctions" class="code">function [] = sanity_check(testpats,testtargs,scratchpad)</a>
+0029 
+0030 <span class="comment">% check that your assumptions are met here</span></pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

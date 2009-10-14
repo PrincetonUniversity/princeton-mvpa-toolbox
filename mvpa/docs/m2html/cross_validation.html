@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cross_validation</title>
+  <meta name="keywords" content="cross_validation">
+  <meta name="description" content="Cross-validation classification">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>cross_validation
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Cross-validation classification</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Cross-validation classification
+
+ [SUBJ RESULTS] = CROSS_VALIDATION(SUBJ,PATNAME,REGSNAME,SELGROUP,CLASS_ARGS,MASKGROUP,...)
+
+ Calls the classifier multiple times, training and testing on
+ different subsets of the data each time
+
+
+ Adds the following objects:
+ - results structure
+
+ PATNAME is the data that the classifier will be fed as its input
+
+ REGSNAME contains the targets that the classifier will be taught
+ and then tested with. It will create one output unit per row. For pure
+ classification, these should be binary, one condition per
+ timepoint, but there is no error-checking or removal of rest
+ built-in here deliberately.
+
+ SELGROUP is the group of selectors that determine which are testing
+ and which are training TRs for a given iteration. One selector
+ per iteration. 1s = training, 2s = testing. TRs labelled with 0s
+ and other values will be excluded from the classification
+ Think of each set of selectors in the cell array as a kind of
+ temporal mask. Each set of selectors should have the same number
+ of TRs as the patterns and regressors, with 1s for the training
+ TRs, 2s for the testing TRs and 0s for the TRs that you want to
+ ignore. CREATE_XVALID_INDICES will create such a group.
+
+ MASKGROUP is the group of masks, one per iteration, that will be
+ used to decide which features are fed to the classifier. For
+ instance, NOPEEKING_MULTI_ANOVA generates such a set of masks.
+
+ Note: if you ran a peeking anova, you'll only have one mask, rather
+ than a group. If this can't find any members of a group called
+ MASKGROUP, it will treat MASKGROUP as the name of an object, and
+ look instead for a single mask called MASKGROUP.
+
+ PERFMET_FUNCTS(optional,default = {'perfmet_maxclass'}). The names of the
+ performance metric(s) you want to use to decide how well your
+ classifier did. Feed in as a cell array of strings containing
+ function names that get turned into function handles later
+
+ PERFMET_ARGS(optional,default = {[]}. Accompanying argument-structures, one
+ foir each optional perfmet_funct
+
+ See the manual for more documentation about the results
+ structure.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_results_history.html" class="code" title="function [results] = add_results_history(results,hist_str,displayme)">add_results_history</a>	Adds a line to the results.header.history field</li><li><a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>	Spits out the date and time in yymmdd_HHMM format</li><li><a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>	Returns a list of names of objects from this group</li><li><a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>	Returns the pattern's voxels allowed by the mask</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>	Internal function - find the cell index of an object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [] = sanity_check(class_args)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj results] = cross_validation(subj,patname,regsname,selgroup,maskgroup,class_args,varargin)</a>
+0002 
+0003 <span class="comment">% Cross-validation classification</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ RESULTS] = CROSS_VALIDATION(SUBJ,PATNAME,REGSNAME,SELGROUP,CLASS_ARGS,MASKGROUP,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Calls the classifier multiple times, training and testing on</span>
+0008 <span class="comment">% different subsets of the data each time</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Adds the following objects:</span>
+0012 <span class="comment">% - results structure</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% PATNAME is the data that the classifier will be fed as its input</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% REGSNAME contains the targets that the classifier will be taught</span>
+0017 <span class="comment">% and then tested with. It will create one output unit per row. For pure</span>
+0018 <span class="comment">% classification, these should be binary, one condition per</span>
+0019 <span class="comment">% timepoint, but there is no error-checking or removal of rest</span>
+0020 <span class="comment">% built-in here deliberately.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% SELGROUP is the group of selectors that determine which are testing</span>
+0023 <span class="comment">% and which are training TRs for a given iteration. One selector</span>
+0024 <span class="comment">% per iteration. 1s = training, 2s = testing. TRs labelled with 0s</span>
+0025 <span class="comment">% and other values will be excluded from the classification</span>
+0026 <span class="comment">% Think of each set of selectors in the cell array as a kind of</span>
+0027 <span class="comment">% temporal mask. Each set of selectors should have the same number</span>
+0028 <span class="comment">% of TRs as the patterns and regressors, with 1s for the training</span>
+0029 <span class="comment">% TRs, 2s for the testing TRs and 0s for the TRs that you want to</span>
+0030 <span class="comment">% ignore. CREATE_XVALID_INDICES will create such a group.</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% MASKGROUP is the group of masks, one per iteration, that will be</span>
+0033 <span class="comment">% used to decide which features are fed to the classifier. For</span>
+0034 <span class="comment">% instance, NOPEEKING_MULTI_ANOVA generates such a set of masks.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% Note: if you ran a peeking anova, you'll only have one mask, rather</span>
+0037 <span class="comment">% than a group. If this can't find any members of a group called</span>
+0038 <span class="comment">% MASKGROUP, it will treat MASKGROUP as the name of an object, and</span>
+0039 <span class="comment">% look instead for a single mask called MASKGROUP.</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">% PERFMET_FUNCTS(optional,default = {'perfmet_maxclass'}). The names of the</span>
+0042 <span class="comment">% performance metric(s) you want to use to decide how well your</span>
+0043 <span class="comment">% classifier did. Feed in as a cell array of strings containing</span>
+0044 <span class="comment">% function names that get turned into function handles later</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">% PERFMET_ARGS(optional,default = {[]}. Accompanying argument-structures, one</span>
+0047 <span class="comment">% foir each optional perfmet_funct</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% See the manual for more documentation about the results</span>
+0050 <span class="comment">% structure.</span>
+0051 
+0052 
+0053 defaults.perfmet_functs = {<span class="string">'perfmet_maxclass'</span>};
+0054 defaults.perfmet_args = {[]};
+0055 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0056 
+0057 <span class="comment">% Load the Pattern and the Regressors</span>
+0058 patterns   = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'pattern'</span>,patname);
+0059 regressors = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'regressors'</span>,regsname);
+0060 
+0061 <span class="comment">% Get the names of the selectors</span>
+0062 selnames = <a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,<span class="string">'selector'</span>,selgroup);
+0063 nIterations = length(selnames);
+0064 
+0065 masknames = <a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,<span class="string">'mask'</span>,maskgroup);
+0066 <span class="comment">% If there's only one mask and it doesn't belong to a group, use it each time</span>
+0067 <span class="keyword">if</span> isempty(masknames)
+0068   <span class="keyword">if</span> ~isempty(<a href="get_number.html" class="code" title="function [objno] = get_number(subj,objtype,objname,varargin)">get_number</a>(subj,<span class="string">'mask'</span>,maskgroup))
+0069     masknames = cellstr(repmat(maskgroup,[nIterations 1]));
+0070     disp( sprintf(<span class="string">'Using the %s mask each time'</span>,maskgroup) );
+0071   <span class="keyword">else</span>
+0072     error(<span class="string">'MASKGROUP is neither a mask nor a group.  Discuss...'</span>);
+0073   <span class="keyword">end</span>
+0074 <span class="keyword">end</span>
+0075 
+0076 
+0077 <span class="keyword">if</span> length(masknames) ~= length(selnames)
+0078   error(<span class="string">'Your selector and mask groups have different numbers of items in them'</span>);
+0079 <span class="keyword">end</span>
+0080 
+0081 <span class="comment">% Initialize the results structure</span>
+0082 results.header.experiment = subj.header.experiment;
+0083 results.header.subj_id    = subj.header.id;
+0084 
+0085 <span class="comment">% Just in case the user only has one perfmet and fed it in as a</span>
+0086 <span class="comment">% string rather than cell array</span>
+0087 <span class="keyword">if</span> ~iscell(args.perfmet_functs) &amp; ischar(args.perfmet_functs)
+0088   warning(<span class="string">'Perfmet_functs should be a cell array, not a string - fixing'</span>);
+0089   args.perfmet_functs = {args.perfmet_functs};
+0090 <span class="keyword">end</span>
+0091 
+0092 nPerfs = length(args.perfmet_functs);
+0093 
+0094 <a href="#_sub1" class="code" title="subfunction [] = sanity_check(class_args)">sanity_check</a>(class_args);
+0095 
+0096 <span class="comment">% Initialize subtotal_perfs - this is going to keep a running tally</span>
+0097 <span class="comment">% of the performance summed over iterations, separately for each</span>
+0098 <span class="comment">% performance metric</span>
+0099 subtotal_perfs = zeros([nPerfs 1]);
+0100 
+0101 disp( sprintf(<span class="string">'Starting %i cross-validation classification iterations'</span>,nIterations) );
+0102 
+0103 <span class="keyword">for</span> n=1:nIterations
+0104 
+0105   fprintf(<span class="string">'\t%i'</span>,n);  
+0106   cur_iteration = [];
+0107 
+0108   <span class="comment">% Set the current selector up</span>
+0109   cur_selsname = selnames{n};
+0110   selectors = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'selector'</span>,cur_selsname);
+0111 
+0112   <span class="comment">% Extract the training and testing indices from the selector</span>
+0113   train_idx = find(selectors==1);
+0114   test_idx  = find(selectors==2);
+0115   rest_idx  = find(selectors==0);
+0116   unknown_idx = selectors;
+0117   unknown_idx([train_idx test_idx rest_idx]) = [];
+0118   <span class="keyword">if</span> length(unknown_idx)
+0119     warning( sprintf(<span class="string">'There are unknown selector labels in %s'</span>,cur_selsname) );
+0120   <span class="keyword">end</span>
+0121 
+0122   <span class="comment">% Set the current mask up</span>
+0123   cur_maskname = masknames{n};
+0124   masked_pats = <a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>(subj,patname,cur_maskname);
+0125   
+0126   <span class="comment">% Create the training patterns and targets</span>
+0127   trainpats  = masked_pats(:,train_idx);
+0128   traintargs = regressors( :,train_idx);
+0129   testpats   = masked_pats(:,test_idx);
+0130   testtargs  = regressors( :,test_idx);
+0131 
+0132   <span class="comment">% Create a function handle for the classifier training function</span>
+0133   train_funct_hand = str2func(class_args.train_funct_name);
+0134 
+0135   <span class="comment">% Call whichever training function</span>
+0136   scratchpad = train_funct_hand(trainpats,traintargs,class_args);
+0137 
+0138   <span class="comment">% Create a function handle for the classifier testing function</span>
+0139   test_funct_hand = str2func(class_args.test_funct_name);
+0140 
+0141   <span class="comment">% Call whichever training function</span>
+0142   [acts scratchpad] = test_funct_hand(testpats,testtargs,scratchpad);  
+0143   
+0144   <span class="comment">% Run all the perfmet functions on the classifier outputs and store</span>
+0145   <span class="comment">% the resulting perfmet structure in a cell</span>
+0146   <span class="keyword">for</span> p=1:nPerfs
+0147     <span class="comment">% Get the name of the perfmet function</span>
+0148     cur_pm_name = args.perfmet_functs{p};
+0149     <span class="comment">% Create a function handle to it</span>
+0150     cur_pm_fh = str2func(cur_pm_name);
+0151     <span class="comment">% Run the perfmet function and get an object back</span>
+0152     cur_pm = cur_pm_fh(acts,testtargs,args.perfmet_args{p});
+0153     <span class="comment">% Add the function's name to the object</span>
+0154     cur_pm.function_name = cur_pm_name;
+0155     <span class="comment">% Append this perfmet object to the array of perfmet objects,</span>
+0156     <span class="comment">% only using a cell array if necessary</span>
+0157     <span class="keyword">if</span> nPerfs==1
+0158       cur_iteration.perfmet = cur_pm;
+0159     <span class="keyword">else</span>
+0160       cur_iteration.perfmet{p} = cur_pm;
+0161     <span class="keyword">end</span>
+0162     <span class="comment">% Add this iteration's performance to the tally</span>
+0163     cur_iteration.perf(p) = cur_pm.perf;
+0164     subtotal_perfs(p) = subtotal_perfs(p) + cur_iteration.perf(p);
+0165   <span class="keyword">end</span>
+0166   
+0167   <span class="comment">% Display the performance for this iteration</span>
+0168   disp( sprintf(<span class="string">'\t%.2f'</span>,cur_iteration.perf(p)) );
+0169 
+0170   <span class="comment">% Book-keep the bountiful insight from this iteration</span>
+0171   cur_iteration.created.datetime  = <a href="datetime.html" class="code" title="function [dt] = datetime(seconds)">datetime</a>(true);
+0172   cur_iteration.train_idx         = train_idx;
+0173   cur_iteration.test_idx          = test_idx;
+0174   cur_iteration.rest_idx          = rest_idx;
+0175   cur_iteration.unknown_idx       = unknown_idx;
+0176   cur_iteration.acts              = acts;
+0177   cur_iteration.scratchpad        = scratchpad;
+0178   cur_iteration.header.history    = []; <span class="comment">% should fill this in xxx</span>
+0179   cur_iteration.created.function  = <span class="string">'cross_validation'</span>;
+0180   cur_iteration.created.patname   = patname;
+0181   cur_iteration.created.regsname  = regsname;
+0182   cur_iteration.created.maskname  = masknames{n};
+0183   cur_iteration.created.selname   = cur_selsname;
+0184   cur_iteration.train_funct_name  = class_args.train_funct_name;
+0185   cur_iteration.test_funct_name   = class_args.test_funct_name;
+0186   results.iterations(n) = cur_iteration;
+0187   
+0188 <span class="keyword">end</span> <span class="comment">% for n nIterations</span>
+0189 
+0190 disp(<span class="string">' '</span>);
+0191 
+0192 <span class="comment">% Show me the money</span>
+0193 results.total_perf = subtotal_perfs / nIterations;
+0194 
+0195 mainhist = sprintf( <span class="keyword">...</span>
+0196     <span class="string">'Cross-validation using %s and %s - got total_perfs - %s'</span>, <span class="keyword">...</span>
+0197     class_args.train_funct_name,class_args.test_funct_name, <span class="keyword">...</span>
+0198     num2str(results.total_perf'));
+0199 
+0200 results = <a href="add_results_history.html" class="code" title="function [results] = add_results_history(results,hist_str,displayme)">add_results_history</a>(results,mainhist,true);
+0201 
+0202 
+0203 
+0204 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0205 <a name="_sub1" href="#_subfunctions" class="code">function [] = sanity_check(class_args)</a>
+0206 
+0207 <span class="keyword">if</span> ~isstruct(class_args)
+0208   error(<span class="string">'Class_args should be a struct'</span>);
+0209 <span class="keyword">end</span>
+0210 
+0211 <span class="keyword">if</span> ~isfield(class_args,<span class="string">'test_funct_name'</span>) | ~isfield(class_args,<span class="string">'train_funct_name'</span>)
+0212   error(<span class="string">'Need to supply training and testing function names'</span>);
+0213 <span class="keyword">end</span>
+0214 
+0215 <span class="keyword">if</span> ~ischar(class_args.test_funct_name) | ~ischar(class_args.train_funct_name)
+0216   error(<span class="string">'Training or testing function names have to be strings'</span>);
+0217 <span class="keyword">end</span>
+0218</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

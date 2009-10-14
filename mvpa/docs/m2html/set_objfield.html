@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of set_objfield</title>
+  <meta name="keywords" content="set_objfield">
+  <meta name="description" content="Replace or add a field to an object">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>set_objfield
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Replace or add a field to an object</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Replace or add a field to an object
+
+ [SUBJ] = SET_OBJFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,NEWVAL,...)
+
+ Replaces/adds the FIELDNAME field in OBJNAME object of type OBJTYPE
+ with NEWVAL. Will create the field if it doesn't exist, but will
+ warn you unless you set IGNORE_ABSENCE = true
+
+ IGNORE_ABSENCE (optional, default = false). By default, this will
+ warn you if the field you're about to set doesn't already
+ exist. Set to true if you're sure that's ok
+
+ IGNORE_EMPTY (optional, default = false). By default, this will
+ warn you if the field you're about to set is empty (and is
+ overwriting a full one). Set to true if you're sure you want to
+ do that
+
+ IGNORE_CREATED (optional, default = false). By default, this will
+ error if you try and set the 'created' field, but if this is
+ true, then it continues as normal.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>	Return the entire object.</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>	Replaces an entire object, i.e. a cell from one of the main 4 cell arrays</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="change_groupname.html" class="code" title="function [subj] = change_groupname(subj,objtype,old_groupname,new_groupname)">change_groupname</a>	Changes the groupname for all objects in a group</li><li><a href="create_pattern_from_mask.html" class="code" title="function [subj] = create_pattern_from_mask(subj,old_patname,maskname,new_patname,varargin)">create_pattern_from_mask</a>	Creates a new pattern by masking an old one</li><li><a href="create_thresh_mask.html" class="code" title="function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)">create_thresh_mask</a>	Create a boolean mask by thresholding a statmap</li><li><a href="create_xvalid_indices.html" class="code" title="function [subj] = create_xvalid_indices(subj,runs_selname,varargin)">create_xvalid_indices</a>	Creates a selector for each iteration for leave-one-out cross-validation.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>	No-peeking feature selection</li><li><a href="init_subj.html" class="code" title="function [subj] = init_subj(exp_name,id,varargin)">init_subj</a>	Returns an empty initialized SUBJ structure</li><li><a href="load_afni_pattern.html" class="code" title="function [subj] = load_AFNI_pattern(subj,new_patname,maskname,filenames)">load_afni_pattern</a>	Loads an AFNI dataset into a subject structure</li><li><a href="move_pattern_to_hd.html" class="code" title="function [subj pathfilename] = move_pattern_to_hd(subj,patname,varargin)">move_pattern_to_hd</a>	Moves the pattern MAT to the hard disk</li><li><a href="remove_objsubfield.html" class="code" title="function [subj] = remove_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval)">remove_objsubfield</a>	Removes the subfield from an object.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objsubfield.html" class="code" title="function [subj] = set_objsubfield(subj,objtype,objname,fieldname,subfieldname,newval,varargin)">set_objsubfield</a>	Sets the subfield of the object to NEWVAL.</li><li><a href="statmap_anova.html" class="code" title="function [subj] = statmap_anova(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_anova</a>	Use the anova to select features that vary between conditions</li><li><a href="statmap_template.html" class="code" title="function [subj] = statmap_template(subj,data_patname,regsname,selname,new_map_patname,extra_arg)">statmap_template</a>	This is the sample/template statmap generation function</li><li><a href="tutorial_easy.html" class="code" title="function [subj results] = tutorial_easy()">tutorial_easy</a>	Tutorial script to accompany TUTORIAL_EASY.HTM</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)</a>
+0002 
+0003 <span class="comment">% Replace or add a field to an object</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [SUBJ] = SET_OBJFIELD(SUBJ,OBJTYPE,OBJNAME,FIELDNAME,NEWVAL,...)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Replaces/adds the FIELDNAME field in OBJNAME object of type OBJTYPE</span>
+0008 <span class="comment">% with NEWVAL. Will create the field if it doesn't exist, but will</span>
+0009 <span class="comment">% warn you unless you set IGNORE_ABSENCE = true</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% IGNORE_ABSENCE (optional, default = false). By default, this will</span>
+0012 <span class="comment">% warn you if the field you're about to set doesn't already</span>
+0013 <span class="comment">% exist. Set to true if you're sure that's ok</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% IGNORE_EMPTY (optional, default = false). By default, this will</span>
+0016 <span class="comment">% warn you if the field you're about to set is empty (and is</span>
+0017 <span class="comment">% overwriting a full one). Set to true if you're sure you want to</span>
+0018 <span class="comment">% do that</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% IGNORE_CREATED (optional, default = false). By default, this will</span>
+0021 <span class="comment">% error if you try and set the 'created' field, but if this is</span>
+0022 <span class="comment">% true, then it continues as normal.</span>
+0023 
+0024 
+0025 <span class="comment">% This looks long, but it's basically just:</span>
+0026 <span class="comment">%   get_object</span>
+0027 <span class="comment">%   obj.(fieldname) = newval</span>
+0028 <span class="comment">%   set_object</span>
+0029 
+0030 
+0031 <span class="keyword">if</span> ~nargout
+0032   error(<span class="string">'Don''t forget to catch the subj structure that gets returned'</span>);
+0033 <span class="keyword">end</span>
+0034 
+0035 defaults.ignore_absence = false;
+0036 defaults.ignore_empty = false;
+0037 defaults.ignore_created = false;
+0038 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0039 
+0040 <span class="comment">% If setting a field in the root of the SUBJ structure, deal with that</span>
+0041 <span class="comment">% separately here</span>
+0042 <span class="keyword">if</span> strcmp(objtype,<span class="string">'subj'</span>)
+0043   <span class="keyword">if</span> ~isfield(subj,fieldname) &amp; ~args.ignore_absence
+0044     warn_str = sprintf(<span class="string">'No subj field called %s - creating it'</span>,fieldname);
+0045     warning( warn_str );
+0046     subj.(fieldname) = [];
+0047   <span class="keyword">end</span>
+0048   subj.(fieldname) = newval;
+0049   <span class="keyword">return</span>
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="comment">% Otherwise, get the object from the SUBJ structure</span>
+0053 obj = <a href="get_object.html" class="code" title="function [obj] = get_object(subj,objtype,objname)">get_object</a>(subj,objtype,objname);
+0054 
+0055 <span class="comment">% Error-checking</span>
+0056 <span class="keyword">switch</span>(fieldname)
+0057  <span class="keyword">case</span> <span class="string">'mat'</span>
+0058   error(<span class="string">'You should use set_%s to retrieve the mat field'</span>,objtype);
+0059  <span class="keyword">case</span> <span class="string">'history'</span>
+0060   error(<span class="string">'You should use add_%s_history to add to the history'</span>,objtype);
+0061  <span class="keyword">case</span> <span class="string">'created'</span>
+0062   <span class="keyword">if</span> ~args.ignore_created
+0063     error(<span class="string">'You should use add_created to add information about the object''s creation'</span>);
+0064   <span class="keyword">end</span>
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="comment">% If you're setting a field that doesn't exist, warn the user, to</span>
+0068 <span class="comment">% highlight possible typos</span>
+0069 <span class="comment">% But in case they're deliberately setting the field, check IGNORE_ABSENCE</span>
+0070 <span class="keyword">if</span> ~isfield(obj,fieldname) &amp; ~args.ignore_absence
+0071   warn_str = sprintf(<span class="string">'No field in %s %s called %s - creating it'</span>, <span class="keyword">...</span>
+0072            objname,objtype,fieldname);
+0073   warning( warn_str );
+0074   obj.(fieldname) = [];
+0075 <span class="keyword">end</span>
+0076 <span class="keyword">if</span> isempty(newval) &amp; ~args.ignore_empty &amp; ~isempty(obj.(fieldname))
+0077   warning(<span class="string">'About to overwrite a field with an empty one'</span>);
+0078 <span class="keyword">end</span>
+0079 
+0080 <span class="comment">% Set the field in the object, and then set the object in the SUBJ</span>
+0081 <span class="comment">% structure</span>
+0082 obj.(fieldname) = newval;
+0083 subj = <a href="set_object.html" class="code" title="function [subj] = set_object(subj,objtype,objname,obj)">set_object</a>(subj,objtype,objname,obj);
+0084 
+0085 
+0086</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

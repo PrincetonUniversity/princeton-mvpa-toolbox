@@ -1,0 +1,58 @@
+function [subj] = add_history(subj,objtype,objname,hist_str,displayme)
+
+% Adds HIST_STR to OBJNAME's history field.
+%
+% [SUBJ] = ADD_HISTORY(SUBJ,HIST_STR,OBJTYPE,OBJNAME,[DISPLAYME])
+%
+% DISPLAYME (optional, default = false). If true, the HIST_STR gets
+% echoed to the screen as well.
+%
+% If OBJTYPE = 'subj', then will append to the SUBJ header.history
+
+
+if ~exist('displayme')
+  displayme = false;
+end
+
+if displayme
+  disp(hist_str);
+end
+hist_str = sprintf('%s: %s',datetime(),hist_str);
+
+% Deal with OBJTYPE == 'subj' as a special case
+if strcmp(objtype,'subj')
+  subj = add_subj_history(subj,hist_str);
+  return
+end
+
+obj = get_object(subj,objtype,objname);
+
+if ~isfield(obj,'header')
+  obj.header.history = [];
+end
+if ~isfield(obj.header,'history')
+  obj.header.history=[];
+end
+  
+obj.header.history{end+1}=hist_str;
+
+subj = set_object(subj,objtype,objname,obj);
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [subj] = add_subj_history(subj,hist_str)
+
+% [SUBJ] = ADD_SUBJ_HISTORY(SUBJ,HIST_STR)
+%
+% Appends the hist_str to the subj.header
+
+
+if ~isfield(subj,'header')
+  subj.header.history=[];
+end
+if ~isfield(subj.header,'history')
+  subj.header.history=[];
+end
+
+subj.header.history{end+1}=hist_str;

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of compare_size</title>
+  <meta name="keywords" content="compare_size">
+  <meta name="description" content="Returns true if two matrices are the same size">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>compare_size
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Returns true if two matrices are the same size</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [issame] = compare_size(m1,m2) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Returns true if two matrices are the same size
+
+ [issame] = compare_size(m1,m2)
+
+ Checks that M1 and M2 have the same number of dimensions and each
+ dimension is the same size</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="get_masked_pattern.html" class="code" title="function [masked_pat] = get_masked_pattern(subj,patname,maskname)">get_masked_pattern</a>	Returns the pattern's voxels allowed by the mask</li><li><a href="perfmet_maxclass.html" class="code" title="function [perfmet] = perfmet_maxclass(acts,targs,args)">perfmet_maxclass</a>	This is the most basic performance metric.</li><li><a href="perfmet_template.html" class="code" title="function [perfmet] = perfmet_template(acts,targs,args)">perfmet_template</a>	This is the template perfmet function for creating your own</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [issame] = compare_size(m1,m2)</a>
+0002 
+0003 <span class="comment">% Returns true if two matrices are the same size</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% [issame] = compare_size(m1,m2)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Checks that M1 and M2 have the same number of dimensions and each</span>
+0008 <span class="comment">% dimension is the same size</span>
+0009 
+0010 
+0011 
+0012 issame = true;
+0013 
+0014 <span class="keyword">if</span> ndims(m1) ~= ndims(m2)
+0015   issame = false;
+0016   <span class="keyword">return</span>
+0017 <span class="keyword">end</span>
+0018 
+0019 <span class="keyword">if</span> ~all(size(m1)==size(m2))
+0020   issame = false;
+0021   <span class="keyword">return</span>
+0022 <span class="keyword">end</span>
+0023</pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

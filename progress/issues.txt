@@ -1,0 +1,156 @@
+*** low-priority
+add class_corr.m
+
+*** low-priority
+add unpacking functionality
+
+*** high-priority
+the str2funct calls should check that the function exists first
+maybe create a custom str2funct function that does all this???
+does str2funct return an error if the function doesn't exist???
+
+*** low-priority
+classifier cleanup function
+
+*** low-priority
+clean up propval.m so that it doesn't create and dismantle a cell
+array if you feed in a struct rather than cell array
+
+*** low-priority
+figure out a way to ensure that the user updates the condnames field
+when deleting conditions
+
+*** low-priority
+add two factor anova
+-
+*** low-priority
+zscore_runs should take in an actives selector - maybe???
+should create_runminusone_indices use a default allones actives???
+
+*** low-priority
+it would be fun to have some global properties in the subj, like
+'always move patterns above a certain size or index to the HD' which set_mat
+could check for
+hey, it could even do this by default if a certain number of objects
+have been created and it hasn't been used in ages (you could store the
+last_accessed variable in get_mat)
+allow users to move non-patterns to the HD???
+
+*** low-priority
+get rid of subj.x???
+replace with get_name(subj,'pattern','')???
+
+*** low-priority
+figure out a way to ensure that the user updates the condnames field
+when deleting conditions
+
+*** low-priority
+initset_object should init and set at the same time
+
+*** high-priority
+take in a function handle for the voxel selection and zscoring...???
+
+*** high-priority
+look at the pminusone anova intersections
+
+*** low-priority
+memory efficiency???
+       agreed to worry about this later. we're going to use the .mat
+       format for now, but in the future, we may move to a plaintext
+       format (like SPM/Analyze) that would allow random access
+       without having to load in the whole pattern set at once
+       we may also want to allow scripts like zscore and anova to have
+       special modes that delete the copy of the data being worked on
+       that exists in the caller workspace, though this is a bit risky
+       when we refactor anova and zscore to be reusable (by
+       abstracting out the main logic into a separate subfunction,
+       this will make this easier)
+
+*** low-priority
+can matlab sense that it's about to run out of memory and warn the
+user in time???
+
+*** low-priority
+create a big error checking function that checks all the fields that
+should be there are there in the whole subj
+this could serve as a kind of test that we could run at various points
+to see that all our functions are creating things the way they're
+supposed to
+in fact, we really need to think about assembling a set of test cases
+and test scripts. this is generally considered to be a very very good
+idea in software development
+we need to add lots of error-checking everywhere
+   i usually like to add an internal 'sanity_check' function to each
+   function i create that takes the arguments and checks them over
+
+*** low-priority
+  reinstitute weekly monday meetings???
+
+*** low-priority
+divide scripts into subdirectories???
+       e.g. accessors, pre-processing, classification, utility/helper
+       batch script to add path, like BNT???
+do this when we're doing quality control and script triage near release
+
+*** low-priority
+figure out how to do quality control
+       spot checks on different scripts???
+       implement lots of different experiments and see what comes
+       up???
+       ensure that we aren't directly accessing the subj structure in
+       our internal scripts - lead by example
+
+*** low-priority
+look at matlab object-oriented functionality???
+     maybe just get a sense of how much it's going to change and break
+     things if we decide to turn it into an object in a future version
+
+*** low-priority
+maybe add summarise functionality for individual objects,
+i thought it would be good to be able to trace the history of an
+object, e.g. to see that a particular pattern was created by
+intersecting this mask with this pattern, which was created 
+by an anova from this and this pattern blah blah
+trace = trace_xxx(subj,obj_name)
+      this would allow you to see how a particular object came to be
+     (i.e. it would trace back through the derived_froms and show you
+     what functions created what etc.)
+
+*** low-priority
+list of things to quality control
+     need to check that none of our scripts access the subj structure
+     directly
+     commenting conventions
+
+
+*** low-priority
+estimate time to completion for anova and zscore??? use tic/toc to
+figure out how long the first x00 voxels take, and guess how long it
+will take for x000, so that the user can go and get a cup of coffee
+
+
+*** low-priority
+what happens if you duplicate a pattern that has been moved to the
+hard disk???
+     for now, it should cause an error
+
+*** low-priority
+we should look at the memory mapping functionality, to see if there's
+a better way for us to implement the move/load HD stuff
+  could the current get/set HD transparency ever cause a weird problem
+  for the user???
+
+*** low-priority
+export and import for SPM
+
+*** low-priority
+how are we going to map from (e.g.) PCA components (each of which
+corresponds to multiple voxels) to the 3D voxel volume???
+
+*** low-priority
+talk about how the summarise object thing is going to trace the
+history of an object through its creation field
+
+
+*** low-priority
+get wasted when we're done

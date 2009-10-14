@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of create_thresh_mask</title>
+  <meta name="keywords" content="create_thresh_mask">
+  <meta name="description" content="Create a boolean mask by thresholding a statmap">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html . -->
+<h1>create_thresh_mask
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Create a boolean mask by thresholding a statmap</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Create a boolean mask by thresholding a statmap
+
+ SUBJ = CREATE_THRESH_MASK(SUBJ,MAP_PATNAME,NEW_MASKNAME,THRESH,VARARGIN)
+
+ Adds the following objects:
+ - mask object OR mask group (if PATGROUP == true)
+
+ Takes the MAP_PATNAME statmap pattern (or group of statmaps if PATGROUP
+ = true), and finds all the values that are less than (unless
+ GREATER_THAN == true) the THRESH criterion value. Creates a
+ boolean mask with 1s for the locations that meet the threshold criterion
+
+ GREATER_THAN (optional, default false) is a Greater Than/Less Than
+ Toggle. Default = false (less-than), set to TRUE for greater than
+
+ PATGROUP (optional, default false) - if true, will treat MAP_PATNAME as
+ a pattern group name, and will create a group of masks by
+ individually thresholding all the members of the pattern
+ group. Useful for trying multiple thresholds from NOPEEK_FEATURE_SELECT</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>	Makes it easier to add the object-creation data easier</li><li><a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>	Adds HIST_STR to OBJNAME's history field.</li><li><a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>	Duplicate an object</li><li><a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>	Returns a list of names of objects from this group</li><li><a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>	Returns the MAT field of the object</li><li><a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>	Retrieves a field from an object</li><li><a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>	This deals with property/value pairs of optional arguments.</li><li><a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>	Updates the MAT contents of an object</li><li><a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>	Replace or add a field to an object</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="feature_select.html" class="code" title="function [subj] = feature_select(subj,data_patname,regsname,selsgroup,varargin)">feature_select</a>	No-peeking feature selection</li><li><a href="peek_feature_select.html" class="code" title="function [subj] = peek_feature_select(subj,data_patname,regsname,selname,varargin)">peek_feature_select</a>	Just like NOPEEK_FEATURE_SELECT, except that it peeks</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [subj] = create_thresh_mask(subj,map_patname,new_maskname,thresh,varargin)</a>
+0002 
+0003 <span class="comment">% Create a boolean mask by thresholding a statmap</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% SUBJ = CREATE_THRESH_MASK(SUBJ,MAP_PATNAME,NEW_MASKNAME,THRESH,VARARGIN)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Adds the following objects:</span>
+0008 <span class="comment">% - mask object OR mask group (if PATGROUP == true)</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Takes the MAP_PATNAME statmap pattern (or group of statmaps if PATGROUP</span>
+0011 <span class="comment">% = true), and finds all the values that are less than (unless</span>
+0012 <span class="comment">% GREATER_THAN == true) the THRESH criterion value. Creates a</span>
+0013 <span class="comment">% boolean mask with 1s for the locations that meet the threshold criterion</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% GREATER_THAN (optional, default false) is a Greater Than/Less Than</span>
+0016 <span class="comment">% Toggle. Default = false (less-than), set to TRUE for greater than</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% PATGROUP (optional, default false) - if true, will treat MAP_PATNAME as</span>
+0019 <span class="comment">% a pattern group name, and will create a group of masks by</span>
+0020 <span class="comment">% individually thresholding all the members of the pattern</span>
+0021 <span class="comment">% group. Useful for trying multiple thresholds from NOPEEK_FEATURE_SELECT</span>
+0022 
+0023 
+0024 defaults.greater_than = false;
+0025 defaults.patgroup = false;
+0026 args = <a href="propval.html" class="code" title="function [combined_struct user_struct undefaulted_struct] = propval(user_propvals,defaults_struct)">propval</a>(varargin,defaults);
+0027 
+0028 <span class="keyword">if</span> ~isnumeric(thresh)
+0029   error(<span class="string">'Numerical value expected for threshold'</span>);
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="comment">% If PATGROUP = true, then instead of dealing with a single pattern</span>
+0033 <span class="comment">% called MAP_PATNAME, we're going to be working on multiple patterns,</span>
+0034 <span class="comment">% and creating multiple masks</span>
+0035 <span class="keyword">if</span> args.patgroup
+0036   map_patnames = <a href="find_group.html" class="code" title="function [matches] = find_group(subj,objtype,groupname)">find_group</a>(subj,<span class="string">'pattern'</span>,map_patname);
+0037   <span class="keyword">for</span> m=1:length(map_patnames)
+0038     masknames{m} = sprintf(<span class="string">'%s_%i'</span>,new_maskname,m);
+0039   <span class="keyword">end</span>
+0040   maskgroupname = new_maskname;
+0041   hist_objtype = <span class="string">'Mask group'</span>;
+0042 <span class="comment">% And if PATGROUP = false, then we're still going to use the same</span>
+0043 <span class="comment">% variables as above, but they're only going to contain one value</span>
+0044 <span class="comment">% each, and no groupname</span>
+0045 <span class="keyword">else</span>
+0046   map_patnames{1} = map_patname;
+0047   masknames{1} = new_maskname;
+0048   maskgroupname = <span class="string">''</span>;
+0049   hist_objtype = <span class="string">'Mask'</span>;
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="keyword">for</span> m=1:length(map_patnames)
+0053   cur_map_patname = map_patnames{m};
+0054   cur_maskname = masknames{m};
+0055   
+0056   pat = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'pattern'</span>,cur_map_patname);
+0057 
+0058   <span class="comment">% Get Pattern Number, Mask</span>
+0059   mask_for_pat = <a href="get_objfield.html" class="code" title="function [val] = get_objfield(subj,objtype,objname,fieldname)">get_objfield</a>(subj,<span class="string">'pattern'</span>,cur_map_patname,<span class="string">'masked_by'</span>);
+0060   oldmask = <a href="get_mat.html" class="code" title="function [mat] = get_mat(subj,objtype,objname)">get_mat</a>(subj,<span class="string">'mask'</span>,mask_for_pat);
+0061 
+0062   <span class="comment">% Create a new mask with new cur_maskname</span>
+0063   subj = <a href="duplicate_object.html" class="code" title="function [subj mat] = duplicate_object(subj,objtype,old_objname,new_objname,group_name)">duplicate_object</a>(subj,<span class="string">'mask'</span>,mask_for_pat,cur_maskname);
+0064 
+0065   <span class="comment">% Identify suprathreshold voxels</span>
+0066   <span class="comment">% MASKVEC is going to be a boolean vector</span>
+0067   maskvec = zeros(size(pat));
+0068   <span class="keyword">if</span> args.greater_than
+0069     maskvec(find(pat(:) &gt; thresh)) = 1;
+0070   <span class="keyword">else</span>
+0071     maskvec(find(pat(:) &lt; thresh)) = 1;
+0072   <span class="keyword">end</span>
+0073 
+0074   <span class="comment">% OLDMASK is a mask volume. We want NEWMAT to be in the same</span>
+0075   <span class="comment">% space</span>
+0076   newmat = zeros(size(oldmask));
+0077   
+0078   <span class="comment">% Mark 1s in the right places in the NEWMAT boolean volume for each</span>
+0079   <span class="comment">% of the suprathreshold voxels active in the boolean MASKVEC vector</span>
+0080   newmat(find(oldmask)) = maskvec;
+0081 
+0082   <span class="comment">% Save to the mask</span>
+0083   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'mask'</span>,cur_maskname,<span class="string">'thresh'</span>,thresh);
+0084   subj = <a href="set_objfield.html" class="code" title="function [subj] = set_objfield(subj,objtype,objname,fieldname,newval,varargin)">set_objfield</a>(subj,<span class="string">'mask'</span>,cur_maskname,<span class="string">'group_name'</span>,maskgroupname);
+0085   subj = <a href="set_mat.html" class="code" title="function [subj] = set_mat(subj,objtype,objname,newmat,varargin)">set_mat</a>(subj,<span class="string">'mask'</span>,cur_maskname,newmat);
+0086 
+0087   <span class="comment">% Update the header</span>
+0088   hist = sprintf(<span class="string">'%s, thresh=%.4f, nVox=%i, created by create_thresh_mask'</span>, <span class="keyword">...</span>
+0089        hist_objtype,thresh,length(find(maskvec)));
+0090   subj = <a href="add_history.html" class="code" title="function [subj] = add_history(subj,objtype,objname,hist_str,displayme)">add_history</a>(subj,<span class="string">'mask'</span>,cur_maskname,hist);
+0091 
+0092   created.function = <span class="string">'create_thresh_mask'</span>;
+0093   created.map_patname = cur_map_patname;
+0094   created.args = args;
+0095   subj = <a href="add_created.html" class="code" title="function [subj] = add_created(subj,objtype,objname,new_creat)">add_created</a>(subj,<span class="string">'mask'</span>,cur_maskname,created);
+0096   
+0097 <span class="keyword">end</span> <span class="comment">% for m</span>
+0098 
+0099 <span class="comment">% disp(hist)</span></pre></div>
+<hr><address>Generated on Wed 31-Aug-2005 15:27:57 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

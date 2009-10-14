@@ -1,0 +1,549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./setup_princeton_files/filelist.xml">
+<title>Princeton multi-voxel pattern analysis setup - internal</title>
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:18.0pt;
+	font-weight:bold;}
+h2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:13.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:2.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:24.1pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:72.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-next:Normal;
+	margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:96.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{mso-style-next:Normal;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent2, li.MsoBodyTextIndent2, div.MsoBodyTextIndent2
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent3, li.MsoBodyTextIndent3, div.MsoBodyTextIndent3
+	{margin-top:4.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:35.7pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:EN-US;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin-top:8.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	background:navy;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-parent:"Normal \(Web\)";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	border:none;
+	mso-border-alt:solid windowtext .25pt;
+	padding:0cm;
+	mso-padding-alt:6.0pt 3.0pt 6.0pt 3.0pt;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-GB link=blue vlink=blue style='tab-interval:36.0pt'>
+
+<div class=Section1>
+
+<h1><a name="_Toc111992856"></a><a name="_Princeton_multi-voxel_pattern"></a><span
+style='mso-bookmark:_Toc111992856'>Princeton multi-voxel pattern analysis
+manual</span></h1>
+
+<p class=MsoNormal align=right style='margin-top:2.0pt;mso-margin-bottom-alt:
+auto;text-align:right'><a href="http://www.csbmb.princeton.edu/mvpa">http://www.csbmb.princeton.edu/mvpa</a></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You happy few are the MVPA toolbox testing vanguard. Not many
+people in this world can say that. These instructions should help you get
+things set up so that you can try <i><a href="tutorial_easy.htm">tutorial_easy.htm</a></i>.
+If they are deficient in either glaring or squinty ways, please let <a
+href="mailto:gdetre@princeton.edu?subject=%5Bdistpat%5D">me</a> know, and I'll
+try and improve them. Thank you for your help.</p>
+
+<p class=MsoNormal>Greg</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>Downloading the scripts<o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Start by ssh'ing to an opus
+node. If you're trying to do this on a different computer, read the <a
+href="#_Other_operating_systems">Accessing the SVN from your workstation</a>
+section first.<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>You'll need to decide where
+you want to store the toolbox scripts. I suggest somewhere in your jukebox lab
+space. From now on, I will refer to <i>$scriptsdir </i>as a placeholder for
+this location. We're going to make this directory, change to it, and then check
+the scripts out from the SVN source code repository into it. Make sure you're
+in the directory where you want $scriptsdir to reside, e.g.
+/jukebox/yourlab/yourname/:<o:p></o:p></span></p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>svn checkout
+http://sun/repos/distpat/tags/0.5/mvpa/<o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>svn checkout
+http://sun/repos/distpat/tags/0.5/progress/<o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>svn checkout
+http://sun/repos/distpat/extern/afni_matlab<o:p></o:p></span></p>
+
+</div>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>[If you already have a copy
+of Ziad Saad's afni_matlab library, the second checkout is a bit unnecessary,
+but I recommend doing it anyway to ensure that you always have the most
+up-to-date version.]<o:p></o:p></span></p>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>Lots of files will stream
+past, and will now be stored in $scriptsdir/mvpa and $scriptsdir/afni_matlab.
+If this didn't happen, contact me.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>Data files<o:p></o:p></span></h2>
+
+<p><span lang=EN-US style='mso-ansi-language:EN-US'>You're also going to need
+to store a copy of the necessary data files. Let's call this $datadir. Make
+sure you're in the directory where you want $datadir to reside, then:<o:p></o:p></span></p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>mkdir $datadir<o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>cd $datadir<o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=Code><span lang=EN-US style='mso-ansi-language:EN-US'>cp
+/jukebox/norman/greg/fmri/tutorial_easy/* .<o:p></o:p></span></p>
+
+</div>
+
+<p class=MsoNormal><span lang=EN-US style='mso-ansi-language:EN-US'>Unfortunately,
+this is going to take c. 400MB, until we figure out a better solution.<o:p></o:p></span></p>
+
+<h2><span lang=EN-US style='mso-ansi-language:EN-US'>Paths</span></h2>
+
+<p>Now you need to set your paths, so that when you run matlab, it will know
+about the toolbox m-files.</p>
+
+<p>The simplest way is to run matlab and type:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>addpath $scriptsdir/mvpa</p>
+
+<p class=Code>addpath $scriptsdir/afni_matlab</p>
+
+</div>
+
+<p>But it will become tiresome to do that every time. One easy solution is
+create a <i>startup.m</i> that Matlab will run every time it opens, and add the
+'addpath' command to that. Here's how to do that:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>cd ~</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>mkdir matlab</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>echo &quot;addpath $scriptsdir/mvpa&quot; &gt;&gt; startup.m</p>
+
+<p class=Code><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=Code>echo &quot;addpath $scriptsdir/afni_matlab&quot; &gt;&gt;
+startup.m</p>
+
+</div>
+
+<p>This changes directory to your home directory. It creates a <i>matlab</i>
+directory there, and then creates a file called <i>startup.m</i>, with that pair
+of lines in it. If you already have a <i>~/matlab</i> directory, you obviously
+don't need to create one. If you'd rather avoid the unix voodoo, you can just
+fire up your favourite text editor (e.g. <i>Emacs</i> or <i>Xemacs</i>) and add
+the lines to <i>startup.m</i> yourself.</p>
+
+<p>[Note that this <i>~/matlab/startup.m</i> will run whenever you run Matlab.
+If you have an old version of the toolbox scripts that you'd rather have as
+your default path while we're testing things, then just create a special <i>startup.m</i>
+with these two 'addpath' statements in your $datadir directory. Matlab will
+only use the $datadir<i>/startup.m</i> when you open matlab in $datadir,
+otherwise it defaults back to the <i>~/matlab</i> one.]</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2><a name="_Other_operating_systems"></a><a name="_Accessing_the_SVN"></a>Accessing
+the SVN from your workstation</h2>
+
+<p>You'll need to download an SVN client that will make it easy to grab the
+latest version of the toolbox.</p>
+
+<p>Windows &#8211; <a href="http://tortoisesvn.tigris.org/">Tortoise SVN</a></p>
+
+<p style='margin-left:36.0pt'>we've had minor problems with the way that this
+deals with linebreaks, but otherwise it's a really nice interface</p>
+
+<p>Mac &#8211; <a href="http://metissian.com/projects/macosx/subversion">Metissian</a>
+(command-line only)</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>doesn't require fink or
+compiling from source and works fine on tiger, though it does require you to
+add /usr/local/bin/ to your PATH</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>to do that, add the following
+line to .cshrc in your home directory:</p>
+
+<p style='margin-top:4.0pt;margin-left:72.0pt'>setenv PATH
+&quot;/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin&quot;</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>then type:</p>
+
+<p style='margin-top:4.0pt;margin-left:72.0pt'>source .cshrc</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>in that window to make sure that
+the changes take immediate effect</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>OR</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'><a
+href="http://www.lachoseinteractive.net/">svnX</a> (GUI, but limited functionality)</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>OR</p>
+
+<p style='margin-top:4.0pt;margin-left:36.0pt'>talk to me if you have Fink and
+are willing to compile from source, and I'll send details about this</p>
+
+<p>Linux &#8211; <a href="http://summersoft.fay.ar.us/pub/subversion/latest/">http://summersoft.fay.ar.us/pub/subversion/latest/</a></p>
+
+<p>Or, you can head to the <a
+href="http://subversion.tigris.org/project_packages.html">SVN client page</a>
+for more information.</p>
+
+<p>Then, checkout the <span lang=EN-US style='mso-ansi-language:EN-US'>distpat/tags/0.5/
+</span>repositories as above and away you go. Note: you may have to use <i>sun.csbmb.princeton.edu</i>
+rather than just <i>sun</i> if you're not on opus.</p>
+
+<p>You'll also need to get access to jukebox to get the tutorial_easy data
+directory somehow, and the paths stuff will be different. Hopefully, everything
+else should still work.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Start your engines</h2>
+
+<p>Ok, we're ready to go. Change directory to $datadir, and run matlab. Test
+that all is well &#8211; you should see:</p>
+
+<div style='border:solid windowtext .25pt;padding:6.0pt 3.0pt 6.0pt 3.0pt'>
+
+<p class=Code>&gt;&gt; help tutorial_easy</p>
+
+<p class=Code>[SUBJ RESULTS] = TUTORIAL_EASY()</p>
+
+<p class=Code><span style="mso-spacerun: yes">&nbsp;</span></p>
+
+<p class=Code>This is the sample script for the Haxby et al. (Science, 2001)
+8-categories study. See the accompanying tutorial_easy.htm</p>
+
+</div>
+
+<p>Now, load up a web browser, then using File / Open file, open <i>$scriptsdir/mvpa/docs/tutorial_easy.htm</i></p>
+
+<p>One final thing &#8211; things are still in a state of a flux, but I'm going to
+try very hard to avoid any further substantial changes that you'd notice. In
+order to ensure that you have the latest version of everything at all times, I
+would ask that you update your version of the toolbox every time you start a
+session. To this, just change directory to <i>$scriptsdir/mvpa</i> and type:</p>
+
+<p style='margin-left:36.0pt'><i>svn update<o:p></o:p></i></p>
+
+<p class=MsoNormal>This definitely works on opus (but you'll have to <a
+href="#_Other_operating_systems">set up your own SVN client</a> to use it on
+your workstation). You should see some filenames stream past, if any have been
+changed since you last updated, and then a line like 'Updated to revision ###'.
+That means you're up-to-date.</p>
+
+<p class=MsoNormal>Note: doing an update will update all of your documentation,
+including this document (if it has changed).</p>
+
+<p>Good luck.</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h2>Things that aren't quite ready yet</h2>
+
+<p><i>class_bp_netlab.m<o:p></o:p></i></p>
+
+<p><i>scramble.m</i> &#8211; to scramble your regressors for reality-checking</p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+</div>
+
+<u1:p></u1:p><u1:p></u1:p>
+</body>
+
+</html>

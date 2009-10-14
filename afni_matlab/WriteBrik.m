@@ -42,19 +42,12 @@ function [err, ErrMessage, Info] = WriteBrik (M, Info, Opt)
 %                  + The field Info.IDCODE_DATE is set in WriteBrikHEAD
 %      
 %      .Slices: vector of slices, 1 based. Default is all slices.
-%               .Slices can also be used to write a 1D dataset one chunk
-%               at a time. For 1D files however, .Slices can only have 1 number.
-%               When .Slices == 1 the file is open in write 'w' mode and M is 
-%               written into a new file.
-%               When .Slices > 1 the file is open in append 'a' mode and M is 
-%               written into the end of the file.
 %      .Frames: vector of frames, 1 based. Default is all frames.
 %      If min(Slices)>1 or min(Frames)>1 then it assumes that the header 
 %      has already been written. 
 %      If Slices and Frames are not all slices and frames, then Scale 
 %      is set to 0 (no scaling).
-%      .OverWrite: if 'y' then overwrite existing dataset. 
-%                  Default is to not overwrite.
+%
 %Output Parameters:
 %   err : 0 No Problem
 %       : 1 Mucho Problems
@@ -64,7 +57,7 @@ function [err, ErrMessage, Info] = WriteBrik (M, Info, Opt)
 %Key Terms:
 %   
 %More Info :
-%   New_HEAD BrikInfo, BrikLoad, WriteBrikHEAD, HEAD_Rules, Info_1D
+%   BrikInfo, BrikLoad, WriteBrikHEAD, HEAD_Rules, Info_1D
 %     
 %     need a FormHEAD function to create a minimal Info structure for a data vector
 %
@@ -79,7 +72,7 @@ function [err, ErrMessage, Info] = WriteBrik (M, Info, Opt)
 %     Date : Fri Apr 6 16:03:02 PDT 2001, last modified Oct 01 04
 %     LBC/NIMH/ National Institutes of Health, Bethesda Maryland
 %
-%     Contact: saadz@mail.nih.gov
+%     Contact: ziad@nih.gov
 
 
 %Define the function name for easy referencing
@@ -100,31 +93,16 @@ if (nargin < 3),
 end
 
 %first check on Prefix
-if (isfield(Opt,'prefix')), Opt.Prefix = Opt.prefix; end %comes from New_HEAD
-if (isfield(Opt,'scale')), Opt.Scale =  Opt.scale; end %comes from New_HEAD
-if (isfield(Opt,'overwrite')), Opt.OverWrite =  Opt.overwrite; end 
 if (~isfield(Opt, 'Prefix') | isempty (Opt.Prefix)), 
    err = 1; 
    ErrMessage = sprintf('Error %s: You must specify Opt.Prefix.', FuncName);  
    errordlg(ErrMessage); return;
 end
-
-%check on overwrite flag
-if (isfield(Opt,'OverWrite') & Opt.OverWrite == 'y'),
-   OverW = 1;
-else
-   OverW = 0;
-end
-
 %set format if not present
-if (~isempty(Info) & ~isstruct(Info)),
-   err = 1; 
-   ErrMessage = sprintf('Error %s: Info must be a struct. Check your arguments.', FuncName);  
-   errordlg(ErrMessage); return;
-end
-if (~isempty(Info) & ( ~isfield(Info,'FileFormat') | isempty(Info.FileFormat)  ) ),
+if (~isfield(Info,'FileFormat') | isempty(Info.FileFormat)),
 	Info.FileFormat = 'BRIK';
 end
+    
 %is this a 1D file ?
 is1D = 0;
 if (isempty(Info) & size(M,4) == 1 & size(M,3) == 1),
@@ -140,19 +118,9 @@ end
 
 
 if (is1D),
-   if (isempty(Info)), [err,Info] = Info_1D(M); end
-   if (OverW == 0) Opt1D.OverWrite = 'n'; % default mode
-   else Opt1D.OverWrite = 'y';
-   end 
-   if (isfield(Opt,'Slices') & ~isempty(Opt.Slices)), 
-      if (length(Opt.Slices) ~= 1),
-         err = 1; 
-         ErrMessage = sprintf('Error %s: .Slices can only have one value for 1D files', FuncName);  
-         errordlg(ErrMessage); return;
-      end
-      if (Opt.Slices > 1) Opt1D.OverWrite = 'a'; end
-   end
+   if (isempty(Info)), Info = Info_1D(M); end
    Opt1D.Space = 't';
+   Opt1D.OverWrite = 'n';
    Opt1D.Fast = 'y';
    Opt1D.verbose = 0;
    [Name, Ext] = Remove1DExtension(Opt.Prefix);
@@ -165,11 +133,7 @@ if (is1D),
    end
    FullName = sprintf('%s%s', Name, Ext);
    [err, UsedName] = wryte3(M, FullName, Opt1D);
-	
-	if (isempty(Ext) == 1),
-	   Ext = '.1D.dset';		
-	end		
-	
+   Info = Info_1D(M); 
    Info.Extension_1D = sprintf('%s', Ext); 
    Info.RootName = sprintf('%s', Name);
    return;
@@ -181,43 +145,22 @@ end
 
    if (Opt.verbose), fprintf(1,'%s verbose: Checking input data ...', FuncName); end
    if (~isfield(Opt, 'Scale') | isempty (Opt.Scale)), Opt.Scale = 0; end
-   if (isfield(Opt,'view')) Opt.View = Opt.view; end  %comes from New_HEAD
-   if (~isfield(Opt, 'View') | isempty(Opt.View)), Opt.View = ''; end
-   
-   %Make sure prefix is clear of view
-      [Opt.Prefix, uv, ue]  = AfniPrefix(Opt.Prefix);
-      if (~isempty(uv)),
-         if (~isempty(Opt.View)),
-            %check for inconsistency, warn user
-            if (~strcmp(uv, Opt.View)),
-               wrn = sprintf('\nWarning %s:\n You have specified a view in your prefix (%s)\nthat is different from Opt.View (%s)\nOpt.View take precedence.\n', ...
-                  FuncName,uv, Opt.View);
-               warndlg(wrn);
-               fprintf(2,'%s', wrn);
-            end
-         else
-            Opt.View = uv;
-            fprintf(2,'\nNote %s:\n Adopting view (%s) from supplied prefix \n', FuncName, Opt.View);
-         end
-      end
-      if (isempty(Opt.View)), Opt.View = '+orig'; end
+   if (~isfield(Opt, 'View') | isempty(Opt.View)), Opt.View = 'orig'; end
    if (~isempty(findstr('orig', lower(Opt.View)))),
-      Opt.View = '+orig';
+      Opt.Views = '+orig';
    elseif (~isempty(findstr('acpc', lower(Opt.View)))),
-      Opt.View = '+acpc';
+      Opt.Views = '+acpc';
    elseif (~isempty(findstr('tlrc', lower(Opt.View)))),
-      Opt.View = '+tlrc';
+      Opt.Views = '+tlrc';
    else
       err = 1; ErrMessage = sprintf('Error %s: Bad value (%s) for Opt.View', FuncName, Opt.View); errordlg(ErrMessage); return;
    end
    if (~isfield(Opt, 'AppendHistory') | isempty (Opt.AppendHistory)), Opt.AppendHistory = 1; end
 
-
-
 %form the flename based on the stuff in Opt.Prefix, just use the option
-   Fname = sprintf('%s%s', Opt.Prefix, Opt.View);
-   FnameHEAD = sprintf('%s%s.HEAD', Opt.Prefix, Opt.View);
-   FnameBRIK = sprintf('%s%s.BRIK', Opt.Prefix, Opt.View);
+   Fname = sprintf('%s%s', Opt.Prefix, Opt.Views);
+   FnameHEAD = sprintf('%s%s.HEAD', Opt.Prefix, Opt.Views);
+   FnameBRIK = sprintf('%s%s.BRIK', Opt.Prefix, Opt.Views);
 
 % This check is done later on before we write Slice 1 Frame 1 (see below)
    %if (exist(FnameHEAD) == 2 | exist(FnameBRIK) == 2),
@@ -231,8 +174,6 @@ end
    nd = ndims(M);
    
    % unsqueeze the array sizes (Keith's addition to fix writing time series, one slice at a time. Oct 01 04 )  
-   if  (~isfield(Opt,'Slices')),  Opt.Slices = [];  end
-   if  (~isfield(Opt,'Frames')),  Opt.Frames = [];  end
    if nd==3 & length(Opt.Slices)==1 & length(Opt.Frames)>1
       N=[N(1) N(2) 1 N(3)];
    end
@@ -357,7 +298,6 @@ end
 isallframes=all(ismember(allframes,Opt.Frames));
 
 Info.BRICK_FLOAT_FACS = zeros(1,Info.DATASET_RANK(2));
-
 if (Opt.Scale & isallslices & isallframes),
       if (Opt.verbose), fprintf(1,'Scaling ...'); end
       NperBrik = Info.DATASET_DIMENSIONS(1) .* Info.DATASET_DIMENSIONS(2) .* Info.DATASET_DIMENSIONS(3);
@@ -383,8 +323,8 @@ numframes=length(Opt.Frames);
 
 %open file for writing based on the type specified in Info
 if Opt.Slices(1)==1 & Opt.Frames(1)==1
-   if (OverW == 0 & (filexist(FnameHEAD) | filexist(FnameBRIK))),
-      err = 1; ErrMessage = sprintf('Error %s: Output data set %s exists.\n', FuncName, Fname); errordlg(ErrMessage); return;
+   if (exist(FnameHEAD) == 2 | exist(FnameBRIK) == 2),
+      err = 1; ErrMessage = sprintf('Error %s: Output data set %s exists.', FuncName, Fname); errordlg(ErrMessage); return;
    end
    [fid, mess] = fopen (FnameBRIK, 'w', ByteOrder);
    if (fid < 0), 
@@ -398,7 +338,7 @@ if Opt.Slices(1)==1 & Opt.Frames(1)==1
 else
    [fid, mess] = fopen (FnameBRIK, 'r+', ByteOrder);
    if (fid < 0), 
-      err = 1; ErrMessage = sprintf('Error %s: Could not open %s for re-writing \n(%s)', FuncName, FnameBRIK, mess); errordlg(ErrMessage); return;
+     err = 1; ErrMessage = sprintf('Error %s: Could not open %s for re-writing \n(%s)', FuncName, FnameBRIK, mess); errordlg(ErrMessage); return;
    end
 end
 
@@ -428,7 +368,8 @@ else
 end
 
 if (cnt ~= prod(size(M))), 
-   err = 1; ErrMessage = sprintf('Error %s: Could not write all %d values to %s\n. Deleting %s ...', FuncName, FnameBRIK, prod(size(M)), FnameBRIK); errordlg(ErrMessage); 
+   err = 1; ErrMessage = sprintf('Error %s: Could not write all %d values to %s\n. Deleting %s ...', ...
+				 FuncName, prod(size(M)), FnameBRIK, FnameBRIK); errordlg(ErrMessage); 
    fclose (fid);
    if (filexist(FnameBRIK) == 2),
       delete(FnameBRIK);
