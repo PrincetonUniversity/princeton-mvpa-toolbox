@@ -1,0 +1,67 @@
+Filename			Commented/cleaned		Mlinted			Tested
+
+Notes
+-				
+add_history.m			y
+add_results_history.m		y
+change_groupname.m		y
+check_1ofn_regressors		y
+class_bp.m			y
+compare_size.m			y
+convert_pattern_to_4d.m
+create_args_list.m		y
+create_pattern_from_mask.m	y
+create_runminusone_indices.m	y
+create_thresh_mask.m		y
+cross_validation.m		y
+datetime.m			y
+dfeault_structure_args.m	y
+display_history.m		y
+display_results_history.m	y
+duplicate_object.m		y
+exist_field.m			y
+exist_subfield.m		y
+export_to_afni.m
+find_group.m			y
+find_obj.m			y
+get_objfield.m			y
+get_masked_pattern.m
+get_mat.m			y
+get_name.m			y
+get_number.m			y
+get_object.m			y
+get_subfield.m			y
+get_ref_vol.m			y
+get_type.m			y
+get_typeslist.m			y
+init_object.m			y
+init_subj.m			y
+load_AFNI_mask.m		y
+load_AFNI_pattern.m		y
+load_pattern_from_hd.m		y
+move_pattern_to_hd.m		y
+nopeek_multi_anova.m		y
+paint_vol.m			y
+peek_anova.m			y
+perfmet_maxclass.m		y
+propval.m			y
+remove_field.m			y
+remove_group.m			y
+remove_mat.m			y
+remove_object.m			y
+remove_subfield.m		y
+save_subj.m			y
+set_field.m			y
+set_mat.m			y
+set_object.m			y
+set_subfield.m			y
+set_type.m			y
+statmap_anova.m			y
+summarize.m			y
+tutorial_easy.m			y
+zscore_runs.m			y
+
+
+
+
+
