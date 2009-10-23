@@ -3,3 +3,4 @@
  * [Setup Toolbox Setup]
   * [Setup#Before_you_begin Before You Begin]
   * [Setup#Installation Installation]
+ * [ManualIndex Manual]
