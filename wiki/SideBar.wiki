@@ -1,5 +1,5 @@
 * [Main Welcome Page]
  * [Introduction MVPA Introduction]
 * [Setup Toolbox Setup]
- * [Setup#Prereqs Before You Begin]
+ * [Setup#'Before you begin' Before You Begin]
  * [Setup#Installation Installation]
