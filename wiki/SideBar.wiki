@@ -1,2 +1,5 @@
-* [Main Wiki Main Page]
+* [Main Welcome Page]
  * [Introduction MVPA Introduction]
+* [Setup Toolbox Setup]
+ * [Setup#Prereqs Before You Begin]
+ * [Setup#Installation Installation]
