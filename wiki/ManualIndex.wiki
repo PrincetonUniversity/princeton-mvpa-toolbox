@@ -25,7 +25,7 @@ See [#_subj subj structure] for more details.
 
 ==== 1. Patterns ====
 
-[[Anchor(_patterns)]] (''features'' by ''timepoints'') or (''features'' by ''1'')
+
 
 This is where the data from the scanner gets stored, which could take many forms. It might start as raw voxel values, in which case the dimensions would be voxels by timepoints. However, it can also be used to store beta weights, wavelet coefficients, PCA components etc.
 
@@ -37,8 +37,6 @@ Statmaps and beta weights from GLMs and other statistical procedures are also st
 
 
 ==== 2. Regressors ====
-
-[[Anchor(_regressors)]] (''conditions'' by ''timepoints'')
 
 For our purposes, the term 'regressors' refers to a set of
 values for each timepoint that denote the extent to which
@@ -85,8 +83,6 @@ In this simple example, there is just a single '1' on each row signalling one ac
 
 ==== 3. Selectors ====
 
-[[Anchor(_selectors)]] (''1'' by ''timepoints'')
-
 Think of the ''selectors'' row-vector as labelling each
 timepoint with a tag or type of some kind. Selector values
 must be positive integers.
@@ -97,8 +93,6 @@ vs 'run3' vs 'run4' etc.
 
 
 ==== 4. Masks ====
-
-[[Anchor(_masks)]] (''x'' by ''y'' by z)
 
 A ''mask ''is usually a single boolean 3D matrix the size of
 the original brain volume with ones showing where voxels
@@ -151,9 +145,7 @@ indexing into matrices with the same number of columns.
 
 ==== The innards of the ''subj'' structure ====
 
-[[Anchor(_subj)]] All of the data types discussed above are
-stored as cell arrays in the main ''subj'' structure. Each
-''subj'' variable is a Matlab struct containing everything
+All of the data types discussed above are stored as cell arrays in the main ''subj'' structure. Each ''subj'' variable is a Matlab struct containing everything
 that relates to a single subject (up to the point of
 classification). A sample ''subj'' might look like this, if
 displayed from the Matlab terminal:
@@ -447,7 +439,7 @@ If you have lots of groups, each containing lots of objects, then the output fro
 
 ==== Book-keeping and the headers ====
 
-[[Anchor(_Book-keeping_and_the)]] Every object (including the ''subj ''structure itself) has a ''header'' field. This is there to store information about how that object was created, and what processing has been done to it. All headers contain at least these fields:
+Every object (including the ''subj ''structure itself) has a ''header'' field. This is there to store information about how that object was created, and what processing has been done to it. All headers contain at least these fields:
 
 ''description'' ' an optional field that can be used to store a high-level sentence or two about what the object is for
 
@@ -500,7 +492,7 @@ See also: [#_Exporting exporting]
 
 ==== From AFNI ====
 
-[[Anchor(_From_AFNI)]] See [load_afni_pattern.html ''load_afni_pattern.m''] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_mask.html ''load_afni_mask.m''], which rely on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library.
+See [load_afni_pattern.html ''load_afni_pattern.m''] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_mask.html ''load_afni_mask.m''], which rely on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library.
 
 In short, the above scripts create a pattern or mask object and fill it with the contents of a BRIK file (or multiple BRIKs for patterns). They save the header information in the object's header field. Then, you're ready to go.
 
@@ -567,7 +559,7 @@ We are actively investigating alternative voxel selection methods. We would reco
 
 ==== Statmaps ====
 
-[[Anchor(_statmaps)]] By statmap, we mean the result of some kind of statistical test, usually performed separately for each voxel. For instance, the ANOVA yields a statmap of F (or p) values, one for each voxel. Each p value denotes the probability that that voxel varies significantly between conditions.
+By statmap, we mean the result of some kind of statistical test, usually performed separately for each voxel. For instance, the ANOVA yields a statmap of F (or p) values, one for each voxel. Each p value denotes the probability that that voxel varies significantly between conditions.
 
 Statmaps are stored as patterns (''nActiveVox'' x ''1''). We considered storing statmaps as mask objects, but we decided that the term 'mask' is usually used to refer to a boolean 3D volume, and so it would be confusing to store a continuous values in an object called 'mask'.
 
@@ -609,7 +601,7 @@ If you think these restrictions are too strict and don't fit with a statmap func
 
 ==== Peeking ====
 
-[[Anchor(_Peeking)]] Peeking is when you use your testing data set to help with voxel selection. Basically, this is a kind of cheating, and spuriously/illegitimately improves your classification by some margin.
+Peeking is when you use your testing data set to help with voxel selection. Basically, this is a kind of cheating, and spuriously/illegitimately improves your classification by some margin.
 
 The toolbox makes it easy to avoid peeking. Run ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_xvalid_indices.html create_xvalid_indices.m]'' to create a group of ''selectors'', one for each iteration of your n-minus-one cross-validation. Then call ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/feature_select.html feature_select.m]'', which in turn calls ''statmap_anova.m'' (or any other voxel selection method) multiple times, once per iteration, using a different subset of the ''pattern'' data each time. This will yield a group of ''masks'', the same size as the group of ''selectors'', which can then be used to restrict which voxels get fed to the classifier separately for each iteration of the n-minus-one.
 
@@ -764,7 +756,7 @@ Finally, it is worth noting that ''results.total_perf'' stores the mean of all t
 
 ==== Avoiding spurious classification ====
 
-[[Anchor(_Avoiding_spurious_classification)]] There are various ways in which one can fool oneself into thinking that above-chance classification means something.
+There are various ways in which one can fool oneself into thinking that above-chance classification means something.
 
 For instance, if you're peeking (feeding your entire data set, including your test data, into your voxel selection method), then it's possible to classify complete nonsense better than chance (see [#_Peeking Peeking]).
 
@@ -808,7 +800,7 @@ By convention, the order of the arguments used in toolbox function is intended t
 
 ==== Managing memory ====
 
-[[Anchor(_Managing_memory)]]The toolbox has a packrat mentality ' it hoards every version of the data that it processes. For instance, it keeps separate ''patterns'' for before and after zscoring with ''zscore_runs.m''. This makes sense, because it makes it easy to take a step back in the analysis path and re-run things with slightly different parameters. However, it can eventually clog up your RAM, especially with large patterns.
+The toolbox has a packrat mentality ' it hoards every version of the data that it processes. For instance, it keeps separate ''patterns'' for before and after zscoring with ''zscore_runs.m''. This makes sense, because it makes it easy to take a step back in the analysis path and re-run things with slightly different parameters. However, it can eventually clog up your RAM, especially with large patterns.
 
 For this reason, if you know that you plan to apply a mask to your data (e.g. to exclude voxels from outside the cranium), then use that mask as the argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_pattern.html ''load_afni_pattern.m''] when loading in the data in the first place. Unfortunately, the core ''BrikLoad.m'' function loads in the entire volume first and then applies the mask, but if you're loading in separate runs at a time, then this shouldn't be a huge problem.
 
@@ -834,7 +826,7 @@ Finally, don't forget that you can [#_Moving_patterns_to store your patterns on 
 
 ==== Moving patterns to the hard disk ====
 
-[[Anchor(#_Moving_patterns_to)]] The [http://www.csbmb.princeton.edu/mvpa/docs/m2html/move_pattern_to_hd.html ''move_pattern_to_hd.m''] and its companion, [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_pattern_from_hd.html ''load_pattern_from_hd.m''] are designed to free up RAM without throwing away information. They allow you to move the matrix contents of a particular object out to a file, while allowing you to access that data using the standard ''get/set_object'' scripts entirely transparently. This is one of the side-advantages of using the accessor scripts as a layer of abstraction between the toolbox's data structures and you, the user.
+The [http://www.csbmb.princeton.edu/mvpa/docs/m2html/move_pattern_to_hd.html ''move_pattern_to_hd.m''] and its companion, [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_pattern_from_hd.html ''load_pattern_from_hd.m''] are designed to free up RAM without throwing away information. They allow you to move the matrix contents of a particular object out to a file, while allowing you to access that data using the standard ''get/set_object'' scripts entirely transparently. This is one of the side-advantages of using the accessor scripts as a layer of abstraction between the toolbox's data structures and you, the user.
 
 If you're having trouble with memory, we recommend that you choose a couple of large pattern objects that you're not using and use ''move_pattern_to_hd.m'' on them to free up RAM. Of course, access times for data stored on the hard disk are much, much slower than for data stored in RAM. For this reason, the data can be moved back into RAM (removing any traces from the hard disk) with ''load_pattern_from_hd.m''.
 
@@ -847,7 +839,7 @@ See [tutorial_hard.htm ''tutorial_hard'']'' / Moving patterns to the HD for a wa
 
 ==== Removing objects ====
 
-[[Anchor(_Removing_objects)]]There are two ways in which you can remove objects:
+There are two ways in which you can remove objects:
 
  1. [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_mat.html ''Remove_mat.m''] will set the object's ''mat'' to empty. Since this is where each object's main matrix is stored, this is probably taking up most of the room occupied by the object. This is usually sufficient, and has the advantage that it leaves the surrounding ''name'' and ''header ''information intact, in case other objects want to reference it, and doesn't renumber the cells.
  1. If you really want to, you can remove the entire cell for the object, by passing in 'erase' as the optional argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_object.html ''remove_object.m''].
@@ -966,7 +958,7 @@ To reduce this down by one step, it's worth noting that the [http://www.csbmb.pr
 
 ==== Creating custom functions ====
 
-[[Anchor(_Creating_your_own)]] It is very easy to override the toolbox's default functions with your own custom-created function that the main toolbox control functions can call when appropriate. For instance, if you don't want to use the default backpropagation classifier, or the default ANOVA statmap generator, you can drop your own functions in instead, and the toolbox's no-peeking cross-validation control functions will use your custom functions instead at the appropriate times.
+It is very easy to override the toolbox's default functions with your own custom-created function that the main toolbox control functions can call when appropriate. For instance, if you don't want to use the default backpropagation classifier, or the default ANOVA statmap generator, you can drop your own functions in instead, and the toolbox's no-peeking cross-validation control functions will use your custom functions instead at the appropriate times.
 
 At the moment, there are various places where you can substitute your own functions ' click on the links in the [#_Places_that_can list] below to skip to the section where the specific details for each are described.
 
