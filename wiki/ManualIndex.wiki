@@ -1,21 +1,19 @@
-[[Include(MVPA)]]
-
 = Princeton multi-voxel pattern analysis manual =
 
 ----
 
-'''Table of Contents:'''
+== Table of Contents: ==
 <wiki:toc>
 
 ----
 
-[[Include(ContactDetails)]]
+[ContactDetails Contact Details]
 
 If you're new to this site, you will probably want to check
 out [:Setup] for installation instructions, then [:Tutorials] to
 get started, and finally [:Manual] for more detailed coverage.
 
-[[Include(WhatIsTheToolbox)]]
+[WhatIsTheToolbox General Toolbox Details]
 
 
 === Data structures ===
