@@ -1,0 +1,27 @@
+== Tutorials ==
+[:TutorialIntro:Introductory] - Essential reading.  This will give you a basic introduction to the way MVPA works, and what you can do with it. Many of the other tutorials build on the SUBJ structure that this tutorial builds.
+
+ * [:TutorialIntroSPM:SPM based Intro] - The same tutorial as above except handling spm files instead of afni briks.
+
+[:TutorialAdv:Advanced] - A series of short guides showing in-depth how to do several common tasks. Definitely worth reading.
+
+[:TutorialAvg:Averaging] - A brief tutorial on how to average timepoints together.
+
+[:TutorialAfniGlm:Using AFNI's GLM (3dDeconvolve) for voxel selection]. This talks you through n-1 feature selection using AFNI's general linear model, all being controlled by the MVPA toolbox from within Matlab.
+
+[:TutorialClass:Classification-related tips and tricks].
+
+ * [:TutorialImportanceMaps:Creating 'importance maps' based on classifier weights]
+
+ * [:TutorialSpheres:Spherical searchlights] for voxel selection and brain maps.
+ 
+ * [:TutorialBoosting:Using AdaBoost for classification]
+
+[:TutorialEBC:EBC tutorial] - For those who participated in the [http://www.ebc.pitt.edu EBC competition] or want another dataset to work with.  This will guide you through using the [:ExpansionEBC:EBC Expansion] to the MVPA Toolbox.
+
+[:TutorialVisualization:Visualizing your data] in various ways.
+
+[:TutorialUnitTesting:Writing unit tests for MVPA functions]
+
+----
+ CategoryMain
