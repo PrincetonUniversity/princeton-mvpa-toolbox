@@ -1,14 +1,6 @@
-#format wiki
-#language en
-#pragma section-numbers off
-##acl MoinPagesEditorGroup:read,write,delete,revert All:read
-##master-page:HelpTemplate
-##master-date:Unknown-Date
-
-
 = Advanced tutorial =
 
-[[TableOfContents]]
+<wiki:toc>
 
 -----
 
@@ -21,7 +13,7 @@ If you've done that, then you're probably looking for something else to get your
 
 As before, this will rely on the AFNI dataset from Haxby et al (Science, 2001) that is provided with the toolbox.
 
-For further information, see the main documentation in the ["Manual"], or ["Glossary"] for unfamiliar terms.
+For further information, see the main documentation in the [Manual], or [Glossary] for unfamiliar terms.
 
 
 == What you will need to start with ==
@@ -92,16 +84,17 @@ Masks - [ X x Y x Z ] [ nVox]
 
 11) epi_z_thresh0.05_10 - [GRP size 10] [ 64 x 64 x 40] [ 574]
 
-12) wholebrain - [ 64 x 64 x 40] [43193] }}}
+12) wholebrain - [ 64 x 64 x 40] [43193] 
+}}}
 
 Notice that we've used an optional argument in our call to SUMMARIZE.M, instructing it to show us only mask objects. The final object is called 'wholebrain', and contains 43193 voxels. This will be the mask that we'll use from now on.
 
-See ["Manual"] / Howtos / Masks / Creating a wholebrain (intra-cranial) mask.
+See [Manual] / Howtos / Masks / Creating a wholebrain (intra-cranial) mask.
 
 
 == Taking the haemodynamic lag into account ==
 
-In ''["Manual"] / Howtos / Regressors / How can I take the haemodynamic lag into account'', two methods are described:
+In ''[Manual] / Howtos / Regressors / How can I take the haemodynamic lag into account'', two methods are described:
 
 1. shifting the regressors along by a few timepoints ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/shift_regressors.html ''shift_regressors.m''])
 
@@ -141,7 +134,8 @@ ans =
 
 ans =
 
-1 1 }}}
+1 1 
+}}}
 
 This created a new regressors object called 'conds_shifted3'. As can be seen from comparing the first 10 timepoints of the 'conds' and 'conds_shifted3' matrix, the new regressors matrix has been shifted 3 TRs along in time relative to the data. If you want to better visualize this, especially how it deals with each run separately, use ''imagesc'':
 
@@ -154,7 +148,8 @@ This created a new regressors object called 'conds_shifted3'. As can be seen fro
 
 >> subplot(2,1,2)
 
->> imagesc(conds_shifted3(:,1:150)) }}}
+>> imagesc(conds_shifted3(:,1:150)) 
+}}}
 
 See ["Manual"] / Regressors / How can I shift my regressors along for more information about what's going on.
 
@@ -258,7 +253,8 @@ Let's just inspect the 'conds_conv_norest' selector that was created:
 
 >> conds_conv_norest
 
-... }}}
+... 
+}}}
 
 The 'conds_conv_norest' selector has a 1 for timepoints that have an active condition, and a 0 for rest timepoints (where no condition is at all active. This is a pretty simplistic way of treating things, since timepoints in the model with even just a tiny amount of activity in one of the conditions will be considered 'active'. You might want to create your own 'actives' selector by thresholding the convolved regressors some other way, but that's up to you.
 
@@ -267,7 +263,8 @@ Then, when creating the group selectors that will get used for each iteration of
 {{{
 >> subj = create_xvalid_indices(subj,'runs', ... 
                'actives_selname','conds_conv_norest', ...
-               'new_selstem','runs_norest_xval'); }}}
+               'new_selstem','runs_norest_xval'); 
+}}}
 
 ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/subj/create_xvalid_indices.html Create_xvalid_indices.m]'' will run as normal, withholding a different run each iteration for testing. However, on top of this, all of the zero timepoints in 'conds_conv_norest' (i.e. the rest timepoints) will be excluded entirely from the analysis. That is, they will not be used for training or testing. In effect, they won't exist as far as ''feature_select.m'' or ''cross_validation.m'' are concerned.
 
@@ -297,7 +294,8 @@ Patterns - [ nVox x nTRs]
 
 2) epi_z - [ 577 x 1210]
 
-3-12) epi_z_statmap * [GRP size 10] [ 577 x 1] }}}
+3-12) epi_z_statmap * [GRP size 10] [ 577 x 1] 
+}}}
 
 Look at the end of the line describing the first pattern, 'epi'. It now has a '[HD]' tag, showing that the pattern is being stored on the HD. We can inspect the 'epi' pattern object itself to confirm this:
 
@@ -324,7 +322,8 @@ masked_by: 'VT_category-selective'
 
 last_modified: '051126_1737_00'
 
-movehd: [1x1 struct] }}}
+movehd: [1x1 struct] 
+}}}
 
 You can see that the 'mat' field is now empty. But there's a new 'movehd' field:
 
@@ -335,7 +334,8 @@ ans =
 
 first_saved: '051126_1736_59'
 
-pathfilename: 'haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59' }}}
+pathfilename: 'haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59' 
+}}}
 
 This tells us that the matrix is stored in a file called 'haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59.mat'. [Since this filename includes the date and time, the filename will be different for you]. Sure enough:
 
@@ -344,7 +344,8 @@ This tells us that the matrix is stored in a file called 'haxby8_tutorial_subj_0
 
 . epi_051126_1736_59.mat
 
-.. }}}
+.. 
+}}}
 
 Even though the 'epi' pattern is stored on the HD, it is still accessible by the normal means:
 
@@ -373,7 +374,8 @@ Columns 1 through 6
 
 1693 1696 1695 1690 1696 1687
 
-etc. etc. etc. }}}
+etc. etc. etc. 
+}}}
 
 If you're lazy, or RAM is tight, you can tell the toolbox to just store all the current patterns to files on the hard disk.
 
@@ -388,7 +390,8 @@ If you do decide that you want to store a pattern back in RAM, then you can reve
 
 Loading in haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59.mat - 1098844 bytes
 
-Loaded pattern epi from harddisk as haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59.mat }}}
+Loaded pattern epi from harddisk as haxby8_tutorial_subj_050831_1657_37/epi_051126_1736_59.mat 
+}}}
 
 The short story is that moving all your patterns to be stored on the HD will mean that the 'subj' structure takes up less RAM, and becomes more of a coat-hanger on which to hang all your data. However, the downside is that there's an overhead in loading and saving the patterns to the HD each time they're accessed.
 
