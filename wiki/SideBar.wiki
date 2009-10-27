@@ -5,5 +5,5 @@
   * [Setup#Installation Installation]
  * [Tutorials Tutorials]
   * [TutorialIntro Intro Tutorial]
-   * [TutorialIntorSPM SPM based Intro]
+   * [TutorialIntroSPM SPM based Intro]
  * [ManualIndex Manual]
