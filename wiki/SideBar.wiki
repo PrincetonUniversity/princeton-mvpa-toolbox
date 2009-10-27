@@ -6,4 +6,5 @@
  * [Tutorials Tutorials]
   * [TutorialIntro Intro Tutorial]
    * [TutorialIntroSPM SPM based Intro]
+  * [TutorialAdv Advanced Tutorial]
  * [Manual Manual]
