@@ -6,4 +6,4 @@
  * [Tutorials Tutorials]
   * [TutorialIntro Intro Tutorial]
    * [TutorialIntroSPM SPM based Intro]
- * [ManualIndex Manual]
+ * [Manual Manual]
