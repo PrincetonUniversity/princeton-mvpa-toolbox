@@ -1,0 +1,1061 @@
+= Princeton multi-voxel pattern analysis manual =
+
+----
+
+== Table of Contents: ==
+<wiki:toc>
+
+----
+
+[ContactDetails Contact Details]
+
+If you're new to this site, you will probably want to check
+out [:Setup] for installation instructions, then [:Tutorials] to
+get started, and finally [:Manual] for more detailed coverage.
+
+[WhatIsTheToolbox General Toolbox Details]
+
+
+=== Data structures ===
+
+All the basic information we use for classification is contained in a single ''subj'' structure - one per subject. The ''subj'' structure itself is really just four cell arrays, each containing multiple objects. An object can be one of four main data types [#_patterns patterns], [#_regressors regressors], [#_selectors selectors] and [#_masks masks]. Each object is stored as a single cell in one of the 4 ''subj'' cell arrays. For instance, a single regressors object is a cell in subj.regressors{}.
+
+See [#_subj subj structure] for more details.
+
+
+==== 1. Patterns ====
+
+
+
+This is where the data from the scanner gets stored, which could take many forms. It might start as raw voxel values, in which case the dimensions would be voxels by timepoints. However, it can also be used to store beta weights, wavelet coefficients, PCA components etc.
+
+Later, the ''patterns'' will be used to generate the training data (which the classifier learns from) and testing data (which it's tested on).
+
+There is no information about where in the brain a particular voxel/feature is located ' each ''pattern'' has an associated [#_Princeton_multi-voxel_pattern ''mask''] which contains the information about its contents' locations.
+
+Statmaps and beta weights from GLMs and other statistical procedures are also stored as patterns, although these often do not have time as a second dimension.
+
+
+==== 2. Regressors ====
+
+For our purposes, the term 'regressors' refers to a set of
+values for each timepoint that denote the extent to which
+each condition is active.
+
+[If it helps you to think of these in terms of a standard
+neuroimaging analysis, these are the counterparts of the
+condition labels in your X matrix from which you predict
+your voxel values.]
+
+[If it helps you to think in terms of machine learning,
+these are the mental state labels that we're trying
+to predict from our brain state data.]
+
+Each condition gets its own row, and each timepoint gets its
+own column. In a simple 1-of-n design, the active
+condition-row for a given timepoint-column is marked with a
+'1', and all the other conditions are marked with
+'0's. You'd have a 2D matrix with a single '1' in each
+column, corresponding to the active condition for that
+timepoint, e.g. 'looking at a face' vs 'looking at a house'.
+
+N.B. The regressors matrix can contain real positive or
+negative numbers, indicating that a condition is active to
+some degree.
+
+Consider this example set of ''regressors'' with 3
+conditions and 7 timepoints:
+
+{{{
+1 1 0 0 0 0 0
+0 0 1 1 0 0 0
+0 0 0 0 1 1 0
+}}}
+
+In this case, the first couple of TRs belong to condition 1, then t3 and t4 belong to condition 2, and t5 and t6 belong to condition 3. The last timepoint has no active conditions, i.e. it's rest.
+
+This ''regressors'' matrix is later fed into the classifier as the supervised labels that tell it what kind of brain state the person is in.
+
+We tend to code rest timepoints as a column of zeros, but there might sometimes be good reasons to assign rest to have its own condition-row.
+
+In this simple example, there is just a single '1' on each row signalling one active condition at each timepoint. However, there is nothing precluding multiple conditions being active, to greater or lesser degrees. Indeed, we recommend convolving the ''regressors'' with a hemodynamic response function which will lead to non-binary regressors with some timepoints having than one condition active at the same time (see TutorialAdv).
+
+
+==== 3. Selectors ====
+
+Think of the ''selectors'' row-vector as labelling each
+timepoint with a tag or type of some kind. Selector values
+must be positive integers.
+
+For instance, a selector might label timepoints as 'train'
+vs 'test'. Or as 'exclude vs 'include'. Or 'run1' vs 'run2'
+vs 'run3' vs 'run4' etc.
+
+
+==== 4. Masks ====
+
+A ''mask ''is usually a single boolean 3D matrix the size of
+the original brain volume with ones showing where voxels
+will be kept, and zeros showing voxels that will be
+excluded.
+
+A ''mask'' might be defined anatomically (e.g. prefrontal
+cortex) or functionally by thresholding a [#_statmap
+statmap], or really any other way you choose that will yield
+a 3D boolean matrix of the right dimensions.
+
+This is also where the information about the locations of
+the features (e.g. voxels) in a ''pattern'' is
+encoded. Every ''pattern ''has a 'masked_by' field which
+points to a ''mask'' with the same number of active voxels,
+showing where in the 3D volume those ''patterns"" voxels came
+from.
+
+To turn the mask into a linear index of voxels that refers
+to a pattern, just call the Matlab 'find' command on the
+''mask''.
+
+To create a (voxels x 3) list of xyz coordinates, just call
+the Matlab 'ind2sub' command on the ''mask''. Update: v0.9
+and above will include a handy
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_coords_from_mask.m
+get_coords_from_mask.m] function to do this for you.
+
+
+==== Chronology ====
+
+Notice that the first three data types have time as the 2nd
+dimension (columns), but ''masks'' don't incorporate time at
+all.
+
+All of the scripts assume that the ''patterns'',
+''regressors'' and ''selectors'' will be stored in
+chronological order. Shuffling the temporal order (i.e. the
+2nd dimension) in some way is almost certainly going to
+wreak havoc with things.
+
+Also, we strongly recommend that you don't throw away
+timepoints if you can avoid it. Pretty much all the toolbox
+functions have optional arguments that allow you to feed in
+a boolean 'actives' selector with which you can filter out
+timepoints you don't care about. This will make your life
+much easier in the long run, because then you'll always be
+indexing into matrices with the same number of columns.
+
+
+==== The innards of the ''subj'' structure ====
+
+All of the data types discussed above are stored as cell arrays in the main ''subj'' structure. Each ''subj'' variable is a Matlab struct containing everything
+that relates to a single subject (up to the point of
+classification). A sample ''subj'' might look like this, if
+displayed from the Matlab terminal:
+
+{{{
+>> subj 
+
+subj = 
+
+ regressors: {[1x1 struct]}
+
+ selectors: {[1x1 struct]}
+
+ patterns: {[1x1 struct]}
+
+ masks: {[1x1 struct]}
+
+ header: [1x1 struct]
+
+ p: 'raw'
+
+ m: 'wholebrain'
+
+ r: 'binaries'
+
+ s: 'runs'` 
+}}}
+
+Let's just pay attention to the first four fields for now.
+
+Storing the data types as cell arrays within the subj
+structure allows us to store multiple ''patterns'', multiple
+''selectors'', multiple and multiple ''masks'' at the same
+time. As we will see, this is key to the way the toolbox is
+intended to work.
+
+This display of the ''subj'' structure is somewhat spare. We
+recommend using the
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/summarize.html
+summarize.m] function (see [#_Viewing_the_subj Viewing the
+''subj'' structure]) instead.
+
+All four data types have a stereotyped internal
+organisation. Let us examine a sample ''regressors'' object:
+
+{{{
+`>> subj.regressors{1}  
+
+ans = 
+
+ name: 'afni1d'
+
+ derived_from: ''
+
+ header: [1x1 struct]
+
+ mat: [3x100 double]
+
+ group_name: '' 
+}}}
+
+All objects (that is, all ''patterns'', ''regressors'',
+''selectors'' and ''masks'') have these required fields:
+
+''name'' - this is the identifier that is used to refer to
+that object. Objects of different types can have the same
+name, but there can only be one ''regressors'' object called
+'afni1d'.
+
+''mat'' - this is where the actual matrix for the object is
+stored. All 4 data types have a mat field, though the
+dimensions will vary (as described in their respective
+sections).
+
+''header'' - this contains book-keeping information
+describing how the object was created that might be useful
+for the user (see [#_Book-keeping_and_the Book-keeping])
+
+''derived_from'' - when an object is created by duplicating
+another object, the parent object is stored here
+
+''group_name'' - there are various instances where it makes
+sense to treat multiple objects as members of a group, such
+as the multiple selectors that are created for each
+iteration of an n-minus-one cross-validation
+classification. Each group has a name, that can be used to
+find all its constituent members. The
+[m2html/find_group.html find_group.m] is an auxiliary
+function that returns the names of groupmembers as a cell
+array.
+
+''created'' - this contains information about how the object
+was created, e.g. the date and time, the name of the
+function that created it, what arguments were fed to that
+function at the time etc. This makes it easy to keep track
+of multiple analysis paths in the same ''subj'' at once by
+tracing the creation history of a given object back, via the
+arguments fed to the function that created it.
+
+There is a sense in which the patterns, regressors and
+selectors could be represented as the same type, since they
+are all matrices with time as the second dimension. We made
+a deliberate decision to treat them as different types to
+reflect their different conceptual roles in the analysis.
+
+We have considered adding statmap as a new data type, as
+well as perhaps something for behavior, but no changes of
+this nature are planned for the foreseeable future.
+
+
+==== Accessing the ''subj'' structure and objects within it ====
+
+The pre-classification steps involved with fMRI data can
+quickly become labyrinthine. Keeping track of what has been
+done to the data, and trying out different analysis paths
+can easily lead to innumerable versions of your data strewn
+around your workspace and hard disk. We have tried to make
+the toolbox do as much of this book-keeping as
+possible. It's designed so that you access all of the
+objects by name alone, using a collection of 'accessor'
+scripts rather than directly addressing the ''subj''
+structure. This is standard practice in object oriented
+programming, but Matlab's syntax makes it a little
+cumbersome to get to grips with initially.
+
+Imagine you have lots of versions of your regressors stored. To access the first set, called 'afni1d', you could type:
+
+{{{
+`>> myregs = subj.regressors{1}.mat` 
+
+to access the contents of that regressors matrix. However, you ''should'' use:
+
+>> myregs = get_mat(subj,'regressors','afni1d')
+ }}}
+
+This will automatically return the matrix of the ''regressors'' object called 'afni1d'. Correspondingly, if you want to modify that ''regressors ''matrix, e.g. by setting its first TR to rest, then you would do the following:
+
+{{{
+>> newmat = get_mat(subj,'regressors','afni1d'); 
+
+>> newmat(:,1) = 0;`
+
+>> subj = set_mat(subj,'regressors','afni1d',newmat);
+ }}}
+
+If this strikes you as an inefficient use of memory, then see [#_Memory_managing this discussion] for why this isn't really a problem.
+
+If you want to access a particular sub-field of an object, then use the ''get/set_objfield'' pair. For instance, if you want to change the 'derived_from' field of the 'afni1d' regressors object to 'blahblah':
+
+{{{
+>> subj = set_objfield(subj,'regressors','afni1d','derived_from','blahblah');
+ }}}
+
+This means that you never need to keep track of the number of an object. If you want to distinguish your raw data and your zscored data then just give them different and descriptive names, and just address them like that.
+
+There are also ''get/set_objsubfield'' functions, but nothing for sub-subfields.
+
+There is also a slightly different route you can take to access your objects that gives you more flexibility (but less error-checking), by retrieving the entire object (including the mat and other fields), e.g.:
+
+{{{
+>> obj = get_object(subj,'regressors',conds') 
+
+obj =
+
+
+ name: 'conds'
+
+ header: [1x1 struct]
+
+ mat: [8x1210 double]
+
+ matsize: [8 1210]
+
+ group_name: ''
+
+ derived_from: ''
+
+ created: [1x1 struct]
+
+ condnames: []
+
+
+>> obj.myfield = 'blahblah';
+
+
+obj =
+
+
+ name: 'conds'
+
+ header: [1x1 struct]
+
+ mat: [8x1210 double]
+
+ matsize: [8 1210]
+
+ group_name: ''
+
+ derived_from: ''
+
+ created: [1x1 struct]
+
+ condnames: []
+
+ myfield: 'blahblah'
+
+
+>> subj = set_object (subj,'regressors','conds',obj);
+ }}}
+
+There are various accessor scripts that you can use to get at the components of the ''subj'' structure, many of which are listed below:
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/init_object.html init_object] ' to create an object
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/duplicate_object.html duplicate_object] ' calls init_object, then copies across the mat from the source object and sets the derived_from field in the new object to reflect its origins
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_mat.html get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_mat.html set_mat] ' to access the ''mat'' matrix containing your data stored in an object
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/initset_object.html initset_object] ' for lazy people. Calls init_object and set_mat in one fell swoop
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_object.html get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_object.html set_object] ' to access the entire object (including the ''mat ''matrix)
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_objfield.html get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_objfield.html set_objfield] ' to access a field inside the object, such as the 'derived_from' or 'group_name' fields
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_objsubfield.html get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_objsubfield.html set_objsubfield] ' to access field.subfield in the object. for subsubfields, use get_object, modify the field manually, and then set_object
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/rename_object.html rename_object]
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/rename_group.html rename_group] ' Change the group_name for all the objects in a particular group. Doesn't affect their individual names
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_mat.html remove_mat] ' set the ''mat'' to be empty
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_object.html remove_object] ' remove the object entirely from its cell array
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_group.html remove_group] ' calls remove_object for all members of the group
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_created.html add_created] ' easy way to document where an object came from
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_history.html add_history] ' easy way to add free text notes to an object
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/exist_object.html exist_object] ' returns true if an object of that name exists
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/exist_group.html exist_group] ' returns true if there any objects who are members of a group
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/exist_objfield.html exist_objfield]
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/exist_objsubfield.html exist_objsubfield]
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_name.html get_name] ' get the name of an object if all you know is its number. you shouldn't really ever need to use this
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_number.html get_number] ' get the number of an object if you know its name. you shouldn't really ever need to use this either
+
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_type.html get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_type.html set_type] ' get the cell array containing all the objects of a particular type. You should really ever need to use this either
+
+Of course, you can always access the ''subj'' structure directly, and we can't stop you, but doing so could cause unforeseen problems (see [#_Accessing_the_subj Accessing the ''subj'' structure directly]). Adding a layer of abstraction with the accessor scripts allows us to do lots of error-checking on your behalf, and occasionally facilitates some useful tricks (e.g. [#_Moving_patterns_to transparently storing the data on the hard disk]).
+
+
+==== Viewing the ''subj'' structure and objects within it ====
+
+Because the output from typing 'subj' at the Matlab prompt is not very informative, the ''summarize.m ''function is intended to provide a more useful readout of your data.
+
+{{{
+>> summarize(subj) 
+
+Subject 'TryToTakeOverTheWorld' in 'fred' experiment`
+
+Patterns - [ nVox x nTRs]
+
+ 1) raw  - [50000 x 100] 
+
+Regressors - [nCond x nTRs]
+
+ 1) afni1d - [ 3 x 100]
+
+
+Selectors - [nCond x nTRs]
+
+ 1) runs_all_TRs - [ 1 x 100]
+
+Masks - [ X x Y x Z ] [ nVox]
+
+ 1) wholebrain - [ 64 x 64 x 34] [ 0]
+
+>> 
+}}}
+
+This shows that we only have one object of each type, what their names are and the sizes of their internal matrices.
+
+If you have lots of groups, each containing lots of objects, then the output from ''summarize.m'' can be very long. In order to avoid this, there are a couple of ways to slim down its output. The most obvious is to only show you the names of the groups in the ''subj'' structure, and not the names of the objects contained within the groups. See [#_How_can_I_3 ''How can I slim down the output from summarize.m] for more information.
+
+
+==== Book-keeping and the headers ====
+
+Every object (including the ''subj ''structure itself) has a ''header'' field. This is there to store information about how that object was created, and what processing has been done to it. All headers contain at least these fields:
+
+''description'' ' an optional field that can be used to store a high-level sentence or two about what the object is for
+
+''history'' ' a cell array of strings that gets automatically appended to by toolbox scripts, containing a freeform narrative about the object
+
+''created'' ' a structure containing fields such as 'function_name', 'patname' etc. The toolbox scripts automatically fill these in as a reminder of the time of creation, which function created the object, any arguments it used to do so, and which other objects were used by that function.
+
+We find that these header fields can be very useful in keeping track of complicated analyses with multiple paths, comparing two paths to see how they differ, and reminding oneself months later about how a particular ''subj ''structure came to be. Ensuring that your functions also append to these fields is a good idea.
+
+The toolbox will automatically record the date and time every object is created (since all object creation is done by [http://www.csbmb.princeton.edu/mvpa/docs/m2html/init_object.html ''init_object.m'']), as well as the stack at that moment (using ''dbstack''). By inspecting this created.dbstack field, you should be able to tell which function (and which line) ordered the object to be created. If the function-writer was conscientious, they will have also saved all the argument values passed to the function, so that you can tell which objects were used to create that object (see [http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_template.html statmap_template.m] for examples of what kind of information might be useful to save).
+
+
+==== Storing other information ====
+
+There are other kinds of information that might be worth storing. For instance, we haven't explicitly created a data structure for behavioral data, such as reaction times or errors. For now, we think it would be most natural to store such data as separate ''patterns ''objects.
+
+There is no explicit provision for structural/anatomical MRI scans, although these too could be stored as single-timepoint ''patterns''.
+
+There is currently no provision in the toolbox for mapping between data stored at different spatial or temporal resolutions, though we hope that the book-keeping machinery in the ''subj'' structure will make life easier for users working in this area.
+
+
+==== What's the minimum you need to create a ''subj'' structure' ====
+
+You need:
+
+a dataset in a supported format (e.g. AFNI) that will become the first ''pattern''
+
+a one-of-n ''regressors'' matrix stored as a Matlab matrix (or as a txt file that you can easily load in yourself)
+
+a runs row-vector (or text file) that will become the first set of ''selectors''
+
+a ''mask'' to apply to your dataset so that when you load it in with ''load_afni_pattern.m'' (for instance), you only need to load in the voxels within the cranium
+
+In fact, you can probably do without some of these. Your regressors don't have to be 1-of-n, depending on what you plan to do with them. And if you really really don't care where your features are in the brain, you can just create a 3D mask with the first two dimensions being singleton, e.g. newmask = zeros(1,1,500). Likewise, you could create a selector of all ones, though you'd have to figure out ways of partitioning things up for n-minus-one classification stuff.
+
+
+==== Further information ====
+
+For further information, see the [#_Data_structures Data structures Howto's and occasionally-asked questions].
+
+
+=== Importing ===
+
+The idea is that eventually the toolbox will be able to import from multiple sources into its own Matlab data structure, and export back in an equally trouble-free manner. For now, only the AFNI import process works.
+
+It's worth noting that AFNI is free, multi-platform and supports the NIfTI-1 data format, which is intended to facilitate this kind of thing. You might be able to use AFNI as a kind of bridge from your analysis software to Matlab.
+
+See also: [#_Exporting exporting]
+
+
+==== From AFNI ====
+
+See [load_afni_pattern.html ''load_afni_pattern.m''] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_mask.html ''load_afni_mask.m''], which rely on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library.
+
+In short, the above scripts create a pattern or mask object and fill it with the contents of a BRIK file (or multiple BRIKs for patterns). They save the header information in the object's header field. Then, you're ready to go.
+
+There is no facility for directly loading in 1D files, but Matlab's own ''load'' command should probably be sufficient. Just create an object of the right type (with [http://www.csbmb.princeton.edu/mvpa/docs/m2html/init_object.html ''init_object.m'']'') ''and use [http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_mat.html ''set_mat.m''] to insert the loaded-in contents.
+
+We are also working on a set of internal functions that call AFNI shell scripts from within Matlab to make certain things easier, e.g. convolving your regressors separately for each condition and run, or running n-minus-one 3dDeconvolve.
+
+[#_Contact_details Let us know] if there's any extra functionality you need.
+
+
+==== From BrainVoyager ====
+
+We have a partial implementation of the BrainVoyager import process ' if it would be useful for you, please [#_Contact_details contact us] and we can talk about pushing this forward.
+
+
+==== From SPM ====
+
+We're some way towards an SPM import route, so if it would be useful for you, please [#_Contact_details contact us] and we can talk about pushing this forward.
+
+
+=== Pre-classification ===
+
+By 'pre-classification' here, we mean everything that occurs between importing the data into Matlab (e.g. from AFNI) and running the classifier on it. Obviously, the basic pre-processing work that goes on even earlier than this (e.g. motion correction, detrending) is crucial too, but we only briefly discuss that here.
+
+We have found that the right pre-classification normalization and and feature selection makes a large difference to classifier performance.
+
+
+==== Zscoring ====
+
+Usually, we zscore over time. That is, we take an individual voxel's timecourse, and subtract the mean and divide by its standard deviation, leaving a linearly-transformed timecourse with mean 0 and standard deviation 1.
+
+The ''zscore_runs.m'' included in the toolbox actually treats each run as a separate timecourse. This was originally designed to account for possible baseline shifts between runs.
+
+This will not remove linear or quadratic trends within runs.
+
+At this point, the best method of zscoring the data is still unconfirmed. Doing some kind of zscoring appears to help a great deal with backpropagation and other classification methods though.
+
+You may be better off using a tool like 3dDetrend, and just not putting the mean back in.
+
+Requires the Matlab Statistics toolbox.
+
+
+==== Anova and voxel selection ====
+
+If you feed all of the voxels in the brain into a classifier, performance will be poor, because many of the voxels will be uninformative. A good classifier will learn to ignore most of these, but its performance can be greatly facilitated by excluding all but a few that are likely to contain information.
+
+The default voxel selection algorithm in the toolbox is ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_anova.html statmap_anova.m]''. It operates on each voxel individually, assessing whether that voxel's activity varies significantly between conditions. To do this, it needs to know which pattern you want to select features from, a [glossary.htm#_one-of-n one-of-n] regressors matrix that shows which TRs belong to which conditions, and also a selectors matrix so that it knows which TRs to use (to avoid [#_Peeking peeking]). It returns a statmap ''pattern'' which can then be thresholded with ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_thresh_mask.html create_thresh_mask.m]'' to create a boolean 3D ''mask''.
+
+Running some kind of ANOVA or other voxel selection method tends to help a great deal. However, it is worth bearing in mind that creating a thresholded mask with a p threshold of 0.05 could still be allowing through thousands of spurious voxels, i.e. voxels which pass the anova by chance, and hence will disrupt generalization to the test data. Making the p threshold stricter makes statistical sense (though a Bonferroni correction may be too strict). However, even this may not be the solution if this is partly due to spikes of noise that make the voxel appear to vary significantly across conditions. Adding runs in as a factor may help (planned in the future).
+
+All of the discussion above centres on choosing voxels. However, your patterns could equally contain principal components, wavelet coefficients or stockmarket prices ' the principle idea that you need to exclude uninformative features still holds, and an ANOVA should still work reasonably well.
+
+We recommend writing your statmaps out as BRIK files so that you can view them in AFNI. If your statmaps for different iterations look different, or if you're getting homogenous speckling throughout the brain, then you're probably going to get poor classification generalization.
+
+Note: if you are going to use the ANOVA and boxcar regressors, you'll need to shift them along ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/shift_trs.html shift_trs.m]) by about 3 timepoints relative to your data in order to take account of the haemodynamic response lag.
+
+Note: ''statmap_anova.m'' requires the Matlab [http://www.mathworks.com/products/statistics/ Statistics toolbox].
+
+
+==== Other voxel selection methods ====
+
+We are actively investigating alternative voxel selection methods. We would recommend using 3dDeconvolve (or some other multiple regression technique) rather than the ANOVA, since then you can convolve your regressors, rather than simply shifting them. We have an internal statmap_3dDeconvolve.m function that can be used to call 3dDeconvolve in an n-minus-one style ' [mailto:mvpa-toolbox@googlegroups.com contact us] if this interests you.
+
+
+==== Statmaps ====
+
+By statmap, we mean the result of some kind of statistical test, usually performed separately for each voxel. For instance, the ANOVA yields a statmap of F (or p) values, one for each voxel. Each p value denotes the probability that that voxel varies significantly between conditions.
+
+Statmaps are stored as patterns (''nActiveVox'' x ''1''). We considered storing statmaps as mask objects, but we decided that the term 'mask' is usually used to refer to a boolean 3D volume, and so it would be confusing to store a continuous values in an object called 'mask'.
+
+A mask can be created from a statmap by choosing all the voxels that are above/below some threshold using the ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_thresh_mask.html create_thresh_mask.m]'' or the n best voxels using [http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_sorted_mask.html create_sorted_mask.m].
+
+
+==== Creating your own statmap ====
+
+If you want to create your own statmap, start by looking at the default [http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_anova.html statmap_anova.m], and the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_template.html statmap_template.m] template.
+
+Also, see the [#_Requirements_for_custom requirements for custom functions that modify the subj structure].
+
+Here are the requirements, based on ''statmap_anova.m'':
+
+· returns the modified ''subj'' structure
+
+· takes in a ''subj'' structure argument
+
+· takes in a pattern name argument (''data_patname'') whose features you want to select from
+
+· takes in a regressors name argument (''regsname''), which you want to use to decide whether features are significant ' all conditions get used
+
+· takes in a selector name argument (''selname)'' to determine which TRs from the pattern should be employed ' the ''statmap_anova.m'' only uses 1s. 2s mark the withheld testing run. 3s are reserved for validation vectors and 0s for rest. Use a code value besides these if you need your selectors to highlight other subsets of timepoints
+
+· takes in a string argument to name the new statmap pattern that will be created (''new_map_patname'')
+
+· takes in a bonus argument ''extra_arg'' that you can use for any extra arguments that you need
+
+· it should create a new statmap pattern object called ''new_map_patname'' (and describe this in the help comments)
+
+· add any ''extra_arg'' information to the ''created'' field (see the call to ''add_created.m'' in ''zscores_run.m'', for example)
+
+· there's no need for it to display to the terminal, because the caller function (e.g. ''feature_select.m'') should do that for you
+
+· optionally add a description sentence to the header.history cell array for future reference
+
+If you think these restrictions are too strict and don't fit with a statmap function that you might want to use, you could either ignore the arguments you don't need, or [#_Contact_details let us know] and we'll consider modifying the interface.
+
+
+==== Peeking ====
+
+Peeking is when you use your testing data set to help with voxel selection. Basically, this is a kind of cheating, and spuriously/illegitimately improves your classification by some margin.
+
+The toolbox makes it easy to avoid peeking. Run ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_xvalid_indices.html create_xvalid_indices.m]'' to create a group of ''selectors'', one for each iteration of your n-minus-one cross-validation. Then call ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/feature_select.html feature_select.m]'', which in turn calls ''statmap_anova.m'' (or any other voxel selection method) multiple times, once per iteration, using a different subset of the ''pattern'' data each time. This will yield a group of ''masks'', the same size as the group of ''selectors'', which can then be used to restrict which voxels get fed to the classifier separately for each iteration of the n-minus-one.
+
+Using the same group of ''selectors'' for both voxel selection and classification ensures that a TR cannot simultaneously be part of the voxel selection training data ''and'' be part of the withheld testing data.
+
+It is possible to circumvent this anti-peeking machinery by calling ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_anova.html statmap_anova.m]'' directly with ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/peek_anova.html peek_anova.m]'', but obviously this is not recommended for any analysis that is intended for publication.
+
+To see how peeking can artificially boost your performance, try [#_Avoiding_spurious_classification scrambling your regressors] using ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/scramble_regressors.html scramble_regressors.m]''.
+
+
+==== Further information ====
+
+For further information, see the [#_Pre-classification Pre-classification Howto's and occasionally-asked questions].
+
+
+=== Classification ===
+
+
+==== Introduction ' training, testing and generalization ====
+
+In the machine learning sense, classification means taking a labelled training data set and showing the classifier algorithm examples of each condition over and over until it can successfully identify the training data. Then, the classifier's generalization performance is tested by asking it to guess the conditions of new, unseen data points.
+
+In terms of fMRI experiments, this amounts to a very simple kind of mind-reading ' being able to tell something about what the subject was thinking about at a given moment by looking at the activity in their brain, based on how their brain looked in the past when thinking about similar kinds of things. In practice, it only tends to work for making very crude guesses about the kind of task being performed, or stimuli being viewed.
+
+The way we tend to test this is to train on most of the data, and then test our classifier's generalization performance on the remainder. By training, we mean showing it lots of examples of that person's brain when in condition A, and telling it each time, 'This is an example of the brain in condition A'. We then show it lots of examples of the same brain in condition B, also telling it which condition these brain examples came from.
+
+For instance, we might train the classifier on examples from runs 1-9 of a 10-run experiment, and then see whether it guesses correctly when faced with data from run 10.
+
+
+==== Performance ====
+
+The performance metric measures the similarity between the output produced by a classifier to the output it's supposed to produce.
+
+The simplest performance metric for classification is to ask whether the maximally-active category unit from the classifier corresponds to the maximally (or only) active condition in the regressors/targets. If so, that timepoint is 'correct', otherwise it's 'wrong'. This is all that the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/perfmet_maxclass.html ''perfmet_maxclass.m''] performance metric function does.
+
+Another performance metric that's often used in Neural Networks is the mean squared error.
+
+There are many alternative and more sophisticated ways of evaluating performance.
+
+See '[#_Creating_your_own_3 Creating your own performance metric function]' if you don't want to use ''perfmet_maxclass.m''.
+
+
+==== Creating your own performance metric function ====
+
+If you want to create your own performanc metric, start by looking at the default [http://www.csbmb.princeton.edu/mvpa/docs/m2html/perfmet_maxclass.html perfmet_maxclass.m], and the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/perfmet_template.html perfmet_template.m] template.
+
+Here are the requirementss:
+
+ * Should take in a (nOutputUnits x nTimepoints) ''acts'' matrix of responses from the testing function
+ * Should take in a (nOutputUnits x nTimepoints) ''targs'' matrix of desired responses (supervised labels)
+ * ''Args'' can contain any further information your custom perfmet function requires
+ * Should return a ''perfmet'' structure that has a ''perf'' scalar field containing the overall performance according to your performance metric. Any other information that might be useful later can be stored in the ''perfmet'' structure.
+
+
+==== N-minus-one (leave-one-out) cross-validation ====
+
+The method of training on most of the data and generalization-testing on the remainder is somewhat wasteful and potentially misleading. It could be that generalization performance for a particular run is very good or very bad. So you might want to try withholding a different run for testing, and training on the remainder, using a fresh classifier, to see whether the same kind of performance is obtained.
+
+N-minus-one (leave-one-out) cross-validation is really just that idea taken to its extreme. If we have 10 runs, then we will run 10 separate classifiers, each one being generalization-tested on a different 1/10 of the data having been trained on the remaining 9/10. This way, every timepoint gets a turn at being part of the test set, and 9 turns at being part of the training set.
+
+The toolbox is set up to make this kind of procedure very easy
+
+
+==== Backpropagation ====
+
+Backpropagation is an algorithm for training a neural network, that is, for adjusting the weights connecting units so that a desired output is produced for a given input. It's a powerful algorithm, and we have found that the conjugate gradient variant that is set to be the default classifier for the toolbox learns quickly and generalizes well.
+
+In order to use the default classifier in the toolbox, you will need a copy of the Matlab [http://www.mathworks.com/products/neuralnet/ Neural Networks toolbox]. If you don't have one, you can use [http://www.csbmb.princeton.edu/mvpa/docs/m2html/class_bp_netlab.html ''class_bp_netlab.m''] (not yet ready) instead, which uses the open source [http://www.ncrg.aston.ac.uk/netlab/ Netlab toolbox] backpropagation function instead.
+
+See the Matlab Neural Networks toolbox [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/ documentation] for more information, such as how to examine the classifier weights or the activations of the hidden layer.
+
+Note: the default algorithm for [http://www.csbmb.princeton.edu/mvpa/docs/m2html/train_bp.html train_bp.m] is conjugate gradient ('traincgb'), mainly for historical reasons. However, the default for the Netlab net is scaled conjugate gradient (which is similar to 'trainscg'). It's all much of a muchness, though we're starting to think that 'trainscg' may be the way forward ' see the [#_My_classifier_sometimes Howto's] Classification section.
+
+
+==== Included classifiers ====
+
+Currently, [#_Backpropagation backpropagation] is the only classifier algorithm included with the toolbox. We intend to rapidly expand the list of included classifiers in future releases, but in the meantime, it's extremely easy to [#_Creating_your_own_1 add new classifiers yourself].
+
+
+==== Creating your own training function ====
+
+If you want to create your own classifier training function, start by looking at the default [http://www.csbmb.princeton.edu/mvpa/docs/m2html/train_bp.html train_bp.m], and the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/train_template.html train_template.m] template.
+
+This training function will also need a corresponding [#_Creating_your_own_2 testing function] that actually tests generalization to unseen data. It is worth noting that some classifiers don't need a training phase, in which case the training function should simply return an empty scratchpad.
+
+Here are the requirements, based on ''train_bp.m'':
+
+ * should take in ''trainpats'' (''nFeatures'' x ''nTrainingTimepoints'') training patterns
+ * should take in ''traintargs'' (''nOutputUnits'' x ''nTrainingTimepoints'')
+ * should take in a ''train_args'' structure containing fields specific to the classifier
+ * should return a ''scratchpad'' structure that the corresponding [#_Creating_your_own_2 testing function] knows how to use to test the classifier
+
+Since we couldn't think of a sufficiently broad term to encompass all possible classifier algorithms, we have adopted the term 'output units' to refer generically to the number of rows in the teacher signal (i.e. supervised labels) being fed to the classifier.
+
+
+==== Creating your own testing function ====
+
+If you want to create your own classifier testing function, start by looking at the default [http://www.csbmb.princeton.edu/mvpa/docs/m2html/test_bp.html test_bp.m], and the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/test_template.html test_template.m] template.
+
+Most classifiers need to be trained by a [#_Creating_your_own_5 training function] before being tested. The training function will create the scratchpad that contains whatever information is required at testing.
+
+Here are the requirements, based on ''test_bp.m'':
+
+ * should take in ''testpats'' (''nFeatures'' x ''nTestingTimepoints'')
+ * should take in ''testtargs'' (''nOutputUnits'' x ''nTestingTimepoints'')
+ * should take in a ''scratchpad'' which contains whatever fields are needed by the testing algorithm (e.g. a trained net) created by the corresponding [#_Creating_your_own_5 training function]
+ * should return an ''acts'' matrix (''nOutputUnits ''x ''nTestingTimepoints''), the same size as the ''testtargs'', which contains the classifier's guesses in response to the ''testpats''. These ''acts'' get compared to the ''testtargs''.
+ * should return the ''scratchpad'', in case the test function added to it
+
+
+==== The results structure ====
+
+The ''results'' structure stores everything you might need after a classification analysis.
+
+It's divided up by iteration, one for each iteration of the n-minus-one (or whatever cross-validation method described by the selector group passed to ''cross_validation.m''). The following fields are contained in an ''iteration'' (not in this order):
+
+ * ''scratchpad''
+
+This stores information about a particular classifier. For instance, the network and weights get stored here when using the backpropagation classifier (in the ''net'') field.
+
+ * ''acts''
+
+This is a matrix (''nOut'' x ''nTestTimepoints in this iteration'') containing all of the outputs from the classifier for each of the conditions at every test timepoint in this iteration
+
+· ''perfmet'' and ''perf''
+
+This is a structure containing the calculations required to calculate the [#_Performance performance] of the classifier. There are multiple ways in this can be calculated, but all are required to contain a ''perf'' scalar. This ''perf'' scalar is duplicated in ''iterations(i).perf'' for convenience.
+
+Multiple performance metrics can be used to calculate a performance value. If multiple performance metrics are applied to the same data, then the ''perfmet'' field is a cell array.
+
+ * ''train_idx'', ''test_idx'', ''rest_idx'', ''unknown_idx''
+
+These index vectors are derived from the cross-validation selector index that was used to decide which TRs would be used for training/testing in ''cross_validation.m''.
+
+TRs in the cross-validation selector index marked with 1s are included in ''train_idx'', 2s in ''test_idx'', 0s become ''rest_idx'' and all other values go into the ''unknown_idx''. Only ''train_idx'' and ''test_idx'' play any role in classification at all ' ''rest_idx'' and ''unknown_idx'' are only stored for completeness.
+
+ * ''created''
+
+As in the ''subj'' objects, this stores the arguments and function name used to create this object.
+
+ * ''header''
+
+More book-keeping information. You can add to the free-text narrative ''history'' field with [http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_results_history.html ''add_results_history.m''].
+
+There are no accessor functions (like ''get_object.m'' or ''set_mat.m'') for the results structure ' just edit it directly if you need to.
+
+Finally, it is worth noting that ''results.total_perf'' stores the mean of all the ''results.iterations(i).perfmet.perf'' values. If there are multiple perfmet objects, then ''results.total_perf'' will be a vector.
+
+
+[[Include(TroubleshootingClassification)]]
+
+
+==== Avoiding spurious classification ====
+
+There are various ways in which one can fool oneself into thinking that above-chance classification means something.
+
+For instance, if you're peeking (feeding your entire data set, including your test data, into your voxel selection method), then it's possible to classify complete nonsense better than chance (see [#_Peeking Peeking]).
+
+One essential check is to create a set of scrambled regressors that have the same properties as your real regressors, i.e. same number of TRs in each condition, balanced across runs etc. If the classifier consistently trains and generalizes with above-chance performance on testing data when you know that there is no regularity to the regressors, then it's back to the debugging drawing board. See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/scrambled_regressors.html ''scrambled_regressors.m''] for a way of easily shuffling the order of your timepoints within a run.
+
+Note: there are various ways in which one could scramble/shuffle the regressors matrix. The provided method is the simplest one ' but for specific experiments or situations, other methods that preserve some of the properties of the data might be better.
+
+
+==== Further information ====
+
+For further information, see the [#_Classification_1 Classification Howto's and occasionally-asked questions].
+
+
+=== Exporting ===
+
+See [#_Importing importing].
+
+
+==== To AFNI ====
+
+See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/write_to_afni.html ''write_to_afni.m'']. This will write a pattern or a mask to a BRIK file, using an existing sample BRIK (from the same data set) to create the necessary header information. Uses [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library. See the ''Howtos / ''[#_Exporting_1 ''Exporting''] section for more information.
+
+
+==== To BrainVoyager ====
+
+As [#_From_BrainVoyager above].
+
+
+==== To SPM ====
+
+As [#_From_SPM above].
+
+
+=== Advanced ===
+
+
+==== Conventions ====
+
+By convention, the order of the arguments used in toolbox function is intended to be fairly stereotyped, to make it easier to remember. If the 'subj' structure is one of the arguments,
+
+
+==== Managing memory ====
+
+The toolbox has a packrat mentality ' it hoards every version of the data that it processes. For instance, it keeps separate ''patterns'' for before and after zscoring with ''zscore_runs.m''. This makes sense, because it makes it easy to take a step back in the analysis path and re-run things with slightly different parameters. However, it can eventually clog up your RAM, especially with large patterns.
+
+For this reason, if you know that you plan to apply a mask to your data (e.g. to exclude voxels from outside the cranium), then use that mask as the argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_pattern.html ''load_afni_pattern.m''] when loading in the data in the first place. Unfortunately, the core ''BrikLoad.m'' function loads in the entire volume first and then applies the mask, but if you're loading in separate runs at a time, then this shouldn't be a huge problem.
+
+Since the data from the scanner is often fairly noisy, it's rarely necessary to use a ''double'' type to store all the significant figures, which is the default used by Matlab. See [:MVPA manual:How do I use singles rather than doubles] for further information about this.
+
+Another useful tactic is to store large patterns that you're not using at the moment on the hard disk, rather than in RAM. The toolbox makes this easy to do, using [http://www.csbmb.princeton.edu/mvpa/docs/m2html/move_pattern_to_hd.html ''move_pattern_to_hd.m'']. See tutorial_hard.htm / Moving patterns to the HD for more information.
+
+Finally, you can always just [#_Removing_objects remove the object].
+
+See also:
+
+''Exporting / ''[#_What_if_I ''What if I get an 'out of memory' error when writing BRIKs]'
+
+
+===== Amount of required RAM =====
+
+In order to do anything with a Matlab matrix, you really need enough RAM to store it twice. Removing or adding a column to it, or modifying it within a function, require a duplication of that matrix. We have endeavoured to ensure that the toolbox never requires you to have more RAM than needed to hold a single duplicate of your data. Some of the toolbox's internal accessor functions (such as the ''set/get_object'' functions, and the ''init_new_object'' functions) may look incredibly inefficient, since it seems as though they are making multiple copies of entire objects or even entire cell arrays of objects and passing them up and down functions. The advantage of this coding style is that all of the accessor logic for the 4 data types is in one place. Fortunately, even though Matlab passes by value and doesn't explicitly allow the use of pointers, it appears to implicitly use pointers in a clever way to ensure that it only actually makes a copy of an argument when passing it into a function if the contents of that argument get modified.
+
+Having experimented with different ways of storing and passing objects between functions, we don't think the toolbox could manage its variables much more efficiently, short of shunning functions entirely. If you have any better ideas, or believe this explanation to be in error, we would be very interested to [#_Contact_details hear from you].
+
+Finally, don't forget that you can [#_Moving_patterns_to store your patterns on the hard disk rather than in RAM] when they're not being used.
+
+
+==== Moving patterns to the hard disk ====
+
+The [http://www.csbmb.princeton.edu/mvpa/docs/m2html/move_pattern_to_hd.html ''move_pattern_to_hd.m''] and its companion, [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_pattern_from_hd.html ''load_pattern_from_hd.m''] are designed to free up RAM without throwing away information. They allow you to move the matrix contents of a particular object out to a file, while allowing you to access that data using the standard ''get/set_object'' scripts entirely transparently. This is one of the side-advantages of using the accessor scripts as a layer of abstraction between the toolbox's data structures and you, the user.
+
+If you're having trouble with memory, we recommend that you choose a couple of large pattern objects that you're not using and use ''move_pattern_to_hd.m'' on them to free up RAM. Of course, access times for data stored on the hard disk are much, much slower than for data stored in RAM. For this reason, the data can be moved back into RAM (removing any traces from the hard disk) with ''load_pattern_from_hd.m''.
+
+In the future, we hope to take advantage of Matlab's memory-mapping functionality or investigate other file formats that will allow more efficient random-access than the .mat format, which requires the entire matrix to be loaded in before it can be accessed. Any advice or support [#_Contact_details would be appreciated].
+
+It is worth noting that this functionality only exists for ''patterns'', since they take up so much more space than any of the other data types.
+
+See [tutorial_hard.htm ''tutorial_hard'']'' / Moving patterns to the HD for a walkthrough of how to do this''.
+
+
+==== Removing objects ====
+
+There are two ways in which you can remove objects:
+
+ 1. [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_mat.html ''Remove_mat.m''] will set the object's ''mat'' to empty. Since this is where each object's main matrix is stored, this is probably taking up most of the room occupied by the object. This is usually sufficient, and has the advantage that it leaves the surrounding ''name'' and ''header ''information intact, in case other objects want to reference it, and doesn't renumber the cells.
+ 1. If you really want to, you can remove the entire cell for the object, by passing in 'erase' as the optional argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_object.html ''remove_object.m''].
+
+Since ''patterns'' tend to be the biggest memory hogs, you can also just transparently [#_Moving_patterns_to shift the ''pattern'' to the hard disk], which frees up your RAM without thowing away data that might be useful later on. See ''Advanced / ''[#_Managing_memory ''Managing memory''] for more solutions.
+
+
+==== Accessing the subj structure directly ====
+
+We realise that using the accessor functions is slightly more cumbersome than accessing the contents of the ''subj'' structure directly. However, bypassing them can cause many subtle problems and is not recommended.
+
+Having said that, nothing can go wrong if you're just using the standard syntax to view an object, e.g.
+
+>> subj.regressors{5}
+
+It's really only when you change the values in an object that there's a real risk of things getting badly confused amidst the assumptions and interactions between functions. Hopefully, these should all be preserved intact by the provided accessor functions.
+
+We will provide one example of how the accessor scripts can help. If you remove voxels from a ''pattern ''by just deleting them from the matrix, this could disrupt all the fragile indexing that is used to determine which voxel is which. In order to avoid this, ''set_mat.m'' makes it very difficult to change the dimensions of the ''pattern'' matrix, unless you are using the [#_Figuring_out_which authorised masking functionality that preserves the indexing]. Such bugs can be particularly insidious because they may or may not cause errors. In the worst case, your analysis could run without incident, but actually scramble your voxels.
+
+These [#_Handy_shortcuts handy shortcuts] may make your life a little easier.
+
+
+==== Figuring out which voxel is which, and where ====
+
+''Or "Dude, Where's My Voxel'" ' A Guide to Relative Indices in MVPA by Chris Moore''
+
+See also: [#_Masks Howto's / Data structures / Masks].
+
+In a perfect world, patterns stored in MVPA subject structures would be stored in their native space, in full dimensionality. But due to memory contraints and convenience, it is typically prudent to input and store a subset of the data, such as the voxels specified by a whole-brain mask. For this reason, loaded 3D patterns are stored in the ''subj'' structure as two dimensional matrices.
+
+It is important to note that the 3D information (xyz coordinates of voxels in a pattern) is ''not'' stored in the pattern once it is loaded. Rather, all patterns are associated with the mask that was used in their creation. For instance, when calling ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_pattern.html load_afni_pattern.m]'', a required argument is the name of a map in the ''subj'' structure used to mask the BRIK. The resulting pattern contains a field, ''masked_by'', which points to the mask that contains the 3D information.
+
+The mask should be a boolean mask with the same dimensions as the data in its native space. The order of data in the pattern corresponds to the order of the voxels, such that one could recreate the dataset in its native space with the code:
+
+{{{
+>> data = get_mat(subj,'pattern','dataset'); 
+
+>> masked_by = get_objfield(subj,'dataset','masked_by');
+
+>> mask = get_mat(subj,'mask',masked_by);
+
+>> full_data = zeros(size(mask));
+
+>> full_data(find(mask)) = data; 
+}}}
+
+Note that this ''only'' works for datasets and masks when the mask was used to create the dataset, thus ensuring proper relative indices, and the mask has not been altered in any way. In general, it is a good practice to never modify masks. If you wish to modify a mask, consider creating a duplicate, and modifying the duplicate. If you do modify a mask that was used to create a dataset, you will break the relative indices, and will not be able to recover the XYZ coordinates of each voxel in that pattern. In the worst case, you may not realise that this is the case, and be erroneously indexing your voxels.
+
+Relative indices such as those above (e.g., find(mask)) only work under specific conditions, and can cause problems if not used properly. For instance, if we have a wholebrain data set, and mask it with an anatomical mask, we can create a 2nd pattern. If we then take this pattern and apply a functional mask, we create a 3rd pattern. The relative indices from the 3rd pattern to the 1st and 2nd are different. To avoid this confusion, they are never stored within the ''subj'' structure. Relative indices should always be created on the fly between two objects, and never stored.
+
+Relative indices between any two objects can be calculated by finding the intersection of two masks. Thus, when finding the relative indices for a pattern and a mask, the pattern must have a ''masked_by'' mask intact. The code for calculating relative indices is as follows:
+
+{{{
+>> data = get_mat(subj,'pattern','dataset'); 
+
+>> masked_by = get_objfield(subj,'pattern','dataset','masked_by');
+
+>> mask = get_mat(subj,'mask','masked_by');
+
+>> new_mask = get_mat(subj,'mask','anat_mask');
+
+>> [int ia ib] = intersect(find(mask), find(new_mask));
+ }}}
+
+In this example, IA is the index of MASK in NEW_MASK. IB is the inverse, the index of NEW_MASK in MASK. Thus, one could take the relative index, IB, and extract the voxels in DATA that are present in the mask NEW_MASK:
+
+{{{ 
+>> new_data = data(IB,:);
+ }}}
+
+This is precisely what create_thresh_mask() does. We have included this guide to help users understand how relative indices were meant to work, and to facilitate integrating new functions, but urge the user to use the standard MVPA functions whenever possible. Happy coding.
+
+
+==== Handy shortcuts ====
+
+We've tried to add some minor labour-saving devices to make using the toolbox easier.
+
+
+===== Getting the latest object names =====
+
+Much of the time, you'll want to look at or use the most recently-created pattern, or run or regressors or mask. Sometimes, it can be a pain to remember or type long object names, and sometimes when writing functions, you may not know in advance what the latest names will be.
+
+To make this easier, the toolbox keeps track of the latest object of each type that was initialized as subj.p, .r, .s and .m. This way, you could type:
+
+{{{
+>> get_object(subj,'pattern',subj.p) 
+
+as a bit of a shorthand. 
+}}}
+
+Note: this is one of those handy labour-saving devices that might prove a terrible idea if used carelessly. For instance, be careful after creating a group, since it's unlikely that you'll want to specifically access the last item in that group.
+
+Note: We deliberately decided not to have the remove functions alter the subj.x shortcuts when removing the highest-numbered mat or object of its type. This way, if you forget to update them yourself, you'll get an error. If we were to automatically set them to the next highest-numbered item, you might not notice and end up with a subtil and devilish bug.
+
+If you have ideas for other ways to speed up frequently-performed tasks or minimise how much typing users have to do, we'd be happy to [#_Contact_details hear from you].
+
+
+===== Getting the mat immediately from a duplicated object =====
+
+Often, you'll find yourself doing the following:
+
+1. duplicating an object
+
+2. getting the ''mat'' from the new object
+
+3. modifying it
+
+4. setting it back into the object.
+
+To reduce this down by one step, it's worth noting that the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/duplicate_object.html ''duplicate_object.m''] function will return the duplicated object's ''mat'' as its second argument, allowing you to combine the first two steps in one line:
+
+{{{ 
+>> [subj duplicated_mat] = duplicate_obj(subj,objtype,old_objname,new_objname);
+ }}}
+
+
+==== Creating custom functions ====
+
+It is very easy to override the toolbox's default functions with your own custom-created function that the main toolbox control functions can call when appropriate. For instance, if you don't want to use the default backpropagation classifier, or the default ANOVA statmap generator, you can drop your own functions in instead, and the toolbox's no-peeking cross-validation control functions will use your custom functions instead at the appropriate times.
+
+At the moment, there are various places where you can substitute your own functions ' click on the links in the [#_Places_that_can list] below to skip to the section where the specific details for each are described.
+
+If you do create a custom function and you think others might benefit from it, we'd really like to [#_Contact_details hear from you] so that we can incorporate it into future releases of the toolbox.
+
+
+===== Places that can call custom function =====
+
+ * [#_statmap statmap generation] ' ''feature_selection.m'' and ''peek_feature_selection.m'' can take optional ''statmap_funct'' and ''statmap_arg'' arguments
+ * [#_Creating_your_own classifier training] ' ''cross_validation.m'' can take an optional ''train_funct'' function name string
+ * [#_Creating_your_own classifier test] ' ''cross_validation.m'' can take an optional ''test_funct'' function name string
+ * [#_Creating_your_own classifier performance metrics] ' ''cross_validation.m'' can take an optional ''perfmet_functs'' cell array of performance metric function name strings
+
+
+===== Requirements for custom functions that modify the ''subj'' structure =====
+
+Any custom functions that modify the ''subj'' structure (usually by creating a new object) should fulfil the following requirements, if they're going to be well-behaved toolbox citizens:
+
+· take in a ''subj'' structure as their first argument
+
+· return the modified ''subj'' structure as their first output argument
+
+· if the custom function creates a new ''subj'' structure object, you should add a line to the help comments that says 'Adds the following objects:' and a list of the objects/groups that get created
+
+· if the custom function creates a new ''subj'' structure object, you should display something like:
+
+sprintf('Created %s called %s',objtype,objname)
+
+ * should call the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_created.html ''add_created.m'']'' ''with fields for the name of the function and any arguments it takes
+ * should call [http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_history.html ''add_history.m'']'' ''to add a line describing themselves to their own freetext history narrative
+ * try and do some error-checking on the inputs, if there are any assumptions that the function makes, to help future users avoid making hard-to-debug booboos
+
+
+==== Optional arguments' ====
+
+All of the functions in the toolbox use the same conventions for optional arguments, since they all rely on ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/propval.html propval.m]''. This is a standalone function that makes it very easy to specify what optional arguments a function should accept, in any order, what default arguments it should use if they're not supplied, and with lots of error-checking and warning.
+
+Optional arguments must be supplied in property/value pairs, e.g.
+
+{{{
+>> summarize(subj,'display_groups',false) 
+
+Here, the property being specified is 'display_groups' and the value being specified is ''false''. Multiple optional arguments can be specified at once, and in any order, e.g.
+
+>> summarize(subj,'display_groups',false,'objtype','selector')
+
+or:
+
+>> summarize(subj,'objtype','selector','display_groups',false)
+ }}}
+
+In this case, the property/value pairings are as follows:
+
+||<style="border: 0.5pt solid windowtext; padding: 0cm 5.4pt;"> ''Property'' ||<style="border-style: solid solid solid none; border-color: windowtext windowtext windowtext -moz-use-text-color; border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> ''Value'' ||
+||<style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 0.5pt 0.5pt; padding: 0cm 5.4pt;"> display_groups ||<style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> false ||
+||<style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 0.5pt 0.5pt; padding: 0cm 5.4pt;"> objtype ||<style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> 'selector' ||
+
+
+Properties are always strings, and always come first in the pair. Values can be strings, or any other type, and always come second.
+
+By the way, for more information on the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/summarize.html summarize.m] function, see also: [#_Viewing_the_subj Viewing the subj structure] and [:MVPA manual:How can I slim down the output from summarize.m].
+
+In the help for a function, the triple-dot at the end of the function declaration denotes that it takes optional arguments, e.g.
+
+{{{
+>> help summarize 
+
+[] = summarize(subj,...)
+
+Below, the help says:
+
+DISPLAY_GROUPS (optional, default = blah) ' blah blah
+
+OBJTYPE (optional, default = blah) ' blah blah
+ }}}
+
+In this way, all the allowed optional argument properties will be listed, along with their default values (if they are left unspecified), and what terrible things will be wrought by each.
+
+This is a powerful and flexible mechanism, since it allows us to keep basic function declarations simple if you want to use the defaults, but doesn't restrict the user if they do want to specify niceties.
+
+There is one further way in which optional arguments can be supplied. If calling a function with lots of optional arguments, it can be a pain to specify them all each time. In this case, you can bundle them all together in a structure, and just feed that in. Propval.m will understand and deconstruct the structure in exactly the same way as before, e.g.
+
+{{{
+>> summ_args.display_groups = false; 
+
+>> summ_args.objtype = 'selector';
+
+>> summarize(subj,summ_args)
+ }}}
+
+See the help for [http://www.csbmb.princeton.edu/mvpa/docs/m2html/propval.html propval.m] for more information.
+
+Note: there is one exception - [http://www.csbmb.princeton.edu/mvpa/docs/m2html/summarize.html summarize.m] has a special single optional boolean argument that determines whether or not to display all the members of a group. This is for the user's convenience, since ''summarize.m'' gets called so much, but may be deprecated in future versions.
+
+
+[[Include(GoodPractices)]]
+
+[[Include(Troubleshooting)]]
+
+[[Include(Howtos)]]
