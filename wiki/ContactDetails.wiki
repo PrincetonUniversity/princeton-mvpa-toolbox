@@ -1,0 +1,7 @@
+=== Contact details ===
+
+See http://www.csbmb.princeton.edu/mvpa to obtain the latest version of the toolbox.
+
+Please contact mvpa-toolbox@googlegroups.com for more information, suggestions or bug reports. Any feedback is appreciated. We'd be especially happy to hear from you if you're interested in contributing to the toolbox in any way.
+
+We operate a low-traffic mailing list for users (mvpa-toolbox@googlegroups.com) that announces major releases, and a higher-traffic mailing list for developers (mvpa-toolbox@googlegroups.com) for those who wish to keep abreast of the latest changes in the code. Contact [mailto:mvpa-toolbox@googlegroups.com mvpa-toolbox@googlegroups.com] to be added to either list.
