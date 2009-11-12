@@ -1,6 +1,5 @@
 = Classification =
-
-
+<wiki:toc>
 == Introduction ' training, testing and generalization ==
 
 In the machine learning sense, classification means taking a labelled training data set and showing the classifier algorithm examples of each condition over and over until it can successfully identify the training data. Then, the classifier's generalization performance is tested by asking it to guess the conditions of new, unseen data points.
