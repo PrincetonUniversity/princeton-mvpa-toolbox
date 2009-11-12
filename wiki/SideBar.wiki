@@ -39,4 +39,7 @@
    * [ManualClassification#The_results_structure Results Structure]
    * [ManualClassification#Avoiding_spurious_classification Avoiding Spurious Classification]
   * [ManualExporting Exporting]
+   * [ManualExporting#To_AFNI AFNI]
+   * [ManualExporting#To_BrainVoyager Brain Voyager]
+   * [ManualExporting#To_SPM SPM]
   * [ManualAdvanced Advanced]
