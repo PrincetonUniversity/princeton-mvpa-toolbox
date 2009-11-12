@@ -1,11 +1,11 @@
-== Data structures ==
+= Data structures =
 <wiki:toc>
 All the basic information we use for classification is contained in a single ''subj'' structure - one per subject. The ''subj'' structure itself is really just four cell arrays, each containing multiple objects. An object can be one of four main data types [#_patterns patterns], [#_regressors regressors], [#_selectors selectors] and [#_masks masks]. Each object is stored as a single cell in one of the 4 ''subj'' cell arrays. For instance, a single regressors object is a cell in subj.regressors{}.
 
 See [#_subj subj structure] for more details.
 
 
-=== 1. Patterns ===
+== Patterns ==
 
 
 
@@ -18,7 +18,7 @@ There is no information about where in the brain a particular voxel/feature is l
 Statmaps and beta weights from GLMs and other statistical procedures are also stored as patterns, although these often do not have time as a second dimension.
 
 
-=== 2. Regressors ===
+== Regressors ==
 
 For our purposes, the term 'regressors' refers to a set of
 values for each timepoint that denote the extent to which
@@ -63,7 +63,7 @@ We tend to code rest timepoints as a column of zeros, but there might sometimes 
 In this simple example, there is just a single '1' on each row signalling one active condition at each timepoint. However, there is nothing precluding multiple conditions being active, to greater or lesser degrees. Indeed, we recommend convolving the ''regressors'' with a hemodynamic response function which will lead to non-binary regressors with some timepoints having than one condition active at the same time (see TutorialAdv).
 
 
-=== 3. Selectors ===
+== Selectors ==
 
 Think of the ''selectors'' row-vector as labelling each
 timepoint with a tag or type of some kind. Selector values
@@ -74,7 +74,7 @@ vs 'test'. Or as 'exclude vs 'include'. Or 'run1' vs 'run2'
 vs 'run3' vs 'run4' etc.
 
 
-=== 4. Masks ===
+== Masks ==
 
 A ''mask ''is usually a single boolean 3D matrix the size of
 the original brain volume with ones showing where voxels
