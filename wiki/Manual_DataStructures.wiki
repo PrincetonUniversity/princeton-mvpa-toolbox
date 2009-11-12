@@ -1,1 +1,104 @@
-= Data Structures =
+== Data structures ==
+<wiki:toc>
+All the basic information we use for classification is contained in a single ''subj'' structure - one per subject. The ''subj'' structure itself is really just four cell arrays, each containing multiple objects. An object can be one of four main data types [#_patterns patterns], [#_regressors regressors], [#_selectors selectors] and [#_masks masks]. Each object is stored as a single cell in one of the 4 ''subj'' cell arrays. For instance, a single regressors object is a cell in subj.regressors{}.
+
+See [#_subj subj structure] for more details.
+
+
+=== 1. Patterns ===
+
+
+
+This is where the data from the scanner gets stored, which could take many forms. It might start as raw voxel values, in which case the dimensions would be voxels by timepoints. However, it can also be used to store beta weights, wavelet coefficients, PCA components etc.
+
+Later, the ''patterns'' will be used to generate the training data (which the classifier learns from) and testing data (which it's tested on).
+
+There is no information about where in the brain a particular voxel/feature is located ' each ''pattern'' has an associated [#_Princeton_multi-voxel_pattern ''mask''] which contains the information about its contents' locations.
+
+Statmaps and beta weights from GLMs and other statistical procedures are also stored as patterns, although these often do not have time as a second dimension.
+
+
+=== 2. Regressors ===
+
+For our purposes, the term 'regressors' refers to a set of
+values for each timepoint that denote the extent to which
+each condition is active.
+
+[If it helps you to think of these in terms of a standard
+neuroimaging analysis, these are the counterparts of the
+condition labels in your X matrix from which you predict
+your voxel values.]
+
+[If it helps you to think in terms of machine learning,
+these are the mental state labels that we're trying
+to predict from our brain state data.]
+
+Each condition gets its own row, and each timepoint gets its
+own column. In a simple 1-of-n design, the active
+condition-row for a given timepoint-column is marked with a
+'1', and all the other conditions are marked with
+'0's. You'd have a 2D matrix with a single '1' in each
+column, corresponding to the active condition for that
+timepoint, e.g. 'looking at a face' vs 'looking at a house'.
+
+N.B. The regressors matrix can contain real positive or
+negative numbers, indicating that a condition is active to
+some degree.
+
+Consider this example set of ''regressors'' with 3
+conditions and 7 timepoints:
+
+{{{
+1 1 0 0 0 0 0
+0 0 1 1 0 0 0
+0 0 0 0 1 1 0
+}}}
+
+In this case, the first couple of TRs belong to condition 1, then t3 and t4 belong to condition 2, and t5 and t6 belong to condition 3. The last timepoint has no active conditions, i.e. it's rest.
+
+This ''regressors'' matrix is later fed into the classifier as the supervised labels that tell it what kind of brain state the person is in.
+
+We tend to code rest timepoints as a column of zeros, but there might sometimes be good reasons to assign rest to have its own condition-row.
+
+In this simple example, there is just a single '1' on each row signalling one active condition at each timepoint. However, there is nothing precluding multiple conditions being active, to greater or lesser degrees. Indeed, we recommend convolving the ''regressors'' with a hemodynamic response function which will lead to non-binary regressors with some timepoints having than one condition active at the same time (see TutorialAdv).
+
+
+=== 3. Selectors ===
+
+Think of the ''selectors'' row-vector as labelling each
+timepoint with a tag or type of some kind. Selector values
+must be positive integers.
+
+For instance, a selector might label timepoints as 'train'
+vs 'test'. Or as 'exclude vs 'include'. Or 'run1' vs 'run2'
+vs 'run3' vs 'run4' etc.
+
+
+=== 4. Masks ===
+
+A ''mask ''is usually a single boolean 3D matrix the size of
+the original brain volume with ones showing where voxels
+will be kept, and zeros showing voxels that will be
+excluded.
+
+A ''mask'' might be defined anatomically (e.g. prefrontal
+cortex) or functionally by thresholding a [#_statmap
+statmap], or really any other way you choose that will yield
+a 3D boolean matrix of the right dimensions.
+
+This is also where the information about the locations of
+the features (e.g. voxels) in a ''pattern'' is
+encoded. Every ''pattern ''has a 'masked_by' field which
+points to a ''mask'' with the same number of active voxels,
+showing where in the 3D volume those ''patterns"" voxels came
+from.
+
+To turn the mask into a linear index of voxels that refers
+to a pattern, just call the Matlab 'find' command on the
+''mask''.
+
+To create a (voxels x 3) list of xyz coordinates, just call
+the Matlab 'ind2sub' command on the ''mask''. Update: v0.9
+and above will include a handy
+[http://www.csbmb.princeton.edu/mvpa/docs/m2html/get_coords_from_mask.m
+get_coords_from_mask.m] function to do this for you.
