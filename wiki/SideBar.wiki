@@ -25,6 +25,8 @@
    * [ManualPreClassification#Anova_and_voxel_selection Anova and Voxel Selection]
    * [ManualPreClassification#Other_voxel_selection_methods Other Methods of Voxel Selection]
    * [ManualPreClassification#Statmaps Statmaps]
+    * [ManualPreClassification#Creating_your_own_statmap Creating your own]
+   * [ManualPreClassification#Peeking Peeking]
   * [ManualClassification Classification]
   * [ManualExporting Exporting]
   * [ManualAdvanced Advanced]
