@@ -1,5 +1,5 @@
 = Pre-classification =
-
+<wiki:toc>
 By 'pre-classification' here, we mean everything that occurs between importing the data into Matlab (e.g. from AFNI) and running the classifier on it. Obviously, the basic pre-processing work that goes on even earlier than this (e.g. motion correction, detrending) is crucial too, but we only briefly discuss that here.
 
 We have found that the right pre-classification normalization and and feature selection makes a large difference to classifier performance.
