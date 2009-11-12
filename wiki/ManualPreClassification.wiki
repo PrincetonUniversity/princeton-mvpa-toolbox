@@ -51,7 +51,7 @@ Statmaps are stored as patterns (''nActiveVox'' x ''1''). We considered storing 
 A mask can be created from a statmap by choosing all the voxels that are above/below some threshold using the ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_thresh_mask.html create_thresh_mask.m]'' or the n best voxels using [http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_sorted_mask.html create_sorted_mask.m].
 
 
-== Creating your own statmap ==
+=== Creating your own statmap ===
 
 If you want to create your own statmap, start by looking at the default [http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_anova.html statmap_anova.m], and the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_template.html statmap_template.m] template.
 
