@@ -15,26 +15,6 @@ get started, and finally [:Manual] for more detailed coverage.
 
 [WhatIsTheToolbox General Toolbox Details]
 
-=== Exporting ===
-
-See [#_Importing importing].
-
-
-==== To AFNI ====
-
-See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/write_to_afni.html ''write_to_afni.m'']. This will write a pattern or a mask to a BRIK file, using an existing sample BRIK (from the same data set) to create the necessary header information. Uses [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library. See the ''Howtos / ''[#_Exporting_1 ''Exporting''] section for more information.
-
-
-==== To BrainVoyager ====
-
-As [#_From_BrainVoyager above].
-
-
-==== To SPM ====
-
-As [#_From_SPM above].
-
-
 === Advanced ===
 
 
