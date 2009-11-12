@@ -8,7 +8,7 @@
    * [TutorialIntroSPM SPM based Intro]
   * [TutorialAdv Advanced Tutorial]
  * [Manual Manual]
-  * [ManualWhatisMVPA What is the MVPA Toolbox?]
+  * [ManualWhatIsMVPA What is the MVPA Toolbox?]
   * [ManualDataStructures Data Structures]
    * [ManualDataStructures#Patterns Patterns]
    * [ManualDataStructures#Regressors Regressors]
