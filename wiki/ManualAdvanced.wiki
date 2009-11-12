@@ -199,7 +199,7 @@ sprintf('Created %s called %s',objtype,objname)
  * try and do some error-checking on the inputs, if there are any assumptions that the function makes, to help future users avoid making hard-to-debug booboos
 
 
-== Optional arguments' ==
+== Optional arguments ==
 
 All of the functions in the toolbox use the same conventions for optional arguments, since they all rely on ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/propval.html propval.m]''. This is a standalone function that makes it very easy to specify what optional arguments a function should accept, in any order, what default arguments it should use if they're not supplied, and with lots of error-checking and warning.
 
