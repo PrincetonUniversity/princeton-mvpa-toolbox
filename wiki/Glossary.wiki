@@ -120,7 +120,7 @@ See [manual.htm#__4._Masks Data structure ' masks] and [manual.htm#__Statmaps Pr
 == subj ==
 See: [#_3._Selectors Data structure ' selectors].
 
-=== testing ===
+== testing ==
 Presented a [#training trained] classifier with patterns that it has never seen before, and testing its performance.
 
 
