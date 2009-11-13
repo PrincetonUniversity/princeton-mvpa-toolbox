@@ -35,7 +35,7 @@ See: [ManualDataStructures#Book-keeping_and_the_headers Data structure ' Book-ke
 == history ==
 A free-text field in the [#header header] that gets automatically appended to, creating a sort of narrative of that object's role in the analysis.
 
-See [#Book-keeping_and_the Data structure ' Book-keeping and the headers]
+See [ManualDataStructures#Book-keeping_and_the_headers Data structure ' Book-keeping and the headers]
 
 == iteration ==
 Running the classifier once, using a particular subset of the data for testing, and the remainder for training. For example, you have 10 runs, you'll have 10 iterations, each time withholding a different run as the testing data.
