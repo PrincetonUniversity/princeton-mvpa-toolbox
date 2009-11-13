@@ -98,7 +98,7 @@ Or, Matlab might complain that you don't have a default compiler selected. If th
  * [http://cnx.org/content/m12348/latest/ An article detailing a simple Step-by-Step process for creating a Mex file]
 
 == Start your engines ==
-Ok, we're ready to go. Change directory to where your sample data was stored and run matlab. Then, follow the instructions in the [:Tutorial easy:tutorial].
+Ok, we're ready to go. Change directory to where your sample data was stored and run matlab. Then, follow the instructions in the [TutorialIntro tutorial].
 
 Things are still in a state of flux, and we expect to be finding and fixing bugs for a little bit longer. To minimize your own and others' suffering, we ask that you let us know as soon as possible if you've found any serious bugs. Also, please contact mvpa-toolbox@googlegroups.com to be added to our mailing list so that we can let you know of any major new releases or bugfixes.
 
