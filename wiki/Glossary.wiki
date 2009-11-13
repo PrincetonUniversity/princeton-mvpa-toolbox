@@ -21,7 +21,7 @@ The groups that you're trying to teach your classifier to distinguish, e.g. diff
 == cross-validation ==
 When you use n-minus-one/leave-one-out cross-validation classification, you iterate over your data multiple times. Each [#iteration iteration] involves a fresh classifier [#condition trained] on a subset of the data, and tested on the withheld data.
 
-See: [#N-minus-one_(leave-one-out)_cross-valid N-minus-one (leave-one-out) cross-validation]
+See: [ManualClassification#N-minus-one_(leave-one-out)_cross-validation N-minus-one (leave-one-out) cross-validation]
 
 == feature selection ==
 Deciding which of your features (e.g. voxels) you want to include in your analysis.
@@ -30,7 +30,7 @@ Deciding which of your features (e.g. voxels) you want to include in your analys
 Testing the performance of a trained classifier on previously-unseen (test) data
 
 == header ==
-See: [#Book-keeping_and_the Data structure ' Book-keeping and the headers]
+See: [ManualDataStructures#Book-keeping_and_the_headers Data structure ' Book-keeping and the headers]
 
 == history ==
 A free-text field in the [#header header] that gets automatically appended to, creating a sort of narrative of that object's role in the analysis.
