@@ -52,3 +52,4 @@
    * [ManualAdvanced#Handy_shortcuts Handy Shortcuts]
    * [ManualAdvanced#Creating_custom_functions Creating Custom MVPA Functions]
    * [ManualAdvanced#Optional_arguments Utilizing Optional Arguments]
+ * [ContactDetails Contact Details]
