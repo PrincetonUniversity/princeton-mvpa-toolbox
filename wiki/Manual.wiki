@@ -10,7 +10,6 @@ get started, and finally [Manual] for more detailed coverage.
 
 
 == Table of Contents: ==
- * [Manual Manual]
   * [ManualWhatIsMVPA What is the MVPA Toolbox?]
   * [ManualDataStructures Data Structures]
    * [ManualDataStructures#Patterns Patterns]
