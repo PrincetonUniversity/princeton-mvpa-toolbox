@@ -1,12 +1,13 @@
 = Princeton multi-voxel pattern analysis manual =
 
 
-[ContactDetails Contact Details]
+Welcome to the Manual for the Princeton Multi Voxel Pattern Analysis Toolbox.
 
 If you're new to this site, you will probably want to check
 out [Setup] for installation instructions, then [Tutorials] to
 get started, and finally [Manual] for more detailed coverage.
 
+Below you'll find the Table of Contents for the Manual itself, on the left you can use the Sidebar to access the Manual directly, as well as the quick start guides and other relevant information.
 
 
 == Table of Contents: ==
