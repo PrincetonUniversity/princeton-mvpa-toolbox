@@ -26,7 +26,7 @@ The main scripts are stored in a gzipped tarball file called mvpa.''version''.ta
 
 This just says to unzip and unpack the contents, showing you the names of the files as it goes.
 
- * On Windows, use a program like [http://www.winzip.com/ Winzip] or [http://www.rarlab.com/ WinRAR]. (Update: some users have experienced problems using !WinZip, so we currently recommend !WinRAR.)
+ * On Windows, use a program like [http://www.winzip.com/ Winzip] or [http://www.rarlab.com/ WinRAR]. (Update: some users have experienced problems using !WinZip, so we currently recommend WinRAR.)
 
 This will create various directories:
 
