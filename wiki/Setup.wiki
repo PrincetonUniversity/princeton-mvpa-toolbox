@@ -14,7 +14,7 @@ The latest version can always be found at:
 
 http://www.csbmb.princeton.edu/mvpa
 
-See the contact details in the [:MVPA manual:Manual] for more information about mailing lists.
+See the contact details in the [Manual] for more information about mailing lists.
 
 There are two parts to download: the scripts and the sample dataset. You only really need the sample dataset if you want to try running through the tutorial (highly recommended).
 
