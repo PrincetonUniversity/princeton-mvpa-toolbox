@@ -31,7 +31,7 @@ This just says to unzip and unpack the contents, showing you the names of the fi
 This will create various directories:
 
  1. ''afni_matlab'', for importing from AFNI
- 1. ''bv2mat'', for importing from BrainVoyager
+ 1. ''bv2mat'', for importing from !BrainVoyager
  1. ''mvpa'', the main toolbox scripts
  1. ''netlab'', for neural networks classification, if you don't have the Matlab Neural Networks toolbox
  1. ''progress'', changelogs, planned improvements etc. ' no actual functionality here
