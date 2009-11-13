@@ -1,34 +1,25 @@
-## Please edit system and help pages ONLY in the moinmaster wiki! For more
-## information, please see MoinMaster:MoinPagesEditorGroup.
-##acl MoinPagesEditorGroup:read,write,delete,revert All:read
-##master-page:HelpTemplate
-##master-date:Unknown-Date
-#format wiki
-#language en
 
-[[Include(MVPA)]]
+= Princeton Multi-Voxel Pattern Analysis ' glossary =
 
-== Princeton multi-voxel pattern analysis ' glossary ==
-
-See [:Manual:] (Data structures section) for more information on terms relating to the way the data is stored by the toolbox.
+See [Manual] (Data structures section) for more information on terms relating to the way the data is stored by the toolbox.
 
 ----
-[[TableOfContents]]
+<wiki:toc>
 ----
 
-=== block ===
-[[Anchor(_block)]] A group of contiguous [#_TR TR] from the same [#_condition condition] in a particular [#_run run]. Usually comprises multiple behavioural [#_trial trials].
+== block ==
+A group of contiguous [#_TR TR] from the same [#_condition condition] in a particular [#_run run]. Usually comprises multiple behavioral [#_trial trials].
 -----
-=== classification ===
+== classification ==
 In the machine learning sense, classification means taking a labelled training data set and showing the classifier algorithm examples of each condition over and over until it can successfully identify the training data. Then, the classifier's generalization performance is tested by asking it to guess the conditions of new, unseen data points.
 
 See: [:MVPA_manual:Manual(Classification)] in the manual.
 -----
 
-=== condition ===
+== condition ==
 [[Anchor(_condition)]] The groups that you're trying to teach your classifier to distinguish, e.g. different tasks being performed by the subject in the experiment, or different stimuli being viewed.
 -----
-=== cross-validation ===
+== cross-validation ==
 [[Anchor(_cross-validation)]] When you use n-minus-one/leave-one-out cross-validation classification, you iterate over your data multiple times. Each [#_iteration iteration] involves a fresh classifier [#_condition trained] on a subset of the data, and tested on the withheld data.
 
 See: [#_N-minus-one_(leave-one-out)_cross-valid N-minus-one (leave-one-out) cross-validation]
