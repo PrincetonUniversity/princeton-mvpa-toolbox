@@ -40,7 +40,7 @@ See [ManualDataStructures#Book-keeping_and_the_headers Data structure ' Book-kee
 == iteration ==
 Running the classifier once, using a particular subset of the data for testing, and the remainder for training. For example, you have 10 runs, you'll have 10 iterations, each time withholding a different run as the testing data.
 
-See: [#N-minus-one_cross-validation_1:MVPA_glossary ' n-minus-one] and [#N-minus-one_(leave-one-out)_cross-valid Classification ' N-minus-one].
+See: [#n_minus_one_cross_validation n minus one cross validation] 
 
 == leave-one-out ==
 We use 'leave-one-out' and 'n-minus-one' interchangeably to refer to the [#cross-validation cross-validation] procedure that leaves out a different subsection (e.g. [#run run]) of the data each [#iteration iteration].
@@ -55,7 +55,7 @@ Every [#object object] in the [#subj ''subj''] structure has a name. This is a v
 
 See: [#The_innards_of Data structure ' innards of the ''subj'' structure] and [#Accessing_the_subj Advanced ' accessing ''subj'' directly]
 
-== n-minus-onecross-validation == [[BR]]
+== n minus one cross validation == 
 We use 'leave-one-out' and 'n-minus-one' interchangeably to refer to the [#_cross-validation cross-validation] procedure that leaves out a different subsection (e.g. [#run run]) of the data each [#iteration iteration].
 
 == object ==
