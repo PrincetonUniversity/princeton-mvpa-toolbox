@@ -8,7 +8,7 @@ At this point, you should have the MVPA toolbox installed, along with the EBC ex
 
 
 
-'''Table of Contents:'''
+
 <wiki:toc>
 
 
