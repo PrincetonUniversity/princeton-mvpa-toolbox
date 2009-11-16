@@ -48,16 +48,21 @@ svn checkout http://princeton-mvpa-toolbox.googlecode.com/svn/trunk/
 == Step Three - Add to path ==
 Now that you have all these files on your hard disk, you need to add them to your path (so that you can call those functions without having to be in their directory). We provide instructions for how to do this in the [Setup setup documentation]. The only complication is that we've tidied things up a little by distributing the .m files among a few subdirectories. You could add each of these to your path one by one, but we've added a little functionality to make this easier for you. Now, just add the main 'mvpa' directory to your path, and run 'mvpa_add_paths.m', and it will do the rest. In other words, the lines in your startup.m should look like this:
 
+{{{
+
 addpath /path/to/mvpa
 
 mvpa_add_paths;
+
+}}}
 
 Restart matlab, and then try something like 'help tutorial_easy', to check that everything is as it should be.
 
 N.B. make sure to remove the old path from your startup.m, otherwise matlab might continue to use the old version of the scripts instead of the fresh new version you just checked out of the Subversion repository.
 
 == Step Four - Update Code ==
- If at anytime you would like to update the code to the newest most bug free release you can run
+
+If at anytime you would like to update the code to the newest most bug free release you can run
 
 {{{
 svn update
