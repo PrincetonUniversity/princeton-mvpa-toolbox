@@ -83,22 +83,22 @@ See: [Manual].
 == performance ==
 The performance metric measures the similarity between the output produced by a classifier to the output it's supposed to produce.
 
-See [manual#Performance Performance] in the Classification section of the manual.
+See [ManualClassification#Performance Performance] in the Classification section of the manual.
 
-== pre-classification ==
+== Pre-Classification ==
 By this, we mean the normalization and feature selection steps that go on before after the data structure has been created but before beginning classification, e.g. ''[m2html\zscore_runs.html zscore_runs.m]'' and ''[m2html\feature_select.html feature_select.m]''.
 
-See [:MPVA_manual#_Pre-classification pre-classification].
+See [ManualPreClassification pre-classification].
 
 == regressors ==
 For our purposes, the term 'regressors' refers to a set of values for each TR that denote the extent to which each condition is active. Used by statistical tests, and also as the teacher signal for the classifiers.
 
-See: [#regressors Data structure ' regressors].
+See: [ManualDataStructures#Regressors Data structure ' regressors].
 -----
 == results ==
 This is where all the information about [#_condition classification] is stored.
 
-See: [#The_results_structure Classification ' results structure].
+See: [ManualClassification#The_results_structure Classification ' results structure].
 -----
 == run ==
 A single scanning session. There are usually a handful of runs in a given hour-long experiment.
@@ -106,7 +106,7 @@ A single scanning session. There are usually a handful of runs in a given hour-l
 == selector ==
 A set of labels for each [#_TR TR], e.g. where all the [#_run runs] start and finish, or which TRs should be used for [#_condition training] and which for testing on this [#iteration iteration].
 
-See: [#_3._Selectors Data structure ' selectors].
+See: [ManualDataStructures#Selectors Data structure ' selectors].
 
 == statmap ==
 The result of some kind of statistical test, usually performed separately for each voxel. For instance, the ANOVA yields a statmap of p values, one for each voxel. Each p value denotes the probability that that voxel varies significantly between conditions.
@@ -115,10 +115,10 @@ Statmaps are stored as patterns, since the term 'mask' is usually used to refer 
 
 A mask can be created from a statmap by choosing all the voxels that are above/below some threshold.
 
-See [manual.htm#__4._Masks Data structure ' masks] and [manual.htm#__Statmaps Pre-classification ' Statmaps].
+See [ManualDataStructures#Masks Data structure ' masks] and [ManualPreClassification#Statmaps Pre-classification ' Statmaps].
 
 == subj ==
-See: [#_3._Selectors Data structure ' selectors].
+See: [ManualDataStructures#Selectors Data structure ' selectors].
 
 == testing ==
 Presented a [#training trained] classifier with patterns that it has never seen before, and testing its performance.
@@ -133,7 +133,7 @@ Showing a classifier lots of examples of a person's brain in condition A, and te
 In reality, the examples tend to be interleaved with each other and presented in a different order each time. Most classifier algorithms can also deal with more than just two categories.
 
 == trial ==
-A behavioural trial in the experiment, that probably spans multiple [#_TR TR]s. Multiple trials make up a [#_block block].
+A behavioural trial in the experiment, that probably spans multiple [#TR TR]s. Multiple trials make up a [#block block].
 
 == voxel selection ==
 Whenever you apply a ''mask'' to a ''pattern'', you are selecting voxels. This term tends to be used more often in the machine learning context of 'feature selection' ' choosing which of the features (voxels) contain signal for the classification problem you are attempting.
