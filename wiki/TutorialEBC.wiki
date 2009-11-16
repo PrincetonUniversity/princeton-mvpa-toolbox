@@ -6,12 +6,12 @@ This tutorial will guide you in a step-by-step fashion through some of the analy
 
 At this point, you should have the MVPA toolbox installed, along with the EBC extension, as well as the tutorial data in MATLAB form from the EBC website. For installation instructions, click here. Once you're ready to proceed, start up Matlab and (if you're using the GUI) load up ebc_tutorial_intro.m into the editor. (Don't worry if you don't have the GUI: you can enter the commands from this tutorial as we come to them, or you can copy from ebc_tutorial_intro.m as a reference.) Then head to the next section. 
 
-----
+
 
 '''Table of Contents:'''
-[[TableOfContents(3)]]
+<wiki:toc>
 
-----
+
 
 == Step 1 - Loading the data ==
 
