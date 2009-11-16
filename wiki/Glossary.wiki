@@ -94,12 +94,12 @@ See [ManualPreClassification pre-classification].
 For our purposes, the term 'regressors' refers to a set of values for each TR that denote the extent to which each condition is active. Used by statistical tests, and also as the teacher signal for the classifiers.
 
 See: [ManualDataStructures#Regressors Data structure ' regressors].
------
+
 == results ==
 This is where all the information about [#_condition classification] is stored.
 
 See: [ManualClassification#The_results_structure Classification ' results structure].
------
+
 == run ==
 A single scanning session. There are usually a handful of runs in a given hour-long experiment.
 
@@ -122,7 +122,6 @@ See: [ManualDataStructures#Selectors Data structure ' selectors].
 
 == testing ==
 Presented a [#training trained] classifier with patterns that it has never seen before, and testing its performance.
-
 
 == TR ==
 Stands for 'time to repetition'. Basically, the time taken for the scanner to acquire a single 3D brain volume. We often use it (somewhat imprecisely) to mean a single timepoint (usually of about 2s).
