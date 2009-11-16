@@ -17,7 +17,7 @@ Sample script ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/
 
 == Documentation ==
 
-The ''docs'' subdirectory includes beautified html versions of the m-files, but this [https://compmem.princeton.edu/mvpa_docs/ online wiki] is really the best place to look.
+The ''docs'' subdirectory includes beautified html versions of the m-files, but this [http://code.google.com/p/princeton-mvpa-toolbox/wiki/Manual online wiki] is really the best place to look.
 
 
 == Mathworks toolboxes ==
