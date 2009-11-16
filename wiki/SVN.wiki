@@ -3,10 +3,10 @@ Subversion (also known as SVN) is a version control system. Put simply, it allow
 
 If you want to access the latest version of the MVPA toolbox scripts (which might not have made their way into an official release), then you can grab the latest version directly from Subversion.
 
-[[TableOfContents]]
-----
+<wiki:toc>
+
 = Path =
- * For those who have already know how to use Subversion or who would simply like to browse the source inside your web browser the following link will take you where you need to go:  https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/
+ * For those who have already know how to use Subversion or who would simply like to browse the source inside your web browser the following link will take you where you need to go:  http://princeton-mvpa-toolbox.googlecode.com/svn/trunk/
 
  * This link provides read only access to the public area of the MVPA archive.
 
@@ -40,7 +40,7 @@ More recently an svn install was included with the latest version of OSX (10.5).
 Now you must navigate to wherever you would like the MVPA code base to be downloaded into.  This is typically done with a ''cd'' command.  This command is ubiquitous across the three platforms listed above. We recommend you check out the working copy to an new/empty directory. To checkout the repository into the current directory type:
 
 {{{
-svn checkout https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/
+svn checkout http://princeton-mvpa-toolbox.googlecode.com/svn/trunk/
 }}}
 
  This will begin checking out the repository copy, you will see a flurry of files zip past your screen.
