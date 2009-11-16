@@ -1,6 +1,6 @@
 = Using MD5 Checksums =
 
- MD5:: A software algorithm used to “fingerprint” a file or contents of a disk; used to verify the integrity of data. In forensic analysis it is typically used to verify that an acquired image of suspect data was not altered during the process of imaging.
+MD5: A software algorithm used to “fingerprint” a file or contents of a disk; used to verify the integrity of data. In forensic analysis it is typically used to verify that an acquired image of suspect data was not altered during the process of imaging.
 
 <wiki:toc>
 
