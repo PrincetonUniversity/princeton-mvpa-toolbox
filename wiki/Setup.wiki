@@ -5,7 +5,7 @@
 ----
 == Before you begin ==
 === Compatibility and requirements ===
-Almost all of the testing for the toolbox has been using Matlab R14 (version 7) on Linux and Mac OS X, though we don't anticipate any major roadblocks getting things to work on other operating systems. One user has reported that a few minor tweaks are necessary to get things working for version 6.5, and so we advise using version 7 wherever possible. Currently, none of the scripts require the Java Virtual Machine. Please [mailto:mvpa-toolbox@googlegroups.com contact us] if you notice any compatibility issues.
+Almost all of the testing for the toolbox has been using Matlab !R14 (version 7) on Linux and Mac OS X, though we don't anticipate any major roadblocks getting things to work on other operating systems. One user has reported that a few minor tweaks are necessary to get things working for version 6.5, and so we advise using version 7 wherever possible. Currently, none of the scripts require the Java Virtual Machine. Please [mailto:mvpa-toolbox@googlegroups.com contact us] if you notice any compatibility issues.
 
 The default ANOVA and zscoring functionality require the Matlab Stats toolbox, although home-grown alternatives have been provided instead for your use. Likewise, the default backpropagation classifier needs the Neural Networks toolbox, but we have bundled the Netlab open source toolbox that you can use instead. See the 'Mathworks toolboxes' and 'External bundled packages' in the [Manual] for more information.
 
