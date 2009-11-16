@@ -1,7 +1,6 @@
 = Visualizing your data in various ways =
-'''Table of contents'''
 
-[[TableOfContents]]
+<wiki:toc>
 
 ----
 
