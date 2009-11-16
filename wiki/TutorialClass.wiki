@@ -1,6 +1,6 @@
 = Classification tips and tricks =
 ----
- '''Table of Contents:''' [[TableOfContents]]
+<wiki:toc>
 
 == Backprop parameters ==
 Tweaking the backpropagation classification parameters is pretty easy. For instance, if you want to use a different backpropagation algorithm (using the Matlab Neural Networks toolbox), just add the following argument to 'class_args', before calling cross_validation.m'': ''
@@ -27,7 +27,8 @@ If you want to know how to turn it off anyway, here's how:
 {{{
 >> cv_args.perfmet_args.ignore_1ofn = true; 
 
->> [subj results] = cross_validation(subj,'epi_z','conds_conv','runs_xval_norest','3dD_200',class_args,cv_args); }}}
+>> [subj results] = cross_validation(subj,'epi_z','conds_conv','runs_xval_norest','3dD_200',class_args,cv_args); 
+}}}
 
 In other words, you need to add an optional 'perfmet_args' argument to the ''cross_validation.m'' call, which contains a structure that will be passed to the ''perfmet_maxclass.m'' function.
 
