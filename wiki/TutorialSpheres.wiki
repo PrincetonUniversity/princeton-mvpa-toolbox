@@ -1,9 +1,8 @@
 = Tutorial on spherical searchlights =
 
-----
-'''Table of Contents:''' [[TableOfContents]]
+<wiki:toc>
 
-----
+
 
 [http://www.pnas.org/cgi/content/abstract/0600244103v1 Kriegeskorte, Goebel & Bandettini (2006)] propose a method that combines many of the virtues of both univariate and multivariate techniques. In short, they define a local spherical mask, centered in turn on every one of the voxels inside the brain, and perform a multivariate test on each of those spherical regions. This "information-based mapping" approach preserves information that might be present in the fine spatial patterns, while also imposing a locality constraint (by only looking at voxels within a circumscribed region).
 
