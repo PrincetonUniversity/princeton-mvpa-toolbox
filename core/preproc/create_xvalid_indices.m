@@ -109,6 +109,12 @@ sanity_check_for_runs(runs,actives,args)
 % withholding a different run
 for r=unique(runs)
 
+  % don't treat zeros as a run - this is only relevant if
+  % IGNORE_RUNS_ZEROS is true
+  if r==0
+    continue
+  end
+  
   % Set up what will go into the selector object
   cur_selname = sprintf('%s_%i',args.new_selstem,r);
 

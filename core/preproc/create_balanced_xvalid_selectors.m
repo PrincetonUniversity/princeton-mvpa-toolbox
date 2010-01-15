@@ -45,14 +45,14 @@ for i=1:nIterations
   
   trnsel_bal = balance_active_selector(conds,trnsel);
   tstsel_bal = balance_active_selector(conds,tstsel);
-  
+
   % now recombine the newly balanced training and testing selectors
   new_sel = trnsel_bal*1 + tstsel_bal*2;
   
   new_selname = new_selnames{i};
 
   subj = set_mat(subj,'selector',new_selname,new_sel);
-
+  
 end % i nIterations
 
 

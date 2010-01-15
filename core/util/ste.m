@@ -6,7 +6,7 @@ function [y] = ste(x,dim)
 %
 % Matlab doesn't have a standard error function, but it's easy
 % enough to calculate. ste(x) = std(x)/sqrt(n) where n is the
-% number of samples
+% number of samples.
 %
 % If you don't specify DIM, it will run on the first
 % non-singleton dimension. It uses STD's default

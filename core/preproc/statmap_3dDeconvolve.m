@@ -412,9 +412,10 @@ if ~length(find(regs)) | ~length(find(sel))
   error('There''s nothing for the ANOVA to run on');
 end
 
-if exist( sprintf('%s.BRIK',args.bucket_name),'file' )
+if exist( sprintf('%s.BRIK',args.bucket_name),'file' ) | exist( sprintf('%s.BRIK.gz',args.bucket_name),'file' )
   if args.overwrite_buckets
     unix(sprintf('rm -f %s.BRIK',args.bucket_name));
+    unix(sprintf('rm -f %s.BRIK.gz',args.bucket_name));
     unix(sprintf('rm -f %s.HEAD',args.bucket_name));
   else
     error('You need to delete the existing bucket first - %s',args.bucket_name);
