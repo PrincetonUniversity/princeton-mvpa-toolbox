@@ -1,8 +1,8 @@
-function [subj new_objnames] = duplicate_group(subj,objtype,old_groupname,new_groupname)
+function [subj new_objnames group_mat] = duplicate_group(subj,objtype,old_groupname,new_groupname)
 
 % Duplicate an entire group
 %
-% [SUBJ NEW_OBJNAMES] = DUPLICATE_GROUP(SUBJ,OBJTYPE,OLD_GROUPNAME,NEW_GROUPNAME)
+% [SUBJ NEW_OBJNAMES GROUP_MAT] = DUPLICATE_GROUP(SUBJ,OBJTYPE,OLD_GROUPNAME,NEW_GROUPNAME)
 %
 % Calls DUPLICATE_OBJECT on each object in the group, renaming them
 % based on the NEW_GROUPNAME
@@ -11,6 +11,8 @@ function [subj new_objnames] = duplicate_group(subj,objtype,old_groupname,new_gr
 % sprintf('%s_%i',OLD_GROUPNAME,objnum). [Actually, I think it just
 % requires OLD_GROUPNAME to be part of the object name, so
 % that it can do a find/replace for it].
+%
+% GROUP_MAT = results of GET_GROUP_AS_MATRIX.
 
 
 if ~nargout
@@ -61,3 +63,4 @@ end % o nObjs
 % now update all the new objects to be part of their own group
 subj = change_objgroup(subj,objtype,new_objnames,new_groupname);
 
+group_mat = get_group_as_matrix(subj,objtype,old_groupname);
