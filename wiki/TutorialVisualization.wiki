@@ -44,7 +44,7 @@ Now, we need to import this into the toolbox as a pattern (since we want to pres
 }}}
 We don't actually need to specify to just load the first sub-brik of the structural, which for some reason has two sub-briks, as {{{view_pattern_overlay}}} can choose which sample of the underlay to plot, but it just makes things a lot simpler if we do so now.
 
-'''Note:''' in previous versions of the tutorial, we told you to create a 'wholevol' mask consisting entirely of ones, and load the pattern that way. It's a lot more memory efficient to just load the anatomical data into the mask of the brain, rather than the entire cube, but if you really want to see the skull and head anatomy, you can do this.
+*Note:* in previous versions of the tutorial, we told you to create a 'wholevol' mask consisting entirely of ones, and load the pattern that way. It's a lot more memory efficient to just load the anatomical data into the mask of the brain, rather than the entire cube, but if you really want to see the skull and head anatomy, you can do this.
 
 Ideally you'd not be using the raw structural at all, but rather a skull-stripped image that's been aligned to your mean EPI image, but that's a tutorial for another day.
 
