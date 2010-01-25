@@ -108,7 +108,7 @@ You should take some time to inspect the output of the 3dDeconvolve. It doesn't 
 
 At the end of this, you should end up with a statmap for
 each iteration. The optional 'thresh' argument set to empty
-told ''feature_select.m'' not to try to create masks
+told _feature/_select.m_ not to try to create masks
 automatically by thresholding the statmaps. This is because
 at the moment, we haven't added functionality for extracting
 a p value from the GLM F values, and so there's no way to
@@ -138,7 +138,7 @@ Patterns -                                    [ nVox x nTRs]
 }}}
 
 There are many other optional arguments that
-''statmap_3dDeconvolve.m'' accepts, as detailed in the
+_statmap_3dDeconvolve.m_ accepts, as detailed in the
 help.
 
 However, 3dDeconvolve accepts an obscene number of
