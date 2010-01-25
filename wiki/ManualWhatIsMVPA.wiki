@@ -12,7 +12,7 @@ Note: we have made no efforts to check that the sample data set is valid or that
 
 == Tutorial and acccompanying script ==
 
-Sample script ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [:TutorialIntro:line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
+Sample script ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [TutorialIntro line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
 
 
 == Documentation ==
