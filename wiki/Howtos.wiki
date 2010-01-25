@@ -39,7 +39,8 @@ If that's what you really want, or you just want to try something quick and dirt
 
 >> subj = init_object(subj,'pattern','my_pattern');
 
->> subj = set_objfield(subj,'pattern',new_patname,'masked_by','placeholder'); }}}
+>> subj = set_objfield(subj,'pattern',new_patname,'masked_by','placeholder'); 
+}}}
 
 
 ===== How do I figure out which features are common to two patterns' =====
@@ -53,7 +54,8 @@ This isn't much harder than finding the common voxels in two masks. Since each p
 
 >> mask2 = get_mat(subj,'mask','mask2');
 
->> common_voxels = mask1 & mask2; }}}
+>> common_voxels = mask1 & mask2; 
+}}}
 
 Now, just refer to ' [:MVPA manual:How do I figure out which voxels are common to two masks] ' to compare the two masks.
 
@@ -79,7 +81,8 @@ The following snippet should give you an idea of what you need to do, if you wan
 
 >> subj = set_mat(subj,'mask','wholebrain2',wholebrain2);
 
->> subj = create_pattern_from_mask(subj,'epi_wholebrain','wholebrain2','epi_wholebrain2'); }}}
+>> subj = create_pattern_from_mask(subj,'epi_wholebrain','wholebrain2','epi_wholebrain2'); 
+}}}
 
 
 ===== How do I store a pattern as singles rather than doubles' =====
@@ -141,7 +144,9 @@ See [:MVPA manual:How can I take the haemodynamic lag into account].
 
 The more principled alternative to shifting the regressors is to convolve them with a model of the haemodynamic response function, such as the gamma-variate model used by AFNI's ''waver'' function. You can do this yourself easily enough if you already have your regressors stored in ''.1d'' files. The [m2html/convolve_regressors_afni.html ''convolve_regressors_afni.m''] function writes out a regressors object to separate ''.1d'' files, one for each run for each condition, calls the ''waver'' function to create new convolved ''.1d'' files, reads them in and concatenates them to create a new regressors object, e.g.
 
-{{{ >> subj = convolve_regressors_afni(subj,'conds','runs'); }}}
+{{{
+ >> subj = convolve_regressors_afni(subj,'conds','runs'); 
+}}}
 
 These convolved regressors can then be used for voxel selection, classification etc., though obviously they'll no longer be binary. This can make your life a little bit more complicated ' unless you have a slow block design with lots of rest between blocks, it won't be clearcut which conditions each timepoint belongs to any more. Such is life with fMRI. If you're planning to do basic classification, then you're going to have to decide what to do with these timepoints that belong to multiple conditions. Perhaps the simplest thing would be to throw out all the timepoints that belong to multiple conditions. Alternatively, you could use a classifier that will give you scalar-valued outputs (e.g. a neural network with a sigmoidal activation-function hidden layer and a linear activation-function output layer), and feed in the convolved regressors. You could also consider using the beta values from a GLM rather than the actual raw voxel data itself (see Haxby et al., 2001). In short though, if you want to do basic 1-of-n classification, slow block designs are much easier to analyze.
 
@@ -160,7 +165,8 @@ This is very easy. Since masks are boolean 3D matrices, you could just try:
 
 >> mask2 = get_mat(subj,'mask','mask2');
 
->> common_voxels = mask1 & mask2; }}}
+>> common_voxels = mask1 & mask2; 
+}}}
 
 That will produce a third boolean 3D matrix, with 1s where both mask1'' and ''mask2'' had 1s. You could then create a new ''common_voxels'' mask object, and use this to mask a pattern using [m2html/create_pattern_from_mask.html ''create_pattern_from_mask.m'']. ''
 
@@ -172,7 +178,8 @@ The mat'' of a mask object is a 3D boolean object. If you would like an (''nVox'
 {{{
 >> mymask = get_mat(subj,'mask','mymaskname'); 
 
->> [x y z] = ind2sub(size(mymask),find(mymask)); % untested xxx }}}
+>> [x y z] = ind2sub(size(mymask),find(mymask)); % untested xxx 
+}}}
 
 
 ===== How do I create a mask that allows all the features through' (Creating a wholevol mask) =====
@@ -186,7 +193,8 @@ All you need to do is create an all-ones 3D matrix. If your volume is 64x64x40:
 
 >> subj = init_object(subj,'mask','wholevol');
 
->> subj = set_mat(subj,'mask','wholevol',wholevol); }}}
+>> subj = set_mat(subj,'mask','wholevol',wholevol); 
+}}}
 
 Then, if you want to load in the data for every single voxel from some BRIK file, then you would call [m2html/load_afni_pattern.html load_afni_pattern.m]'' as before, using 'wholevol' as the mask argument, e.g. ''
 
@@ -197,7 +205,8 @@ raw_filenames{i} = sprintf('haxby8_r%i+orig',i);
 
 end
 
->> subj = load_afni_pattern(subj,'epi','wholevol',raw_filenames); }}}
+>> subj = load_afni_pattern(subj,'epi','wholevol',raw_filenames); 
+}}}
 
 Note: this could involve loading in hundreds of thousands of voxels' worth of data, which will probably be too RAM-intensive to be manageable. There's not a lot you can do about this. Storing the data as singles, rather than doubles is probably a good start ' see [:MVPA manual:How do I store an object as singles rather than double].
 
@@ -231,7 +240,8 @@ Now, when you call ''create_xvalid_indices.m'', feed in the ''no_bilbo'' selecto
 
 >> subj = create_xvalid_indices(subj,'runs', ...
 
-'actives_selname','no_bilbo'); }}}
+'actives_selname','no_bilbo'); 
+}}}
 
 Note: this method will only exclude these timepoints from functions that use the create_xvalid_indices.m''. They still exist in regressors or patterns or other objects. It's just that they will be ignored when creating the cross-validation selector group that gets used for feature selection and classification later on. Early functions like ''zscore_runs.m'' that don't use the cross-validation selector group will still include these timepoints. This is deliberate, since we recommend that you include all your TRs when zscoring. ''
 
@@ -255,7 +265,8 @@ This time, instead of hand-picking the timepoints to exclude individually, you w
 
 >> subj = set_mat(subj,'selector',no_rest',temp_sel);
 
->> subj = create_xvalid_indices(subj,'runs','actives_selname','no_rest'); }}}
+>> subj = create_xvalid_indices(subj,'runs','actives_selname','no_rest');
+ }}}
 
 
 ===== How can I exclude conditions from my analysis' =====
@@ -277,7 +288,8 @@ The only difference here is that we are going to create a new regressors matrix 
 
 >> condnames_no_3(3) = [];
 
->> subj = set_objfield(subj,'regressors','regs_no_3','condnames',condnames_no_3); }}}
+>> subj = set_objfield(subj,'regressors','regs_no_3','condnames',condnames_no_3); 
+}}}
 
 Now, regs_no_3'' will contain as many timepoints as ''regs_original'', but fewer condition-rows, and more 'rest timepoints', i.e. timepoints with no active conditions. Now, we can just proceed as described above for [#_How_can_I_1 excluding rest] from your analysis to ensure that those 'rest' timepoints are ignored when generating the statmap and doing classification. In other words, the third condition won't feature at all in any steps of the analysis that use selectors in the group created by ''create_xvalid_indices.m''. ''
 
@@ -294,7 +306,8 @@ Proceeding from now on exactly as described in '[#_How_can_I_1 How can I exclude
 
 >> subj = set_mat(subj,'selector',sel_no_3',temp_sel);
 
->> subj = create_xvalid_indices(subj,'runs','actives_selname','sel_no_3'); }}}
+>> subj = create_xvalid_indices(subj,'runs','actives_selname','sel_no_3'); 
+}}}
 
 
 ===== How can I exclude rest and hand-picked timepoints and some conditions' =====
@@ -350,7 +363,8 @@ Update [ELN]: Try using a different training function (e.g. trainscg'' instead o
 
 etc.
 
->> [subj results] = cross_validation(blahblahblah'); }}}
+>> [subj results] = cross_validation(blahblahblah'); 
+}}}
 
 A little more background to what these functions are:
 
@@ -428,7 +442,8 @@ So, to get the ''testtargs'' for the first iteration:
 
 >> test_idx = results.iterations(i).test_idx;
 
->> testtargs = conds(:,test_idx); }}}
+>> testtargs = conds(:,test_idx); 
+}}}
 
 We could have chosen to save things in more than one place, but instead we decided not to save anything redundantly, but to save *enough* that you could find or generate anything you need.
 
@@ -476,7 +491,8 @@ Selectors - [nCond x nTRs]
 
 10) runs_xval_9 - [GRP size 10] [ 1 x 1210]
 
-11) runs_xval_10 - [GRP size 10] [ 1 x 1210] }}}
+11) runs_xval_10 - [GRP size 10] [ 1 x 1210] 
+}}}
 
 If you only care which groups exist in the ''subj'' structure, and you're not too interested in the names of the individual objects contained in those groups, then you can specify that the individual members of the groups should not be displayed, e.g.
 
@@ -507,7 +523,8 @@ Masks - [ X x Y x Z ] [ nVox]
 
 1) VT_category-selective  - [ 64 x 64 x 40] [ 577]
 
-2-11) epi_z_thresh * [GRP size 10] [ 64 x 64 x 40] [ V ] }}}
+2-11) epi_z_thresh * [GRP size 10] [ 64 x 64 x 40] [ V ] 
+}}}
 
 * Variable-size groups truncated. See help for display info.
 
@@ -524,7 +541,8 @@ Selectors - [nCond x nTRs]
 
 1) runs - [ 1 x 1210]
 
-2-11) runs_xval * [GRP size 10] [ 1 x 1210] }}}
+2-11) runs_xval * [GRP size 10] [ 1 x 1210] 
+}}}
 
 By default, ''summarize.m'' tries to be a bit clever ' if you don't have many objects, it will display all the individual members. However, if you have quite a few, then it will concatenate all the ones that have the same sized mat field, but show you individual group members if they differ.
 
@@ -535,7 +553,9 @@ Since the data from the scanner is often fairly noisy, it's rarely necessary to 
 
 ''Patterns'' tend to be the largest objects. For these, the easiest way to use the ''single'' type is by specifying the optional 'single' argument to be ''true'' when calling ''load_afni_pattern.m'', e.g.
 
-{{{ >> subj = load_afni_pattern(subj,'epi','mymask','mybrik+orig','single',true); }}}
+{{{ 
+>> subj = load_afni_pattern(subj,'epi','mymask','mybrik+orig','single',true); 
+}}}
 
 There is no specific mechanism for casting existing objects of other kinds to ''singles'', but here is an example solution for casting a 'runs' selector to be of type ''single'':
 
@@ -552,7 +572,8 @@ runs  1x1210 9680 double array
 
 runs_single 1x1210 4840 single array
 
->> subj = set_mat(subj,'selector','runs',runs_single); }}}
+>> subj = set_mat(subj,'selector','runs',runs_single); 
+}}}
 
 Note: at the time of writing, some of the core functions for copying objects may not be very smart about ensuring that the new objects' matrices are of the same type as the object they are a duplicate of. Hopefully, at the time of reading, this will have been fixed. All the same, you would be wise when using matrices of ''single'' type that new objects (created with ''init_object.m'' and ''set_mat.m'', or with ''duplicate_object.m'') contain matrices of the right'' ''type.
 
@@ -572,7 +593,8 @@ There are various approaches to consider:
 
 >> subj1 = load_afni_pattern(subj1,'epi','subj_brik1+orig');
 
->> subj2 = load_afni_pattern(subj2,'epi','subj_brik2+orig'); }}}
+>> subj2 = load_afni_pattern(subj2,'epi','subj_brik2+orig');
+ }}}
 
 Now, each 'subj' structure will look like this:
 
@@ -603,7 +625,8 @@ No regressors objects
 
 No selector objects
 
-No mask objects }}}
+No mask objects 
+}}}
 
 and from that point, just use 'subj1' and 'subj2' as your variables. You'll have to write custom functions to replace ''cross_validation.m'' that take in two 'subj' structures though.
 
@@ -630,7 +653,8 @@ No regressors objects
 
 No selector objects
 
-No mask objects }}}
+No mask objects 
+}}}
 
 You will still need some kind of custom function that takes in two pattern names.
 
@@ -669,11 +693,13 @@ Now, we need to create custom selector objects, and make them part of the same g
 
 >> subj = initset_object(subj,'selector','two_subjs_xval_1',sel1,'group_name','two_subjs_xval');
 
->> subj = initset_object(subj,'selector','two_subjs_xval_2',sel2,'group_name','two_subjs_xval'); }}}
+>> subj = initset_object(subj,'selector','two_subjs_xval_2',sel2,'group_name','two_subjs_xval');
+ }}}
 
 Now we're ready to call cross_validation as normal:
 
-{{{ >> [subj results] = cross_validation(subj,'epi_both','conds','two_subjs_xval_2','masks',class_args); }}}
+{{{ >> [subj results] = cross_validation(subj,'epi_both','conds','two_subjs_xval_2','masks',class_args);
+ }}}
 
 Note: in this toy example, we didn't bother to create the 'conds' regressors or the 'masks' masks or the class_args structure, which you would obviously need to do first.
 
