@@ -1,6 +1,6 @@
 === Howto's and occasionally-asked questions ===
 
-This contains a set of scenarios that you might run into, and ways to achieve simple goals that might come up in your analysis. In almost all instances, there will be other ways of doing things. These suggested methods are designed to utilise the toolbox functionality to save you work. [#_Contact_details Let us know] if you think you have a better solution than the one provided.
+This contains a set of scenarios that you might run into, and ways to achieve simple goals that might come up in your analysis. In almost all instances, there will be other ways of doing things. These suggested methods are designed to utilize the toolbox functionality to save you work. [ContactDetails Let us know] if you think you have a better solution than the one provided.
 
 
 ==== Patterns ====
@@ -10,12 +10,12 @@ This contains a set of scenarios that you might run into, and ways to achieve si
 
 We don't yet have strong recommendations for the pre-processing you should do on your data. Often, people in the Princeton Psychology Department do volume registration/motion correction, despiking, detrending (linear and sometimes quadratic) and sometimes spatial smoothing.
 
-If you find that some kinds of pre-processing steps systematically affect multi-voxel or classification analysis, we'd be very interested to [#_Contact_details hear from you] for future releases.
+If you find that some kinds of pre-processing steps systematically affect multi-voxel or classification analysis, we'd be very interested to [ContactDetails hear from you] for future releases.
 
 
 ===== What if I want to use Blah^TM^ to import my patterns' =====
 
-If you want to use a different neuroimaging pre-processing package (e.g. BrainVoyager, SPM) then read the [#_Importing 'Importing'] section to see what importing paths are currently supported. If your package of choice isn't supported, [#_Contact_details let us know]. If you feel like contributing load_blah_pattern.m'' and ''load_blah_mask.m'' import functions, that would be even better. ''
+If you want to use a different neuroimaging pre-processing package (e.g. BrainVoyager, SPM) then read the [ManualImporting 'Importing'] section to see what importing paths are currently supported. If your package of choice isn't supported, [ContactDetails let us know]. If you feel like contributing load_blah_pattern.m'' and ''load_blah_mask.m'' import functions, that would be even better. ''
 
 Alternatively, you may find that your favoured package and one of the supported packages can read/write each others' format. AFNI and SPM are both pretty versatile, and many packages are adding support for the new [http://nifti.nimh.nih.gov/ NIfTI] format.
 
