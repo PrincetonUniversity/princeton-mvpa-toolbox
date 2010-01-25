@@ -6,7 +6,7 @@ MD5: A software algorithm used to “fingerprint” a file or contents of a disk
 
 == Our Use ==
 
- Currently we only provide MD5 sums for the two large datasets provided as secondary downloads to the main scripts and the SPM scripts.  These checksums can be used to verify that you have recieved a ''good'' version of the fairly large files.
+ Currently we only provide MD5 sums for the two large datasets provided as secondary downloads to the main scripts and the SPM scripts.  These checksums can be used to verify that you have recieved a _good_ version of the fairly large files.
 
 == Theory and Usage ==
 
