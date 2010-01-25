@@ -97,7 +97,7 @@ Let's say that chance is 50%, and you're pretty consistently getting 55% perform
 pval = wavestrapper_results(results);
 }}}
 
-See [http://www.ncbi.nlm.nih.gov/sites/entrez?Db=pubmed&Cmd=ShowDetailView&TermToSearch=15501094&ordinalpos=2&itool=EntrezSystem2.PEntrez.Pubmed.Pubmed_ResultsPanel.Pubmed_RVDocSum Bullmore et al (2004)], 'Wavelets and functional magnetic resonance imaging of the human brain', Neuro''''''Image 23, suppl S234-49, for more information.
+See [http://www.ncbi.nlm.nih.gov/sites/entrez?Db=pubmed&Cmd=ShowDetailView&TermToSearch=15501094&ordinalpos=2&itool=EntrezSystem2.PEntrez.Pubmed.Pubmed_ResultsPanel.Pubmed_RVDocSum Bullmore et al (2004)], 'Wavelets and functional magnetic resonance imaging of the human brain', _Neuro Image 23_, suppl S234-49, for more information.
 
 [N.B. Both the above wavelet-based functions rely on the Matlab Wavelets toolbox.]
 
