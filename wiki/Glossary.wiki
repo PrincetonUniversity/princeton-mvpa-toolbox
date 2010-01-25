@@ -68,7 +68,7 @@ In this toolbox, this tends to refer a regressors matrix, to the idea that only 
 
 Convolving regressors with a hemodynamic response function will lead to continuous-valued regressors, which may overlap (i.e. more than one condition may be non-zero at a given timepoint), which may violate some functions' one-of-n requirements.
 
-_[m2html\check_1ofn_regressors.html Check_1ofn_regressors.m]_ allows you to test whether a matrix is one-of-n.
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/util/check_1ofn_regressors.m Check_1ofn_regressors.m] allows you to test whether a matrix is one-of-n.
 
 == pattern ==
 A (features x timepoints) matrix, usually of voxel activities, but could also be PCA components, wavelet coefficients, GLM beta weights or a statmap.
