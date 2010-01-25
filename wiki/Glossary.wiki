@@ -86,7 +86,7 @@ The performance metric measures the similarity between the output produced by a 
 See [ManualClassification#Performance Performance] in the Classification section of the manual.
 
 == Pre-Classification ==
-By this, we mean the normalization and feature selection steps that go on before after the data structure has been created but before beginning classification, e.g. _[m2html\zscore_runs.html zscore_runs.m]_ and _[m2html\feature_select.html feature_select.m]_.
+By this, we mean the normalization and feature selection steps that go on before after the data structure has been created but before beginning classification, e.g. [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/zscore_runs.m zscore_runs.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/feature_select.m feature_select.m].
 
 See [ManualPreClassification pre-classification].
 
