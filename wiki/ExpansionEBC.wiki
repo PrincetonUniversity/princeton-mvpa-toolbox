@@ -8,7 +8,7 @@ Please follow the installation instructions in [Setup Setup] to install the MVPA
 
 == Dataset ==
 
-We have now posted the subset of the data used in the [:TutorialEBC:EBC Tutorial] online.  This dataset contains the complete EBC data for movies 1 and 2 and subjects 1, 2, and 3.  It also contains a datafile with the optimal parameters used in the advanced tutorial (`ebc_tutorial_adv.m`).  *You can download the data here:*
+We have now posted the subset of the data used in the [TutorialEBC EBC Tutorial] online.  This dataset contains the complete EBC data for movies 1 and 2 and subjects 1, 2, and 3.  It also contains a datafile with the optimal parameters used in the advanced tutorial (`ebc_tutorial_adv.m`).  *You can download the data here:*
 
 [http://www.csbmb.princeton.edu/mvpa/downloads/ebc/ebc_movies1-2_subj1-3_params.tar.gz]
 
