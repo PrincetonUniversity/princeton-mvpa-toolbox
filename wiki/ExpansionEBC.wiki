@@ -14,7 +14,7 @@ We have now posted the subset of the data used in the [TutorialEBC EBC Tutorial]
 
 == Tutorial ==
 
-Once you've installed the toolbox and downloaded the dataset, please follow the [:TutorialEBC:EBC Tutorial].
+Once you've installed the toolbox and downloaded the dataset, please follow the [TutorialEBC EBC Tutorial].
 
 ----
 [Main Main Page]
