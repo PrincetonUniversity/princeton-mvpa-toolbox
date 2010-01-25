@@ -35,9 +35,9 @@ More recently an svn install was included with the latest version of OSX (10.5).
 TortoiseSVN provides a very nice GUI client, or you can use the link above to get the command-line version from the Subversion project site.
 
 == Step Two - Get Code ==
-Once you have installed a Subversion client, open a terminal window to operate within. In MacOSX, run Terminal, and in Windows you can simple type '''cmd''' into the run box of the Start menu.
+Once you have installed a Subversion client, open a terminal window to operate within. In MacOSX, run Terminal, and in Windows you can simple type *cmd* into the run box of the Start menu.
 
-Now you must navigate to wherever you would like the MVPA code base to be downloaded into.  This is typically done with a ''cd'' command.  This command is ubiquitous across the three platforms listed above. We recommend you check out the working copy to an new/empty directory. To checkout the repository into the current directory type:
+Now you must navigate to wherever you would like the MVPA code base to be downloaded into.  This is typically done with a _cd_ command.  This command is ubiquitous across the three platforms listed above. We recommend you check out the working copy to an new/empty directory. To checkout the repository into the current directory type:
 
 {{{
 svn checkout http://princeton-mvpa-toolbox.googlecode.com/svn/trunk/
