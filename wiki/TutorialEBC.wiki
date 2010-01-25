@@ -1,6 +1,6 @@
 = EBC Tutorial #1 - Introduction (ebc_tutorial_intro.m) =
 
-'''Note: There have been significant changes to this tutorial since the initial 0.1 and 0.2 releases. Even if you already went through the tutorial once, it is highly recommended that you at least glance through it again now.'''
+*Note: There have been significant changes to this tutorial since the initial 0.1 and 0.2 releases. Even if you already went through the tutorial once, it is highly recommended that you at least glance through it again now.*
 
 This tutorial will guide you in a step-by-step fashion through some of the analysis necessary to recreate one of the Princeton EBC Team's submissions to the competition. This tutorial is geared for those who have never seen the MVPA toolbox before; if you already feel perfectly comfortable setting up and running an experiment in the toolbox from start to finish, you will want to skim through this and then start the advanced tutorial (ebc_tutorial_adv.m).
 
@@ -362,7 +362,7 @@ Masks -                                                 [ X  x  Y  x  Z ] [ nVox
     1) wholebrain                     -                 [ 64 x  64 x  34] [37828]
 }}}
 
-Ignore the 'epi_z_thresh' message output; there was no mask created, and that message is a minor bug that will be fixed in the next release. We now have have a group of two statmap patterns for our 'Amusement' regressor, one for each iteration of the cross validation experiment (remember, we need to avoid 'peeking.') We next create a group of mask objects named 'Amusement' and containig the N ``best'' voxels using the created_sorted_mask function. In the case of ''Amusement'', N equals 400.
+Ignore the 'epi_z_thresh' message output; there was no mask created, and that message is a minor bug that will be fixed in the next release. We now have have a group of two statmap patterns for our 'Amusement' regressor, one for each iteration of the cross validation experiment (remember, we need to avoid 'peeking.') We next create a group of mask objects named 'Amusement' and containig the N ``best_ voxels using the created_sorted_mask function. In the case of _Amusement_, N equals 400.
 
 {{{
 >> subj = create_sorted_mask(subj, 'stat_Amusement', 'Amusement', 400);
@@ -418,7 +418,7 @@ The first step to begin filtering is to make the averaging box filter the data w
 >> filt = filt./sum(filt);
 }}}
 
-Now we pass this filter into apply_filt through apply_to_runs as an optional argument, 'filt'. All the optional arguments to apply_filt are passed to the interior 'apply' function as well. Furthermore, we specify that this pattern group should be named ''epi_z_savg_tavg_Amusement'', so that it is clear how the pattern was created: spatial and temporal averaging, with the Amusement mask.
+Now we pass this filter into apply_filt through apply_to_runs as an optional argument, 'filt'. All the optional arguments to apply_filt are passed to the interior 'apply' function as well. Furthermore, we specify that this pattern group should be named _epi_z_savg_tavg_Amusement_, so that it is clear how the pattern was created: spatial and temporal averaging, with the Amusement mask.
 
 {{{
 >> subj = apply_to_runs(subj, 'epi_z_savg', 'movies', 'apply_filt', 
