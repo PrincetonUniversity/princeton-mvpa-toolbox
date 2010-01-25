@@ -219,9 +219,9 @@ or:
 
 In this case, the property/value pairings are as follows:
 
-||<style="border: 0.5pt solid windowtext; padding: 0cm 5.4pt;"> _Property_ ||<style="border-style: solid solid solid none; border-color: windowtext windowtext windowtext -moz-use-text-color; border-width: 0.5pt 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> _Value_ ||
-||<style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 0.5pt 0.5pt; padding: 0cm 5.4pt;"> display_groups ||<style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> false ||
-||<style="border-style: none solid solid; border-color: -moz-use-text-color windowtext windowtext; border-width: medium 0.5pt 0.5pt; padding: 0cm 5.4pt;"> objtype ||<style="border-style: none solid solid none; border-color: -moz-use-text-color windowtext windowtext -moz-use-text-color; border-width: medium 0.5pt 0.5pt medium; padding: 0cm 5.4pt;"> 'selector' ||
+||  _Property_ ||  _Value_ ||
+||  display_groups ||  false ||
+||  objtype ||  'selector' ||
 
 
 Properties are always strings, and always come first in the pair. Values can be strings, or any other type, and always come second.
