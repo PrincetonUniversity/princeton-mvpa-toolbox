@@ -4,7 +4,7 @@ As of version 0.8 of the toolbox, the EBC Expansion version 0.3 has been incorpo
 
 == Installation ==
 
-Please follow the installation instructions in [:Setup:] to install the MVPA 0.8 Toolbox.
+Please follow the installation instructions in [Setup Setup] to install the MVPA 0.8 Toolbox.
 
 == Dataset ==
 
