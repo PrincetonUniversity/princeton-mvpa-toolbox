@@ -698,7 +698,8 @@ Now, we need to create custom selector objects, and make them part of the same g
 
 Now we're ready to call cross_validation as normal:
 
-{{{ >> [subj results] = cross_validation(subj,'epi_both','conds','two_subjs_xval_2','masks',class_args);
+{{{ 
+>> [subj results] = cross_validation(subj,'epi_both','conds','two_subjs_xval_2','masks',class_args);
  }}}
 
 Note: in this toy example, we didn't bother to create the 'conds' regressors or the 'masks' masks or the class_args structure, which you would obviously need to do first.
