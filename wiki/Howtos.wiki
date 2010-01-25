@@ -1,21 +1,21 @@
-=== Howto's and occasionally-asked questions ===
+= Howto's and occasionally-asked questions =
 
 <wiki:toc>
 
 This contains a set of scenarios that you might run into, and ways to achieve simple goals that might come up in your analysis. In almost all instances, there will be other ways of doing things. These suggested methods are designed to utilize the toolbox functionality to save you work. [ContactDetails Let us know] if you think you have a better solution than the one provided.
 
 
-==== Patterns ====
+== Patterns ==
 
 
-===== What pre-processing should I do' =====
+=== What pre-processing should I do' ===
 
 We don't yet have strong recommendations for the pre-processing you should do on your data. Often, people in the Princeton Psychology Department do volume registration/motion correction, despiking, detrending (linear and sometimes quadratic) and sometimes spatial smoothing.
 
 If you find that some kinds of pre-processing steps systematically affect multi-voxel or classification analysis, we'd be very interested to [ContactDetails hear from you] for future releases.
 
 
-===== What if I want to use Blah^TM^ to import my patterns' =====
+=== What if I want to use Blah^TM^ to import my patterns' ===
 
 If you want to use a different neuroimaging pre-processing package (e.g. BrainVoyager, SPM) then read the [ManualImporting 'Importing'] section to see what importing paths are currently supported. If your package of choice isn't supported, [ContactDetails let us know]. If you feel like contributing load_blah_pattern.m'' and ''load_blah_mask.m'' import functions, that would be even better. ''
 
@@ -24,7 +24,7 @@ Alternatively, you may find that your favoured package and one of the supported 
 Finally, if you just want to read in data from some other source entirely, then that's easy. As long as you can get the data into Matlab as a 2D (nFeatures x nTimepoints) matrix, then you can simply call [m2html/init_object.html init_object.m''] and then [m2html/set_mat.html ''set_mat.m''] to create a new pattern object and insert your matrix into it. You should also read [:MVPA manual:How do I create a pattern without a mask] if you're going to do this. ''
 
 
-===== How do I create a pattern without a mask' =====
+=== How do I create a pattern without a mask' ===
 
 The toolbox intentionally makes this hard to do. There's a good reason for this ' if you want to know where a feature/voxel in your pattern came from, or find the same voxel in two patterns that have been differently masked, then you need to have a common reference space that you can map between. A pattern without an associated mask contains anonymous, untraceable features.
 
@@ -45,7 +45,7 @@ If that's what you really want, or you just want to try something quick and dirt
 }}}
 
 
-===== How do I figure out which features are common to two patterns' =====
+=== How do I figure out which features are common to two patterns' ===
 
 This isn't much harder than finding the common voxels in two masks. Since each pattern has a masked_by'' field, start by extracting the masks used by your two patterns. ''
 
@@ -62,7 +62,7 @@ This isn't much harder than finding the common voxels in two masks. Since each p
 Now, just refer to ' [:MVPA manual:How do I figure out which voxels are common to two masks] ' to compare the two masks.
 
 
-===== How do I exclude features from a pattern' =====
+=== How do I exclude features from a pattern' ===
 
 Don't just delete the features and then call set_mat.m''. In fact, if you do, it will warn you that the dimensions of the new mat are different. This is an indication that what you are doing isn't a good idea. ''
 
@@ -87,7 +87,7 @@ The following snippet should give you an idea of what you need to do, if you wan
 }}}
 
 
-===== How do I store a pattern as singles rather than doubles' =====
+=== How do I store a pattern as singles rather than doubles' ===
 
 See [:MVPA manual:How do I store an object as singles rather than doubles].
 
@@ -101,20 +101,20 @@ If all you want to do is to load in a BRIK, then BrikLoad.m'' in the afni_matlab
 See also: Howtos / Exporting / ''[#_Sometimes_when_using ''Can the toolbox help me write BRIKs]. ''
 
 
-==== Regressors ====
+== Regressors ==
 
 
-===== How can I exclude conditions from my analysis' =====
+=== How can I exclude conditions from my analysis' ===
 
 See: Howtos / Pre-classification [:MVPA manual:How can I exclude conditions from my analysis]
 
 
-===== How can I exclude timepoints from my analysis' =====
+=== How can I exclude timepoints from my analysis' ===
 
 See Howtos / Pre-classification / How can I hand
 
 
-===== How can I take the haemodynamic lag into account' =====
+=== How can I take the haemodynamic lag into account' ===
 
 The peak haemodynamic response is estimated to lag about five seconds behind stimulus onset.
 
@@ -123,7 +123,7 @@ The peak haemodynamic response is estimated to lag about five seconds behind sti
 2. Better still, you can convolve your regressors matrix with a model of the haemodynamic response function, and then use something like a general linear model to pull out the relative contributions of each condition to the data. See [:MVPA manual:How can I convolve my regressors with a haemodynamic response function]
 
 
-===== How can I shift my regressors along' =====
+=== How can I shift my regressors along' ===
 
 See [:MVPA manual:How can I take the haemodynamic lag into account] for background.
 
@@ -140,7 +140,7 @@ For the most part, we recommend [:MVPA manual:convolving the regressors with a h
 See [:Tutorial hard:tutorial_hard] / Shifting the regressors along.
 
 
-===== How can I convolve my regressors with a haemodynamic response function' =====
+=== How can I convolve my regressors with a haemodynamic response function' ===
 
 See [:MVPA manual:How can I take the haemodynamic lag into account].
 
@@ -155,10 +155,10 @@ These convolved regressors can then be used for voxel selection, classification 
 See [:Tutorial hard:tutorial_hard] / Convolving the regressors with a model of the haemodynamic response function''. ''
 
 
-==== Masks ====
+== Masks ==
 
 
-===== How do I figure out which voxels are common to two masks' =====
+=== How do I figure out which voxels are common to two masks' ===
 
 This is very easy. Since masks are boolean 3D matrices, you could just try:
 
@@ -173,7 +173,7 @@ This is very easy. Since masks are boolean 3D matrices, you could just try:
 That will produce a third boolean 3D matrix, with 1s where both mask1'' and ''mask2'' had 1s. You could then create a new ''common_voxels'' mask object, and use this to mask a pattern using [m2html/create_pattern_from_mask.html ''create_pattern_from_mask.m'']. ''
 
 
-===== How do I find the coordinates of active voxels in a mask' =====
+=== How do I find the coordinates of active voxels in a mask' ===
 
 The mat'' of a mask object is a 3D boolean object. If you would like an (''nVox'' x ''3'') matrix of ''x''/''y''/''z'' Cartesian coordinates listing those voxels that are active in the volume: ''
 
@@ -184,7 +184,7 @@ The mat'' of a mask object is a 3D boolean object. If you would like an (''nVox'
 }}}
 
 
-===== How do I create a mask that allows all the features through' (Creating a wholevol mask) =====
+=== How do I create a mask that allows all the features through' (Creating a wholevol mask) ===
 
 The volume collected by the fMRI scanner is a cuboid. Normally, you'll probably only want to include the voxels inside the cranium but you may want a mask that includes absolutely every single one of those voxels, which we will term a 'wholevol' mask. It's often useful to try your voxel selection methods on wholevol masks as a sanity-check. If many of the voxels getting selected are outside the brain, that's a bad sign.
 
@@ -213,17 +213,17 @@ end
 Note: this could involve loading in hundreds of thousands of voxels' worth of data, which will probably be too RAM-intensive to be manageable. There's not a lot you can do about this. Storing the data as singles, rather than doubles is probably a good start ' see [:MVPA manual:How do I store an object as singles rather than double].
 
 
-===== Creating a wholebrain (intra-cranial) mask, or other anatomical mask =====
+=== Creating a wholebrain (intra-cranial) mask, or other anatomical mask ===
 
 Currently, there are no facilities in the toolbox for automatically defining the cranial boundaries to create intra-cranial masks, or for drawing anatomical ROIs. We recommend that you use a function like AFNI's 3dAutomask'' for defining intra-cranial boundaries, or draw the ROIs yourself, save to a BRIK file, and then use ''[m2html/load_afni_mask.html load_afni_mask.m]'' to read that mask in to Matlab. ''
 
 For information about other neuroimaging packages, see [#_Importing Importing]''. ''
 
 
-==== Pre-classification ====
+== Pre-classification ==
 
 
-===== How can I handpick timepoints to exclude from my analysis' =====
+=== How can I handpick timepoints to exclude from my analysis' ===
 
 Don't delete any timepoints from your patterns or regressors. Instead, just tell [m2html/create_xvalid_indices.html create_xvalid_indices.m]'' to use a selector as a kind of temporal mask to censor out the timepoints you don't want. Imagine you have 1000 TRs, and you want to exclude the 111th (because that's the point in your experiment where Bilbo disappears): ''
 
@@ -250,7 +250,7 @@ Note: this method will only exclude these timepoints from functions that use the
 The main advantage of this method is that it doesn't require you to actually delete the TRs that you don't want from your patterns, so that if you change your mind, you can easily rerun your analysis by feeding in a different actives_selname'' selector to ''create_xvalid_indices.m''. ''
 
 
-===== How can I exclude rest timepoints from my analysis' =====
+=== How can I exclude rest timepoints from my analysis' ===
 
 First, read '[:MVPA manual:How can I handpick timepoints to exclude from my analysis']'.
 
@@ -271,7 +271,7 @@ This time, instead of hand-picking the timepoints to exclude individually, you w
  }}}
 
 
-===== How can I exclude conditions from my analysis' =====
+=== How can I exclude conditions from my analysis' ===
 
 We recommend using the same method as described first in '[#_How_do_I How can I handpick timepoints to exclude from my analysis']' and elaborated in '[#_How_can_I_1 How can I exclude rest timepoints from my analysis']'.
 
@@ -312,28 +312,28 @@ Proceeding from now on exactly as described in '[#_How_can_I_1 How can I exclude
 }}}
 
 
-===== How can I exclude rest and hand-picked timepoints and some conditions' =====
+=== How can I exclude rest and hand-picked timepoints and some conditions' ===
 
 Create a separate boolean temporal mask selector for each, as above. Then create a new selector that is the 'AND' of all of those selectors, and feed that in.
 
 
-==== Classification ====
+== Classification ==
 
 [[Anchor(_Classification_1)]]
 
-===== Why is my generalization performance poor' =====
+=== Why is my generalization performance poor' ===
 
 See: [#_Troubleshooting_poor_classification Troubleshooting poor classification performance].
 
 
-===== How do I find the weights that backprop has learned' =====
+=== How do I find the weights that backprop has learned' ===
 
 If you're using the Mathworks Neural Networks toolbox, they're stored in the net'' (that gets saved to ''results.iterations(i).scratchpad'') object in the 'weight and bias values' section. See the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/nnet.shtml Matlab Neural Networks manual] for more information. ''
 
 See the [http://www.ncrg.aston.ac.uk/netlab/ Netlab] mlp.m help (and also [http://www.phys.uni.torun.pl/netlab/mlp.htm here]) for more information about where the Netlab net'' object stores the weights matrix or matrices. ''
 
 
-===== What if I want to train or test on averaged data' =====
+=== What if I want to train or test on averaged data' ===
 
 If you want to train and'' test on averaged data, then the easiest thing to do would be to average all of your patterns, regressors and selectors, and just run the analysis as normal with the averaged data. ''
 
@@ -346,7 +346,7 @@ If you're trying to train on single TRs but test on averaged data, things are a 
 If you're planning to do this, let us know and we'll try and help, since averaging definitely helps and this functionality will be useful to others.
 
 
-===== My classifier sometimes hangs in the srchcha bit of the algorithm ' why' =====
+=== My classifier sometimes hangs in the srchcha bit of the algorithm ' why' ===
 
 See: http://newsreader.mathworks.com/WebX'50@482.SFQaa3hT5tQ.0@.eefecf2
 
@@ -375,15 +375,15 @@ When a network hangs, or never finishes training it is commonly due to the funct
 See the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/backpr14.html#3826 comparison] in the Backpropagation chapter of the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/nnet.html Matlab NN toolbox manual] for more information.
 
 
-===== Why do I sometimes get a divide-by-zero error when training' =====
+=== Why do I sometimes get a divide-by-zero error when training' ===
 
 We believe that this just means that your performance is improving very very slowly with training, and so when the neural network algorithm tries to calculate the gradient of its performance improvement, it's dividing by zero. So, we don't think'' it indicates a major problem. If you want to get rid of it, make your stopping criteria a little more strict, or try the solution described in '[#_My_classifier_sometimes My classifier sometimes hangs in the srchcha bit of the algorithm ' why']'. ''
 
 
-==== Exporting ====
+== Exporting ==
 
 
-===== Can the toolbox help me write BRIKs' =====
+=== Can the toolbox help me write BRIKs' ===
 
 Even if you're not using most of the toolbox's functionality, it provides wrappers for Ziad Saad's afni_matlab library that might make importing/exporting easier.
 
@@ -396,7 +396,7 @@ These can substantially help you if you're trying to write out BRIKs, since you 
 See also: ''Howtos / Patterns / [#_Masks Can the toolbox help me load BRIKs']''.
 
 
-===== Sometimes when using write_to_afni.m, I get this message: 'Problem using spoofing write method - trying again with zeroifying - you can safely ignore this message and the following error stack' =====
+=== Sometimes when using write_to_afni.m, I get this message: 'Problem using spoofing write method - trying again with zeroifying - you can safely ignore this message and the following error stack' ===
 
 ''[m2html/write_to_afni.m Write_to_afni.m]'' calls ''WriteBrik.m'' (from Ziad Saad's afni_matlab library) to do all the hard work. The complicated part comes when figuring out what should go in the header of the BRIK. There are two ways we've come up with to do this:
 
@@ -417,15 +417,15 @@ The funny error message that you got with ''write_to_afni.m'' should now make se
 See the ''[m2html/write_to_afni.html write_to_afni.m]'' and ''[m2html/zeroify_write_afni.html zeroify_write_afni.m]'' help for more information, and also ''Howtos / Exporting / [:MVPA manual:Can the toolbox help me write BRIKs']''.
 
 
-===== What if I get an out of memory error when trying to write a BRIK' =====
+=== What if I get an out of memory error when trying to write a BRIK' ===
 
 Chances are, you're trying to write a functional BRIK with lots of timepoints. Use the 'runs' optional argument to split the data up into multiple BRIK files by run.
 
 
-==== Results ====
+== Results ==
 
 
-===== How do I get the testtargs that my classifier was trained on' =====
+=== How do I get the testtargs that my classifier was trained on' ===
 
 Inside ''results.iterations(i)'':
 
@@ -452,15 +452,15 @@ We could have chosen to save things in more than one place, but instead we decid
 We plan to implement a plugin function that allows you to change the defaults of what gets saved into the ''results'' structure in the future, so that you could tailor things to make them more convenient for you.
 
 
-==== Miscellaneous ====
+== Miscellaneous ==
 
 
-===== What do I do if I start getting memory errors' =====
+=== What do I do if I start getting memory errors' ===
 
 See ''Advanced / [#_Managing_memory Managing memory]''.
 
 
-===== How can I slim down the output from ''summarize.m =====
+=== How can I slim down the output from ''summarize.m ===
 
 If you have lots of groups, each containing lots of objects, then the output from ''summarize.m'' can be very long. In order to avoid this, there are a couple of ways to slim down its output.
 
@@ -549,7 +549,7 @@ Selectors - [nCond x nTRs]
 By default, ''summarize.m'' tries to be a bit clever ' if you don't have many objects, it will display all the individual members. However, if you have quite a few, then it will concatenate all the ones that have the same sized mat field, but show you individual group members if they differ.
 
 
-===== How do I store an object as singles rather than doubles' =====
+=== How do I store an object as singles rather than doubles' ===
 
 Since the data from the scanner is often fairly noisy, it's rarely necessary to use a ''double'' type to store all the significant figures, which is the default used by Matlab. Storing the data as ''singles'' will use half the number of bytes for each value (4 rather than 8 bytes on most v7 installations).
 
@@ -580,7 +580,7 @@ runs_single 1x1210 4840 single array
 Note: at the time of writing, some of the core functions for copying objects may not be very smart about ensuring that the new objects' matrices are of the same type as the object they are a duplicate of. Hopefully, at the time of reading, this will have been fixed. All the same, you would be wise when using matrices of ''single'' type that new objects (created with ''init_object.m'' and ''set_mat.m'', or with ''duplicate_object.m'') contain matrices of the right'' ''type.
 
 
-===== How would I store two subjects' worth of data' =====
+=== How would I store two subjects' worth of data' ===
 
 At this stage, we haven't agreed upon a convention for storing two subjects' worth of data at the same time. There are lots of reasons one might want to do this, e.g. training on one subject and testing on the other.
 
@@ -709,7 +709,7 @@ Note: in this toy example, we didn't bother to create the 'conds' regressors or 
 This third approach would be the easiest, since it employs existing functions. However, it's not very flexible, and it involves throwing two subjects' worth of data into a single variable, which seems like a recipe for confusion later.
 
 
-===== What if I don't want to use Matlab? Are there any alternatives to the MVPA toolbox? =====
+=== What if I don't want to use Matlab? Are there any alternatives to the MVPA toolbox? ===
 
 At the time of writing, we are aware of 2 recent efforts to help with running multi-voxel pattern analyses:
 
