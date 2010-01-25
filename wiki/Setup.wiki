@@ -20,9 +20,9 @@ There are two parts to download: the scripts and the sample dataset. You only re
 
 == Installation ==
 === Unpack the toolbox scripts ===
-The main scripts are stored in a gzipped tarball file called mvpa.''version''.tar.gz. Unpack this as follows:
+The main scripts are stored in a gzipped tarball file called mvpa._version_.tar.gz. Unpack this as follows:
 
- * On any form of Unix (including Linux and Mac OS X): change directory to where you saved the .tar.gz file, and type tar 'zxvf mvpa.''version''.tar.gz
+ * On any form of Unix (including Linux and Mac OS X): change directory to where you saved the .tar.gz file, and type tar 'zxvf mvpa._version_.tar.gz
 
 This just says to unzip and unpack the contents, showing you the names of the files as it goes.
 
@@ -30,26 +30,26 @@ This just says to unzip and unpack the contents, showing you the names of the fi
 
 This will create various directories:
 
- 1. ''afni_matlab'', for importing from AFNI
- 1. ''bv2mat'', for importing from !BrainVoyager
- 1. ''mvpa'', the main toolbox scripts
- 1. ''netlab'', for neural networks classification, if you don't have the Matlab Neural Networks toolbox
- 1. ''progress'', changelogs, planned improvements etc. ' no actual functionality here
- 1. ''montage_kas', scripts by Keith Schneider for making montage views of fMRI data ''
+ 1. _afni_matlab_, for importing from AFNI
+ 1. _bv2mat_, for importing from !BrainVoyager
+ 1. _mvpa_, the main toolbox scripts
+ 1. _netlab_, for neural networks classification, if you don't have the Matlab Neural Networks toolbox
+ 1. _progress_, changelogs, planned improvements etc. ' no actual functionality here
+ 1. _montage kas, scripts by Keith Schneider for making montage views of fMRI data _
 
-mvpa ''is the one with all the toolbox scripts, and ''mvpa/docs'' contains all the documentation, including a copy of this file. See 'What is the toolbox'' in the ["MVPA manual"] for more detailed information about the other directories.
+mvpa _is the one with all the toolbox scripts, and _ mvpa/docs _ contains all the documentation, including a copy of this file. See 'What is the toolbox_ in the ["MVPA manual"] for more detailed information about the other directories.
 
 === Unpack the sample dataset ===
-You're also going to need to store a copy of the sample dataset files: just unpack the afni_set.tar.gz file as before, and it should create a tutorial_easy directory containing some AFNI ''.BRIK'', ''.HEAD'' and Matlab ''.mat'' files.  Alternatively you can use the nifti_set or analyze_set to run tutorial_easy_spm for those file formats.
+You're also going to need to store a copy of the sample dataset files: just unpack the afni_set.tar.gz file as before, and it should create a tutorial_easy directory containing some AFNI _.BRIK_, _.HEAD_ and Matlab _.mat_ files.  Alternatively you can use the nifti_set or analyze_set to run tutorial_easy_spm for those file formats.
 
 === Set the Matlab paths ===
-Now you need to set your paths, so that when you run matlab, it will know about the toolbox m-files. One easy way is create a ''startup.m'' in ''~/matlab'' that Matlab will run every time it opens, and add the ''addpath'' command to that.
+Now you need to set your paths, so that when you run matlab, it will know about the toolbox m-files. One easy way is create a _startup.m_ in _~/matlab_ that Matlab will run every time it opens, and add the _addpath_ command to that.
 
-Note: if you don't have a ''~/matlab'' directory, just create one first.
+Note: if you don't have a _~/matlab_ directory, just create one first.
 
-Note for Windows users: I'm not sure what the Windows equivalent of ''~/matlab'' is. Try something like ''c:\matlab\work'', or ''c:\program files\matlab\'' or ''My Documents'' ' let me know which works.'''' '''
+Note for Windows users: I'm not sure what the Windows equivalent of _~/matlab_ is. Try something like _c:\matlab\work_, or _c:\program files\matlab\_ or _My Documents_ ' let me know which works._
 
-A sample ''startup.m'' would look like this:
+A sample _startup.m_ would look like this:
 
 {{{
 addpath ~/mvpa 
@@ -70,7 +70,7 @@ This is the sample script for the Haxby et al. (Science, 2001) 8-categories stud
 If you see the above, you're in good shape. If not, your paths haven't been set correctly.
 
 === Compile C-Language .MEX files ===
-''N.B. We bundle a few already-compiled versions of the compute_xcorr mex file in the toolbox now, so you probably won't need to worry about compiling it yourself - in that case, you can skip this section.''
+_N.B. We bundle a few already-compiled versions of the compute_xcorr mex file in the toolbox now, so you probably won't need to worry about compiling it yourself - in that case, you can skip this section._
 
 Several of the more advanced features of the toolbox involving the computation of statistical maps using a correlation function.  If you want to speed up the computeation of cross correlation statistical maps (and you most certainly do, we can assure you), you can compile the C-language version of the statmap_xcorr.m function. To do this, first start Matlab, and switch to your `mvpa` directory that contains the core MVPA scripts.  Then enter the following command:
 
