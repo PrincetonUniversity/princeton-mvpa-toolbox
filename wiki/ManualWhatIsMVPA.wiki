@@ -24,7 +24,7 @@ The _docs_ subdirectory includes beautified html versions of the m-files, but th
 
 We optionally rely on the [http://www.mathworks.com/ Mathworks] toolboxes described below at some points in the toolbox. However, they are not bundled with the toolbox and must be purchased separately.
 
-The non-parametric wavelet-based statistical functions (e.g. WAVESTRAPPER_RESULTS.M) require the Matlab Wavelets toolbox.
+The non-parametric wavelet-based statistical functions (e.g. [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/wavestrapper_results.m WAVESTRAPPER_RESULTS.M]) require the Matlab Wavelets toolbox.
 
 
 === Statistics ===
