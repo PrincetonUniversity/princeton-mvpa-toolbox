@@ -11,29 +11,9 @@
 == [ManualAdvancedPatternsToDisk Moving patterns to the hard disk] ==
 
 
-== Removing objects ==
+== [ManualAdvancedRemovingObjects Removing objects] ==
 
-There are two ways in which you can remove objects:
-
- 1. [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_mat.html _Remove_mat.m_] will set the object's _mat_ to empty. Since this is where each object's main matrix is stored, this is probably taking up most of the room occupied by the object. This is usually sufficient, and has the advantage that it leaves the surrounding _name_ and _header _ information intact, in case other objects want to reference it, and doesn't renumber the cells.
- 1. If you really want to, you can remove the entire cell for the object, by passing in 'erase' as the optional argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_object.html _remove_object.m_].
-
-Since _patterns_ tend to be the biggest memory hogs, you can also just transparently [#_Moving_patterns_to shift the _pattern_ to the hard disk], which frees up your RAM without thowing away data that might be useful later on. See _Advanced / _ [#_Managing_memory _Managing memory_] for more solutions.
-
-
-== Accessing the subj structure directly ==
-
-We realise that using the accessor functions is slightly more cumbersome than accessing the contents of the _subj_ structure directly. However, bypassing them can cause many subtle problems and is not recommended.
-
-Having said that, nothing can go wrong if you're just using the standard syntax to view an object, e.g.
-
->> subj.regressors{5}
-
-It's really only when you change the values in an object that there's a real risk of things getting badly confused amidst the assumptions and interactions between functions. Hopefully, these should all be preserved intact by the provided accessor functions.
-
-We will provide one example of how the accessor scripts can help. If you remove voxels from a _pattern_ by just deleting them from the matrix, this could disrupt all the fragile indexing that is used to determine which voxel is which. In order to avoid this, _set_mat.m_ makes it very difficult to change the dimensions of the _pattern_ matrix, unless you are using the [#_Figuring_out_which authorised masking functionality that preserves the indexing]. Such bugs can be particularly insidious because they may or may not cause errors. In the worst case, your analysis could run without incident, but actually scramble your voxels.
-
-These [#_Handy_shortcuts handy shortcuts] may make your life a little easier.
+== [ManualAdvancedSubjStructureDirectAccess Accessing the subj structure directly] ==
 
 
 == Figuring out which voxel is which, and where ==
