@@ -1,5 +1,5 @@
 = Advanced Manual =
-
+<wiki:toc>
 == Managing memory ==
 
 The toolbox has a packrat mentality ' it hoards every version of the data that it processes. For instance, it keeps separate _patterns_ for before and after zscoring with _zscore_runs.m_. This makes sense, because it makes it easy to take a step back in the analysis path and re-run things with slightly different parameters. However, it can eventually clog up your RAM, especially with large patterns.
