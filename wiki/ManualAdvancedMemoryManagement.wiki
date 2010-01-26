@@ -13,3 +13,11 @@ Another useful tactic is to store large patterns that you're not using at the mo
 Finally, you can always just [#_Removing_objects remove the object].
 
 See also:
+
+=== Amount of required RAM ===
+
+In order to do anything with a Matlab matrix, you really need enough RAM to store it twice. Removing or adding a column to it, or modifying it within a function, require a duplication of that matrix. We have endeavoured to ensure that the toolbox never requires you to have more RAM than needed to hold a single duplicate of your data. Some of the toolbox's internal accessor functions (such as the _set/get_object_ functions, and the _init_new_object_ functions) may look incredibly inefficient, since it seems as though they are making multiple copies of entire objects or even entire cell arrays of objects and passing them up and down functions. The advantage of this coding style is that all of the accessor logic for the 4 data types is in one place. Fortunately, even though Matlab passes by value and doesn't explicitly allow the use of pointers, it appears to implicitly use pointers in a clever way to ensure that it only actually makes a copy of an argument when passing it into a function if the contents of that argument get modified.
+
+Having experimented with different ways of storing and passing objects between functions, we don't think the toolbox could manage its variables much more efficiently, short of shunning functions entirely. If you have any better ideas, or believe this explanation to be in error, we would be very interested to [#_Contact_details hear from you].
+
+Finally, don't forget that you can [#_Moving_patterns_to store your patterns on the hard disk rather than in RAM] when they're not being used.
