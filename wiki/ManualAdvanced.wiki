@@ -1,28 +1,10 @@
 = Advanced =
 
-<wiki:toc>
-
-== Conventions ==
-
-By convention, the order of the arguments used in toolbox function is intended to be fairly stereotyped, to make it easier to remember. If the 'subj' structure is one of the arguments,
 
 
-== Managing memory ==
+== [ManualAdvancedConventions Conventions] ==
 
-The toolbox has a packrat mentality ' it hoards every version of the data that it processes. For instance, it keeps separate _patterns_ for before and after zscoring with _zscore_runs.m_. This makes sense, because it makes it easy to take a step back in the analysis path and re-run things with slightly different parameters. However, it can eventually clog up your RAM, especially with large patterns.
-
-For this reason, if you know that you plan to apply a mask to your data (e.g. to exclude voxels from outside the cranium), then use that mask as the argument to [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_pattern.m load_afni_pattern.m] when loading in the data in the first place. Unfortunately, the core [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/afni_matlab/BrikLoad.m BrikLoad.m] function loads in the entire volume first and then applies the mask, but if you're loading in separate runs at a time, then this shouldn't be a huge problem.
-
-Since the data from the scanner is often fairly noisy, it's rarely necessary to use a _double_ type to store all the significant figures, which is the default used by Matlab. See [:MVPA manual:How do I use singles rather than doubles] for further information about this.
-
-Another useful tactic is to store large patterns that you're not using at the moment on the hard disk, rather than in RAM. The toolbox makes this easy to do, using [http://www.csbmb.princeton.edu/mvpa/docs/m2html/move_pattern_to_hd.html _move_pattern_to_hd.m_]. See tutorial_hard.htm / Moving patterns to the HD for more information.
-
-Finally, you can always just [#_Removing_objects remove the object].
-
-See also:
-
-
-
+== [ManualAdvancedMemoryManagement Managing memory] ==
 
 === Amount of required RAM ===
 
