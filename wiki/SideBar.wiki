@@ -24,7 +24,7 @@
    * [ManualDataStructures#Selectors Selectors]
    * [ManualDataStructures#Masks Masks]
    * [ManualDataStructures#Chronology Chronology]
-   * [ManualDataStructures#The_Subj_Structures The *Subj* Structure]
+   * [ManualDataStructures#The_Subj_Structure The *Subj* Structure]
   * [ManualImporting Importing]
    * [ManualImporting#From_AFNI AFNI]
    * [ManualImporting#From_BrainVoyager BrainVoyager]
