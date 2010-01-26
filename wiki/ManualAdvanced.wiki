@@ -268,7 +268,7 @@ Note: there is one exception - [http://www.csbmb.princeton.edu/mvpa/docs/m2html/
 
 ==== Don't access the subj structure directly ====
 
-See [#_Accessing_the_subj Accessing the subj structure directly].
+See [ManualAdvanced#Accessing_the_subj_structure_directly Accessing the subj structure directly].
 
 Use the accessor functions in order to evade the ghostly voice that utters 'I told you so' for weeks after tracking down tricky bugs that the accessor functions would have precluded.
 
