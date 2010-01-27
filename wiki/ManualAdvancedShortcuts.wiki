@@ -1,5 +1,5 @@
 = Advanced Manual =
-
+<wiki:toc>
 == Handy shortcuts ==
 
 We've tried to add some minor labour-saving devices to make using the toolbox easier.
