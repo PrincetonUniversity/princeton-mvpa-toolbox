@@ -1,6 +1,4 @@
-= Advanced =
-
-
+= Advanced Manual =
 
 == [ManualAdvancedConventions Conventions] ==
 
@@ -10,11 +8,9 @@
 
 == [ManualAdvancedPatternsToDisk Moving patterns to the hard disk] ==
 
-
 == [ManualAdvancedRemovingObjects Removing objects] ==
 
 == [ManualAdvancedSubjStructureDirectAccess Accessing the subj structure directly] ==
-
 
 == [ManualAdvancedVoxelLocation Figuring out which voxel is which, and where] ==
 
