@@ -1,5 +1,5 @@
 = Advanced Manual =
-
+<wiki:toc>
 === Good practices - do's and don't's ===
 
 ==== Don't access the subj structure directly ====
