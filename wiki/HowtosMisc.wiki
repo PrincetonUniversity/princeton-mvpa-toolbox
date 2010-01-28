@@ -3,7 +3,7 @@
 
 === What do I do if I start getting memory errors' ===
 
-See _Advanced / [ManualAdvancedMemoryManagement Managing memory]_.
+See _[ManualAdvancedMemoryManagement Advanced / Managing memory]_.
 
 
 === How can I slim down the output from summarize.m ===
