@@ -114,7 +114,7 @@ See: Howtos / Pre-classification [:MVPA manual:How can I exclude conditions from
 See Howtos / Pre-classification / How can I hand
 
 
-=== How can I take the haemodynamic lag into account' ===
+=== How can I take the haemodynamic lag into account ===
 
 The peak haemodynamic response is estimated to lag about five seconds behind stimulus onset.
 
@@ -123,11 +123,11 @@ The peak haemodynamic response is estimated to lag about five seconds behind sti
 2. Better still, you can convolve your regressors matrix with a model of the haemodynamic response function, and then use something like a general linear model to pull out the relative contributions of each condition to the data. See [:MVPA manual:How can I convolve my regressors with a haemodynamic response function]
 
 
-=== How can I shift my regressors along' ===
+=== How can I shift my regressors along ===
 
 See [:MVPA manual:How can I take the haemodynamic lag into account] for background.
 
-[m2html/shift_timepoints.html Shift_regressors.m''] will move the regressors matrix along, snipping off the last few TRs at the end of each run, and zero-padding the very beginning of each run with rest volumes. Assuming a TR (time to repetition) of 2 seconds, then shifting by 3 timepoints is probably about right. ''
+[m2html/shift_timepoints.html Shift_regressors.m] will move the regressors matrix along, snipping off the last few TRs at the end of each run, and zero-padding the very beginning of each run with rest volumes. Assuming a TR (time to repetition) of 2 seconds, then shifting by 3 timepoints is probably about right. ''
 
 subj = shift_regressors(subj,'conds','runs',3);
 
@@ -460,7 +460,7 @@ We plan to implement a plugin function that allows you to change the defaults of
 See ''Advanced / [#_Managing_memory Managing memory]''.
 
 
-=== How can I slim down the output from ''summarize.m ===
+=== How can I slim down the output from summarize.m ===
 
 If you have lots of groups, each containing lots of objects, then the output from ''summarize.m'' can be very long. In order to avoid this, there are a couple of ways to slim down its output.
 
