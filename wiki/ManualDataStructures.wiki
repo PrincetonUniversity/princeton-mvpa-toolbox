@@ -2,7 +2,7 @@
 <wiki:toc>
 All the basic information we use for classification is contained in a single ''subj'' structure - one per subject. The ''subj'' structure itself is really just four cell arrays, each containing multiple objects. An object can be one of four main data types [ManualDataStructures#Patterns patterns], [ManualDataStructures#Regressors regressors], [ManualDataStructures#Selectors selectors] and [ManualDataStructures#Masks masks]. Each object is stored as a single cell in one of the 4 ''subj'' cell arrays. For instance, a single regressors object is a cell in subj.regressors{}.
 
-See [#_subj subj structure] for more details.
+See [ManualDataStructures#The_Subj_Structure subj structure] for more details.
 
 
 == Patterns ==
