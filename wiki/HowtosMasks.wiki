@@ -1,6 +1,6 @@
 = Howtos =
 
-
+== Masks ==
 
 === How do I figure out which voxels are common to two masks' ===
 
