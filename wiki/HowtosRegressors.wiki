@@ -1,6 +1,6 @@
 = Howtos =
 
-
+== Regressors ==
 
 === How can I exclude conditions from my analysis' ===
 
