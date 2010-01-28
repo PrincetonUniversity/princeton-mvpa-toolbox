@@ -8,9 +8,9 @@ See _Advanced / [ManualAdvancedMemoryManagement Managing memory]_.
 
 === How can I slim down the output from summarize.m ===
 
-If you have lots of groups, each containing lots of objects, then the output from ''summarize.m'' can be very long. In order to avoid this, there are a couple of ways to slim down its output.
+If you have lots of groups, each containing lots of objects, then the output from _summarize.m_ can be very long. In order to avoid this, there are a couple of ways to slim down its output.
 
-The most obvious is to only display objects of one type. For instance, if you are only interested in ''selector'' objects, you might try the optional 'objtype' argument:
+The most obvious is to only display objects of one type. For instance, if you are only interested in _selector_ objects, you might try the optional `objtype` argument:
 
 {{{
 >> summarize(subj,'objtype','selector') 
