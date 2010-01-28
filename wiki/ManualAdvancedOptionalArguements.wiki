@@ -2,7 +2,7 @@
 
 == Optional arguments ==
 
-All of the functions in the toolbox use the same conventions for optional arguments, since they all rely on _[http://www.csbmb.princeton.edu/mvpa/docs/m2html/propval.html propval.m]_. This is a standalone function that makes it very easy to specify what optional arguments a function should accept, in any order, what default arguments it should use if they're not supplied, and with lots of error-checking and warning.
+All of the functions in the toolbox use the same conventions for optional arguments, since they all rely on _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/util/propval.m propval.m]_. This is a standalone function that makes it very easy to specify what optional arguments a function should accept, in any order, what default arguments it should use if they're not supplied, and with lots of error-checking and warning.
 
 Optional arguments must be supplied in property/value pairs, e.g.
 
@@ -27,7 +27,7 @@ In this case, the property/value pairings are as follows:
 
 Properties are always strings, and always come first in the pair. Values can be strings, or any other type, and always come second.
 
-By the way, for more information on the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/summarize.html summarize.m] function, see also: [#_Viewing_the_subj Viewing the subj structure] and [:MVPA manual:How can I slim down the output from summarize.m].
+By the way, for more information on the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function, see also: [ManualDataStructures#Viewing_the_''subj''_structure_and_objects_w Viewing the subj structure] and [Howtos#How_can_I_slim_down_the_output_from_summarize.m How can I slim down the output from summarize.m].
 
 In the help for a function, the triple-dot at the end of the function declaration denotes that it takes optional arguments, e.g.
 
@@ -57,6 +57,6 @@ There is one further way in which optional arguments can be supplied. If calling
 >> summarize(subj,summ_args)
  }}}
 
-See the help for [http://www.csbmb.princeton.edu/mvpa/docs/m2html/propval.html propval.m] for more information.
+See the help for [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/util/propval.m propval.m] for more information.
 
-Note: there is one exception - [http://www.csbmb.princeton.edu/mvpa/docs/m2html/summarize.html summarize.m] has a special single optional boolean argument that determines whether or not to display all the members of a group. This is for the user's convenience, since _summarize.m_ gets called so much, but may be deprecated in future versions.
+Note: there is one exception - [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] has a special single optional boolean argument that determines whether or not to display all the members of a group. This is for the user's convenience, since _summarize.m_ gets called so much, but may be deprecated in future versions.
