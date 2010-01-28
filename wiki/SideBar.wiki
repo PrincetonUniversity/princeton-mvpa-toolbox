@@ -63,7 +63,7 @@
    * [ManualAdvancedCreatingCustomFunctions Creating Custom MVPA Functions]
    * [ManualAdvancedOptionalArguements Utilizing Optional Arguments]
   * [Howtos Howto Articles]
-  * [Howtos#Patterns Pattern Howtos]
+   * [Howtos#Patterns Pattern Howtos]
    * [Howtos#Regressors Regressor Howtos]
    * [Howtos#Masks Mask Howtos]
    * [Howtos#Pre-classification Pre-Classification Howtos]
