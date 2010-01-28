@@ -2,7 +2,7 @@
 <wiki:toc>
 == Handy shortcuts ==
 
-We've tried to add some minor labour-saving devices to make using the toolbox easier.
+We've tried to add some minor labor-saving devices to make using the toolbox easier.
 
 
 === Getting the latest object names ===
@@ -21,7 +21,7 @@ Note: this is one of those handy labour-saving devices that might prove a terrib
 
 Note: We deliberately decided not to have the remove functions alter the subj.x shortcuts when removing the highest-numbered mat or object of its type. This way, if you forget to update them yourself, you'll get an error. If we were to automatically set them to the next highest-numbered item, you might not notice and end up with a subtil and devilish bug.
 
-If you have ideas for other ways to speed up frequently-performed tasks or minimise how much typing users have to do, we'd be happy to [#_Contact_details hear from you].
+If you have ideas for other ways to speed up frequently-performed tasks or minimize how much typing users have to do, we'd be happy to [ContactDetails hear from you].
 
 
 === Getting the mat immediately from a duplicated object ===
@@ -36,7 +36,7 @@ Often, you'll find yourself doing the following:
 
 4. setting it back into the object.
 
-To reduce this down by one step, it's worth noting that the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/duplicate_object.html _duplicate_object.m_] function will return the duplicated object's _mat_ as its second argument, allowing you to combine the first two steps in one line:
+To reduce this down by one step, it's worth noting that the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/duplicate_object.m duplicate_object.m] function will return the duplicated object's _mat_ as its second argument, allowing you to combine the first two steps in one line:
 
 {{{ 
 >> [subj duplicated_mat] = duplicate_obj(subj,objtype,old_objname,new_objname);
