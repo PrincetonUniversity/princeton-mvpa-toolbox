@@ -70,6 +70,6 @@
    * [HowtosClassification Classification Howtos]
    * [HowtosExporting Data Exporting Howtos]
    * [HowtosResults Results Howtos]
-   * [Howtos#Miscellaneous Miscellaneous Howtos]
+   * [HowtosMisc Miscellaneous Howtos]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
