@@ -67,42 +67,24 @@ In this simple example, there is just a single '1' on each row signalling one ac
 
 == Selectors ==
 
-Think of the _selectors_ row-vector as labelling each
-timepoint with a tag or type of some kind. Selector values
-must be positive integers.
+Think of the _selectors_ row-vector as labelling each timepoint with a tag or type of some kind. Selector values must be positive integers.
 
-For instance, a selector might label timepoints as `train`
-vs `test`. Or as `exclude` vs `include`. Or `run1` vs `run2`
-vs `run3` vs `run4` etc.
+For instance, a selector might label timepoints as `train` vs `test`. Or as `exclude` vs `include`. Or `run1` vs `run2` vs `run3` vs `run4` etc.
 
 
 == Masks ==
 
-A _mask_ is usually a single boolean 3D matrix the size of
-the original brain volume with ones showing where voxels
-will be kept, and zeros showing voxels that will be
-excluded.
+A _mask_ is usually a single boolean 3D matrix the size of the original brain volume with ones showing where voxels will be kept, and zeros showing voxels that will be excluded.
 
-A _mask_ might be defined anatomically (e.g. prefrontal
-cortex) or functionally by thresholding a [#_statmap
-statmap], or really any other way you choose that will yield
-a 3D boolean matrix of the right dimensions.
+A _mask_ might be defined anatomically (e.g. prefrontal cortex) or functionally by thresholding a [#_statmap statmap], or really any other way you choose that will yield a 3D boolean matrix of the right dimensions.
 
-This is also where the information about the locations of
-the features (e.g. voxels) in a ''pattern'' is
-encoded. Every _pattern_ has a `masked_by` field which
-points to a _mask_ with the same number of active voxels,
-showing where in the 3D volume those _patterns_ voxels came
-from.
+This is also where the information about the locations of the features (e.g. voxels) in a ''pattern'' is encoded. Every _pattern_ has a `masked_by` field which points to a _mask_ with the same number of active voxels, showing where in the 3D volume those _patterns_ voxels came from.
 
 To turn the mask into a linear index of voxels that refers
 to a pattern, just call the Matlab `find` command on the
 _mask_.
 
-To create a (voxels x 3) list of xyz coordinates, just call
-the Matlab `ind2sub` command on the _mask_. Update: v0.9
-and above will include a handy
-[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/get_coords_from_mask.m get_coords_from_mask.m] function to do this for you.
+To create a (voxels x 3) list of xyz coordinates, just call the Matlab `ind2sub` command on the _mask_. Update: v0.9 and above will include a handy [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/get_coords_from_mask.m get_coords_from_mask.m] function to do this for you.
 
 == Chronology ==
 
