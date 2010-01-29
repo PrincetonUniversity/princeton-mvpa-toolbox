@@ -5,8 +5,11 @@
 We realise that using the accessor functions is slightly more cumbersome than accessing the contents of the _subj_ structure directly. However, bypassing them can cause many subtle problems and is not recommended.
 
 Having said that, nothing can go wrong if you're just using the standard syntax to view an object, e.g.
+{{{
 
 >> subj.regressors{5}
+
+}}}
 
 It's really only when you change the values in an object that there's a real risk of things getting badly confused amidst the assumptions and interactions between functions. Hopefully, these should all be preserved intact by the provided accessor functions.
 
