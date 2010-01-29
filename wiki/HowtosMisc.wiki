@@ -96,7 +96,7 @@ Selectors - [nCond x nTRs]
 By default, ''summarize.m'' tries to be a bit clever ' if you don't have many objects, it will display all the individual members. However, if you have quite a few, then it will concatenate all the ones that have the same sized mat field, but show you individual group members if they differ.
 
 
-=== How do I store an object as singles rather than doubles' ===
+=== How do I store an object as singles rather than doubles ===
 
 Since the data from the scanner is often fairly noisy, it's rarely necessary to use a ''double'' type to store all the significant figures, which is the default used by Matlab. Storing the data as ''singles'' will use half the number of bytes for each value (4 rather than 8 bytes on most v7 installations).
 
