@@ -260,7 +260,7 @@ This third approach would be the easiest, since it employs existing functions. H
 
 At the time of writing, we are aware of 2 recent efforts to help with running multi-voxel pattern analyses:
 
-If you like the idea of multi-voxel pattern analysis, but don't or can't use Matlab, then you may be interested in [http://pkg-exppsy.alioth.debian.org/pymvpa/ PyMVPA]. This is a Python-based toolbox similar in spirit to our Matlab MVPA toolbox, written by Michael Hanke, Yaroslav Halchenko, Per Sederberg and the rest of the Debian Experimental Psychology crew.
+If you like the idea of multi-voxel pattern analysis, but don't or can't use Matlab, then you may be interested in [http://www.pymvpa.org/ PyMVPA]. This is a Python-based toolbox similar in spirit to our Matlab MVPA toolbox, written by Michael Hanke, Yaroslav Halchenko, Per Sederberg and the rest of the Debian Experimental Psychology crew.
 
 Jeffery Prescott and Stephen La''''''Conte's [http://afni.nimh.nih.gov/pub/dist/doc/program_help/3dsvm.html 3dsvm] is a plugin that allows you to run support vector machine analyses from within AFNI.
 
