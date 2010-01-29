@@ -14,12 +14,12 @@ This is very easy. Since masks are boolean 3D matrices, you could just try:
 >> common_voxels = mask1 & mask2; 
 }}}
 
-That will produce a third boolean 3D matrix, with 1s where both mask1'' and ''mask2'' had 1s. You could then create a new ''common_voxels'' mask object, and use this to mask a pattern using [m2html/create_pattern_from_mask.html ''create_pattern_from_mask.m'']. ''
+That will produce a third boolean 3D matrix, with 1s where both mask1 and mask2 had 1s. You could then create a new common_voxels mask object, and use this to mask a pattern using [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/create_pattern_from_mask.m create_pattern_from_mask.m]. 
 
 
 === How do I find the coordinates of active voxels in a mask' ===
 
-The mat'' of a mask object is a 3D boolean object. If you would like an (''nVox'' x ''3'') matrix of ''x''/''y''/''z'' Cartesian coordinates listing those voxels that are active in the volume: ''
+The mat of a mask object is a 3D boolean object. If you would like an (_nVox_ x _3_) matrix of _x_/_y_/_z_ Cartesian coordinates listing those voxels that are active in the volume:
 
 {{{
 >> mymask = get_mat(subj,'mask','mymaskname'); 
@@ -42,7 +42,7 @@ All you need to do is create an all-ones 3D matrix. If your volume is 64x64x40:
 >> subj = set_mat(subj,'mask','wholevol',wholevol); 
 }}}
 
-Then, if you want to load in the data for every single voxel from some BRIK file, then you would call [m2html/load_afni_pattern.html load_afni_pattern.m]'' as before, using 'wholevol' as the mask argument, e.g. ''
+Then, if you want to load in the data for every single voxel from some BRIK file, then you would call [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_pattern.m load_afni_pattern.m] as before, using `wholevol` as the mask argument, e.g.
 
 {{{
 >> for i=1:10 
@@ -54,11 +54,11 @@ end
 >> subj = load_afni_pattern(subj,'epi','wholevol',raw_filenames); 
 }}}
 
-Note: this could involve loading in hundreds of thousands of voxels' worth of data, which will probably be too RAM-intensive to be manageable. There's not a lot you can do about this. Storing the data as singles, rather than doubles is probably a good start ' see [:MVPA manual:How do I store an object as singles rather than double].
+Note: this could involve loading in hundreds of thousands of voxels' worth of data, which will probably be too RAM-intensive to be manageable. There's not a lot you can do about this. Storing the data as singles, rather than doubles is probably a good start ' see [HowtosMisc#How_do_I_store_an_object_as_singles_rather_than_doubles How do I store an object as singles rather than double].
 
 
 === Creating a wholebrain (intra-cranial) mask, or other anatomical mask ===
 
-Currently, there are no facilities in the toolbox for automatically defining the cranial boundaries to create intra-cranial masks, or for drawing anatomical ROIs. We recommend that you use a function like AFNI's 3dAutomask'' for defining intra-cranial boundaries, or draw the ROIs yourself, save to a BRIK file, and then use ''[m2html/load_afni_mask.html load_afni_mask.m]'' to read that mask in to Matlab. ''
+Currently, there are no facilities in the toolbox for automatically defining the cranial boundaries to create intra-cranial masks, or for drawing anatomical ROIs. We recommend that you use a function like AFNI's 3dAutomask for defining intra-cranial boundaries, or draw the ROIs yourself, save to a BRIK file, and then use'[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_mask.m load_afni_mask.m] to read that mask in to Matlab. 
 
-For information about other neuroimaging packages, see [#_Importing Importing]''. ''
+For information about other neuroimaging packages, see [ManualImporting Importing]''. ''
