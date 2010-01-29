@@ -1,5 +1,6 @@
 = Howtos =
 
+<wiki:toc>
 
 === What do I do if I start getting memory errors' ===
 
