@@ -110,10 +110,7 @@ indexing into matrices with the same number of columns.
 
 === The innards of the _subj_ structure ===
 
-All of the data types discussed above are stored as cell arrays in the main _subj_ structure. Each _subj_ variable is a Matlab struct containing everything
-that relates to a single subject (up to the point of
-classification). A sample _subj_ might look like this, if
-displayed from the Matlab terminal:
+All of the data types discussed above are stored as cell arrays in the main _subj_ structure. Each _subj_ variable is a Matlab struct containing everything that relates to a single subject (up to the point of classification). A sample _subj_ might look like this, if displayed from the Matlab terminal:
 
 {{{
 >> subj 
@@ -148,10 +145,7 @@ time. As we will see, this is key to the way the toolbox is
 intended to work.
 
 This display of the _subj_ structure is somewhat spare. We
-recommend using the
-[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m
-summarize.m] function (see [ManualDataStructures#Viewing_the_''subj''_structure_and_objects_w Viewing the
-_subj_ structure]) instead.
+recommend using the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function (see [ManualDataStructures#Viewing_the_''subj''_structure_and_objects_w Viewing the _subj_ structure]) instead.
 
 All four data types have a stereotyped internal
 organization. Let us examine a sample _regressors_ object:
