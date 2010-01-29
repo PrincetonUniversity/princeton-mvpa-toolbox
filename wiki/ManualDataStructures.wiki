@@ -125,7 +125,7 @@ indexing into matrices with the same number of columns.
 
 == The *Subj* Structure ==
 
-=== The innards of the ''subj'' structure ===
+=== The innards of the _subj_ structure ===
 
 All of the data types discussed above are stored as cell arrays in the main ''subj'' structure. Each ''subj'' variable is a Matlab struct containing everything
 that relates to a single subject (up to the point of
