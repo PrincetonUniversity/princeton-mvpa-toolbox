@@ -76,7 +76,7 @@ For instance, a selector might label timepoints as `train` vs `test`. Or as `exc
 
 A _mask_ is usually a single boolean 3D matrix the size of the original brain volume with ones showing where voxels will be kept, and zeros showing voxels that will be excluded.
 
-A _mask_ might be defined anatomically (e.g. prefrontal cortex) or functionally by thresholding a [#_statmap statmap], or really any other way you choose that will yield a 3D boolean matrix of the right dimensions.
+A _mask_ might be defined anatomically (e.g. prefrontal cortex) or functionally by thresholding a [Glossary#statmap statmap], or really any other way you choose that will yield a 3D boolean matrix of the right dimensions.
 
 This is also where the information about the locations of the features (e.g. voxels) in a ''pattern'' is encoded. Every _pattern_ has a `masked_by` field which points to a _mask_ with the same number of active voxels, showing where in the 3D volume those _patterns_ voxels came from.
 
@@ -145,7 +145,7 @@ time. As we will see, this is key to the way the toolbox is
 intended to work.
 
 This display of the _subj_ structure is somewhat spare. We
-recommend using the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function (see [ManualDataStructures#Viewing_the_''subj''_structure_and_objects_w Viewing the _subj_ structure]) instead.
+recommend using the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function (see [ManualDataStructures#Viewing_the_subj_structure_and_objects_within_it Viewing the _subj_ structure]) instead.
 
 All four data types have a stereotyped internal
 organization. Let us examine a sample _regressors_ object:
