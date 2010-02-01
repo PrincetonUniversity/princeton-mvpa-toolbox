@@ -5,11 +5,11 @@
 
 === How do I get the testtargs that my classifier was trained on' ===
 
-Inside ''results.iterations(i)'':
+Inside _results.iterations(i)_:
 
-· ''test_idx'' tells you *which* TRs were used as test data
+ _test_idx_ tells you *which* TRs were used as test data
 
-· ''created.regsname'' tells you which your regressors object was
+ _created.regsname_ tells you which your regressors object was
 
 So, to get the ''testtargs'' for the first iteration:
 
@@ -27,4 +27,4 @@ So, to get the ''testtargs'' for the first iteration:
 
 We could have chosen to save things in more than one place, but instead we decided not to save anything redundantly, but to save *enough* that you could find or generate anything you need.
 
-We plan to implement a plugin function that allows you to change the defaults of what gets saved into the ''results'' structure in the future, so that you could tailor things to make them more convenient for you.
+We plan to implement a plugin function that allows you to change the defaults of what gets saved into the _results_ structure in the future, so that you could tailor things to make them more convenient for you.
