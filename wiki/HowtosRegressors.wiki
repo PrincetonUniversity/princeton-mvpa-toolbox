@@ -7,7 +7,7 @@
 See: Howtos / Pre-classification [:MVPA manual:How can I exclude conditions from my analysis]
 
 
-=== How can I exclude timepoints from my analysis' ===
+=== How can I exclude timepoints from my analysis ===
 
 See Howtos / Pre-classification / How can I hand
 
@@ -38,7 +38,7 @@ For the most part, we recommend [:MVPA manual:convolving the regressors with a h
 See [:Tutorial hard:tutorial_hard] / Shifting the regressors along.
 
 
-=== How can I convolve my regressors with a haemodynamic response function' ===
+=== How can I convolve my regressors with a haemodynamic response function ===
 
 See [:MVPA manual:How can I take the haemodynamic lag into account].
 
