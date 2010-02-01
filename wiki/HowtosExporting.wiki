@@ -3,7 +3,7 @@
 == Exporting ==
 <wiki:toc>
 
-=== Can the toolbox help me write BRIKs' ===
+=== Can the toolbox help me write BRIKs ===
 
 Even if you're not using most of the toolbox's functionality, it provides wrappers for Ziad Saad's afni_matlab library that might make importing/exporting easier.
 
@@ -16,7 +16,7 @@ These can substantially help you if you're trying to write out BRIKs, since you 
 See also: ''Howtos / Patterns / [#_Masks Can the toolbox help me load BRIKs']''.
 
 
-=== Sometimes when using write_to_afni.m, I get this message: 'Problem using spoofing write method - trying again with zeroifying - you can safely ignore this message and the following error stack' ===
+=== Sometimes when using write_to_afni.m, I get this message: Problem using spoofing write method - trying again with zeroifying - you can safely ignore this message and the following error stack ===
 
 ''[m2html/write_to_afni.m Write_to_afni.m]'' calls ''WriteBrik.m'' (from Ziad Saad's afni_matlab library) to do all the hard work. The complicated part comes when figuring out what should go in the header of the BRIK. There are two ways we've come up with to do this:
 
@@ -37,6 +37,6 @@ The funny error message that you got with ''write_to_afni.m'' should now make se
 See the ''[m2html/write_to_afni.html write_to_afni.m]'' and ''[m2html/zeroify_write_afni.html zeroify_write_afni.m]'' help for more information, and also ''Howtos / Exporting / [:MVPA manual:Can the toolbox help me write BRIKs']''.
 
 
-=== What if I get an out of memory error when trying to write a BRIK' ===
+=== What if I get an out of memory error when trying to write a BRIK ===
 
 Chances are, you're trying to write a functional BRIK with lots of timepoints. Use the 'runs' optional argument to split the data up into multiple BRIK files by run.
