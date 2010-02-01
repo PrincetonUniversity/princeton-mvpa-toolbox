@@ -4,7 +4,7 @@
 == Pre-classification ==
 
 
-=== How can I handpick timepoints to exclude from my analysis' ===
+=== How can I handpick timepoints to exclude from my analysis ===
 
 Don't delete any timepoints from your patterns or regressors. Instead, just tell [m2html/create_xvalid_indices.html create_xvalid_indices.m]'' to use a selector as a kind of temporal mask to censor out the timepoints you don't want. Imagine you have 1000 TRs, and you want to exclude the 111th (because that's the point in your experiment where Bilbo disappears): ''
 
