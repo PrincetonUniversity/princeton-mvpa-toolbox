@@ -1,16 +1,16 @@
 = Howtos = 
 
 == Patterns ==
+<wiki:toc>
 
-
-=== What pre-processing should I do' ===
+=== What pre-processing should I do ===
 
 We don't yet have strong recommendations for the pre-processing you should do on your data. Often, people in the Princeton Psychology Department do volume registration/motion correction, despiking, detrending (linear and sometimes quadratic) and sometimes spatial smoothing.
 
 If you find that some kinds of pre-processing steps systematically affect multi-voxel or classification analysis, we'd be very interested to [ContactDetails hear from you] for future releases.
 
 
-=== What if I want to use Blah^TM^ to import my patterns' ===
+=== What if I want to use Blah^TM^ to import my patterns ===
 
 If you want to use a different neuroimaging pre-processing package (e.g. BrainVoyager, SPM) then read the [ManualImporting 'Importing'] section to see what importing paths are currently supported. If your package of choice isn't supported, [ContactDetails let us know]. If you feel like contributing load_blah_pattern.m'' and ''load_blah_mask.m'' import functions, that would be even better. ''
 
@@ -19,7 +19,7 @@ Alternatively, you may find that your favoured package and one of the supported 
 Finally, if you just want to read in data from some other source entirely, then that's easy. As long as you can get the data into Matlab as a 2D (nFeatures x nTimepoints) matrix, then you can simply call [m2html/init_object.html init_object.m''] and then [m2html/set_mat.html ''set_mat.m''] to create a new pattern object and insert your matrix into it. You should also read [:MVPA manual:How do I create a pattern without a mask] if you're going to do this. ''
 
 
-=== How do I create a pattern without a mask' ===
+=== How do I create a pattern without a mask ===
 
 The toolbox intentionally makes this hard to do. There's a good reason for this ' if you want to know where a feature/voxel in your pattern came from, or find the same voxel in two patterns that have been differently masked, then you need to have a common reference space that you can map between. A pattern without an associated mask contains anonymous, untraceable features.
 
@@ -40,7 +40,7 @@ If that's what you really want, or you just want to try something quick and dirt
 }}}
 
 
-=== How do I figure out which features are common to two patterns' ===
+=== How do I figure out which features are common to two patterns ===
 
 This isn't much harder than finding the common voxels in two masks. Since each pattern has a masked_by'' field, start by extracting the masks used by your two patterns. ''
 
@@ -57,7 +57,7 @@ This isn't much harder than finding the common voxels in two masks. Since each p
 Now, just refer to ' [:MVPA manual:How do I figure out which voxels are common to two masks] ' to compare the two masks.
 
 
-=== How do I exclude features from a pattern' ===
+=== How do I exclude features from a pattern ===
 
 Don't just delete the features and then call set_mat.m''. In fact, if you do, it will warn you that the dimensions of the new mat are different. This is an indication that what you are doing isn't a good idea. ''
 
@@ -82,12 +82,12 @@ The following snippet should give you an idea of what you need to do, if you wan
 }}}
 
 
-=== How do I store a pattern as singles rather than doubles' ===
+=== How do I store a pattern as singles rather than doubles ===
 
 See [:MVPA manual:How do I store an object as singles rather than doubles].
 
 
-===== Can the toolbox help me load BRIKs' =====
+===== Can the toolbox help me load BRIKs =====
 
 Even if you're not using most of the toolbox's functionality, it provides wrappers for Ziad Saad's afni_matlab library that might make importing/exporting easier.
 
