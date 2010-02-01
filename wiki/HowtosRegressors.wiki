@@ -2,7 +2,7 @@
 
 == Regressors ==
 
-=== How can I exclude conditions from my analysis' ===
+=== How can I exclude conditions from my analysis ===
 
 See: Howtos / Pre-classification [:MVPA manual:How can I exclude conditions from my analysis]
 
