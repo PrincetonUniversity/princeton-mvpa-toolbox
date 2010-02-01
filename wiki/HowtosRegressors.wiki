@@ -25,7 +25,7 @@ The peak haemodynamic response is estimated to lag about five seconds behind sti
 
 See [HowtosRegressors#How_can_I_take_the_haemodynamic_lag_into_account How can I take the haemodynamic lag into account] for background.
 
-http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/shift_regressors.m Shift_regressors.m] will move the regressors matrix along, snipping off the last few TRs at the end of each run, and zero-padding the very beginning of each run with rest volumes. Assuming a TR (time to repetition) of 2 seconds, then shifting by 3 timepoints is probably about right.
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/shift_regressors.m Shift_regressors.m] will move the regressors matrix along, snipping off the last few TRs at the end of each run, and zero-padding the very beginning of each run with rest volumes. Assuming a TR (time to repetition) of 2 seconds, then shifting by 3 timepoints is probably about right.
 
 {{{
  >> subj = shift_regressors(subj,'conds','runs',3);
