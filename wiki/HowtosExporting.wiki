@@ -1,7 +1,7 @@
 = Howtos =
 
 == Exporting ==
-
+<wiki:toc>
 
 === Can the toolbox help me write BRIKs' ===
 
