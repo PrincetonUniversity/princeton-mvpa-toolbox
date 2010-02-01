@@ -4,7 +4,7 @@
 <wiki:toc>
 === How can I exclude conditions from my analysis ===
 
-See: Howtos / Pre-classification [:MVPA manual:How can I exclude conditions from my analysis]
+See: Howtos / [HowtosPreClassification#How_can_I_exclude_conditions_from_my_analysis Pre-classification How can I exclude conditions from my analysis]
 
 
 === How can I exclude timepoints from my analysis ===
