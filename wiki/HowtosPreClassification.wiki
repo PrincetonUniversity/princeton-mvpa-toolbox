@@ -3,6 +3,7 @@
 
 == Pre-classification ==
 
+<wiki:toc>
 
 === How can I handpick timepoints to exclude from my analysis ===
 
