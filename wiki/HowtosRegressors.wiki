@@ -9,7 +9,7 @@ See: Howtos / [HowtosPreClassification#How_can_I_exclude_conditions_from_my_anal
 
 === How can I exclude timepoints from my analysis ===
 
-See Howtos / Pre-classification / How can I hand
+See Howtos / [HowtosPreClassification#How_can_I_handpick_timepoints_to_exclude_from_my_analysis Pre-classification / How can I handpike timepoints to exclude?]
 
 
 === How can I take the haemodynamic lag into account ===
