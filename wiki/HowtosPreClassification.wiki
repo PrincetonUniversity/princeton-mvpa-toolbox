@@ -32,7 +32,7 @@ Note: this method will only exclude these timepoints from functions that use the
 The main advantage of this method is that it doesn't require you to actually delete the TRs that you don't want from your patterns, so that if you change your mind, you can easily rerun your analysis by feeding in a different actives_selname'' selector to ''create_xvalid_indices.m''. ''
 
 
-=== How can I exclude rest timepoints from my analysis' ===
+=== How can I exclude rest timepoints from my analysis ===
 
 First, read '[:MVPA manual:How can I handpick timepoints to exclude from my analysis']'.
 
@@ -53,7 +53,7 @@ This time, instead of hand-picking the timepoints to exclude individually, you w
  }}}
 
 
-=== How can I exclude conditions from my analysis' ===
+=== How can I exclude conditions from my analysis ===
 
 We recommend using the same method as described first in '[#_How_do_I How can I handpick timepoints to exclude from my analysis']' and elaborated in '[#_How_can_I_1 How can I exclude rest timepoints from my analysis']'.
 
@@ -94,6 +94,6 @@ Proceeding from now on exactly as described in '[#_How_can_I_1 How can I exclude
 }}}
 
 
-=== How can I exclude rest and hand-picked timepoints and some conditions' ===
+=== How can I exclude rest and hand-picked timepoints and some conditions ===
 
 Create a separate boolean temporal mask selector for each, as above. Then create a new selector that is the 'AND' of all of those selectors, and feed that in.
