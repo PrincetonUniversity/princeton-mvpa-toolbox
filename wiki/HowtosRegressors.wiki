@@ -26,9 +26,9 @@ The peak haemodynamic response is estimated to lag about five seconds behind sti
 See [:MVPA manual:How can I take the haemodynamic lag into account] for background.
 
 [m2html/shift_timepoints.html Shift_regressors.m] will move the regressors matrix along, snipping off the last few TRs at the end of each run, and zero-padding the very beginning of each run with rest volumes. Assuming a TR (time to repetition) of 2 seconds, then shifting by 3 timepoints is probably about right. ''
-
-subj = shift_regressors(subj,'conds','runs',3);
-
+{{{
+ >> subj = shift_regressors(subj,'conds','runs',3);
+}}}
 This will create a new regressors object called shift the regressors in the conds'' object by three timepoints, within each run indexed in the ''runs'' selector object. That is, it will add three rest TRs at the beginning of each run, shifting everything along by three, then then truncate the end by three to leave it the same size. ''
 
 If for some reason you wanted to shift the entire regressors matrix along by n'' timepoints, regardless of which run things came from (probably a bad idea), then just use an all-ones selector instead of a runs selector. ''
