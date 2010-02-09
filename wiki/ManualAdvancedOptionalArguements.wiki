@@ -27,7 +27,7 @@ In this case, the property/value pairings are as follows:
 
 Properties are always strings, and always come first in the pair. Values can be strings, or any other type, and always come second.
 
-By the way, for more information on the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function, see also: [ManualDataStructures#Viewing_the_subj_structure_and_objects_within_it Viewing the subj structure] and [Howtos#How_can_I_slim_down_the_output_from_summarize.m How can I slim down the output from summarize.m].
+By the way, for more information on the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/summarize.m summarize.m] function, see also: [ManualDataStructures#Viewing_the_subj_structure_and_objects_within_it Viewing the subj structure] and [HowtosMisc#How_can_I_slim_down_the_output_from_summarize.m How can I slim down the output from summarize.m].
 
 In the help for a function, the triple-dot at the end of the function declaration denotes that it takes optional arguments, e.g.
 
