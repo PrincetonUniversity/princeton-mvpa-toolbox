@@ -1,7 +1,8 @@
 = Howtos =
 
+<wiki:toc>
 
-=== Why is my generalization performance poor' ===
+=== Why is my generalization performance poor ===
 
 See: [#_Troubleshooting_poor_classification Troubleshooting poor classification performance].
 
