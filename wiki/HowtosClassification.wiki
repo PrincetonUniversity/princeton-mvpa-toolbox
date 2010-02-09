@@ -11,7 +11,7 @@ See: [#_Troubleshooting_poor_classification Troubleshooting poor classification 
 
 If you're using the Mathworks Neural Networks toolbox, they're stored in the net (that gets saved to results.iterations(i).scratchpad) object in the 'weight and bias values' section. See the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/ Matlab Neural Networks manual] for more information. 
 
-See the [http://www.ncrg.aston.ac.uk/netlab/ Netlab] mlp.m help (and also [http://www.phys.uni.torun.pl/netlab/mlp.htm here]) for more information about where the Netlab net'' object stores the weights matrix or matrices. ''
+See the [http://www.ncrg.aston.ac.uk/netlab/ Netlab] mlp.m help (and also [http://www.ncrg.aston.ac.uk/netlab/book.php here]) for more information about where the Netlab net object stores the weights matrix or matrices. 
 
 
 === What if I want to train or test on averaged data ===
