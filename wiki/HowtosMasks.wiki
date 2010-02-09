@@ -59,6 +59,6 @@ Note: this could involve loading in hundreds of thousands of voxels' worth of da
 
 === Creating a wholebrain (intra-cranial) mask, or other anatomical mask ===
 
-Currently, there are no facilities in the toolbox for automatically defining the cranial boundaries to create intra-cranial masks, or for drawing anatomical ROIs. We recommend that you use a function like AFNI's 3dAutomask for defining intra-cranial boundaries, or draw the ROIs yourself, save to a BRIK file, and then use'[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_mask.m load_afni_mask.m] to read that mask in to Matlab. 
+Currently, there are no facilities in the toolbox for automatically defining the cranial boundaries to create intra-cranial masks, or for drawing anatomical ROIs. We recommend that you use a function like AFNI's 3dAutomask for defining intra-cranial boundaries, or draw the ROIs yourself, save to a BRIK file, and then use [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_mask.m load_afni_mask.m] to read that mask in to Matlab. 
 
-For information about other neuroimaging packages, see [ManualImporting Importing]''. ''
+For information about other neuroimaging packages, see [ManualImporting Importing].
