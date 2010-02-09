@@ -28,9 +28,9 @@ Any custom functions that modify the _subj_ structure (usually by creating a new
 · if the custom function creates a new _subj_ structure object, you should add a line to the help comments that says 'Adds the following objects:' and a list of the objects/groups that get created
 
 · if the custom function creates a new _subj_ structure object, you should display something like:
-
+{{{
 sprintf('Created %s called %s',objtype,objname)
-
- * should call the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_created.html _add_created.m_] with fields for the name of the function and any arguments it takes
- * should call [http://www.csbmb.princeton.edu/mvpa/docs/m2html/add_history.html _add_history.m_] to add a line describing themselves to their own freetext history narrative
+}}}
+ * should call the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/add_created.m add_created.m] with fields for the name of the function and any arguments it takes
+ * should call [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/add_history.m add_history.m] to add a line describing themselves to their own freetext history narrative
  * try and do some error-checking on the inputs, if there are any assumptions that the function makes, to help future users avoid making hard-to-debug booboos
