@@ -11,10 +11,10 @@ If you do create a custom function and you think others might benefit from it, w
 
 === Places that can call custom function ===
 
- * [#_statmap statmap generation] ' _feature_selection.m_ and _peek_feature_selection.m_ can take optional _statmap_funct_ and _statmap_arg_ arguments
- * [#_Creating_your_own classifier training] ' _cross_validation.m_ can take an optional _train_funct_ function name string
- * [#_Creating_your_own classifier test] ' _cross_validation.m_ can take an optional _test_funct_ function name string
- * [#_Creating_your_own classifier performance metrics] ' _cross_validation.m_ can take an optional _perfmet_functs_ cell array of performance metric function name strings
+ * [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/feature_select.m statmap generation] ' _feature_selection.m_ and _peek_feature_selection.m_ can take optional _statmap_funct_ and _statmap_arg_ arguments
+ * [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/cross_validation.m classifier training] ' _cross_validation.m_ can take an optional _train_funct_ function name string
+ * [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/cross_validation.m classifier test] ' _cross_validation.m_ can take an optional _test_funct_ function name string
+ * [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/cross_validation.m classifier performance metrics] ' _cross_validation.m_ can take an optional _perfmet_functs_ cell array of performance metric function name strings
 
 
 === Requirements for custom functions that modify the _subj_ structure ===
