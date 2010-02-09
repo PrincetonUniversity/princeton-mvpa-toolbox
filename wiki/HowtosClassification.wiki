@@ -16,7 +16,7 @@ See the [http://www.ncrg.aston.ac.uk/netlab/ Netlab] mlp.m help (and also [http:
 
 === What if I want to train or test on averaged data ===
 
-If you want to train and'' test on averaged data, then the easiest thing to do would be to average all of your patterns, regressors and selectors, and just run the analysis as normal with the averaged data. ''
+If you want to train and test on averaged data, then the easiest thing to do would be to average all of your patterns, regressors and selectors, and just run the analysis as normal with the averaged data.
 
 If you're trying to train on single TRs but test on averaged data, things are a little more complicated. There are two main solutions.
 
@@ -28,9 +28,10 @@ If you're planning to do this, let us know and we'll try and help, since averagi
 
 
 === My classifier sometimes hangs in the srchcha bit of the algorithm, why ===
-
+<wiki:comment>
 See: http://newsreader.mathworks.com/WebX'50@482.SFQaa3hT5tQ.0@.eefecf2
-
+link no longer valid.
+</wiki:comment>
 We've experienced this problem occasionally and we never found a solution. Please [mailto:mvpa-toolbox@googlegroups.com contact us] if you think you're having this problem so that we can help Mathworks debug the problem with as many examples as possible ' better still, let us know if you fix it'
 
 Update [ELN]: Try using a different training function (e.g. trainscg instead of traincgb) just change the alg field of the class_args that you feed into cross_validation.m: 
