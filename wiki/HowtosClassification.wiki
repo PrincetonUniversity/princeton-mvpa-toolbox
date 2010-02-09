@@ -7,14 +7,14 @@
 See: [#_Troubleshooting_poor_classification Troubleshooting poor classification performance].
 
 
-=== How do I find the weights that backprop has learned' ===
+=== How do I find the weights that backprop has learned ===
 
 If you're using the Mathworks Neural Networks toolbox, they're stored in the net'' (that gets saved to ''results.iterations(i).scratchpad'') object in the 'weight and bias values' section. See the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/nnet.shtml Matlab Neural Networks manual] for more information. ''
 
 See the [http://www.ncrg.aston.ac.uk/netlab/ Netlab] mlp.m help (and also [http://www.phys.uni.torun.pl/netlab/mlp.htm here]) for more information about where the Netlab net'' object stores the weights matrix or matrices. ''
 
 
-=== What if I want to train or test on averaged data' ===
+=== What if I want to train or test on averaged data ===
 
 If you want to train and'' test on averaged data, then the easiest thing to do would be to average all of your patterns, regressors and selectors, and just run the analysis as normal with the averaged data. ''
 
@@ -27,13 +27,13 @@ If you're trying to train on single TRs but test on averaged data, things are a 
 If you're planning to do this, let us know and we'll try and help, since averaging definitely helps and this functionality will be useful to others.
 
 
-=== My classifier sometimes hangs in the srchcha bit of the algorithm ' why' ===
+=== My classifier sometimes hangs in the srchcha bit of the algorithm, why ===
 
 See: http://newsreader.mathworks.com/WebX'50@482.SFQaa3hT5tQ.0@.eefecf2
 
 We've experienced this problem occasionally and we never found a solution. Please [mailto:mvpa-toolbox@googlegroups.com contact us] if you think you're having this problem so that we can help Mathworks debug the problem with as many examples as possible ' better still, let us know if you fix it'
 
-Update [ELN]: Try using a different training function (e.g. trainscg'' instead of ''traincgb'') ' just change the ''alg'' field of the ''class_args'' that you feed into ''cross_validation.m'': ''
+Update [ELN]: Try using a different training function (e.g. trainscg instead of traincgb) just change the alg field of the class_args that you feed into cross_validation.m: 
 
 {{{
 >> class_args.train_funct_name = 'train_bp'; 
@@ -56,6 +56,6 @@ When a network hangs, or never finishes training it is commonly due to the funct
 See the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/backpr14.html#3826 comparison] in the Backpropagation chapter of the [http://www.mathworks.com/access/helpdesk/help/toolbox/nnet/nnet.html Matlab NN toolbox manual] for more information.
 
 
-=== Why do I sometimes get a divide-by-zero error when training' ===
+=== Why do I sometimes get a divide-by-zero error when training ===
 
 We believe that this just means that your performance is improving very very slowly with training, and so when the neural network algorithm tries to calculate the gradient of its performance improvement, it's dividing by zero. So, we don't think'' it indicates a major problem. If you want to get rid of it, make your stopping criteria a little more strict, or try the solution described in '[#_My_classifier_sometimes My classifier sometimes hangs in the srchcha bit of the algorithm ' why']'. ''
