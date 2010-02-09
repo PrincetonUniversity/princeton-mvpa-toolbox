@@ -233,10 +233,11 @@ cumbersome to get to grips with initially.
 Imagine you have lots of versions of your regressors stored. To access the first set, called `afni1d`, you could type:
 
 {{{
-`>> myregs = subj.regressors{1}.mat` 
+>> myregs = subj.regressors{1}.mat
+}}}
 
 to access the contents of that regressors matrix. However, you _should_ use:
-
+{{{
 >> myregs = get_mat(subj,'regressors','afni1d')
  }}}
 
@@ -321,7 +322,7 @@ There are various accessor scripts that you can use to get at the components of 
 
 [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/duplicate_object.m duplicate_object] ' calls init_object, then copies across the mat from the source object and sets the derived_from field in the new object to reflect its origins
 
-[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/get_mat.m get]/[http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_mat.html set_mat] ' to access the ''mat'' matrix containing your data stored in an object
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/get_mat.m get]/[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/set_mat.m set_mat] ' to access the ''mat'' matrix containing your data stored in an object
 
 [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/initset_object.m initset_object] ' for lazy people. Calls init_object and set_mat in one fell swoop
 
@@ -345,7 +346,7 @@ There are various accessor scripts that you can use to get at the components of 
 
 [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/add_history.m add_history] ' easy way to add free text notes to an object
 
-[http://www.csbmb.princeton.edu/mvpa/docs/m2html/exist_object.html exist_object] ' returns true if an object of that name exists
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/exist_object.m exist_object] ' returns true if an object of that name exists
 
 [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/exist_object.m exist_group] ' returns true if there any objects who are members of a group
 
