@@ -4,7 +4,7 @@
 
 It is very easy to override the toolbox's default functions with your own custom-created function that the main toolbox control functions can call when appropriate. For instance, if you don't want to use the default backpropagation classifier, or the default ANOVA statmap generator, you can drop your own functions in instead, and the toolbox's no-peeking cross-validation control functions will use your custom functions instead at the appropriate times.
 
-At the moment, there are various places where you can substitute your own functions ' click on the links in the [#_Places_that_can list] below to skip to the section where the specific details for each are described.
+At the moment, there are various places where you can substitute your own functions ' click on the links in the list below to skip to the section where the specific details for each are described.
 
 If you do create a custom function and you think others might benefit from it, we'd really like to [#_Contact_details hear from you] so that we can incorporate it into future releases of the toolbox.
 
