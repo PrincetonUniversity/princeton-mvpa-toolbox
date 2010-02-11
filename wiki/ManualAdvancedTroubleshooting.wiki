@@ -11,23 +11,23 @@ Check your paths are right. If they're not, Matlab won't be able to find the too
 
 == Unable to read file 'blah': No such file or directory. ==
 
-Check you're in the same directory as your data files. e.g. if you're trying to run the tutorial and you aren't in the directory that contains the sample data (which has to be [http://www.pni.princeton.edu/mvpa/ downloaded separately]. Matlab's [http://www.mathworks.com/access/helpdesk/help/techdoc/index.html?/access/helpdesk/help/techdoc/ref/cd.html 'cd'] command will help you here.
+Check you're in the same directory as your data files. e.g. if you're trying to run the tutorial and you aren't in the directory that contains the sample data (which has to be [http://www.pni.princeton.edu/mvpa/ downloaded separately]. Matlab's [http://www.mathworks.com/access/helpdesk/help/techdoc/index.html?/access/helpdesk/help/techdoc/ref/cd.html cd] command will help you here.
 
 
 
 == Error using ==> get_number / No ' object called ' ==
 
-The [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/subj/get_number.html get_number.m] function is one of the central accessor functions that figures out which object you want, based on its name. This error probably means that you've typed something wrong at the command-line or in one of your functions, and that you're trying to get or set an object that doesn't exist. So check for typos, incorrect objtypes etc.
+The [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/get_number.m get_number.m] function is one of the central accessor functions that figures out which object you want, based on its name. This error probably means that you've typed something wrong at the command-line or in one of your functions, and that you're trying to get or set an object that doesn't exist. So check for typos, incorrect objtypes etc.
 
 
 == Sometimes when using write_to_afni.m, I get this message: 'Problem using spoofing write method - trying again with zeroifying - you can safely ignore this message and the following error stack' ==
 
-[[Anchor(_Sometimes_when_using)]] See Howtos / Exporting / ''[#_Sometimes_when_using ''Sometimes when using write_to_afni.m'']'' ...''. ''
+See Howtos / Exporting / [HowtosExporting#Sometimes_when_using_write_to_afni.m,_I_get_this_message:_Proble Sometimes when using write_to_afni.m].
 
 
 == Out of memory errors ==
 
-See Advanced / ''[#_Managing_memory ''Managing memory'']. ''
+See Advanced / [ManualAdvancedMemoryManagement Managing memory].
 
 
 == Invalid MEX-file error ==
