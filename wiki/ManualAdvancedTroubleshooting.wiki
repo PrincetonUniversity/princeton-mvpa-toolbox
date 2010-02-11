@@ -11,7 +11,7 @@ Check your paths are right. If they're not, Matlab won't be able to find the too
 
 == Unable to read file 'blah': No such file or directory. ==
 
-Check you're in the same directory as your data files. e.g. if you're trying to run the tutorial and you aren't in the directory that contains the sample data (which has to be [http://www.csbmb.princeton.edu/mvpa/downloads/tutorial_easy.tar.gz downloaded separately]. Matlab's [http://www.mathworks.com/access/helpdesk/help/techdoc/index.html?/access/helpdesk/help/techdoc/ref/cd.html 'cd'] command will help you here.
+Check you're in the same directory as your data files. e.g. if you're trying to run the tutorial and you aren't in the directory that contains the sample data (which has to be [http://www.pni.princeton.edu/mvpa/ downloaded separately]. Matlab's [http://www.mathworks.com/access/helpdesk/help/techdoc/index.html?/access/helpdesk/help/techdoc/ref/cd.html 'cd'] command will help you here.
 
 
 
