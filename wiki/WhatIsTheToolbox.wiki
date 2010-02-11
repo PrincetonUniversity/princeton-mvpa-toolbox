@@ -12,12 +12,12 @@ Note: we have made no efforts to check that the sample data set is valid or that
 
 ==== Tutorial and acccompanying script ====
 
-Sample script ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/tutorial_easy.html tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [:TutorialIntro:line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
+Sample script ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [:TutorialIntro:line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
 
 
 ==== Documentation ====
 
-The ''docs'' subdirectory includes beautified html versions of the m-files, but this [https://compmem.princeton.edu/mvpa_docs/ online wiki] is really the best place to look.
+The _docs_ subdirectory includes beautified html versions of the m-files, but this [Main online wiki] is really the best place to look.
 
 
 ==== Mathworks toolboxes ====
@@ -29,7 +29,7 @@ The non-parametric wavelet-based statistical functions (e.g. WAVESTRAPPER_RESULT
 
 ===== Statistics =====
 
-By default, [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/zscore_runs.html zscore_runs.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/statmap_anova.html statmap_anova.m] require the ''anova1.m'' and ''zscore.m'' functions from the Statistics toolbox. However, we have provided home-grown alternatives that function similarly (though not identically). Just set the optional 'use_mvpa_ver' flags to true as described in the functions' help to use the home-grown functions instead.
+By default, [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/zscore_runs.m zscore_runs.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_anova.m statmap_anova.m] require the _anova1.m_ and _zscore.m_ functions from the Statistics toolbox. However, we have provided home-grown alternatives that function similarly (though not identically). Just set the optional 'use_mvpa_ver' flags to true as described in the functions' help to use the home-grown functions instead.
 
 Update: we've since realized that even our homegrown STATMAP_ANOVA.M relies on some of the scripts from the Statistics toolbox. If you have trouble with this, let us know. We're starting to recommend that people avoid the ANOVA and use the GLM from AFNI or otherwise anyway. See TutorialAfniGlm for info on how to do this. Also, if there any Octave experts out there, shout out and maybe we can see about borrowing some Octave code to function in place of the Statistics toolbox.
 
