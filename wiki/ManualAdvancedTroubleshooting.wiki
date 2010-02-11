@@ -6,7 +6,7 @@
 
 == Undefined function or variable ==
 
-Check your paths are right. If they're not, Matlab won't be able to find the toolbox functions to run them. The [:Setup] instructions tell you how to fix your paths.
+Check your paths are right. If they're not, Matlab won't be able to find the toolbox functions to run them. The [Setup Setup] instructions tell you how to fix your paths.
 
 
 == Unable to read file 'blah': No such file or directory. ==
