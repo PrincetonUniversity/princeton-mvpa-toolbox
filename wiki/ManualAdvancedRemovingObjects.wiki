@@ -4,7 +4,7 @@
 
 There are two ways in which you can remove objects:
 
- 1. [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_mat.html _Remove_mat.m_] will set the object's _mat_ to empty. Since this is where each object's main matrix is stored, this is probably taking up most of the room occupied by the object. This is usually sufficient, and has the advantage that it leaves the surrounding _name_ and _header _ information intact, in case other objects want to reference it, and doesn't renumber the cells.
- 1. If you really want to, you can remove the entire cell for the object, by passing in 'erase' as the optional argument to [http://www.csbmb.princeton.edu/mvpa/docs/m2html/remove_object.html _remove_object.m_].
+ 1. [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/remove_mat.m Remove_mat.m] will set the object's _mat_ to empty. Since this is where each object's main matrix is stored, this is probably taking up most of the room occupied by the object. This is usually sufficient, and has the advantage that it leaves the surrounding _name_ and _header _ information intact, in case other objects want to reference it, and doesn't renumber the cells.
+ 1. If you really want to, you can remove the entire cell for the object, by passing in 'erase' as the optional argument to [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/remove_object.m remove_object.m].
 
-Since _patterns_ tend to be the biggest memory hogs, you can also just transparently [#_Moving_patterns_to shift the _pattern_ to the hard disk], which frees up your RAM without thowing away data that might be useful later on. See _Advanced / _ [#_Managing_memory _Managing memory_] for more solutions.
+Since _patterns_ tend to be the biggest memory hogs, you can also just transparently [HowtosExporting shift the _pattern_ to the hard disk], which frees up your RAM without throwing away data that might be useful later on. See Advanced / [ManualAdvancedMemoryManagement memory] for more solutions.
