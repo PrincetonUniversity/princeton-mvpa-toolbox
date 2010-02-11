@@ -18,12 +18,12 @@ Try and avoid upper-case whenever using toolbox functions or arguments, since it
 
 ==== Be careful with the subj .x shortcuts ====
 
-We added a facility for [#_Getting_the_latest getting the highest-numbered objects' names], but we're still not sure if this is a good idea. If you rely heavily on this, you may accidentally refer to an unintended object, but it can make life easier too.
+We added a facility for [ManualAdvancedShortcuts#Getting_the_latest_object_names getting the highest-numbered objects names], but we're still not sure if this is a good idea. If you rely heavily on this, you may accidentally refer to an unintended object, but it can make life easier too.
 
 
 ==== Recommended early pre-processing ====
 
-See '[#_What_pre-processing_should What pre-processing should I do']'
+See [HowtosPattern#What_pre-processing_should_I_do What pre-processing should I do]
 
 
 ==== Should I split my experiment up other than by runs? ====
