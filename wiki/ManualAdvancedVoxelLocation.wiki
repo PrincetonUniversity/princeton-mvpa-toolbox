@@ -2,13 +2,13 @@
 
 == Figuring out which voxel is which, and where ==
 
-_Or "Dude, Where's My Voxel'" ' A Guide to Relative Indices in MVPA by Chris Moore_
+_Or "Dude, Where's My Voxel": A Guide to Relative Indices in MVPA by Chris Moore_
 
-See also: [#_Masks Howto's / Data structures / Masks].
+See also: [HowtosMasks Howto's / Data structures / Masks].
 
 In a perfect world, patterns stored in MVPA subject structures would be stored in their native space, in full dimensionality. But due to memory contraints and convenience, it is typically prudent to input and store a subset of the data, such as the voxels specified by a whole-brain mask. For this reason, loaded 3D patterns are stored in the _subj_ structure as two dimensional matrices.
 
-It is important to note that the 3D information (xyz coordinates of voxels in a pattern) is _not_ stored in the pattern once it is loaded. Rather, all patterns are associated with the mask that was used in their creation. For instance, when calling _[http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_pattern.html load_afni_pattern.m]_, a required argument is the name of a map in the _subj_ structure used to mask the BRIK. The resulting pattern contains a field, _masked_by_, which points to the mask that contains the 3D information.
+It is important to note that the 3D information (xyz coordinates of voxels in a pattern) is _not_ stored in the pattern once it is loaded. Rather, all patterns are associated with the mask that was used in their creation. For instance, when calling _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_pattern.m load_afni_pattern.m]_, a required argument is the name of a map in the _subj_ structure used to mask the BRIK. The resulting pattern contains a field, masked_by, which points to the mask that contains the 3D information.
 
 The mask should be a boolean mask with the same dimensions as the data in its native space. The order of data in the pattern corresponds to the order of the voxels, such that one could recreate the dataset in its native space with the code:
 
