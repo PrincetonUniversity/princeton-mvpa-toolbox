@@ -67,7 +67,7 @@ Here are the requirements, based on _statmap_anova.m_:
 
 · takes in a regressors name argument (regsname), which you want to use to decide whether features are significant ' all conditions get used
 
-· takes in a selector name argument (selname) to determine which TRs from the pattern should be employed ' the ''statmap_anova.m'' only uses 1s. 2s mark the withheld testing run. 3s are reserved for validation vectors and 0s for rest. Use a code value besides these if you need your selectors to highlight other subsets of timepoints
+· takes in a selector name argument (selname) to determine which TRs from the pattern should be employed ' the _statmap_anova.m_ only uses 1s. 2s mark the withheld testing run. 3s are reserved for validation vectors and 0s for rest. Use a code value besides these if you need your selectors to highlight other subsets of timepoints
 
 · takes in a string argument to name the new statmap pattern that will be created (new_map_patname)
 
@@ -81,20 +81,20 @@ Here are the requirements, based on _statmap_anova.m_:
 
 · optionally add a description sentence to the header.history cell array for future reference
 
-If you think these restrictions are too strict and don't fit with a statmap function that you might want to use, you could either ignore the arguments you don't need, or [#_Contact_details let us know] and we'll consider modifying the interface.
+If you think these restrictions are too strict and don't fit with a statmap function that you might want to use, you could either ignore the arguments you don't need, or [ContactDetails let us know] and we'll consider modifying the interface.
 
 
 == Peeking ==
 
 Peeking is when you use your testing data set to help with voxel selection. Basically, this is a kind of cheating, and spuriously/illegitimately improves your classification by some margin.
 
-The toolbox makes it easy to avoid peeking. Run [http://www.csbmb.princeton.edu/mvpa/docs/m2html/create_xvalid_indices.html create_xvalid_indices.m] to create a group of selectors, one for each iteration of your n-minus-one cross-validation. Then call [http://www.csbmb.princeton.edu/mvpa/docs/m2html/feature_select.html feature_select.m], which in turn calls statmap_anova.m (or any other voxel selection method) multiple times, once per iteration, using a different subset of the ''pattern'' data each time. This will yield a group of ''masks'', the same size as the group of ''selectors'', which can then be used to restrict which voxels get fed to the classifier separately for each iteration of the n-minus-one.
+The toolbox makes it easy to avoid peeking. Run [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/create_xvalid_indices.m create_xvalid_indices.m] to create a group of selectors, one for each iteration of your n-minus-one cross-validation. Then call [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/feature_select.m feature_select.m], which in turn calls statmap_anova.m (or any other voxel selection method) multiple times, once per iteration, using a different subset of the _pattern_ data each time. This will yield a group of _masks_, the same size as the group of _selectors_, which can then be used to restrict which voxels get fed to the classifier separately for each iteration of the n-minus-one.
 
-Using the same group of ''selectors'' for both voxel selection and classification ensures that a TR cannot simultaneously be part of the voxel selection training data ''and'' be part of the withheld testing data.
+Using the same group of _selectors_ for both voxel selection and classification ensures that a TR cannot simultaneously be part of the voxel selection training data ''and'' be part of the withheld testing data.
 
-It is possible to circumvent this anti-peeking machinery by calling ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/statmap_anova.html statmap_anova.m]'' directly with ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/peek_anova.html peek_anova.m]'', but obviously this is not recommended for any analysis that is intended for publication.
+It is possible to circumvent this anti-peeking machinery by calling _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_anova.m statmap_anova.m]_ directly with _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/peek_feature_select.m peek_anova.m]_, but obviously this is not recommended for any analysis that is intended for publication.
 
-To see how peeking can artificially boost your performance, try [#_Avoiding_spurious_classification scrambling your regressors] using ''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/scramble_regressors.html scramble_regressors.m]''.
+To see how peeking can artificially boost your performance, try [#_Avoiding_spurious_classification scrambling your regressors] using _[http://www.csbmb.princeton.edu/mvpa/docs/m2html/scramble_regressors.html scramble_regressors.m]_.
 
 
 == Further information ==
