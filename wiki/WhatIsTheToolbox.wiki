@@ -51,7 +51,7 @@ We rely heavily on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni
 
 ===== Netlab =====
 
-[[Anchor(_Netlab)]] If you don't have the Mathworks Neural Networks toolbox, you can use [http://www.ncrg.aston.ac.uk/People/nabneyit/Welcome.html Ian Nabney's] [http://www.ncrg.aston.ac.uk/netlab/ Netlab open source neural networks toolbox] instead, although [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp_netlab.ml train_bp_netlab.m] doesn't currently support all of the functionality in [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m train_bp.m].
+If you don't have the Mathworks Neural Networks toolbox, you can use [http://www.ncrg.aston.ac.uk/People/nabneyit/Welcome.html Ian Nabney's] [http://www.ncrg.aston.ac.uk/netlab/ Netlab open source neural networks toolbox] instead, although [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp_netlab.ml train_bp_netlab.m] doesn't currently support all of the functionality in [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m train_bp.m].
 
 
 ===== Boosting =====
@@ -72,4 +72,4 @@ We use Guillaume Flandin's wonderful [http://www.artefact.tk/software/matlab/m2h
 
 ===== Montage =====
 
-We use Keith Schneider's montage library for visualizing brain maps. See TutorialVisualization.
+We use Keith Schneider's montage library for visualizing brain maps. See [TutorialVisualization Visualization Tutorial].
