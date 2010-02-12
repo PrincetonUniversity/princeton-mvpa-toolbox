@@ -64,11 +64,11 @@ By the time you read this, the wrapper for the boosting classifier should be rea
 The [http://subversion.tigris.org/ Subversion] (SVN) version control system is not bundled with the toolbox in any way, but we do rely heavily on it for internal development, and are extremely grateful for its existence.
 
 
-{wiki:comment}
+<wiki:comment>
 ===== M2HTML =====
 
 We use Guillaume Flandin's wonderful [http://www.artefact.tk/software/matlab/m2html/ M2HTML] Matlab documentation generator to create the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/ beatified .m file documentation in html].
-{/wiki:comment}
+</wiki:comment>
 
 ===== Montage =====
 
