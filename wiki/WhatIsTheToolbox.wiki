@@ -12,7 +12,7 @@ Note: we have made no efforts to check that the sample data set is valid or that
 
 ==== Tutorial and acccompanying script ====
 
-Sample script ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [:TutorialIntro:line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
+Sample script ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m]) that runs a basic analysis of the Haxby et al. dataset. This is accompanied by a [TutorialIntro line-by-line description] of what's going on - this tutorial is the very best place to start with the toolbox.
 
 
 ==== Documentation ====
@@ -36,22 +36,22 @@ Update: we've since realized that even our homegrown STATMAP_ANOVA.M relies on s
 
 ===== Neural networks =====
 
-The Mathworks [http://www.mathworks.com/products/neuralnet/ Neural Networks] toolbox is required for the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp.html train_bp.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/test_bp.html test_bp.m] functions, but you can use [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp_netlab.html train_bp_netlab.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/test_bp_netlab.html test_bp_netlab.m] instead, which rely on the bundled open source [http://www.ncrg.aston.ac.uk/netlab/ Netlab] toolbox (see External bundled packages / Netlab] below).
+The Mathworks [http://www.mathworks.com/products/neuralnet/ Neural Networks] toolbox is required for the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m train_bp.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/test_bp.m test_bp.m] functions, but you can use [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp_netlab.m train_bp_netlab.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/test_bp_netlab.m test_bp_netlab.m] instead, which rely on the bundled open source [http://www.ncrg.aston.ac.uk/netlab/ Netlab] toolbox (see External bundled packages / Netlab below).
 
 
 ==== External bundled packages ====
 
-We have been generously allowed to bundle the following packages by their authors. Although we have done some minimal testing, we haven't made any serious efforts to scrutinise their innards ' please [#_Contact_details let us know] if you find a bug in them, but don't hold us responsible.
+We have been generously allowed to bundle the following packages by their authors. Although we have done some minimal testing, we haven't made any serious efforts to scrutinize their innards ' please [ContactDetails let us know] if you find a bug in them, but don't hold us responsible.
 
 
 ===== AFNI-Matlab =====
 
-We rely heavily on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] toolbox for all of the [#_From_AFNI importing from] and [#_To_AFNI exporting to] AFNI.
+We rely heavily on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] toolbox for all of the [#_From_AFNI importing from] and [ManualExporting#To_AFNI exporting to] AFNI.
 
 
 ===== Netlab =====
 
-[[Anchor(_Netlab)]] If you don't have the Mathworks Neural Networks toolbox, you can use [http://www.ncrg.aston.ac.uk/People/nabneyit/Welcome.html Ian Nabney's] [http://www.ncrg.aston.ac.uk/netlab/ Netlab open source neural networks toolbox] instead, although [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp_netlab.html train_bp_netlab.m] doesn't currently support all of the functionality in [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp.html train_bp.m].
+[[Anchor(_Netlab)]] If you don't have the Mathworks Neural Networks toolbox, you can use [http://www.ncrg.aston.ac.uk/People/nabneyit/Welcome.html Ian Nabney's] [http://www.ncrg.aston.ac.uk/netlab/ Netlab open source neural networks toolbox] instead, although [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp_netlab.ml train_bp_netlab.m] doesn't currently support all of the functionality in [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m train_bp.m].
 
 
 ===== Boosting =====
@@ -61,13 +61,14 @@ By the time you read this, the wrapper for the boosting classifier should be rea
 
 ===== Subversion =====
 
-The [http://subversion.tigris.org/ Subversion] (SVN) version control system is not bundled with the toolbox in any way, but we do rely heavily on it (along with the [http://trac.edgewall.org/ Trac] add-on) for internal development, and are extremely grateful for its existence.
+The [http://subversion.tigris.org/ Subversion] (SVN) version control system is not bundled with the toolbox in any way, but we do rely heavily on it for internal development, and are extremely grateful for its existence.
 
 
+{wiki:comment}
 ===== M2HTML =====
 
 We use Guillaume Flandin's wonderful [http://www.artefact.tk/software/matlab/m2html/ M2HTML] Matlab documentation generator to create the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/ beatified .m file documentation in html].
-
+{/wiki:comment}
 
 ===== Montage =====
 
