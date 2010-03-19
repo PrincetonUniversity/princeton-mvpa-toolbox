@@ -47,6 +47,9 @@ function [errs warns] = unit_spm_ana(varargin)
 % DEFAULTS
 % Before we get started we need to setup a single default.
 defaults.fextension = '';
+defaults.single = false;
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -54,6 +57,12 @@ if (isfield(args,'fextension'))
     fextension=args.fextension;
 else
     fextension=defaults.fextension;
+end
+
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
 end
 
 errs = {};
@@ -185,7 +194,7 @@ for n=1:filecount
   
   % load the pattern the first time
 %  temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',raw_source_filenames{n},'beta_defaults','true');
-  temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',raw_source_filenames{n});
+  temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',raw_source_filenames{n},'single',single);
   %and write it back out.
   write_to_spm(temp_subj_001,'pattern','ana_brain','output_filename',['testwork/utest_' num2str(n) '_' ],'padding',base_padding,'fextension',fextension);
   
@@ -193,7 +202,7 @@ for n=1:filecount
   % would be valid if they weren't individual files.
   %
   % what does this comment mean???
-  temp_subj_002=load_spm_pattern(temp_subj_002, 'ana_brain','spm_ana_mask',['testwork/utest_' num2str(n) '_' fextension]); 
+  temp_subj_002=load_spm_pattern(temp_subj_002, 'ana_brain','spm_ana_mask',['testwork/utest_' num2str(n) '_' fextension],'single',single);
   data1 = get_mat(temp_subj_001,'pattern','ana_brain');
   
   data2 = get_mat(temp_subj_002,'pattern','ana_brain');
@@ -235,7 +244,7 @@ for i=1:1
     index=num2str(i);
   raw_filenames{i} = ['haxby8_r' index fextension];
 end
-subj = load_spm_pattern(subj,'epi','VT_category-selective',raw_filenames);
+subj = load_spm_pattern(subj,'epi','VT_category-selective',raw_filenames,'single',single);
 %keyboard;
 write_to_spm(subj,'pattern','epi','output_filename','testwork/utest2_','padding',base_padding,'fextension',fextension);
 

@@ -35,6 +35,9 @@ function [errs warns] = spm_test_omnibus(varargin)
 % DEFAULTS
 % Before we get started we need to setup a single default.
 defaults.fextension = '.nii';
+defaults.single = 'false';
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -42,6 +45,12 @@ if (isfield(args,'fextension'))
     fextension=args.fextension;
 else
     fextension=defaults.fextension;
+end
+
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
 end
 
 %% Load up errs and warns so that they you know... work
@@ -54,19 +63,19 @@ warns = {};
 %% Run Functional Tests One by One and populate errs/warns.
 
 % run basic spm ana test
-[errs{end+1} warns{end+1}] = unit_spm_ana('fextension',fextension);
+[errs{end+1} warns{end+1}] = unit_spm_ana('fextension',fextension,'single',single);
 
 % run the tutorial comparison
-[errs{end+1} warns{end+1}] = unit_spm_afni_tutcompare('fextension',fextension);
+[errs{end+1} warns{end+1}] = unit_spm_afni_tutcompare('fextension',fextension,'single',single);
 
 % run afni compare
-[errs{end+1} warns{end+1}] = unit_spm_ana_afnicompare('fextension',fextension);
+[errs{end+1} warns{end+1}] = unit_spm_ana_afnicompare('fextension',fextension,'single',single);
 
 % haxby data compare
-[errs{end+1} warns{end+1}] = unit_spm_ana_haxby_dat_compare('fextension',fextension);
+[errs{end+1} warns{end+1}] = unit_spm_ana_haxby_dat_compare('fextension',fextension,'single',single);
 
 %cell array tests
-[errs{end+1} warns{end+1}] = unit_spm_cellarrayfilename_load('fextension',fextension);
+[errs{end+1} warns{end+1}] = unit_spm_cellarrayfilename_load('fextension',fextension,'single',single);
 
 
 end

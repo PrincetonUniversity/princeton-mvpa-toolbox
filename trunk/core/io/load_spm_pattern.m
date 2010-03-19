@@ -117,7 +117,7 @@ disp(sprintf('Starting to load pattern from %i SPM files',nFiles));
 
 %% Create a volume structure
 vol = spm_vol(filenames);
-tmp_data = []; %#ok<NASGU>
+
 
     %%%%%%%%%%%%%%%%%%%%%%
     %sylvains contribution
@@ -132,8 +132,12 @@ for h = 1:nFiles
 end;
 
 % allocate all at once to avoid reshaping iteratively
-tmp_data = zeros(mSize, total_m);
-
+tmp_data = []; %#ok<NASGU>  This is necessary as the command is now wrapped in an if/else
+if args.single
+    tmp_data = zeros(mSize, total_m,'single');
+else
+    tmp_data = zeros(mSize, total_m);
+end
 total_m = 0;
     %% end contribution
 for h = 1:nFiles % start looping thru the files being used.

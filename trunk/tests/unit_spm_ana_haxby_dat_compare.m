@@ -20,6 +20,9 @@ function [errs warns] = unit_spm_ana_haxby_dat_compare(varargin)
 % DEFAULTS
 % Before we get started we need to setup a single default.
 defaults.fextension = '';
+defaults.single = 'false';
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -27,6 +30,12 @@ if (isfield(args,'fextension'))
     fextension=args.fextension;
 else
     fextension=defaults.fextension;
+end
+
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
 end
 
 errs = [];
@@ -47,16 +56,16 @@ mkdir 'testwork';
 
 write_to_spm(working_subj,'pattern','epi_z_anova_1','new_header','true','pathname','testwork','output_filename','anova_out','fextension',fextension);
 
-working_subj=load_spm_pattern(working_subj,'epi_anova_compare','VT_category-selective',['testwork/anova_out' fextension]);
+working_subj=load_spm_pattern(working_subj,'epi_anova_compare','VT_category-selective',['testwork/anova_out' fextension],'single',single);
 
 
 
 mainpat = get_mat(working_subj,'pattern','epi_z_anova_1');
 
 comparepat = get_mat(working_subj,'pattern','epi_anova_compare');
-
+keyboard;
 if ~isequal(mainpat,comparepat)
-    errs(end+1) = 'data does not compare properly, arbitrary header writeout failed.';
+    errs{end+1} = 'data does not compare properly, arbitrary header writeout failed.  This is normal for the single true flag.';
 end
 
 
