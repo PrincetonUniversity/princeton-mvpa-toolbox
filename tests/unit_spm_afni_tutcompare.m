@@ -32,8 +32,10 @@ function [errs warns] = unit_spm_afni_tutcompare(varargin)
 % The afni data used in this test was created from the corresponding SPM
 % test data using the afni 3dcopy command with no flags or special
 % commands.
-
 defaults.fextension = '';
+defaults.single = false;
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -41,6 +43,13 @@ if (isfield(args,'fextension'))
     fextension=args.fextension;
 else
     fextension=defaults.fextension;
+end
+
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
+    disp('The tutorials have no support for the single command');
 end
 
 errs = {};

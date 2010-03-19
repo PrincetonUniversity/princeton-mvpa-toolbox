@@ -23,6 +23,9 @@ function [errs warns] = unit_spm_cellarrayfilename_load(varargin)
 % DEFAULTS
 % Before we get started we need to setup a single default.
 defaults.fextension = '';
+defaults.single = 'false';
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -32,6 +35,11 @@ else
     fextension=defaults.fextension;
 end
 
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
+end
 % initialize the variables that are going to keep track of the status of
 % things. ideally, they'll be pristine at the end of all our tests,
 % indicating success
@@ -55,16 +63,16 @@ end
 % not testing what you think they're testing. Just make sure to remember to
 % call all the test functions...
 [errs warns] = check_for_MVPA(errs, warns);
-[errs warns] = test1(errs, warns, fextension);
-[errs warns] = test2(errs, warns, fextension);
-[errs warns] = test3(errs, warns, fextension);
-[errs warns] = test4(errs, warns, fextension);
-[errs warns] = test5(errs, warns, fextension);
-[errs warns] = test6(errs, warns, fextension);
+[errs warns] = test1(errs, warns, fextension,single);
+[errs warns] = test2(errs, warns, fextension,single);
+[errs warns] = test3(errs, warns, fextension,single);
+[errs warns] = test4(errs, warns, fextension,single);
+[errs warns] = test5(errs, warns, fextension,single);
+[errs warns] = test6(errs, warns, fextension,single);
 
-[errs warns] = test7(errs, warns, fextension);
-[errs warns] = test8(errs, warns, fextension);
-[errs warns] = test9(errs, warns, fextension);
+[errs warns] = test7(errs, warns, fextension,single);
+[errs warns] = test8(errs, warns, fextension,single);
+[errs warns] = test9(errs, warns, fextension,single);
 
 
 
@@ -97,25 +105,24 @@ end
 %% tests that should not throw an error.
 
 
-function [errs warns] = test1(errs, warns, fextension)
+function [errs warns] = test1(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test','test_mask',{['concat_hax' fextension] ['haxby8_r1' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test','test_mask',{['concat_hax' fextension] ['haxby8_r1' fextension]},'single',single); %#ok<NASGU>
         clear subj;
-
     catch
         errs{end+1} = 'spm_cellarrayfilename_load(1):load_spm_pattern failed to open two files of disimilar length';
     end
 end
 
-function [errs warns] = test2(errs, warns, fextension)
+function [errs warns] = test2(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test','test_mask',{['haxby8_r2' fextension] ['haxby8_r1' fextension] ['haxby8_r3' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test','test_mask',{['haxby8_r2' fextension] ['haxby8_r1' fextension] ['haxby8_r3' fextension]},'single',single); %#ok<NASGU>
         clear subj;
 
 
@@ -125,12 +132,12 @@ function [errs warns] = test2(errs, warns, fextension)
     end
 end
 
-function [errs warns] = test3(errs, warns, fextension)
+function [errs warns] = test3(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test','test_mask',{['haxby8_r1' fextension] ['haxby8_r2' fextension] ['concat_hax' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test','test_mask',{['haxby8_r1' fextension] ['haxby8_r2' fextension] ['concat_hax' fextension]},'single',single); %#ok<NASGU>
         clear subj;
 
 
@@ -140,13 +147,13 @@ function [errs warns] = test3(errs, warns, fextension)
     end
 end
 
-function [errs warns] = test4(errs, warns, fextension)
+function [errs warns] = test4(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension]}); 
-        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension]},'single',single); 
+        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension]},'single',single); %#ok<NASGU>
         clear subj;
 
 
@@ -156,13 +163,13 @@ function [errs warns] = test4(errs, warns, fextension)
     end
 end
 
-function [errs warns] = test5(errs, warns, fextension)
+function [errs warns] = test5(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension] ['haxby8_r2' fextension]}); 
-        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension] ['haxby8_r2' fextension]},'single',single); 
+        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension]},'single',single); %#ok<NASGU>
         clear subj;
 
 
@@ -172,13 +179,13 @@ function [errs warns] = test5(errs, warns, fextension)
     end
 end
 
-function [errs warns] = test6(errs, warns, fextension)
+function [errs warns] = test6(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension] }); 
-        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension] ['haxby8_r2' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi_test1','test_mask',{['haxby8_r1' fextension] },'single',single); 
+        subj = load_spm_pattern(subj,'epi_test2','test_mask',{['concat_hax' fextension] ['haxby8_r2' fextension]},'single',single); %#ok<NASGU>
         clear subj;
 
 
@@ -190,12 +197,12 @@ end
 
 %% tests that should error out
 
-function [errs warns] = test7(errs, warns, fextension)
+function [errs warns] = test7(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi','test_mask'); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi','test_mask','single',single); %#ok<NASGU>
         errs{ends+1} = 'spm_cellarrayfilename_load(7):did not fail with missing file name.';        
         clear subj;
     catch %#ok<CTCH>
@@ -204,12 +211,12 @@ function [errs warns] = test7(errs, warns, fextension)
 
 end
 
-function [errs warns] = test8(errs, warns, fextension)
+function [errs warns] = test8(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'epi',{['haxby8_r1' fextension] }); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'epi',{['haxby8_r1' fextension] },'single',single); %#ok<NASGU>
         errs{ends+1} = 'spm_cellarrayfilename_load(8):did not fail with missing mask name.';        
         clear subj;
     catch %#ok<CTCH>
@@ -218,12 +225,12 @@ function [errs warns] = test8(errs, warns, fextension)
 
 end
 
-function [errs warns] = test9(errs, warns, fextension)
+function [errs warns] = test9(errs, warns, fextension,single)
 
     try
         subj = init_subj('test','test_subj');
         subj = load_spm_mask(subj,'test_mask',['mask_cat_select_vt' fextension]);
-        subj = load_spm_pattern(subj,'test_mask',{['haxby8_r1.' fextension]}); %#ok<NASGU>
+        subj = load_spm_pattern(subj,'test_mask',{['haxby8_r1.' fextension]},'single',single); %#ok<NASGU>
         errs{ends+1} = 'spm_cellarrayfilename_load(9):did not fail with missing pattern name';
         clear subj;
         

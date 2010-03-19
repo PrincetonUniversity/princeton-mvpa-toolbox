@@ -38,6 +38,9 @@ function [errs warns] = unit_spm_ana_afnicompare(varargin)
 % DEFAULTS
 % Before we get started we need to setup a single default.
 defaults.fextension = '';
+defaults.single = 'false';
+global single
+
 
 args = propval(varargin,defaults);
 
@@ -45,6 +48,12 @@ if (isfield(args,'fextension'))
     fextension=args.fextension;
 else
     fextension=defaults.fextension;
+end
+
+if (isfield(args,'single'))
+    single = args.single;
+else
+    single = defaults.single;
 end
 
 errs = {};
@@ -155,9 +164,9 @@ for n=1:12
 
 
     % load the pattern the first time
-    temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',spm_file_names{n});
-
-    temp_subj_001=load_afni_pattern(temp_subj_001, 'afni_brain','spm_ana_mask',afni_file_names{n});
+    temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',spm_file_names{n},'single',single);
+    %temp_subj_001=load_spm_pattern(temp_subj_001, 'ana_brain','spm_ana_mask',spm_file_names{n});
+    temp_subj_001=load_afni_pattern(temp_subj_001, 'afni_brain','spm_ana_mask',afni_file_names{n},'single',single);
 
     data1 = get_mat(temp_subj_001,'pattern','ana_brain');
 
