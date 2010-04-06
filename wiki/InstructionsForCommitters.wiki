@@ -1,6 +1,12 @@
 = Instructions for committing changes to the SVN development version =
 
-Here's roughly how i envisage things working:
+If you're on the list of project committers, then you can edit, add or delete code, and commit your changes to the main SVN development version. 
+
+You can see the list of committers in the right-hand sidebar of the main page:
+
+http://code.google.com/p/princeton-mvpa-toolbox/
+
+Here's roughly how I hope things could work:
 
  * You have some useful piece of wizardry that you've cooked up, a modification you think should be made, or a bug that you've fixed.
 
