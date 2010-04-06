@@ -1,6 +1,3 @@
-#summary instructions for committing changes to the SVN development version =
-
-
 = Instructions for committing changes to the SVN development version =
 
 Here's roughly how i envisage things working:
