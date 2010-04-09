@@ -13,18 +13,18 @@ Specifically, this analysis will use an AFNI dataset from Haxby et al (Science, 
 
 If you're interested in ANALYZE/SPM import/export rather than AFNI, see TutorialIntroSPM.
 
-The Matlab code described below is reproduced from [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/tutorial_easy.html tutorial_easy.m], which contains briefer inline comments than this narrative. For further information, see the main documentation in the [Manual] or the [Glossary] for unfamiliar terms.
+The Matlab code described below is reproduced from [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m], which contains briefer inline comments than this narrative. For further information, see the main documentation in the [Manual] or the [Glossary] for unfamiliar terms.
 
 We called this document ''tutorial_easy.htm''. Don't let that fool you. We've really done everything we can to trip you up with it. Just wait till you try TutorialAdv. It's so difficult and scary that small children will cry around the globe whenever a copy is downloaded. In the meantime, let us begin.
 
 
 == What you will need to start with ==
 
-Here's what you need to run this tutorial (all of which should be included in the scripts and data tarballs on the [http://www.csbmb.princeton.edu/mvpa/docs/ website]):
+Here's what you need to run this tutorial (all of which should be included in the scripts and data tarballs in the [Downloads Downloads Tab]):
 
  * a working copy of Matlab (ideally R14 or more recent - see 'Compatibility' section in the [Manual])
 
- * all of the .m files included in the main toolbox download (including ''tutorial_easy.m'')
+ * all of the .m files included in the main toolbox download (including [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/tutorial_easy.m tutorial_easy.m])
 
  * the sample dataset in AFNI format - ''haxby8_r[1..10]+orig.BRIK'' and ''.HEAD''
 
