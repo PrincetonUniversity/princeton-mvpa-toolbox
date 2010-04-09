@@ -99,4 +99,4 @@ To see how peeking can artificially boost your performance, try [#_Avoiding_spur
 
 == Further information ==
 
-For further information, see the [#_Pre-classification Pre-classification Howto's and occasionally-asked questions].
+For further information, see the [HowtosPreClassification Pre-classification Howto's and occasionally-asked questions].
