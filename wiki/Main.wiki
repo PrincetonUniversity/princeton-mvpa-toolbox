@@ -5,3 +5,5 @@ This wiki contains the latest documentation for the [http://www.csbmb.princeton.
 If you're new to the toolbox, you will want to check out [Setup Setup] for installation instructions, and then look through [Tutorials Tutorials] to get started. The [Manual Manual] provides more detailed coverage on the toolbox for technical users.
 
 Looking for the [ExpansionEBC EBC documentation]?
+
+Or, [http://code.google.com/p/princeton-mvpa-toolbox/w/list browse the list of all wiki pages by title[.
