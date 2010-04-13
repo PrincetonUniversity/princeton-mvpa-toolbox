@@ -2,8 +2,10 @@
 
 There are a number of ways to acquire the MVPA project code depending on your preferred usage.
 
-The most up to date version will always be the SVN, instruction can be found [http://code.google.com/p/princeton-mvpa-toolbox/source/checkout here].
+You can also retrieve the [http://www.pni.princeton.edu/mvpa/download.php?action=getinfo
+latest release] of the toolbox.
 
-You can also retrieve the latest version tagged copy of the toolbox [http://www.pni.princeton.edu/mvpa/download.php?action=getinfo here].
+The [http://code.google.com/p/princeton-mvpa-toolbox/source/checkout most up-to-date SVN development version].
 
-Get the papers and abstracts MVPA is based on [http://code.google.com/p/princeton-mvpa-toolbox/downloads/list here].
+Get the [http://code.google.com/p/princeton-mvpa-toolbox/downloads/list papers and abstracts] that the
+MVPA toolbox is based on.
