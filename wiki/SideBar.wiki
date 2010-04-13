@@ -73,3 +73,4 @@
    * [HowtosMisc Miscellaneous Howtos]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
+ * [http://code.google.com/p/princeton-mvpa-toolbox/w/list List of pages by title]
