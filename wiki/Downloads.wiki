@@ -7,6 +7,15 @@ You can also retrieve the [http://www.pni.princeton.edu/mvpa/download.php?action
 
 The [http://code.google.com/p/princeton-mvpa-toolbox/source/checkout most up-to-date SVN development version].
 
+=== Archive of old download versions ===
+
+Note: We highly recommend upgrading to the latest version, as each upgrade is mostly backwards-compatible.
+
+    * [http://www.pni.princeton.edu/mvpa/downloads/0.7.1/mvpa.0.7.1.tar.gz 0.7.1]
+    * [http://www.pni.princeton.edu/mvpa/downloads/0.7/mvpa.0.7.tar.gz 0.7]
+    * [http://www.pni.princeton.edu/mvpa/downloads/0.6.1/mvpa.0.6.1.tar.gz 0.6.1]
+    * [http://www.pni.princeton.edu/mvpa/downloads/0.6/mvpa.0.6.tar.gz 0.6]
+
 == Get the Data-sets ==
 
     * the Haxby et al. (2001) [http://www.pni.princeton.edu/mvpa/downloads/afni_set.tar.gz sample data] (340MB)
