@@ -36,3 +36,5 @@ Sean M Polyn, Greg J Detre, Sylvain Takerkart, Vaidehi S Natu, Michael S Benharr
 
 == Important disclaimer ==
 At this point in time, the Princeton MVPA toolbox is unsupported beta software, which we are making available to anyone who might find it useful. Because the software is still in beta form, there may be bugs and other teething problems. We do not take any responsibility for any problems that you might have related to use of the software. If you find a bug or have any further suggestions, you should let us know, but (given the presently unsupported status of the software), we may not be able to reply to all of the queries that we receive regarding the software.
+
+[http://code.google.com/p/princeton-mvpa-toolbox/downloads/list A list of all local downloads].
