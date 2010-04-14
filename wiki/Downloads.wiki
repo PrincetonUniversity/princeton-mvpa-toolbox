@@ -34,5 +34,5 @@ Greg J Detre, Sean M Polyn, Christopher D Moore, Vaidehi S Natu, Benjamin D Sing
 [http://princeton-mvpa-toolbox.googlecode.com/files/polyn_et_al_mvpa_ohbm2005.pdf A Matlab-based toolbox to facilitate multi-voxel pattern classification of fMRI data] (2005)
 Sean M Polyn, Greg J Detre, Sylvain Takerkart, Vaidehi S Natu, Michael S Benharrosh, Benjamin D Singer, Jonathan D Cohen, James V Haxby, Kenneth A Norman
 
-=== Important disclaimer ===
+== Important disclaimer ==
 At this point in time, the Princeton MVPA toolbox is unsupported beta software, which we are making available to anyone who might find it useful. Because the software is still in beta form, there may be bugs and other teething problems. We do not take any responsibility for any problems that you might have related to use of the software. If you find a bug or have any further suggestions, you should let us know, but (given the presently unsupported status of the software), we may not be able to reply to all of the queries that we receive regarding the software.
