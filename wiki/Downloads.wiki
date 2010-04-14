@@ -1,10 +1,26 @@
 = Downloads =
 
+== Get the Toolbox ==
 There are a number of ways to acquire the MVPA project code depending on your preferred usage.
 
 You can also retrieve the [http://www.pni.princeton.edu/mvpa/download.php?action=getinfo latest release] of the toolbox.
 
 The [http://code.google.com/p/princeton-mvpa-toolbox/source/checkout most up-to-date SVN development version].
 
+== Get the Data-sets ==
+
+    * the Haxby et al. (2001) [http://www.pni.princeton.edu/mvpa/downloads/afni_set.tar.gz sample data] (340MB)
+    * [http://www.pni.princeton.edu/mvpa/downloads/analyze_set.tar.gz Analyze Format] (340MB)
+    * [http://www.pni.princeton.edu/mvpa/downloads/nifti_set.tar.gz Nifti Format] (340MB)
+    * md5 Checksums [http://www.pni.princeton.edu/mvpa/downloads/md5mvpa.txt right click to download]. (.1k) - Instructions for use found [https://compmem.princeton.edu/mvpa_docs/md5checksum here].
+
+Having downloaded them, follow [https://compmem.princeton.edu/mvpa_docs/Setup these instructions], and then you should be ready to start the [https://compmem.princeton.edu/mvpa_docs/TutorialIntro tutorial]. [ContactDetails Contact us] if you have trouble with the installation.
+
+== Papers and Abstracts ==
+
 Get the [http://code.google.com/p/princeton-mvpa-toolbox/downloads/list papers and abstracts] that the
 MVPA toolbox is based on.
+
+
+=== Important disclaimer ===
+At this point in time, the Princeton MVPA toolbox is unsupported beta software, which we are making available to anyone who might find it useful. Because the software is still in beta form, there may be bugs and other teething problems. We do not take any responsibility for any problems that you might have related to use of the software. If you find a bug or have any further suggestions, you should let us know, but (given the presently unsupported status of the software), we may not be able to reply to all of the queries that we receive regarding the software.
