@@ -4,6 +4,7 @@
  * [Setup Toolbox Setup]
   * [Setup#Before_you_begin Before You Begin]
   * [Setup#Installation Installation]
+ * [ExpansionEBC EBC Competition]
  * [Tutorials Tutorials]
   * [TutorialIntro Intro Tutorial]
    * [TutorialIntroSPM SPM based Intro]
