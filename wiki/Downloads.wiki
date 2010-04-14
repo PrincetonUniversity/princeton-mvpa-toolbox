@@ -11,10 +11,10 @@ The [http://code.google.com/p/princeton-mvpa-toolbox/source/checkout most up-to-
 
 Note: We highly recommend upgrading to the latest version, as each upgrade is mostly backwards-compatible.
 
-    * [http://www.pni.princeton.edu/mvpa/downloads/0.7.1/mvpa.0.7.1.tar.gz 0.7.1]
-    * [http://www.pni.princeton.edu/mvpa/downloads/0.7/mvpa.0.7.tar.gz 0.7]
-    * [http://www.pni.princeton.edu/mvpa/downloads/0.6.1/mvpa.0.6.1.tar.gz 0.6.1]
-    * [http://www.pni.princeton.edu/mvpa/downloads/0.6/mvpa.0.6.tar.gz 0.6]
+    * [http://princeton-mvpa-toolbox.googlecode.com/files/mvpa.0.7.1.tar.gz 0.7.1]
+    * [http://princeton-mvpa-toolbox.googlecode.com/files/mvpa.0.7.tar.gz 0.7]
+    * [http://princeton-mvpa-toolbox.googlecode.com/files/mvpa.0.6.1.tar.gz 0.6.1]
+    * [http://princeton-mvpa-toolbox.googlecode.com/files/mvpa.0.6.tar.gz 0.6]
 
 == Get the Data-sets ==
 
