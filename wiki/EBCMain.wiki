@@ -27,6 +27,6 @@ Melissa Carroll, Denis Chigirev, Greg Detre, Andy Engell, Ehren Newman and Greg 
 
 == The MVPA toolbox ==
 
-Many members of the Princeton EBC team are also involved with the MVPA toolbox effort, which aims to create a Matlab-based toolbox to facilitate pattern classification and multivariate prediction analyses on fMRI neuroimaging data, supported by the Center for the Study of Brain, Mind and Behavior.
+Many members of the Princeton EBC team are also involved with the [http://code.google.com/p/princeton-mvpa-toolbox MVPA toolbox] effort, which aims to create a Matlab-based toolbox to facilitate pattern classification and multivariate prediction analyses on fMRI neuroimaging data, supported by the [http://www.princeton.edu/neuroscience/ Princeton Neuroscience Institute] (formerly the Center for the Study of Brain, Mind and Behavior).
 
-We have released a set of MVPA toolbox scripts tailored specifically to the EBC competition. See the EBC Extension page for more information.
+We have released a set of MVPA toolbox scripts tailored specifically to the EBC competition. See the [ExpansionEBC EBC Extension] page for more information.
