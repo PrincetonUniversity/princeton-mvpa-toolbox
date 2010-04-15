@@ -4,7 +4,7 @@ Princeton submitted multiple entries to the [http://pbc.lrdc.pitt.edu/ 2006 Pitt
 
 Our entries were the result of collaboration among students, postdocs and faculty from multiple departments at Princeton, including Psychology, Physics, Computer Science, Electrical Engineering, and Applied Mathematics. Over the course of the competition, members of the EBC team met on a regular basis to discuss methods & share code. The team was comprised of the following researchers (in alphabetical order):  David Blei, Eugene Brevdo, Ronald Bryan, Melissa Carroll, Denis Chigirev, Greg Detre, Andrew Engell, Shannon Hughes, Christopher Moore, Ehren Newman, Ken Norman, Vaidehi Natu, Susan Robison, Greg Stephens, Matt Weber, and David Weiss. The team was coordinated by Greg Detre (a Psychology graduate student) and supervised by Ken Norman (a Psychology faculty member).
 
-[http://princeton-mvpa-toolbox.googlecode.com/files/Princeton_EBC.jpg]
+[http://princeton-mvpa-toolbox.googlecode.com/files/Princeton_EBC.jpg http://princeton-mvpa-toolbox.googlecode.com/files/Princeton_EBC_small.jpg]
 
 
 Back row from left to right: Ken Norman, Denis Chigirev, Matt Weber, Shannon Hughes, Eugene Brevdo, Melissa Carroll.
