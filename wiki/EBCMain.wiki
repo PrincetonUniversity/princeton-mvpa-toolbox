@@ -13,9 +13,11 @@ Absent: David Blei, Ronald Bryan, Andrew Engell, Ehren Newman, Vaidehi Natu, Sus
 
 == Biographies ==
 
-=== Denis Chigirev === is a physics graduate student at Princeton University.  After graduation from Physical Technical High School #566 in St. Petersburg, Russia, Denis won a top prize at International Physics Olympiad and was awarded a scholarship to study at the University of Chicago.  He then spent a year at Trinity College, Cambridge University, before joining Princeton as a graduate student.  There he became interested in problems at the intersection of physics, biology and computer science.  He is currently finishing his dissertation.
+=== Denis Chigirev === 
+a physics graduate student at Princeton University.  After graduation from Physical Technical High School #566 in St. Petersburg, Russia, Denis won a top prize at International Physics Olympiad and was awarded a scholarship to study at the University of Chicago.  He then spent a year at Trinity College, Cambridge University, before joining Princeton as a graduate student.  There he became interested in problems at the intersection of physics, biology and computer science.  He is currently finishing his dissertation.
 
-=== Greg Stephens === received Ph.D. in Physics (Cosmology) from the University of Maryland.  He currently holds a joint postdoctoral position between the Physics Department and the Center for Brain, Mind and Behavior at Princeton University.  Denis and Greg are also active members of the Biophysics Theory group headed by Bill Bialek.
+=== Greg Stephens === 
+received Ph.D. in Physics (Cosmology) from the University of Maryland.  He currently holds a joint postdoctoral position between the Physics Department and the Center for Brain, Mind and Behavior at Princeton University.  Denis and Greg are also active members of the Biophysics Theory group headed by Bill Bialek.
 
 == OHBM information ==
 
