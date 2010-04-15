@@ -23,7 +23,7 @@ received Ph.D. in Physics (Cosmology) from the University of Maryland.  He curre
 
 Melissa Carroll, Denis Chigirev, Greg Detre, Andy Engell, Ehren Newman and Greg Stephens will be attending the 2006 [http://www.humanbrainmapping.org/i4a/pages/index.cfm?pageid=1 Human Brain Mapping Conference] in Florence, where they will be presenting:
 
-The Multi-Voxel Pattern Analysis (MVPA) toolbox - (50 W-PM)
+[http://princeton-mvpa-toolbox.googlecode.com/files/PosterOhbm06.html The Multi-Voxel Pattern Analysis (MVPA) toolbox - (50 W-PM)]
 
 == The MVPA toolbox ==
 
