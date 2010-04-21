@@ -76,4 +76,5 @@
    * [HowtosMisc Miscellaneous Howtos]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
+ * [AssociatedPublications MVPA Associated Publications]
  * [http://code.google.com/p/princeton-mvpa-toolbox/w/list List of pages by title]
