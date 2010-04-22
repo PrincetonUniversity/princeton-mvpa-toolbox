@@ -79,6 +79,7 @@
    * [HowtosResults Results Howtos]
    * [HowtosMisc Miscellaneous Howtos]
   * [InstructionsForCommitters Committers Guide]
+   * [InstructionsForAdmins Administrator Guide]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
  * [AssociatedPublications MVPA Associated Publications]
