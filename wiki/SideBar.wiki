@@ -78,6 +78,7 @@
    * [HowtosExporting Data Exporting Howtos]
    * [HowtosResults Results Howtos]
    * [HowtosMisc Miscellaneous Howtos]
+  * [InstructionsForCommitters Committers Guide]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
  * [AssociatedPublications MVPA Associated Publications]
