@@ -20,8 +20,9 @@ It would also be advisable to include a clear description at the top of the file
 
 === Modification of Existing Scripts ===
 
- * If it's a modification, it's worth exercising some caution. I've been reluctant to ever modify the way the code works, since there are now many users, and few of them will read the changelog or the mailing list or the documentation to see that things work differently. So, instead, I strongly suggest that you leave the defaults as they are, and add an optional argument to activate the new way of doing things. Definitely worth sending out an email to the mailing list for this.
+Code updates and modifications should be handled with a larger degree of caution.  If the function already has unit tests the same results should be attained before an after the modification (assuming it's not a bug fix or correcting a 'known to fail' issue).  Modifications should also be documented by name and date at the top of the code beneath the function description.  If the modification is a feature improvement or expansion, these extra returns should be enabled via optional arguments so the default interface for the function does not change.
 
+Major bug fixes (ie. core fixes) should be announced to the message board directly and contributed into the code base after testing.  It would be wise to request a code review for these bug fixes as well as all modifications using the google code - code review tools.
 
 == Other things ==
 
