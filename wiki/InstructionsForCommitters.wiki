@@ -1,23 +1,33 @@
 = Instructions for committing changes to the SVN development version =
 
-If you're on the list of project committers, then you can edit, add or delete code, and commit your changes to the main SVN development version. 
+If you're on the list of project committers, then you can edit, add or delete code, and commit your changes to the main SVN development version. You can also edit the wiki pages to update them with relevant tweaks from the code.
 
 You can see the list of committers in the right-hand sidebar of the main page:
 
 http://code.google.com/p/princeton-mvpa-toolbox/
 
-Here's roughly how I hope things could work:
+== Types of Commits ==
+
+There are two different main types of commits that we can expect at any given time, as we don't currently branch the code.  These being updates for existing code and new code.
+
+=== New Functionality and Utility Scripts ===
 
  * You have some useful piece of wizardry that you've cooked up, a modification you think should be made, or a bug that you've fixed.
 
  * If it's new functionality, and you're certain that people will appreciate it, then you should go ahead and add it.
 
- * If it's a modification, it's worth exercising some caution. I've been reluctant to ever modify the way the code works, since there are now many users, and few of them will read the changelog or the mailing list or the documentation to see that things work differently. So, instead, I strongly suggest that you leave the defaults as they are, and add an optional argument to activate the new way of doing things. Definitely worth sending out an email to the mailing list for this.
-
- * Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
-
- * Feel free to improve any of the wiki documentation, especially if you add new stuff
 
  * Definitely add a clear description of what the function is for at the top, and any input/output arguments that aren't completely self-explanatory. Try and comment your code so that others can make sense of it and perhaps improve upon it
 
  * Do add unit tests if at all possible. Obviously you're going to test your code before you commit it, so you might as well instantiate those tests in code, as a reminder of what definitely works, and to make it easy to tell whether future changes are breaking your code.
+
+=== Modification of Existing Scripts ===
+
+ * If it's a modification, it's worth exercising some caution. I've been reluctant to ever modify the way the code works, since there are now many users, and few of them will read the changelog or the mailing list or the documentation to see that things work differently. So, instead, I strongly suggest that you leave the defaults as they are, and add an optional argument to activate the new way of doing things. Definitely worth sending out an email to the mailing list for this.
+
+
+== Other things ==
+
+ * Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
+
+ * Feel free to improve any of the wiki documentation, especially if you add new stuff
