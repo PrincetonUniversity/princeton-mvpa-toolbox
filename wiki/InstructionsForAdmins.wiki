@@ -11,7 +11,7 @@ This is a multi step process that starts by selecting the specific revision the 
   # Using a graphical log browser (tortoiseSVN's has proven very useful) display all the file changes and log notes and copy them into a text file.  This will create the basis for the change log
   # At this point it requires a bit more inspection, the 'diff' function from the source browser will help.  If a file is modified instead of being added and it's not noted in the log what the change was, that change should be inspected and noted quickly for it's effect on the code's behavior
   # Save this text file as `CHANGELOG.TXT` inside the base of the folder of the SVN export.
-  # Change the root folder to be MVPA-x.xx where x.xx is the current revision number
+  # Change the base folder of the SVN Export to be MVPA-x.xx where x.xx is the current revision number
   # Package this folder up in a .tar.gz file and publish it to the [http://code.google.com/p/princeton-mvpa-toolbox/downloads/list downloads area]
   # Update the links to the current revision in the [Downloads Downloads] area to point to the latest .tar.gz file
   # Announce the new release to the list, attach a copy of the change log to the email announcement
