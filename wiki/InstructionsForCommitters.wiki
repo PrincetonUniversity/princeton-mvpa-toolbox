@@ -24,6 +24,8 @@ Code updates and modifications should be handled with a larger degree of caution
 
 Major bug fixes (ie. core fixes) should be announced to the message board directly and contributed into the code base after testing.  It would be wise to request a code review for these bug fixes as well as all modifications using the google code - code review tools.
 
+== Code Review ==
+
 == Other things ==
 
  * Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
