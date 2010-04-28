@@ -26,6 +26,10 @@ Major bug fixes (ie. core fixes) should be announced to the message board direct
 
 == Code Review ==
 
+To request code review before it's committed to the main code block, you MUST create a storage folder for that code in the `/branches/` area of the SVN.  In the code review you should include the final destination of that file and anything that's relevant to the review should be noted in the request area (basically, fill out the template).
+
+There are a large number of code reviewing tips located at the [http://code.google.com/p/support/wiki/CodeReviews central google code wiki].  These provide information on the best way to review code, how to watch a revision for code reviews and a variety of other useful tips like entering code review requests during your SVN commit to the /branches/ directory area.
+
 == Other things ==
 
  * Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
