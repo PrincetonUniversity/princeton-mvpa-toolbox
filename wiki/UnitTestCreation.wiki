@@ -1,0 +1,11 @@
+= Writing Unit Tests =
+
+There are a few minimal requirements to setting up a new test from the standpoint of the framework and execution in a general sense.
+
+== Function Declaration ==
+
+The function declaration has to include returns for the structures _errs_ and _warns_.  These structures are arrays of strings utilized for storing messages of each type from the unit test itself.
+
+{{{
+function [errs warns] = unit_test(varargin)
+}}}
