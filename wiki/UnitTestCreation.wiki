@@ -9,3 +9,14 @@ The function declaration has to include returns for the structures _errs_ and _w
 {{{
 function [errs warns] = unit_test(varargin)
 }}}
+
+== Function Structure ==
+
+Declare local copies of the _errs_ and _warns_ as follows.  This allows you to simply append to the end of the list with sub-functions through simple string returns.
+
+{{{
+errs = {};
+warns = {};
+
+[errs{end+1} warns{end+1}] = test_case_x(args);
+}}}
