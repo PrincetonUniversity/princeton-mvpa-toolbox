@@ -1,0 +1,3 @@
+= Executing the Unit Tests =
+
+The unit tests in general do not require any exterior information in order to execute and can simply be run while the MVPA package is in your matlab path.  This being said a subset of the functions do require outside data depending on what you would like to test.
