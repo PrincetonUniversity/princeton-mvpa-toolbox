@@ -6,7 +6,7 @@ function [subj] = create_pattern_from_mask(subj,old_patname,maskin,new_patname,v
 %
 % Creates a new pattern called NEW_PATNAME from an
 % existing one called OLD_PATNAME, including only the voxels
-% allowed through by MASKIN
+% allowed through by MASKIN.
 %
 % MASKIN is the name of a mask object or group
 % 

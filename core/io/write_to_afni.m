@@ -403,9 +403,9 @@ switch objtype
       % need to get rid of this when we get rid of output_filenames xxx
 %      for m=1:length(args.output_filenames)
       if length(runTRs) == 1
-        cur_filename = args.output_filename;
+        cur_filename = fullfile(args.pathname, args.output_filename);
       else
-        cur_filename = [args.output_filename '_run' num2str(r)];
+        cur_filename = [fullfile(args.pathname, args.output_filename) '_run' num2str(r)];
         kill{length(kill)+1} = cur_filename;
       end
       cur_filename = fullfile(args.pathname,cur_filename);
@@ -416,7 +416,7 @@ switch objtype
 
   % glue the resulting run BRIKs back together
   if length(runTRs) > 1
-      final_brikname = args.output_filename;
+      final_brikname = fullfile(args.pathname, args.output_filename);
       tcat_str = ['3dTcat -prefix ' final_brikname];
       for r = 1:length(runTRs)
           tcat_str = [tcat_str ' ' final_brikname '_run' num2str(r) '+orig'];
@@ -438,7 +438,7 @@ switch objtype
   maskvol = get_mat(subj,'mask',objname);
 
 %  for m=1:length(args.output_filenames)
-  cur_filename = args.output_filename;
+  cur_filename = fullfile(args.pathname, args.output_filename);
   zeroify_write_afni(maskvol,sample_filename,cur_filename,zeroify_args);
 %  end  
   

@@ -1,8 +1,8 @@
-function [subj] = intersect_masks(subj,mask1name,mask2name,varargin)
+function [subj new_maskname] = intersect_masks(subj,mask1name,mask2name,varargin)
 
-% Creates a new mask that's an intersection of two masks
+% Creates a new mask that's an intersection of two masks.
 %
-% [SUBJ] = INTERSECT_MASKS(SUBJ,MASK1NAME,MASK2NAME,...)
+% [SUBJ NEW_MASKNAME] = INTERSECT_MASKS(SUBJ,MASK1NAME,MASK2NAME,...)
 %
 % Gets both masks, checks they're the same size, and then does an
 % AND on them to create a new mask that's an intersection of them
@@ -30,6 +30,7 @@ function [subj] = intersect_masks(subj,mask1name,mask2name,varargin)
 
 defaults.new_maskname = sprintf('inters_%s_%s',mask1name,mask2name);
 args = propval(varargin,defaults);
+args_into_workspace
 
 mask1 = get_mat(subj,'mask',mask1name);
 mask2 = get_mat(subj,'mask',mask2name);
@@ -49,21 +50,21 @@ mask3(find(mask1 & mask2))= 1;
 
 nVox3 = length(find(mask3));
 
-subj = initset_object(subj,'mask',args.new_maskname,mask3, ...
+subj = initset_object(subj,'mask',new_maskname,mask3, ...
 		      'nvox',nVox3, ...
 		      'thresh',NaN);		      
 
 hist1 = sprintf('Created new mask, %s, containing %i voxels', ...
-	       args.new_maskname,nVox3);
+	       new_maskname,nVox3);
 hist2 = sprintf('Intersection of %s (%i vox) and %s (%i vox)', ...
 		mask1name,nVox1,mask2name,nVox2);
 
-subj = add_history(subj,'mask',args.new_maskname,hist1);
-subj = add_history(subj,'mask',args.new_maskname,hist2);
+subj = add_history(subj,'mask',new_maskname,hist1);
+subj = add_history(subj,'mask',new_maskname,hist2);
 
 created.mask1name = mask1name;
 created.mask2name = mask2name;
 created.args = args;
-subj = add_created(subj,'mask',args.new_maskname,created);
+subj = add_created(subj,'mask',new_maskname,created);
 
 

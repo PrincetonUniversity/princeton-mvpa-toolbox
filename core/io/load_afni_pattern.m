@@ -77,9 +77,6 @@ if isempty(mask)
   error('Empty mask passed to load_afni_pattern()');
 end
 
-% Initialize the data structure
-subj = init_object(subj,'pattern',new_patname);
-
 if ischar(filenames)
   filenames = {filenames};
 end
@@ -149,10 +146,7 @@ end
 disp(' ');
 
 % Store the data in the pattern structure
-subj = set_mat(subj,'pattern',new_patname,tmp_data);
-
-% Set the masked_by field in the pattern
-subj = set_objfield(subj,'pattern',new_patname,'masked_by',maskname);
+subj = initset_object(subj,'pattern',new_patname,tmp_data, 'masked_by',maskname);
 
 % Add the history to the pattern
 hist_str = sprintf('Pattern ''%s'' created by load_afni_pattern',new_patname);
