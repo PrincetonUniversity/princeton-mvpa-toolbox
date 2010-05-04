@@ -1,6 +1,6 @@
 function [subj] = create_sorted_mask(subj,map_patin,new_maskname,nkeep,varargin)
 
-% Create a boolean mask including only the top/bottom NKEEP voxels
+% Create a boolean mask including only the top OR bottom NKEEP voxels
 %
 % SUBJ = CREATE_SORTED_MASK(SUBJ,MAP_PATIN,NEW_MASKNAME,NKEEP,...)
 %
@@ -12,10 +12,9 @@ function [subj] = create_sorted_mask(subj,map_patin,new_maskname,nkeep,varargin)
 % boolean mask with 1s for the locations that meet the threshold
 % criterion
 %
-% DESCENDING (required, default = true). By default, sorts
-% the voxels in descending order (i.e. bigger is better),
-% and chooses the first NKEEP. To sort in ascending order,
-% set to false.
+% DESCENDING (required). If true, sort the voxels in
+% descending order (i.e. bigger is better), and choose the
+% first NKEEP. To sort in ascending order, set to false.
 %
 % ABS_FIRST (optional, default = false). If true, takes
 % the abs() of all the map values before sorting.

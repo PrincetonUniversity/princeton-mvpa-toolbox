@@ -12,7 +12,7 @@ function [subj] = initset_object(subj,objtype,objname,newmat,varargin)
 % pairs as normal as a cell array in the varargin for fieldname +
 % value, e.g.
 %
-% subj = initset(subj,'pattern','epi',mypat,'masked_by','wholebrain');
+% subj = initset_object(subj,'pattern','epi',mypat,'masked_by','wholebrain');
 %
 % Note: you won't get a warning if adding a field that doesn't
 % already exist, so be careful to type your fieldnames

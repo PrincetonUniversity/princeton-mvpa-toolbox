@@ -1,8 +1,8 @@
-function [subj results] = cross_validation(subj,patin,regsname,selgroup,maskgroup,class_args,varargin)
+function [subj results] = cross_validation(subj,patin,regsname,selname,maskgroup,class_args,varargin)
 
 % Cross-validation classification
 %
-% [SUBJ RESULTS] = CROSS_VALIDATION(SUBJ,PATIN,REGSNAME,SELGROUP,MASKGROUP,CLASS_ARGS...)
+% [SUBJ RESULTS] = CROSS_VALIDATION(SUBJ,PATIN,REGSNAME,SELNAME,MASKGROUP,CLASS_ARGS...)
 %
 % Calls the classifier multiple times, training and testing on
 % different subsets of the data each time
@@ -28,7 +28,7 @@ function [subj results] = cross_validation(subj,patin,regsname,selgroup,maskgrou
 % timepoint, but there is no error-checking or removal of rest
 % built-in here deliberately.
 %
-% SELGROUP is the group of selectors that determine which are testing
+% SELNAME is the group of selectors that determine which are testing
 % and which are training TRs for a given iteration. One selector
 % per iteration. 1s = training, 2s = testing. TRs labelled with 0s
 % and other values will be excluded from the classification
@@ -77,6 +77,10 @@ function [subj results] = cross_validation(subj,patin,regsname,selgroup,maskgrou
 % using the spherical spotlight code, you may have some
 % 3s. To avoid being spuriously warned, set this to true,
 % and it will ignore these.
+%
+% ALLOW_SINGLE_OBJECT (optional, default = false). By default,
+% CROSS_VALIDATION requires SELNAME to be a group. If
+% ALLOW_SINGLE_OBJECT == true, SELNAME can be a single object.
 
 % See the manual for more documentation about the results
 % structure.
@@ -103,6 +107,7 @@ defaults.perfmet_functs = {'perfmet_maxclass'};
 defaults.perfmet_args = struct([]);
 defaults.postproc_funct = '';
 defaults.ignore_unknowns = false;
+defaults.allow_single_object = false;
 args = propval(varargin,defaults);
 
 % User-specified perfmet_args must be a cell array with a struct in
@@ -127,7 +132,13 @@ results.header.rand_state_vec = rand('state');
 regressors = get_mat(subj,'regressors',regsname);
 
 % Get the names of the selectors
-selnames = find_group(subj,'selector',selgroup);
+if args.allow_single_object
+  % allow single object
+  selnames = find_group_single(subj,'selector',selname);
+else
+  % require group
+  selnames = find_group(subj,'selector',selname);
+end
 nIterations = length(selnames);
 if ~nIterations
   error('No selector group to run cross-validation over - if you want to run cross_validation.m with just a single selector that you''ve created, then you need to turn it into a group first - see http://groups.google.com/group/mvpa-toolbox/browse_thread/thread/9c7dae2757205644');

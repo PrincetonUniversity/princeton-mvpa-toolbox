@@ -1,10 +1,10 @@
-function [masked_pat ia ib] = get_masked_pattern(subj,patname,maskname)
+function [masked_pat idx_of_child_items_contained_in_parent ib] = get_masked_pattern(subj,patname,maskname)
 
 % Returns the pattern's voxels allowed by the mask
 %
-% [MASKED_PAT IA IB] = GET_MASKED_PATTERN(SUBJ,PATNAME,MASKNAME)
+% [MASKED_PAT IDX_OF_CHILD_ITEMS_CONTAINED_IN_PARENT IB] = GET_MASKED_PATTERN(SUBJ,PATNAME,MASKNAME)
 %
-% Calls get_pattern to retrieve the PATNAME mat, and then applies the
+% Calls GET_MAT to retrieve the PATNAME mat, and then applies the
 % boolean MASKNAME volume to whittle down the voxels, and returns this
 % smaller patterns mat. See the section, 'Figuring out which voxel
 % is which, and where' in the manual for more information.
@@ -53,12 +53,11 @@ end
 childidx = find(childvol);
 parentidx = find(parentvol);
 
-[intersectidx ia ib] = intersect(parentidx,childidx);
-
-idx_of_child_items_contained_in_parent = ia;
+[intersectidx idx_of_child_items_contained_in_parent ib] = intersect(parentidx,childidx);
 
 if length(intersectidx) ~= length(childidx)
   warning('Some voxels present in the mask were not present in the pattern');
 end
 
 masked_pat = pat(idx_of_child_items_contained_in_parent,:);
+

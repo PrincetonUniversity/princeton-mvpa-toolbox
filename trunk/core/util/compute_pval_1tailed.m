@@ -27,11 +27,10 @@ nNulls = length(nulls);
 % the left
 nulls = sort(nulls, 2, 'descend');
 
-% count how many of the null distribution values are
-% larger than our actual value to give us the rank for
-% the actual value, e.g. if 4 values are bigger then
-% actual_rank is 5th
-actual_rank = length(find(nulls>actual));
+% count how many of the null distribution values are larger than (or
+% equal to) our actual value to give us the rank for the actual value,
+% e.g. if 4 values are bigger then actual_rank is 5th
+actual_rank = sum(nulls>=actual);
 
 % e.g. if you came 7th out of 1000 values, the p value is
 % 0.007%
@@ -39,7 +38,12 @@ actual_rank = length(find(nulls>actual));
 % N.B. if you have 1000 values in your null distribution,
 % then you need to divide by 1001 to take into account the
 % inclusion of the actual value in the list
-pval = actual_rank / (nNulls+1);
+%
+% UPDATE: see
+% http://groups.google.com/group/mvpa-toolbox/browse_thread/thread/1059ece7da64e360?pli=1. now
+% adds 1 to the ACTUAL_RANK, so that you don't get p=0 if
+% the real value is better than all the nulls
+pval = (actual_rank+1) / (nNulls+1);
 
 
 %%%

@@ -63,6 +63,14 @@ if ~isempty(find_group(subj,objtype,new_objname))
   error('You can''t create an object if a group with that name already exists');
 end
 
+% it would be good to enforce this, but it'll break a lot of other
+% code. e.g. we'd need to set INTISET_OBJECT up to be able to call
+% this with IGNORE_MASKED_BY
+%
+% if strcmp(objtype,'pattern')
+%   error('Patterns need a MASKED_BY field - use INITSET_OBJECT instead of this function, and then you can associate your new pattern with a mask');
+% end
+
 % Initialize what will become our object
 obj.name = new_objname;
 obj.header.history = [];
