@@ -22,6 +22,7 @@ function [subj results] = tutorial_easy()
 %
 % ======================================================================
 
+
 % Check to make sure the Neuralnetwork toolbox is in the path or this
 % won't work.
 if ~exist('newff') %#ok<EXIST>
