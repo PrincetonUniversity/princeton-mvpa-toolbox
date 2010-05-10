@@ -25,6 +25,17 @@ function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargi
 % characteristics are preserved. By default, you'll get warned if
 % your regressors aren't in basic 1-of-n form, unless you set this
 % to true.
+%
+% ACTIVES_SELNAME (optional, default = ''). If empty, then this
+% doesn't censor any individual TRs. If, however, you do want to use a
+% temporal mask selector to exclude some TRs (i.e., don't shuffle those
+% TRs and always leave them in place), feed in the name of a
+% boolean selector. Similar in nature to the use of ACTIVES_SELNAME in
+% CREATE_XVALID_INDICES.
+
+% Change Log:
+% 05.10.10 - rmruczek - added optional argument ACTIVES_SELNAME and corresponding functionality.
+%                     - 
 
 % License:
 %=====================================================================
@@ -42,25 +53,46 @@ function [subj] = scramble_regressors(subj,regsname,selname,new_regsname,varargi
 
 
 defaults.ignore_1ofn = false;
+defaults.actives_selname = '';
 args = propval(varargin,defaults);
 
 regs = get_mat(subj,'regressors',regsname);
 runs = get_mat(subj,'selector',selname);
 
+
+if isempty(args.actives_selname)
+  % If no actives_selname was fed in, then assume the user wants all
+  % TRs to be included, and create a new all-ones actives selector
+  actives = ones(size(runs));
+else
+  % Otherwise, use the one specified, or AND together
+  % multiple boolean selectors
+  actives = and_bool_selectors(subj,args.actives_selname);
+end
+actives = boolean(actives); % convert to logical indexing
+
+
 % See comment about IGNORE_1OFN above
-[isbool isrest isoveractive] = check_1ofn_regressors(regs);
+active_regs = regs(:,actives);
+[isbool isrest isoveractive] = check_1ofn_regressors(active_regs);
 if ~isbool || isrest || isoveractive
   if ~args.ignore_1ofn
     warn = ['Your regressors aren''t in basic 1-of-n form - ' ...
-	    'you may want to consider more sophisticated shuffling techniques'];
+	    'you may want to consider more sophisticated shuffling techniques. ' ...
+        'Consider using an ACTIVES_SELNAME to ignore time points where no ' ...
+        'speific regressor is defined (ie, rest).'];
     warning(warn);
   end
 end
 
-% These next lines will shuffle your regressors within each run
 
-for i = unique(runs)
-  thisrun = find(runs == i);
+% lets not assume that our runs were in order (ie, 1:nruns).  Instead, we're going to step through 
+% each available run (AFTER filtering out the ACTIVES_SELECTOR).  In the end, run labels (ie, the values
+% help in the runs selector) may not correspond to the index of that run.
+active_runs = runs(:,actives);
+% These next lines will shuffle your regressors (filtered through actives_selector) within each run
+for i = unique(active_runs) %1:nruns (see above)
+  thisrun = find(and(runs == i, actives)); % select only columns that are part of current run AND are 'active' (non-actives should never be scrambled)
   regs(:,thisrun) = shuffle(regs(:,thisrun),2);
 end
 
