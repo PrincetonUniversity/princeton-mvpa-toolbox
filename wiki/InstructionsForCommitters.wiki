@@ -6,17 +6,17 @@ You can see the list of committers in the right-hand sidebar of the main page:
 
 http://code.google.com/p/princeton-mvpa-toolbox/
 
-== Types of Commits ==
-
-There are two different main types of commits that we can expect at any given time, as we don't currently branch the code.  These being updates for existing code and new code.
-
 === New Functionality and Utility Scripts ===
 
-If your adding new functionality to the system it's a fairly smooth slope.  First make sure your inserting it into an appropriate location in the overall code structure.  It would generally be more appropriate to include these additions in the 'contrib' folder unless your performing core development.  However if you are generating a new sub toolbox (ie. afni_matlab, boosting and the like) are large enough in their own right and anything of similar scale should be contributed as it's own sub folder of functions.
+Adding new functionality is fairly straightforward.  First, make sure you're inserting it into an appropriate location in the overall code structure.  It would generally be more appropriate to include these additions in the 'contrib' folder unless you're performing core development.  If there are multiple related files involved, create a sub-folder under 'contrib'.
 
-If your adding any new functionality it would be of great value to include with your work a series of proofing unit tests.  While it's not expected that these be perfect (as that is impossible) it would be excellent to confirm all the major behaviors of the function (and any discernible edge cases) to make sure the function is performing as desired. This will also allow us to modify and update these functions without breaking the known working functionality.
+If you're adding any new functionality, please please include a series of [UnitTests unit tests].  Other scientists are going to be trusting and depending on your code, and writing unit tests is one of the very best ways to be sure things are working correctly.  Try and confirm all the major behaviors of the function (and any discernible edge cases), think about ways that the options might interact weirdly etc. This also makes it much easier for others to modify/extend your functions later and know that things are still working correctly.
 
-It would also be advisable to include a clear description at the top of the file describing exactly what your intended behavior for the functionality is.  This will help with referencing and improve the overall documentation of the code.
+Do also make sure to include a full description at the top of the file to describe what it's for, how it should work, example usage, a little about the variables it takes in and returns, citations to relevant papers, and anything else that would help future users. See e.g. the comments at the top for:
+
+http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m
+
+http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/contrib/learn/optimal_penalty_search.m
 
 === Modification of Existing Scripts ===
 
