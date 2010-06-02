@@ -6,7 +6,7 @@ You can see the list of committers in the right-hand sidebar of the main page:
 
 http://code.google.com/p/princeton-mvpa-toolbox/
 
-=== New Functionality and Utility Scripts ===
+== New Functionality and Utility Scripts ==
 
 Adding new functionality is fairly straightforward.  First, make sure you're inserting it into an appropriate location in the overall code structure.  It would generally be more appropriate to include these additions in the 'contrib' folder unless you're performing core development.  If there are multiple related files involved, create a sub-folder under 'contrib'.
 
@@ -18,20 +18,34 @@ http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/t
 
 http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/contrib/learn/optimal_penalty_search.m
 
-=== Modification of Existing Scripts ===
+== Modification of Existing Scripts ==
 
-Code updates and modifications should be handled with a larger degree of caution.  If the function already has unit tests the same results should be attained before an after the modification (assuming it's not a bug fix or correcting a 'known to fail' issue).  Modifications should also be documented by name and date at the top of the code beneath the function description.  If the modification is a feature improvement or expansion, these extra returns should be enabled via optional arguments so the default interface for the function does not change.
+Code updates and modifications should be handled with a larger degree of caution.
 
-Major bug fixes (ie. core fixes) should be announced to the message board directly and contributed into the code base after testing.  It would be wise to request a code review for these bug fixes as well as all modifications using the google code - code review tools.
+A few critical ground rules:
+
+- DO be conservative if you're changing the 'core' code. Is there a way to add your functionality without changing any of the main functions?
+
+- DON'T break anything! If the function already has unit tests, check they pass before and after your changes.
+
+- DON'T change the behavior of an existing function. Instead, add an optional argument that defaults to the previous behavior, so that no one depending on the function will have the rug pulled out from under their feet without their knowledge.
+
+- DO get at least one other person to check over your code, and let the mailing list know
+
+It helps sometimes to document your modifications with a name and date at the top of the code beneath the function description (especially if you're not the committer).
 
 == Code Review ==
 
-To request code review before it's committed to the main code block, you MUST create a storage folder for that code in the `/branches/` area of the SVN.  In the code review you should include the final destination of that file and anything that's relevant to the review should be noted in the request area (basically, fill out the template).
+[We're experimenting with the Google Code functionality for 'code reviews', where someone else can look over your changes. This section describes how that works.]
+
+To request a code review before committing to the main development trunk, you'd have to do your work in the `/branches/` area instead of the 'trunk'. In the code review you should include the final destination of that file and anything that's relevant to the review should be noted in the request area (basically, fill out the template).
 
 There are a large number of code reviewing tips located at the [http://code.google.com/p/support/wiki/CodeReviews central google code wiki].  These provide information on the best way to review code, how to watch a revision for code reviews and a variety of other useful tips like entering code review requests during your SVN commit to the /branches/ directory area.
 
-== Other things ==
+== New releases ==
 
- * Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
+Every so often, we'll take the latest development version, and sanction it as an official release (usually after we've added major new functionality, or if it feels as though enough small changes have accumulated)
 
- * Feel free to improve any of the wiki documentation, especially if you add new stuff.  Also make sure to put the unit tests in place.
+== Documentation ==
+
+Do please improve any of the wiki documentation, especially if you add new stuff.  Also make sure to put the unit tests in place.
