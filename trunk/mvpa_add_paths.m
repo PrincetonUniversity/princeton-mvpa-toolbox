@@ -28,6 +28,19 @@ myaddpath('core/template');
 % Uncomment the following line to restore deprecated functions:
 myaddpath('core/deprecated');
 
+% Contrib Paths
+myaddpath('contrib');
+myaddpath('contrib/io');
+myaddpath('contrib/learn');
+myaddpath('contrib/learn/adaboost');
+myaddpath('contrib/preproc');
+myaddpath('contrib/subj');
+myaddpath('contrib/template');
+myaddpath('contrib/tests');
+myaddpath('contrib/util');
+myaddpath('contrib/vis');
+
+
 % Add paths for packages bundled with the toolbox.
 % myaddpath('adaboost_mkc');
 myaddpath('afni_matlab');
