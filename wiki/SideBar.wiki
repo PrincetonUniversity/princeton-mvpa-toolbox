@@ -83,6 +83,7 @@
    * [UnitTestCreation Writing your own Unit Tests]
   * [InstructionsForCommitters Committers Guide]
    * [InstructionsForAdmins Administrator Guide]
+  * [Publications MVPA Related Papers]
  * [ContactDetails Contact Details]
  * [Glossary Glossary]
  * [AssociatedPublications MVPA Associated Publications]
