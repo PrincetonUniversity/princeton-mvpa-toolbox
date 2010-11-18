@@ -96,7 +96,6 @@ function [success selprobs] = run_many_balancings(xval_actives, desired)
 % the number of times to run things
 % dispf('debugging mode')
 nTimes = 5000;
-
 subj = create_test_subj(xval_actives);
 
 runs_xval = squeeze(get_group_as_matrix(subj,'selector','runs_xval'));
@@ -159,7 +158,7 @@ bal_mean = mean(bal_many,3);
 % in BAL_MEAN to be within 0.1 of DESIRED
 if any(abs(bal_mean(:)-desired(:))>.1), success = false; end
 
-save
+%save
 
 if ~success
   dispf('Bleurgh. Failure')

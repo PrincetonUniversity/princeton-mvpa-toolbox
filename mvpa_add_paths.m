@@ -22,6 +22,7 @@ myaddpath('core/learn');
 myaddpath('core/preproc');
 myaddpath('core/subj');
 myaddpath('core/util');
+myaddpath('core/util/explode_implode');
 myaddpath('core/vis');
 myaddpath('core/template');
 
