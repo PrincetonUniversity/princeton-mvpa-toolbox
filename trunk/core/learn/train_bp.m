@@ -180,7 +180,8 @@ if ~args.nHidden
   % Initialize a feedforward net with nOut output units and
   % act_funct as the activation function
 
-  if args.version < 7.5 
+  %if args.version < 7.5
+  if check_matlabVersion(7,5) < 0
     % Old way of initializing network
     scratch.net = newff(patsminmax,[scratch.nOut],args.act_funct);
   else
@@ -200,7 +201,8 @@ if ~args.nHidden
 else
 
   % Old way of initializing networks
-  if args.version < 7.5
+  %if args.version < 7.5 %this breaks at 7.10 or higher.
+  if check_matlabVersion(7,5) < 0  %if matlab is below version 7.5 do this.
     scratch.net = newff(patsminmax,[args.nHidden scratch.nOut],args.act_funct);
 
     % Get outputs from both the hidden and output layers
@@ -239,7 +241,8 @@ scratch.net.performFcn = args.performFcn;
 % Note that these contain the activations for all the units (both
 % hidden and output). OUTIDX indexes just the output layer (whether
 % you have a hidden layer or not)
-if args.version < 7.5
+%if args.version < 7.5
+if check_matlabVersion(7,5) < 0
   scratch.outidx = [args.nHidden+1:args.nHidden+scratch.nOut];
 else
   % IN THE NEW VERSION OF MATLAB, WE DO NOT GET THE OUTPUTS OF
