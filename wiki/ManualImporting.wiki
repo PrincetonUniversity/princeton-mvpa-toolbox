@@ -9,11 +9,11 @@ See also: [#_Exporting exporting]
 
 == From AFNI ==
 
-See [load_afni_pattern.html ''load_afni_pattern.m''] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/load_afni_mask.html ''load_afni_mask.m''], which rely on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library.
+See [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_pattern.m ''load_afni_pattern.m''] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/load_afni_mask.m ''load_afni_mask.m''], which rely on [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library.
 
 In short, the above scripts create a pattern or mask object and fill it with the contents of a BRIK file (or multiple BRIKs for patterns). They save the header information in the object's header field. Then, you're ready to go.
 
-There is no facility for directly loading in 1D files, but Matlab's own ''load'' command should probably be sufficient. Just create an object of the right type (with [http://www.csbmb.princeton.edu/mvpa/docs/m2html/init_object.html ''init_object.m'']'') ''and use [http://www.csbmb.princeton.edu/mvpa/docs/m2html/set_mat.html ''set_mat.m''] to insert the loaded-in contents.
+There is no facility for directly loading in 1D files, but Matlab's own ''load'' command should probably be sufficient. Just create an object of the right type (with [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/init_object.m ''init_object.m'']'') ''and use [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/subj/set_mat.m ''set_mat.m''] to insert the loaded-in contents.
 
 We are also working on a set of internal functions that call AFNI shell scripts from within Matlab to make certain things easier, e.g. convolving your regressors separately for each condition and run, or running n-minus-one 3dDeconvolve.
 

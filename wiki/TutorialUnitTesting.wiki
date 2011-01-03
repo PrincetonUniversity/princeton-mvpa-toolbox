@@ -8,7 +8,7 @@ The MVPA unit test framework is fairly simple and straightforward. It allows you
 
  * allows you to automatically run your entire test suite in a big batch, returning simple statistics over all the tests
 
-If you prefer reading code to words, then you can get a pretty clear sense of what we have in mind from looking at our example unit test, [https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/tests/unit_template.m 'unit_template.m'].
+If you prefer reading code to words, then you can get a pretty clear sense of what we have in mind from looking at our example unit test, [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/tests/unit_template.m 'unit_template.m'].
 
 A note for those familiar with extensive test frameworks in other languages: we have not attempted to implement the full functionality available in dedicated unit tests suits (such as [http://www.junit.org/ JUnit] and [http://diveintopython.org/unit_testing/romantest.html PyUnit]). Instead, we define some simple idioms that make it easy to construct the equivalent of assertEqual and assertFail statements in Matlab, and then leave it at that.
 
@@ -77,11 +77,11 @@ end
 
 == Finally ==
 
-Finally, there's a function in the mvpa/tests directory called [https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/tests/run_unit_tests.m 'run_unit_tests.m'] that runs all the tests in the 'mvpa/tests' directory in sequence, keeping track of which tests fail. This gives us confidence that changes we've made aren't inadvertently breaking things.
+Finally, there's a function in the mvpa/tests directory called [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/tests/run_unit_tests.m 'run_unit_tests.m'] that runs all the tests in the 'mvpa/tests' directory in sequence, keeping track of which tests fail. This gives us confidence that changes we've made aren't inadvertently breaking things.
 
 As we would love to be able to confidently incorporate the works of contributors as well, we are publishing these guidelines so that contributors can have their software tested with the rest of the MVPA package.
 
-Now would be a good time to have a look at our example unit test, [https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/tests/unit_template.m 'unit_template.m']. Modifying that to test one of your own functions is the simplest way to get started.
+Now would be a good time to have a look at our example unit test, [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/tests/unit_template.m 'unit_template.m']. Modifying that to test one of your own functions is the simplest way to get started.
 
 Good luck and happy testing!
 

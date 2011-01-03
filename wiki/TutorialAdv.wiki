@@ -96,9 +96,9 @@ See [Manual] / Howtos / Masks / Creating a wholebrain (intra-cranial) mask.
 
 In ''[Manual] / Howtos / Regressors / How can I take the haemodynamic lag into account'', two methods are described:
 
-1. shifting the regressors along by a few timepoints ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/shift_regressors.html ''shift_regressors.m''])
+1. shifting the regressors along by a few timepoints ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/shift_regressors.m ''shift_regressors.m''])
 
-2. convolving the regressors with a model of the haemodynamic response function ([http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/convolve_regressors_afni.html ''convolve_regressors_afni.m''])
+2. convolving the regressors with a model of the haemodynamic response function ([http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/convolve_regressors_afni.m ''convolve_regressors_afni.m''])
 
 
 === Shifting the regressors along ===
@@ -266,7 +266,7 @@ Then, when creating the group selectors that will get used for each iteration of
                'new_selstem','runs_norest_xval'); 
 }}}
 
-''[http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/subj/create_xvalid_indices.html Create_xvalid_indices.m]'' will run as normal, withholding a different run each iteration for testing. However, on top of this, all of the zero timepoints in 'conds_conv_norest' (i.e. the rest timepoints) will be excluded entirely from the analysis. That is, they will not be used for training or testing. In effect, they won't exist as far as ''feature_select.m'' or ''cross_validation.m'' are concerned.
+''[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/create_xvalid_indices.m Create_xvalid_indices.m]'' will run as normal, withholding a different run each iteration for testing. However, on top of this, all of the zero timepoints in 'conds_conv_norest' (i.e. the rest timepoints) will be excluded entirely from the analysis. That is, they will not be used for training or testing. In effect, they won't exist as far as ''feature_select.m'' or ''cross_validation.m'' are concerned.
 
 Note: we used two optional arguments in our call to ''create_xvalid_indices.m''. The 'actives_selname' argument contains the 'norest' selector we just created. The second 'new_selstem' argument determines what the name of the new group (and its group members) will be. By default, the new name would be 'runs_xval', but you probably already have a selectors group of this name, and you probably want to distinguish these 'norest' selectors from those that did include rest. So this 'new_selstem' argument tells ''create_xvalid_indices.m'' that the new selector group (and its group members) should be called 'runs_norest_xval'.
 
@@ -408,7 +408,7 @@ Just for completeness' sake, we will briefly discuss creating a 'peeking' mask, 
 
 There are two ways to do this. The first builds on everything we've done so far. It involves calling FEATURE_SELECT.M, feeding in a single-member selector group, all of whose timepoints are marked with a 1.
 
-This utilizes [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/peek_feature_select.html peek_feature_select.m], which works in almost the same way as the standard no-peeking [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/feature_select.html feature_select.m] function, taking in almost exactly the same argument.
+This utilizes [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/peek_feature_select.m peek_feature_select.m], which works in almost the same way as the standard no-peeking [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/feature_select.m feature_select.m] function, taking in almost exactly the same argument.
 
 {{{
 >> runs = get_mat(subj,'selector','runs'); 
@@ -434,7 +434,7 @@ Then, we can simply call FEATURE_SELECT.M as normal, feeding in our new single-m
 This will create a single-member statmap group, containing the p-values resulting from running the ANOVA on all the timepoints.
 
 The second method for running an analysis on the whole dataset is just a shortcut for the above. The 
-[http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/peek_feature_select.html peek_feature_select.m] takes in almost the same arguments as FEATURE_SELECT.M, except that its selector argument has to be a single object, not a group:
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/peek_feature_select.m peek_feature_select.m] takes in almost the same arguments as FEATURE_SELECT.M, except that its selector argument has to be a single object, not a group:
 
 {{{
 >> subj = peek_feature_select(subj,'epi_z','conds_convt','allones_1')

@@ -15,7 +15,7 @@ or if you want to include a hidden layer with 10 units:
 class_args.nHidden = 10;
 }}}
 
-See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp.html train_bp.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/train_bp_netlab.html train_bp_netlab.m] for more information.
+See [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp.m train_bp.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/train_bp_netlab.m train_bp_netlab.m] for more information.
 
 == Getting rid of 1-of-n warnings using propval ==
 In the original tutorial, you kept being besieged by warnings like 'Warning: Not 1-of-n regressors' during classification. This was because you were trying to train your classifiers on rest timepoints, and the toolbox was warning you in case that wasn't your intention.
@@ -40,7 +40,7 @@ Under construction.
 == Visualizing the classifier's responses ==
 Let's say you've just finished running a classification analysis, and you want to know a little more about how things are working.
 
-One of the most useful ways to analyze the classification data is to plot a [See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/util/multiple_iterations_confusion.html confusion matrix], showing the classifier's guesses for each condition. This is easy to do:
+One of the most useful ways to analyze the classification data is to plot a [See [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/util/multiple_iterations_confusion.m confusion matrix], showing the classifier's guesses for each condition. This is easy to do:
 
 {{{
 confmat = multiple_iterations_confusion(results);
@@ -78,7 +78,7 @@ On the other hand, imagine if you were to accidentally expose your classifier to
 
 Just remember - we scrambled the condition labels on these timepoints. We deliberately destroyed any relationships between the timepoints before beginning the analysis. The fact that the classifier's generalization performance on scrambled regressors is above chance is incontrovertible evidence that your analysis is peeking. The above-chance performance levels tell you nothing publishable. I think we can agree that we definitely want to avoid inadvertently making this mistake in a real analysis.
 
-The [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/scramble_regressors.html scramble_regressors.m] function simply provides a convenient way to scramble your condition labels. Then, you can run your entire analysis exactly as before, but using these scrambled regressors, and breathe a sigh of relief when performance drops to chance.
+The [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/scramble_regressors.m scramble_regressors.m] function simply provides a convenient way to scramble your condition labels. Then, you can run your entire analysis exactly as before, but using these scrambled regressors, and breathe a sigh of relief when performance drops to chance.
 
 {{{
 >> subj = scramble_regressors(subj,'conds_conv_thr','runs','conds_conv_thr_scr');
@@ -91,7 +91,7 @@ P.S. One might question whether such a simple operation as scrambling requires i
 
 Let's say that chance is 50%, and you're pretty consistently getting 55% performance. Is that significant? Is it publishable? This is an active area of research, and different people have different answers.
 
-[http://compmem.princeton.edu/publications.html#PolynEtAl_2005 Polyn et al (2005)] describe a non-parametric statistical test for whether the classifier's performance is better than chance. By repeatedly generating carefully scrambled versions of the classifier output, they create a null distribution of performance values against which the actual performance value can be compared.  Rather than just permuting the order of the timepoints, this method scrambles the coefficients of a wavelet decomposition of the classifier outputs to take into account their time-varying spectral characteristics (e.g. the fact that the classifier outputs probably vary slowly over time with the condition labels). See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/learn/wavestrapper_results.html wavestrapper_results.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/util/wavelet_scramble_multi.html wavelet_scramble_multi.m] for an implementation of this wavelet-based scrambling technique.
+[http://compmem.princeton.edu/publications.html#PolynEtAl_2005 Polyn et al (2005)] describe a non-parametric statistical test for whether the classifier's performance is better than chance. By repeatedly generating carefully scrambled versions of the classifier output, they create a null distribution of performance values against which the actual performance value can be compared.  Rather than just permuting the order of the timepoints, this method scrambles the coefficients of a wavelet decomposition of the classifier outputs to take into account their time-varying spectral characteristics (e.g. the fact that the classifier outputs probably vary slowly over time with the condition labels). See [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/learn/wavestrapper_results.m wavestrapper_results.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/util/wavelet_scramble_multi.m wavelet_scramble_multi.m] for an implementation of this wavelet-based scrambling technique.
 
 {{{
 pval = wavestrapper_results(results);

@@ -12,7 +12,7 @@ The default ANOVA and zscoring functionality require the Matlab Stats toolbox, a
 === Downloading the toolbox ===
 The latest version can always be found at:
 
-http://www.csbmb.princeton.edu/mvpa
+http://code.google.com/p/princeton-mvpa-toolbox/wiki/Downloads
 
 See the contact details in the [Manual] for more information about mailing lists.
 

@@ -2,7 +2,7 @@
 
 The [http://en.wikipedia.org/wiki/AdaBoost AdaBoost] classifier code was contributed by [http://www.cs.princeton.edu/~mkc/ Melissa Carroll]. It will be included in the 1.0 release, and is also available in the development version here:
 
-https://www.csbmb.princeton.edu/repos/distpat/trunk/mvpa/contrib/learn/adaboost
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/?r=359#trunk%2Fcontrib%2Flearn%2Fadaboost MVPA Adaboost]
 
 The basic idea behind boosting is to assign a set of weights to the training examples and iteratively re-weight the examples during training so that examples that are still being mis-classified receive higher weights. On each iteration, a new "weak hypothesis," which can be any type of classifier, is chosen to fit the current training example distribution. At the end, all of the weak hypotheses selected are combined into one "strong hypothesis," which serves as the overall classifier. The code in the toolbox uses very simple decision stumps (one node decision trees) as the weak hypotheses.
 

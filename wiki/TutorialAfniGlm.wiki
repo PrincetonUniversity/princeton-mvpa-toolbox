@@ -32,14 +32,14 @@ So now, we're ready to specify the name of the BRIK containing all our data (whi
 
 Note: if your AFNI data files are stored in a different path (e.g. an 'afni' subdirectory), then prepend that path to the beginning of all the filenames, so 'haxby8_all+orig' would become 'afni/haxby8_all+orig'. This function assumes that you have convolved your regressors, and have a CONDS_CONV regressors object (see section above).
 
-Next, we need to feed it information about our runs. [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/statmap_3dDeconvolve.html statmap_3dDeconvolve.m] will automatically write out a startpoints.1d text file, containing zero-indexed information about when the runs start. This is important, because the GLM automatically creates baseline regressors that model baseline shifts between runs, as well as linear and quadratic scanner drift within a run. That's more or less what the POLORT argument of 2 is specifying, and that's why we don't need to worry about using z-scored or detrended data.
+Next, we need to feed it information about our runs. [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_3dDeconvolve.m statmap_3dDeconvolve.m] will automatically write out a startpoints.1d text file, containing zero-indexed information about when the runs start. This is important, because the GLM automatically creates baseline regressors that model baseline shifts between runs, as well as linear and quadratic scanner drift within a run. That's more or less what the POLORT argument of 2 is specifying, and that's why we don't need to worry about using z-scored or detrended data.
 
 {{{
 >> statmap_3d_arg.runs_selname = 'runs';
 >> statmap_3d_arg.deconv_args.polort = '2';
 }}}
 
-Now comes the main bit of wizardry. A standard GLM's F values tell you how much of the variance the complete model was able to account for for in the voxel timecourse. But that's not quite what we want. Really, we want to know whether the the betas for each condition differ from one another. We want to take the virtues of the GLM (modelling convolved regressors, modelling trends, modelling motion parameters etc.), but run a statistical test along the lines of an ANOVA. AFNI's 'general linear test' contrast machinery allows us to do that. We aren't going to discuss this in detail here. The key point is that the [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/subj/create_main_effect_contrast.html create_main_effect_contrast.m] function multiplies your regressors with a contrast matrix before writing them out, so that the full F-stat values that we pull from the AFNI GLM bucket BRIK are actually really ANOVA-like contrast values.
+Now comes the main bit of wizardry. A standard GLM's F values tell you how much of the variance the complete model was able to account for for in the voxel timecourse. But that's not quite what we want. Really, we want to know whether the the betas for each condition differ from one another. We want to take the virtues of the GLM (modelling convolved regressors, modelling trends, modelling motion parameters etc.), but run a statistical test along the lines of an ANOVA. AFNI's 'general linear test' contrast machinery allows us to do that. We aren't going to discuss this in detail here. The key point is that the [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/create_main_effect_contrast.m create_main_effect_contrast.m] function multiplies your regressors with a contrast matrix before writing them out, so that the full F-stat values that we pull from the AFNI GLM bucket BRIK are actually really ANOVA-like contrast values.
 
 {{{
 >> nConds = size(get_mat(subj,'regressors','conds'),1);
@@ -62,7 +62,7 @@ Unfortunately, we're going to get some warnings, because of the fact that we're 
 statmap_3d_arg.goforit = 7;
 }}}
 
-Now, you're ready to run [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/feature_select.html feature_select.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/statmap_3dDeconvolve.html statmap_3dDeconvolve.m]. The following commands will run an n-minus-one voxel selection using 3dDeconvolve, which will create a bucket BRIK. The last sub-brik of this bucket will contain the full F-stat value for each voxel, and it is these F values that get used to choose voxels. 3dDeconvolve will get run n times, once for each iteration, each time using a different censor file. Only timepoints marked with 1s in the RUNS_XVAL selectors will be used on each iteration, so the GLM will never take your test data into account when building its model or selecting voxels.
+Now, you're ready to run [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/feature_select.m feature_select.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_3dDeconvolve.m statmap_3dDeconvolve.m]. The following commands will run an n-minus-one voxel selection using 3dDeconvolve, which will create a bucket BRIK. The last sub-brik of this bucket will contain the full F-stat value for each voxel, and it is these F values that get used to choose voxels. 3dDeconvolve will get run n times, once for each iteration, each time using a different censor file. Only timepoints marked with 1s in the RUNS_XVAL selectors will be used on each iteration, so the GLM will never take your test data into account when building its model or selecting voxels.
 
 {{{
 >> subj = feature_select(subj,'epi_z', ...
@@ -179,7 +179,7 @@ showed up in the shell script as:
 
 In this way, you can create more or less any 3dDeconvolve script through the STATMAP_3DDECONVOLVE interface. Currently, the main exception to this is the way that general linear tests (GLTs, in AFNI parlance) are created. At the moment, the GLTs are hard-coded, and assume that you're using CREATE_MAIN_EFFECTS_CONTRAST to first multiply your regressors with a contrast matrix.
 
-See AFNI's [http://afni.nimh.nih.gov/afni/doc/howto/2 3dDeconvolve] function and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/statmap_3dDeconvolve.html statmap_3dDeconvolve.m] for more information.
+See AFNI's [http://afni.nimh.nih.gov/afni/doc/howto/2 3dDeconvolve] function and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_3dDeconvolve.m statmap_3dDeconvolve.m] for more information.
 
 
 == Create_sorted_mask ==
@@ -192,7 +192,7 @@ Because we didn't threshold the statmaps, we're going to (somewhat arbitrarily) 
                              'descending',true);
 }}}
 
-[http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/preproc/create_sorted_mask.html create_sorted_mask.m] and [http://www.csbmb.princeton.edu/mvpa/docs/m2html/trunk/mvpa/core/subj/create_thresh_mask.html create_thresh_mask.m] do more or less the same thing - they take continuous-valued statmaps and turn them into binary masks. The former returns a fixed number of voxels, whereas the latter uses a threshold to decide which to include/exclude. The above command will take the 'epi_z_3dDeconvolve' statmap and creates a mask called '3dD_200' containing the best 200 voxels (where bigger = better). Because 'epi_z_3dDeconvolve' is the name of the group of statmaps, this will run on every member of the group, creating a corresponding mask for each.
+[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/create_sorted_mask.m create_sorted_mask.m] and [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/create_thresh_mask.m create_thresh_mask.m] do more or less the same thing - they take continuous-valued statmaps and turn them into binary masks. The former returns a fixed number of voxels, whereas the latter uses a threshold to decide which to include/exclude. The above command will take the 'epi_z_3dDeconvolve' statmap and creates a mask called '3dD_200' containing the best 200 voxels (where bigger = better). Because 'epi_z_3dDeconvolve' is the name of the group of statmaps, this will run on every member of the group, creating a corresponding mask for each.
 
 {{{
 >> summarize(subj,'objtype','mask')

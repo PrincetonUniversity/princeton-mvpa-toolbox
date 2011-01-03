@@ -94,7 +94,7 @@ Using the same group of _selectors_ for both voxel selection and classification 
 
 It is possible to circumvent this anti-peeking machinery by calling _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/statmap_anova.m statmap_anova.m]_ directly with _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/peek_feature_select.m peek_anova.m]_, but obviously this is not recommended for any analysis that is intended for publication.
 
-To see how peeking can artificially boost your performance, try [#_Avoiding_spurious_classification scrambling your regressors] using _[http://www.csbmb.princeton.edu/mvpa/docs/m2html/scramble_regressors.html scramble_regressors.m]_.
+To see how peeking can artificially boost your performance, try [#_Avoiding_spurious_classification scrambling your regressors] using _[http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/preproc/scramble_regressors.m scramble_regressors.m]_.
 
 
 == Further information ==

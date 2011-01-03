@@ -1,6 +1,6 @@
 = Welcome to the Princeton MVPA Toolbox Wiki =
 
-This wiki contains the latest documentation for the [http://www.csbmb.princeton.edu/mvpa/ Princeton MVPA Toolbox]. Please note the section header tabs at the top of the page.
+This wiki contains the latest documentation for the [http://code.google.com/p/princeton-mvpa-toolbox/ Princeton MVPA Toolbox]. Please note the section header tabs at the top of the page.
 
 If you're new to the toolbox, you will want to check out [Setup Setup] for installation instructions, and then look through [Tutorials Tutorials] to get started. The [Manual Manual] provides more detailed coverage on the toolbox for technical users.
 

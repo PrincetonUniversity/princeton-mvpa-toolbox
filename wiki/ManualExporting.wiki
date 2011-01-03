@@ -5,7 +5,7 @@ See [#_Importing importing].
 
 == To AFNI ==
 
-See [http://www.csbmb.princeton.edu/mvpa/docs/m2html/write_to_afni.html ''write_to_afni.m'']. This will write a pattern or a mask to a BRIK file, using an existing sample BRIK (from the same data set) to create the necessary header information. Uses [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library. See the ''Howtos / ''[#_Exporting_1 ''Exporting''] section for more information.
+See [http://code.google.com/p/princeton-mvpa-toolbox/source/browse/trunk/core/io/write_to_afni.m ''write_to_afni.m'']. This will write a pattern or a mask to a BRIK file, using an existing sample BRIK (from the same data set) to create the necessary header information. Uses [http://afni.nimh.nih.gov/sscc/ziad Ziad Saad's] [http://afni.nimh.nih.gov/afni/matlab AFNI-Matlab] library. See the ''Howtos / ''[#_Exporting_1 ''Exporting''] section for more information.
 
 
 == To !BrainVoyager ==
