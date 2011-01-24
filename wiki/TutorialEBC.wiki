@@ -474,12 +474,11 @@ In this tutorial, we'll be using the ridge regression algorithm as implemented b
 >> maskname = 'Amusement';
 }}}
 
-Finally, like feature_select, we want to override many of the default classification-based settings of cross_validation: we specify perfmet_functs to be perfmet_xcorr and perfmet_args to be {[]} (we're using cross correlation, which takes no arguments.) All iterations of the experiment will be run automatically, and all relevant data to the experiment will be recorded in a results structure that is returned by cross_validation. (We're not going to go into the details results structure here, but feel free to explore it on your own.)
+Finally, like feature_select, we want to override many of the default classification-based settings of cross_validation: we specify perfmet_functs to be perfmet_xcorr (we're using cross correlation, which takes no arguments.) All iterations of the experiment will be run automatically, and all relevant data to the experiment will be recorded in a results structure that is returned by cross_validation. (We're not going to go into the details results structure here, but feel free to explore it on your own.)
 
 {{{
 >> [subj results] = cross_validation(subj, 'epi_z_savg_tavg_Amusement', regsname, 'movies_xval', maskname, class_args, 
-                                 'perfmet_functs', 'perfmet_xcorr',
-                                 'perfmet_args', {[]});
+                                 'perfmet_functs', 'perfmet_xcorr');
 Starting 2 cross-validation classification iterations - train_ridge
         1       0.11
         2       0.36
