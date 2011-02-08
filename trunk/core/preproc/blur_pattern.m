@@ -13,7 +13,7 @@ function [subj] = blur_pattern(subj, patname, fwhm, varargin)
 % Optional Arguments:
 %
 %  'single' - Whether or not to use single precision to save
-%             memory.
+%             memory.  Default False.
 %
 %  'n' - The size of the gaussian filter in voxels. (Default: ceil(FHWM)) 
 %
@@ -34,7 +34,7 @@ function [subj] = blur_pattern(subj, patname, fwhm, varargin)
 %
 % ======================================================================
 
-defaults.single = true;
+defaults.single = false; %defautl changed 2-8-2011 GTM, responce to bug report by Zhen James Xiang on 1-25-2011
 defaults.n = ceil(fwhm);
 defaults.new_patname = sprintf('%s_sm%g', patname, fwhm);
 
@@ -70,6 +70,8 @@ dispf('completed.');
 
 if args.single
   pat = single(pat);
+else
+    pat = double(pat);
 end
 
 % Insert the new pattern

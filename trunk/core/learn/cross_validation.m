@@ -220,6 +220,8 @@ for n=1:nIterations
   cur_maskname = masknames{n};
   masked_pats = get_masked_pattern(subj,cur_patname,cur_maskname);
   
+  assert(strcmp(class(masked_pats),'double'));
+  
   % Create the training patterns and targets
   trainpats  = masked_pats(:,train_idx);
   traintargs = regressors( :,train_idx);
