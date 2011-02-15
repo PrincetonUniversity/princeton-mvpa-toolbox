@@ -23,7 +23,7 @@ Note: We highly recommend upgrading to the latest version, as each upgrade is mo
     * [http://www.pni.princeton.edu/mvpa/downloads/nifti_set.tar.gz Nifti Format] (340MB)
     * md5 Checksums [http://www.pni.princeton.edu/mvpa/downloads/md5mvpa.txt right click to download]. (.1k) - Instructions for use found [https://compmem.princeton.edu/mvpa_docs/md5checksum here].
 
-Having downloaded them, follow [http://code.google.com/p/princeton-mvpa-toolbox/wiki/Setup#Installation these instructions], and then you should be ready to start the [http://code.google.com/p/princeton-mvpa-toolbox/wiki/TutorialIntro tutorial]. [ContactDetails Contact us] if you have trouble with the installation.
+Having downloaded them, follow [Setup#Installation these instructions], and then you should be ready to start the [TutorialIntro tutorial]. [ContactDetails Contact us] if you have trouble with the installation.
 
 == Papers and Abstracts ==
 
