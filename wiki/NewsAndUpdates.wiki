@@ -1,5 +1,9 @@
 = News and Updates =
 
+=== 01-14-2014 - Octave port ===
+
+Update: Keith Bartley has recently written [https://github.com/bartleyneuro/OctaveMVPA OctaveMVPA], a port to Octave (for those without Matlab licenses).
+
 === 07-01-2009 - v1.1 Released ===
 
 The latest version of MVPA has officially been released, this release is a combination bug-fix and general maintenance release. See the Google Groups mailinglist for more information on the bug, which is related to the train_logreg.m file. Thanks to Jesse Rissman for finding this bug and reporting it.
