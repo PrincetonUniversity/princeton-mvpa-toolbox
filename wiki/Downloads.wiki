@@ -18,10 +18,10 @@ Note: We highly recommend upgrading to the latest version, as each upgrade is mo
 
 == Get the Data-sets ==
 
-    * the Haxby et al. (2001) [http://www.pni.princeton.edu/mvpa/downloads/afni_set.tar.gz sample data] (340MB)
-    * [http://www.pni.princeton.edu/mvpa/downloads/analyze_set.tar.gz Analyze Format] (340MB)
-    * [http://www.pni.princeton.edu/mvpa/downloads/nifti_set.tar.gz Nifti Format] (340MB)
-    * md5 Checksums [http://www.pni.princeton.edu/mvpa/downloads/md5mvpa.txt right click to download]. (.1k) - Instructions for use found [https://compmem.princeton.edu/mvpa_docs/md5checksum here].
+    * the Haxby et al. (2001) [https://webapps.pni.princeton.edu/downloads/mvpa/afni_set.tar.gz sample data] (340MB)
+    * [https://webapps.pni.princeton.edu/downloads/mvpa/analyze_set.tar.gz Analyze Format] (340MB)
+    * [https://webapps.pni.princeton.edu/downloads/mvpa/nifti_set.tar.gz Nifti Format] (340MB)
+    * md5 Checksums [https://webapps.pni.princeton.edu/downloads/mvpa/md5mvpa.txt right click to download]. (.1k) - Instructions for use found [https://compmem.princeton.edu/mvpa_docs/md5checksum here].
 
 Having downloaded them, follow [Setup#Installation these instructions], and then you should be ready to start the [TutorialIntro tutorial]. [ContactDetails Contact us] if you have trouble with the installation.
 
