@@ -13,16 +13,15 @@ You can read the archive or join the [public discussion mailing list](http://gro
   * [2006 Pittsburgh EBC Competition](ExpansionEBC.md)
 
 
-<a href='Hidden comment: 
-== Princeton links ==
-* [http://www.princeton.edu/neuroscience/ PNI]
-* [http://compmem.princeton.edu/ Computational Memory Lab]
-* [http://weblamp.princeton.edu/~psych/psychology/research/cohen/index.php Jonathan Cohen]
-* [http://weblamp.princeton.edu/~psych/psychology/research/norman/index.php Ken Norman]
-* [http://dfd.dartmouth.edu/directory/show/427 Jim Haxby]
-* [http://www.princeton.edu/~ramadge/ Peter Ramadge]
-* [http://www.pacm.princeton.edu/~ingrid/ Ingrid Daubechies]
-* [http://weblamp.princeton.edu/~psych/psychology/research/hasson/index.php Uri Hasson]
-* [http://weblamp.princeton.edu/~psych/psychology/research/turk-browne/index.php Nick Turk-Browne]
-* [http://www.princeton.edu/~matthewb/ Matt Botvinick]
-'></a>
+
+## Princeton links ##
+* [PNI](http://www.princeton.edu/neuroscience/)
+* [Computational Memory Lab](http://compmem.princeton.edu/ )
+* [Jonathan Cohen](http://weblamp.princeton.edu/~psych/psychology/research/cohen/index.php)
+* [Ken Norman](http://weblamp.princeton.edu/~psych/psychology/research/norman/index.php)
+* [Jim Haxby](http://dfd.dartmouth.edu/directory/show/427)
+* [Peter Ramadge](http://www.princeton.edu/~ramadge/)
+* [Ingrid Daubechies](http://www.pacm.princeton.edu/~ingrid/)
+* [Uri Hasson](http://weblamp.princeton.edu/~psych/psychology/research/hasson/index.php)
+* [Nick Turk-Browne](http://weblamp.princeton.edu/~psych/psychology/research/turk-browne/index.php)
+* [Matt Botvinick](http://www.princeton.edu/~matthewb/)
