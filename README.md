@@ -6,11 +6,11 @@ The aim is to create a set of open source functions in a widely-used language to
 
 You can read the archive or join the [public discussion mailing list](http://groups.google.com/group/mvpa-toolbox).
 
-  * [Download the Toolbox and Data-sets](Downloads.md)
-  * [Getting started](Setup.md)
-  * [Wiki documentation](http://code.google.com/p/princeton-mvpa-toolbox/wiki/Main)
+  * [Download the Toolbox and Data-sets](https://github.com/PrincetonUniversity/princeton-mvpa-toolbox/releases/tag/data-sets)
+  * [Getting started](https://github.com/PrincetonUniversity/princeton-mvpa-toolbox/wiki/Setup)
+  * [Wiki documentation](https://github.com/PrincetonUniversity/princeton-mvpa-toolbox/wiki)
   * [Read/post to the Google Groups mailing list](http://groups.google.com/group/mvpa-toolbox)
-  * [2006 Pittsburgh EBC Competition](ExpansionEBC.md)
+  * [2006 Pittsburgh EBC Competition](https://github.com/PrincetonUniversity/princeton-mvpa-toolbox/wiki/EBCMain)
 
 
 
